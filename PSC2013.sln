@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E7B7B10-08FD-4946-9051-FB408C0C05C1}"
@@ -9,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpidemicSim_Library", "EpidemicSim_Library\EpidemicSim_Library.csproj", "{48AAFBB6-B6C5-49E3-9A45-DEDAA3A4CDDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpidemicSim_Console", "EpidemicSim_Console\EpidemicSim_Console.csproj", "{FBA36DC3-487F-445F-930E-0D8D4350C242}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpidemicSim_Tests", "EpidemicSim_Tests\EpidemicSim_Tests.csproj", "{D447EF3B-D6B3-4DF1-9C2B-F346FB87E14F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +25,10 @@ Global
 		{FBA36DC3-487F-445F-930E-0D8D4350C242}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBA36DC3-487F-445F-930E-0D8D4350C242}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBA36DC3-487F-445F-930E-0D8D4350C242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D447EF3B-D6B3-4DF1-9C2B-F346FB87E14F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D447EF3B-D6B3-4DF1-9C2B-F346FB87E14F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D447EF3B-D6B3-4DF1-9C2B-F346FB87E14F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D447EF3B-D6B3-4DF1-9C2B-F346FB87E14F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
