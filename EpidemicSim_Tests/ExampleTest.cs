@@ -25,14 +25,14 @@ namespace EpidemicSim_Tests
 
         private void MethodThatThrowsOutOfRange()
         {
-            int[] i = new int[1];
-            int tmp = i[1];                   // Throws IndexOutOfRangeException
+            int[] i = new int[2];
+            int tmp = i[2];                   // Throws IndexOutOfRangeException
         }
 
         private void MethodWithoutException()
         {
-            int[] i = new int[1];
-            int tmp = i[0];                   // Does not throw IndexOutOfRangeException
+            int[] i = new int[2];
+            int tmp = i[1];                   // Does not throw IndexOutOfRangeException
         }
     }
 }
