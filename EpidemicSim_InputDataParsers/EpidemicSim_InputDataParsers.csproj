@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CityPopulationInfo.cs" />
+    <Compile Include="Parsers\MapParser.cs" />
     <Compile Include="Parsers\PopulationParser.cs" />
     <Compile Include="UI\MainFrm.cs">
       <SubType>Form</SubType>
@@ -83,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Deutschland_og.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
