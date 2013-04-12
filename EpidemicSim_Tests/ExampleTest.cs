@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EpidemicSim_Tests
+namespace PSC2013.ES.Tests
 {
     public class ExampleTest
     {

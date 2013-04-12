@@ -7,8 +7,8 @@
     <ProjectGuid>{D447EF3B-D6B3-4DF1-9C2B-F346FB87E14F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EpidemicSim_Tests</RootNamespace>
-    <AssemblyName>EpidemicSim_Tests</AssemblyName>
+    <RootNamespace>PSC2013.ES.Tests</RootNamespace>
+    <AssemblyName>ES Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

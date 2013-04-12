@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace EpidemicSim_Console
+namespace PSC2013.ES.Console
 {
     class Program
     {
