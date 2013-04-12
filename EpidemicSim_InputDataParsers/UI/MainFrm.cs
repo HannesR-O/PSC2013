@@ -12,6 +12,7 @@ namespace PSC2013.ES.InputDataParsers.UI
         public MainFrm()
         {
             InitializeComponent();
+            txBoxPopulationFile.Text = "../../population_data.csv";
         }
 
         private void txBoxPopulationFile_TextChanged(object sender, EventArgs e)
