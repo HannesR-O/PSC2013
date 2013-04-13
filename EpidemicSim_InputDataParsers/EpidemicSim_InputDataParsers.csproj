@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Deutschland_og.bmp" />
+    <Content Include="landcirclecoords.txt" />
     <Content Include="testcoords.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
