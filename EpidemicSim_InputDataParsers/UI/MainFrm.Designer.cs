@@ -35,24 +35,29 @@
             this.btnParse = new System.Windows.Forms.Button();
             this.txBoxPopulationFile = new System.Windows.Forms.TextBox();
             this.tPageCoordinates = new System.Windows.Forms.TabPage();
-            this.fileDlg = new System.Windows.Forms.OpenFileDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txBoxTextfile = new System.Windows.Forms.TextBox();
-            this.btnBrowseText = new System.Windows.Forms.Button();
+            this.btnParseCoord = new System.Windows.Forms.Button();
+            this.lBoxDepartments = new System.Windows.Forms.ListBox();
             this.btnBrowseImage = new System.Windows.Forms.Button();
             this.txBoxImage = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.lBoxDepartments = new System.Windows.Forms.ListBox();
-            this.btnParseCoord = new System.Windows.Forms.Button();
+            this.btnBrowseText = new System.Windows.Forms.Button();
+            this.txBoxTextfile = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.fileDlg = new System.Windows.Forms.OpenFileDialog();
+            this.tPageMatch = new System.Windows.Forms.TabPage();
+            this.lBoxMatches = new System.Windows.Forms.ListBox();
+            this.btnParseMatch = new System.Windows.Forms.Button();
             this.tControl.SuspendLayout();
             this.tPagePopulation.SuspendLayout();
             this.tPageCoordinates.SuspendLayout();
+            this.tPageMatch.SuspendLayout();
             this.SuspendLayout();
             // 
             // tControl
             // 
             this.tControl.Controls.Add(this.tPagePopulation);
             this.tControl.Controls.Add(this.tPageCoordinates);
+            this.tControl.Controls.Add(this.tPageMatch);
             this.tControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tControl.Location = new System.Drawing.Point(0, 0);
             this.tControl.Name = "tControl";
@@ -95,6 +100,7 @@
             // 
             // btnParse
             // 
+            this.btnParse.Enabled = false;
             this.btnParse.Location = new System.Drawing.Point(577, 4);
             this.btnParse.Name = "btnParse";
             this.btnParse.Size = new System.Drawing.Size(93, 23);
@@ -129,31 +135,23 @@
             this.tPageCoordinates.Text = "Coordinates";
             this.tPageCoordinates.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // btnParseCoord
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "TextFile:";
+            this.btnParseCoord.Location = new System.Drawing.Point(593, 65);
+            this.btnParseCoord.Name = "btnParseCoord";
+            this.btnParseCoord.Size = new System.Drawing.Size(75, 23);
+            this.btnParseCoord.TabIndex = 7;
+            this.btnParseCoord.Text = "Parse";
+            this.btnParseCoord.UseVisualStyleBackColor = true;
+            this.btnParseCoord.Click += new System.EventHandler(this.btnParseCoord_Click);
             // 
-            // txBoxTextfile
+            // lBoxDepartments
             // 
-            this.txBoxTextfile.Location = new System.Drawing.Point(59, 12);
-            this.txBoxTextfile.Name = "txBoxTextfile";
-            this.txBoxTextfile.Size = new System.Drawing.Size(528, 20);
-            this.txBoxTextfile.TabIndex = 1;
-            // 
-            // btnBrowseText
-            // 
-            this.btnBrowseText.Location = new System.Drawing.Point(593, 10);
-            this.btnBrowseText.Name = "btnBrowseText";
-            this.btnBrowseText.Size = new System.Drawing.Size(75, 23);
-            this.btnBrowseText.TabIndex = 2;
-            this.btnBrowseText.Text = "Browse";
-            this.btnBrowseText.UseVisualStyleBackColor = true;
-            this.btnBrowseText.Click += new System.EventHandler(this.btnBrowseText_Click);
+            this.lBoxDepartments.FormattingEnabled = true;
+            this.lBoxDepartments.Location = new System.Drawing.Point(9, 90);
+            this.lBoxDepartments.Name = "lBoxDepartments";
+            this.lBoxDepartments.Size = new System.Drawing.Size(659, 290);
+            this.lBoxDepartments.TabIndex = 6;
             // 
             // btnBrowseImage
             // 
@@ -181,23 +179,61 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Image:";
             // 
-            // lBoxDepartments
+            // btnBrowseText
             // 
-            this.lBoxDepartments.FormattingEnabled = true;
-            this.lBoxDepartments.Location = new System.Drawing.Point(9, 90);
-            this.lBoxDepartments.Name = "lBoxDepartments";
-            this.lBoxDepartments.Size = new System.Drawing.Size(659, 290);
-            this.lBoxDepartments.TabIndex = 6;
+            this.btnBrowseText.Location = new System.Drawing.Point(593, 10);
+            this.btnBrowseText.Name = "btnBrowseText";
+            this.btnBrowseText.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowseText.TabIndex = 2;
+            this.btnBrowseText.Text = "Browse";
+            this.btnBrowseText.UseVisualStyleBackColor = true;
+            this.btnBrowseText.Click += new System.EventHandler(this.btnBrowseText_Click);
             // 
-            // btnParseCoord
+            // txBoxTextfile
             // 
-            this.btnParseCoord.Location = new System.Drawing.Point(593, 65);
-            this.btnParseCoord.Name = "btnParseCoord";
-            this.btnParseCoord.Size = new System.Drawing.Size(75, 23);
-            this.btnParseCoord.TabIndex = 7;
-            this.btnParseCoord.Text = "Parse";
-            this.btnParseCoord.UseVisualStyleBackColor = true;
-            this.btnParseCoord.Click += new System.EventHandler(this.btnParseCoord_Click);
+            this.txBoxTextfile.Location = new System.Drawing.Point(59, 12);
+            this.txBoxTextfile.Name = "txBoxTextfile";
+            this.txBoxTextfile.Size = new System.Drawing.Size(528, 20);
+            this.txBoxTextfile.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "TextFile:";
+            // 
+            // tPageMatch
+            // 
+            this.tPageMatch.Controls.Add(this.btnParseMatch);
+            this.tPageMatch.Controls.Add(this.lBoxMatches);
+            this.tPageMatch.Location = new System.Drawing.Point(4, 22);
+            this.tPageMatch.Name = "tPageMatch";
+            this.tPageMatch.Size = new System.Drawing.Size(676, 385);
+            this.tPageMatch.TabIndex = 2;
+            this.tPageMatch.Text = "Match RegionInfos";
+            this.tPageMatch.UseVisualStyleBackColor = true;
+            // 
+            // lBoxMatches
+            // 
+            this.lBoxMatches.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lBoxMatches.FormattingEnabled = true;
+            this.lBoxMatches.Location = new System.Drawing.Point(0, 43);
+            this.lBoxMatches.Name = "lBoxMatches";
+            this.lBoxMatches.Size = new System.Drawing.Size(676, 342);
+            this.lBoxMatches.TabIndex = 0;
+            // 
+            // btnParseMatch
+            // 
+            this.btnParseMatch.Location = new System.Drawing.Point(8, 8);
+            this.btnParseMatch.Name = "btnParseMatch";
+            this.btnParseMatch.Size = new System.Drawing.Size(660, 23);
+            this.btnParseMatch.TabIndex = 1;
+            this.btnParseMatch.Text = "Match RegionInfos";
+            this.btnParseMatch.UseVisualStyleBackColor = true;
+            this.btnParseMatch.Click += new System.EventHandler(this.btnParseMatch_Click);
             // 
             // MainFrm
             // 
@@ -212,6 +248,7 @@
             this.tPagePopulation.PerformLayout();
             this.tPageCoordinates.ResumeLayout(false);
             this.tPageCoordinates.PerformLayout();
+            this.tPageMatch.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -234,6 +271,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox lBoxDepartments;
         private System.Windows.Forms.Button btnParseCoord;
+        private System.Windows.Forms.TabPage tPageMatch;
+        private System.Windows.Forms.Button btnParseMatch;
+        private System.Windows.Forms.ListBox lBoxMatches;
     }
 }
 

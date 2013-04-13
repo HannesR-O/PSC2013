@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace PSC2013.ES.InputDataParsers.Data
 {
-    internal class CityPopulationInfo
+    internal class RegionPopulationInfo
     {
         private int[] _populationInfo;
 
@@ -10,6 +12,11 @@ namespace PSC2013.ES.InputDataParsers.Data
         /// Name of the city
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Associated coordinates belonging to the region
+        /// </summary>
+        public List<Point> AssociatedCoordinates { get; set; }
 
         /// <summary>
         /// Wraps the populationinfo to calculate the correct total value
@@ -29,7 +36,7 @@ namespace PSC2013.ES.InputDataParsers.Data
             }
         }
 
-        public CityPopulationInfo()
+        public RegionPopulationInfo()
         {
             _populationInfo = new int[9];
         }

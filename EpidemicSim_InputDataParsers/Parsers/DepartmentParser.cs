@@ -12,12 +12,12 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         /// <summary>
         /// Parses the image and returns the departments...
         /// </summary>
-        /// <param name="imagepath">The image's path.</param>
+        /// <param name="imageFile">The image file to use</param>
         /// <param name="dictSource">The coordinates (from LandCircleParser)</param>
         /// <returns>Fancy shit.</returns>
-        public static Dictionary<string, List<Point>> Parse(string imagepath, List<Tuple<string, Point>> source)
+        public static Dictionary<string, List<Point>> Parse(string imageFile, List<Tuple<string, Point>> source)
         {
-            Bitmap img = new Bitmap(imagepath);
+            Bitmap img = new Bitmap(imageFile);
 
             Dictionary<string, List<Point>> dict = new Dictionary<string,List<Point>>();
 

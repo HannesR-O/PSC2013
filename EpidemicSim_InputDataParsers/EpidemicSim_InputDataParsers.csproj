@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\CityPopulationInfo.cs" />
+    <Compile Include="Data\RegionPopulationInfo.cs" />
     <Compile Include="Parsers\DepartmentParser.cs" />
     <Compile Include="Parsers\LandCircleParser.cs" />
     <Compile Include="Parsers\MapParser.cs" />

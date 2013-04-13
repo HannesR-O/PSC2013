@@ -51,7 +51,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
             return mapArray;
         }
 
-        public static int[,] expandArray(int[,] inputArray, int factor)
+        public static int[,] ExpandArray(int[,] inputArray, int factor)
         {
             int[,] a = inputArray;
 

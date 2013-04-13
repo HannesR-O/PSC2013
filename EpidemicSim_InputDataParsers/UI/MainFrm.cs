@@ -41,7 +41,7 @@ namespace PSC2013.ES.InputDataParsers.UI
             if (_pp == null)
                 _pp = new Parsers.PopulationParser();
 
-            foreach (CityPopulationInfo info in _pp.ParseFile(txBoxPopulationFile.Text))
+            foreach (RegionPopulationInfo info in _pp.ParsePopulationFile(txBoxPopulationFile.Text))
             {
                 lBoxCities.Items.Add(info);
             }
@@ -82,6 +82,25 @@ namespace PSC2013.ES.InputDataParsers.UI
                 List<Point> list = result[key];
                 lBoxDepartments.Items.Add(key + " | Count: " + list.Count
                     + " | First Point: " + list[0].ToString());
+            }
+        }
+
+        private void btnParseMatch_Click(object sender, EventArgs e)
+        {
+            if (_pp == null)
+                _pp = new Parsers.PopulationParser();
+
+            var result = _pp.ParseCompleteSimulationInputData(txBoxPopulationFile.Text, txBoxTextfile.Text, txBoxImage.Text);
+
+            lBoxMatches.Items.Add("Following regions could get matched:");
+            foreach (var item in result.Item1)
+            {
+                lBoxMatches.Items.Add(item.Name);
+            }
+            lBoxMatches.Items.Add("Follwing regions could not be matched: (check for typos)");
+            foreach (var item in result.Item2)
+            {
+                lBoxMatches.Items.Add(item);
             }
         }
     }
