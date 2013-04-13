@@ -2,6 +2,9 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using PSC2013.ES.InputDataParsers.Parsers;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace PSC2013.ES.InputDataParsers.UI
 {
@@ -13,6 +16,7 @@ namespace PSC2013.ES.InputDataParsers.UI
         {
             InitializeComponent();
             txBoxPopulationFile.Text = "../../population_data.csv";
+            txBoxTextfile.Text = "../../testcoords.txt";
         }
 
         private void txBoxPopulationFile_TextChanged(object sender, EventArgs e)
@@ -40,6 +44,44 @@ namespace PSC2013.ES.InputDataParsers.UI
             foreach (CityPopulationInfo info in _pp.ParseFile(txBoxPopulationFile.Text))
             {
                 lBoxCities.Items.Add(info);
+            }
+        }
+
+        private void btnBrowseText_Click(object sender, EventArgs e)
+        {
+            if (fileDlg == null)
+                fileDlg = new OpenFileDialog();
+
+            if (fileDlg.ShowDialog() == DialogResult.OK)
+                txBoxTextfile.Text = fileDlg.FileName;
+        }
+
+        private void btnBrowseImage_Click(object sender, EventArgs e)
+        {
+            if (fileDlg == null)
+                fileDlg = new OpenFileDialog();
+
+            if (fileDlg.ShowDialog() == DialogResult.OK)
+                txBoxImage.Text = fileDlg.FileName;
+        }
+
+        private void btnParseCoord_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(txBoxTextfile.Text))
+                throw new FileNotFoundException(txBoxTextfile.Text);
+            if (!File.Exists(txBoxImage.Text))
+                throw new FileNotFoundException(txBoxImage.Text);
+
+            Dictionary<string, Tuple<int, int>> source =
+                LandCircleParser.ParseCircles(txBoxTextfile.Text);
+            Dictionary<string, List<Point>> result =
+                DepartmentParser.Parse(txBoxImage.Text, source);
+
+            foreach (string key in result.Keys)
+            {
+                List<Point> list = result[key];
+                lBoxDepartments.Items.Add(key + " | Count: " + list.Count
+                    + " | First Point: " + list[0].ToString());
             }
         }
     }

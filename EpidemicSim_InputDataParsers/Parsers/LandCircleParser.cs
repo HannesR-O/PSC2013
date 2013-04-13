@@ -6,7 +6,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 {
     internal static class LandCircleParser
     {
-        public static Dictionary<String, Tuple<int, int>> parseCircles (String file)
+        public static Dictionary<String, Tuple<int, int>> ParseCircles (String file)
         {
             // Not Tested! | T
             if (!File.Exists(file))

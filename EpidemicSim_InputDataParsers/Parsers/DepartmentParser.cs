@@ -1,28 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace PSC2013.ES.InputDataParsers.Parsers
 {
     internal static class DepartmentParser
     {
-        private const string FILEPATH = @"C:\Users\Dave\Desktop\GIT_repos\PSC2013_tests\departments_coloured_big.bmp";
+        //private const string FILEPATH = @"C:\Users\Dave\Desktop\GIT_repos\PSC2013_tests\departments_coloured_big.bmp";
         private static Color FILLEDCOLOR = Color.FromArgb(0x000000); // has to be a color, never used anywhere else...
 
 
         // Dictionary<string, Tuple<int, int>>
         //                           x ,  y
-        public static Dictionary<string, List<Point>> Parse(Dictionary<string, Tuple<int, int>> dictSource)
+
+        /// <summary>
+        /// Parses the image and returns the departments...
+        /// </summary>
+        /// <param name="imagepath">The image's path.</param>
+        /// <param name="dictSource">The coordinates (from LandCircleParser)</param>
+        /// <returns>Fancy shit.</returns>
+        public static Dictionary<string, List<Point>> Parse(string imagepath, Dictionary<string, Tuple<int, int>> dictSource)
         {
-            Bitmap img = new Bitmap(FILEPATH);
+            Bitmap img = new Bitmap(imagepath);
 
             Dictionary<string, List<Point>> dict = new Dictionary<string,List<Point>>();
 
             foreach (string key in dictSource.Keys)
             {
+                Console.WriteLine(key);
                 List<Point> points = Fill(img, dictSource[key]);
                 dict[key] = points;
             }
+
+            // to see the modified file...
+            //FileInfo fi = new FileInfo(imagepath);
+            //string dir = fi.DirectoryName;
+            //img.Save(dir + @"\testimg.bmp");
 
             return dict;
         }
@@ -47,14 +61,22 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                     img.SetPixel(n.X, n.Y, FILLEDCOLOR);    // colour current pixel
                     points.Add(n);                          // add pixel to department
 
-                    stack.Push(new Point(n.X-1, n.Y-1));    // north-west
-                    stack.Push(new Point(n.X, n.Y-1));      // north
-                    stack.Push(new Point(n.X+1, n.Y-1));    // north-east
-                    stack.Push(new Point(n.X-1, n.Y));      // west
-                    stack.Push(new Point(n.X+1, n.Y));      // east
-                    stack.Push(new Point(n.X-1, n.Y+1));    // south-west
-                    stack.Push(new Point(n.X, n.Y+1));      // south
-                    stack.Push(new Point(n.X+1, n.Y+1));    // south-east
+                    if (CheckPoint(img, n, -1, -1))
+                        stack.Push(new Point(n.X-1, n.Y-1));        // north-west
+                    if (CheckPoint(img, n, 0, -1))
+                        stack.Push(new Point(n.X, n.Y-1));          // north
+                    if (CheckPoint(img, n, 1, -1))
+                        stack.Push(new Point(n.X + 1, n.Y - 1));    // north-east
+                    if (CheckPoint(img, n, -1, 0))
+                        stack.Push(new Point(n.X - 1, n.Y));        // west
+                    if (CheckPoint(img, n, 1, 0))
+                        stack.Push(new Point(n.X + 1, n.Y));        // east
+                    if (CheckPoint(img, n, -1, 1))
+                        stack.Push(new Point(n.X - 1, n.Y + 1));    // south-west
+                    if (CheckPoint(img, n, 0, 1))
+                        stack.Push(new Point(n.X, n.Y + 1));        // south
+                    if (CheckPoint(img, n, 1, 1))
+                        stack.Push(new Point(n.X + 1, n.Y + 1));    // south-east
                 }
             }
 
@@ -67,6 +89,17 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         private static Color GetColor(Bitmap img, Point p)
         {
             return img.GetPixel(p.X, p.Y);
+        }
+
+        private static bool CheckPoint(Bitmap img, Point n, int x, int y)
+        {
+            int h = img.Height;
+            int w = img.Width;
+
+            return (n.X + x) >= 0 &&
+                    (n.X + x) < w &&
+                    (n.Y + y) >= 0 &&
+                    (n.Y + y) < h;
         }
     }
 }

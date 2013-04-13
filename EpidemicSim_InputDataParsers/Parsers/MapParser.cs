@@ -5,7 +5,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 {
     class MapParser
     {
-        public static int[,] parseMap(string file)
+        public static int[,] ParseMap(string file)
         {
             if (!File.Exists(file))
                 throw new FileNotFoundException("File could not be found", file);
