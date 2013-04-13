@@ -57,7 +57,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         private RegionPopulationInfo ParseCity(int index)
         {
             string[] firstLine = _lines[index].Split(';');
-            RegionPopulationInfo city = new RegionPopulationInfo() { Name = firstLine[1].Split(',')[0].Trim() };
+            RegionPopulationInfo city = new RegionPopulationInfo() { Name = firstLine[1].Split(',')[0].Trim() };        //TODO: |f| get clear handling of ',' in names
 
             city[0] = int.Parse(firstLine[4]);
             city[4] = int.Parse(firstLine[5]);
