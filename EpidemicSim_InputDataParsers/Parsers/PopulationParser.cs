@@ -12,7 +12,6 @@ namespace PSC2013.ES.InputDataParsers.Parsers
     internal class PopulationParser
     {
         private string[] _lines;
-        private List<CityPopulationInfo> _cities;
 
         /// <summary>
         /// Parses a population file (*.csv) from "Statistesches Bundesamt"
@@ -24,18 +23,14 @@ namespace PSC2013.ES.InputDataParsers.Parsers
             if (!File.Exists(file))
                 throw new FileNotFoundException("File could not be found", file);
 
-            string allText = File.ReadAllText(file);
+            _lines = File.ReadAllText(file).Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 
-            _lines = allText.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-
-            FindCities();
-
-            return _cities;
+            return FindCities();
         }
 
-        private void FindCities()
+        private List<CityPopulationInfo> FindCities()
         {
-            _cities = new List<CityPopulationInfo>();
+            var _cities = new List<CityPopulationInfo>();
 
             for (int i = 0; i < _lines.Length; i++)
             {
@@ -47,6 +42,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                     i += 17;
                 }
             }
+            return _cities;
         }
 
         private CityPopulationInfo ParseCity(int index)
