@@ -72,7 +72,7 @@ namespace PSC2013.ES.InputDataParsers.UI
             if (!File.Exists(txBoxImage.Text))
                 throw new FileNotFoundException(txBoxImage.Text);
 
-            Dictionary<string, Tuple<int, int>> source =
+            List<Tuple<string, Point>> source =
                 LandCircleParser.ParseCircles(txBoxTextfile.Text);
             Dictionary<string, List<Point>> result =
                 DepartmentParser.Parse(txBoxImage.Text, source);

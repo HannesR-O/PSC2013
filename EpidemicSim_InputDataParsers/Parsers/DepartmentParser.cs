@@ -7,12 +7,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 {
     internal static class DepartmentParser
     {
-        //private const string FILEPATH = @"C:\Users\Dave\Desktop\GIT_repos\PSC2013_tests\departments_coloured_big.bmp";
-        private static Color FILLEDCOLOR = Color.FromArgb(0x000000); // has to be a color, never used anywhere else...
-
-
-        // Dictionary<string, Tuple<int, int>>
-        //                           x ,  y
+        private static Color FILLEDCOLOR = Color.FromArgb(0x000000);
 
         /// <summary>
         /// Parses the image and returns the departments...
@@ -20,17 +15,20 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         /// <param name="imagepath">The image's path.</param>
         /// <param name="dictSource">The coordinates (from LandCircleParser)</param>
         /// <returns>Fancy shit.</returns>
-        public static Dictionary<string, List<Point>> Parse(string imagepath, Dictionary<string, Tuple<int, int>> dictSource)
+        public static Dictionary<string, List<Point>> Parse(string imagepath, List<Tuple<string, Point>> source)
         {
             Bitmap img = new Bitmap(imagepath);
 
             Dictionary<string, List<Point>> dict = new Dictionary<string,List<Point>>();
 
-            foreach (string key in dictSource.Keys)
+            foreach (Tuple<string, Point> tpl in source)
             {
-                Console.WriteLine(key);
-                List<Point> points = Fill(img, dictSource[key]);
-                dict[key] = points;
+                Console.WriteLine(tpl.Item1);
+                List<Point> points = Fill(img, tpl.Item2);
+                if (dict.ContainsKey(tpl.Item1))
+                    dict[tpl.Item1].AddRange(points);
+                else
+                    dict[tpl.Item1] = points;
             }
 
             // to see the modified file...
@@ -44,9 +42,9 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         /// <summary>
         /// The flood fill algorithm to 
         /// </summary>
-        private static List<Point> Fill(Bitmap img, Tuple<int, int> tuple)
+        private static List<Point> Fill(Bitmap img, Point point)
         {
-            Point start = new Point(tuple.Item1, tuple.Item2);
+            Point start = point;
             Color currentColor = GetColor(img, start);
             List<Point> points = new List<Point>();
 

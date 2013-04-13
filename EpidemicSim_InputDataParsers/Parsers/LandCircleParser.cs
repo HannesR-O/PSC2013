@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 
 namespace PSC2013.ES.InputDataParsers.Parsers
 {
     internal static class LandCircleParser
     {
-        public static Dictionary<String, Tuple<int, int>> ParseCircles (String file)
+        /// <summary>
+        /// Parses the given textfile for it's "LandCircles"
+        /// and coordinates
+        /// </summary>
+        /// <param name="file">The file to parse</param>
+        /// <returns>Best construct ever...</returns>
+        public static List<Tuple<string, Point>> ParseCircles (String file)
         {
             // Not Tested! | T
             if (!File.Exists(file))
                 throw new FileNotFoundException("File could not be found", file);
 
-            Dictionary<String, Tuple<int,int>> dict = new Dictionary<string,Tuple<int,int>>();
+            List<Tuple<string, Point>> list = new List<Tuple<string, Point>>();
 
             using (StreamReader dataFile = new StreamReader(file))
             {
@@ -22,12 +29,12 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                     // Split between '|' => String[]
                     // [x][y][landkreis]
                     string[] temp = line.Split(new Char[] { '|' });
-                    Tuple<int, int> temp2 = new Tuple<int, int>(int.Parse(temp[0]), int.Parse(temp[1]));
-                    dict.Add(temp[2], temp2);
+                    Point p = new Point(int.Parse(temp[0]), int.Parse(temp[1]));
+                    list.Add(new Tuple<string, Point>(temp[2], p));
                 }
             }
 
-            return dict;
+            return list;
         }
     }
 }
