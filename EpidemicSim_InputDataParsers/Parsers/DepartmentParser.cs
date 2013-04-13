@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.InputDataParsers.Parsers
 {
-    class DepartmentParser
+    internal static class DepartmentParser
     {
         private const string FILEPATH = @"C:\Users\Dave\Desktop\GIT_repos\PSC2013_tests\departments_coloured_big.bmp";
-        private const Color FILLEDCOLOR = Color.FromArgb(0x000000); // has to be a color, never used anywhere else...
+        private static Color FILLEDCOLOR = Color.FromArgb(0x000000); // has to be a color, never used anywhere else...
 
 
         // Dictionary<string, Tuple<int, int>>
         //                           x ,  y
-
         public static Dictionary<string, List<Point>> Parse(Dictionary<string, Tuple<int, int>> dictSource)
         {
             Bitmap img = new Bitmap(FILEPATH);
@@ -51,7 +50,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                     img.SetPixel(n.X, n.Y, FILLEDCOLOR);    // colour current pixel
                     points.Add(n);                          // add pixel to department
 
-                    stack.Push(new Point(n.X-1, n.Y-1);     // north-west
+                    stack.Push(new Point(n.X-1, n.Y-1));    // north-west
                     stack.Push(new Point(n.X, n.Y-1));      // north
                     stack.Push(new Point(n.X+1, n.Y-1));    // north-east
                     stack.Push(new Point(n.X-1, n.Y));      // west
