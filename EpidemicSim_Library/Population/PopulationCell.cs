@@ -14,7 +14,7 @@ namespace PSC2013.ES.Library.Population
         public int FemaleAdult { get; set; }
         public int FemaleSenior { get; set; }
 
-        public long Total       // |f| long just to be safe
+        public long Total       // |f| long just to be safe from overflows
         {
             // |f| There might be an easier solution for this..
             get
