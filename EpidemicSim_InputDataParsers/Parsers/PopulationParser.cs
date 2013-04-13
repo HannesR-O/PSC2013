@@ -57,7 +57,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         private RegionPopulationInfo ParseCity(int index)
         {
             string[] firstLine = _lines[index].Split(';');
-            RegionPopulationInfo city = new RegionPopulationInfo() { Name = firstLine[1] };
+            RegionPopulationInfo city = new RegionPopulationInfo() { Name = firstLine[1].Split(',')[0].Trim() };
 
             city[0] = int.Parse(firstLine[4]);
             city[4] = int.Parse(firstLine[5]);
@@ -104,7 +104,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
             if (!File.Exists(imageFile))
                 throw new FileNotFoundException("File could not be found", imageFile);
 
-            List<Tuple<string, Point>> sampleCoordinates = LandCircleParser.ParseCircles(imageFile);
+            List<Tuple<string, Point>> sampleCoordinates = LandCircleParser.ParseCircles(coordinateFile);
 
             Dictionary<string, List<Point>> matchedCoordinates = DepartmentParser.Parse(imageFile, sampleCoordinates);
 
@@ -124,7 +124,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 
             for (int i = 0; i < populationInfos.Count; i++)
             {
-                var match = coordinateInfos.First(x => x.Name == populationInfos[i].Name);
+                var match = coordinateInfos.FirstOrDefault(x => x.Name == populationInfos[i].Name);
 
                 if (match != null)
                 {
