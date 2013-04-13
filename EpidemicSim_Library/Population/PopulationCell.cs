@@ -2,7 +2,7 @@
 
 namespace PSC2013.ES.Library.Population
 {
-    internal struct PopulationCell
+    public struct PopulationCell
     {
         public int MaleBaby { get; set; }
         public int MaleChild { get; set; }
@@ -14,12 +14,12 @@ namespace PSC2013.ES.Library.Population
         public int FemaleAdult { get; set; }
         public int FemaleSenior { get; set; }
 
-        public long Total
+        public long Total       // |f| long just to be safe
         {
             // |f| There might be an easier solution for this..
             get
             {
-                return MaleBaby + MaleChild + MaleAdult + MaleSenior + FemaleBaby + FemaleChild + FemaleAdult + FemaleSenior;
+                return (long)MaleBaby + MaleChild + MaleAdult + MaleSenior + FemaleBaby + FemaleChild + FemaleAdult + FemaleSenior;
             }
         }
     }
