@@ -59,22 +59,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                     img.SetPixel(n.X, n.Y, FILLEDCOLOR);    // colour current pixel
                     points.Add(n);                          // add pixel to department
 
-                    if (CheckPoint(img, n, -1, -1))
-                        stack.Push(new Point(n.X-1, n.Y-1));        // north-west
-                    if (CheckPoint(img, n, 0, -1))
-                        stack.Push(new Point(n.X, n.Y-1));          // north
-                    if (CheckPoint(img, n, 1, -1))
-                        stack.Push(new Point(n.X + 1, n.Y - 1));    // north-east
-                    if (CheckPoint(img, n, -1, 0))
-                        stack.Push(new Point(n.X - 1, n.Y));        // west
-                    if (CheckPoint(img, n, 1, 0))
-                        stack.Push(new Point(n.X + 1, n.Y));        // east
-                    if (CheckPoint(img, n, -1, 1))
-                        stack.Push(new Point(n.X - 1, n.Y + 1));    // south-west
-                    if (CheckPoint(img, n, 0, 1))
-                        stack.Push(new Point(n.X, n.Y + 1));        // south
-                    if (CheckPoint(img, n, 1, 1))
-                        stack.Push(new Point(n.X + 1, n.Y + 1));    // south-east
+                    Step(stack, img, n, currentColor);      // step to the neighbours...
                 }
             }
 
@@ -89,6 +74,38 @@ namespace PSC2013.ES.InputDataParsers.Parsers
             return img.GetPixel(p.X, p.Y);
         }
 
+        /// <summary>
+        /// Steps to the neighbours and puts the on the stack.
+        /// But only if they fulfil the conditions...
+        /// </summary>
+        private static void Step(Stack<Point> stack, Bitmap img,
+            Point currentPoint, Color currentColor)
+        {
+            for (int y = -1; y <= 1; y++)                                                       // height traversal
+            {
+                for (int x = -1; x <= 1; x++)                                                   // width traversal
+                {
+                    if (!(y == 0 && x == 0))                                                    // anything but the current point
+                    {
+                        if (Allowed(true, x, y))                                                // four or eight ways...
+                        {
+                            if (CheckPoint(img, currentPoint, x, y))                            // valid point
+                            {
+                                Point p = new Point(currentPoint.X + x, currentPoint.Y + y);    // neighbour-point
+                                if (GetColor(img, p).Equals(currentColor))                      // ^-color = target
+                                {
+                                    stack.Push(p);                                              // finally put onto the stack
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Validates the point (so it stays in boundaries).
+        /// </summary>
         private static bool CheckPoint(Bitmap img, Point n, int x, int y)
         {
             int h = img.Height;
@@ -98,6 +115,25 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                     (n.X + x) < w &&
                     (n.Y + y) >= 0 &&
                     (n.Y + y) < h;
+        }
+
+        /// <summary>
+        /// Fancy shit to determine wether the direction is allowed
+        /// on a four-way-run or not. If eight is true, all ways are
+        /// allowed.
+        /// </summary>
+        private static bool Allowed(bool eight, int x, int y)
+        {
+            if (!eight)
+            {
+                bool northwest = (x == -1 && y == -1);
+                bool northeast = (x == 1 && y == -1);
+                bool southwest = (x == -1 && y == 1);
+                bool southeast = (x == 1 && y == 1);
+
+                return !(northwest || northeast || southwest || southeast);
+            }
+            return true;
         }
     }
 }
