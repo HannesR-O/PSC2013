@@ -5,6 +5,7 @@
 867|243|Nordfriesland
 950|314|Nordfriesland
 885|298|Nordfriesland
+787|180|Nordfriesland
 1120|237|Schleswig-Flensburg
 1113|171|Flensburg
 996|454|Dithmarschen
@@ -17,6 +18,7 @@
 1598|322|Ostholstein
 1286|594|Segeberg
 1196|678|Pinneberg
+670|459|Pinneberg
 1360|700|Stormarn
 1470|626|Lübeck
 1540|598|Lübeck
@@ -52,9 +54,17 @@
 750|968|Oldenburg(Oldenburg)
 694|924|Ammerland
 696|834|Friesland
+669|651|Friesland
 712|756|Wilhelmshaven
 610|726|Wittmund
+550|666|Wittmund
+615|656|Wittmund
 492|800|Aurich
+518|676|Aurich
+474|682|Aurich
+410|695|Aurich
+377|698|Aurich
+369|713|Aurich
 456|852|Emden
 528|910|Leer
 320|733|Leer
@@ -76,22 +86,31 @@
 2153|272|Vorpommern-Rügen
 1902|444|Rostock(Stadt)
 1588|644|Nordwestmecklenburg
+1693|605|Nordwestmecklenburg
+1684|558|Nordwestmecklenburg
 1680|738|Schwerin
 1906|640|Rostock
 1802|524|Rostock2
 1818|766|Ludwigslust-Parchim
 1596|822|Ludwigslust-Parchim2
 2420|714|Vorpommern-Greifswald
+2320|591|Vorpommern-Greifswald
+2376|487|Vorpommern-Greifswald
+2453|563|Vorpommern-Greifswald
 2228|828|Mecklenburgische Seenplatte
 2012|808|Mecklenburgische Seenplatte
 2220|752|Mecklenburgische Seenplatte
+2197|759|Mecklenburgische Seenplatte
+2191|660|Mecklenburgische Seenplatte
 2408|900|Uckermark
 2202|1026|Oberhavel
+2113|1171|Oberhavel
 2058|1000|Ostprigniz-Ruppin
 1864|988|Prignitz
 2372|1066|Barnim
 2466|1172|Märkisch-Oderland
 2480|1336|Oder-Spree
+2378|1272|Oder-Spree
 2616|1336|Frankfurt(Oder)
 2404|1470|Dahme-Spreewald
 2250|1442|Teltow-Fläming
@@ -218,6 +237,7 @@
 1672|2074|Weimarer Land
 1677|2025|Weimar
 1808|2032|Saale-Holzland-Kreis
+1791|1975|Saale-Holzland-Kreis
 1754|2048|Jena
 1899|2133|Greiz
 1929|2215|Greiz
@@ -238,7 +258,7 @@
 264|2574|Trier-Saarburg
 220|2588|Trier
 405|2624|Birkenfeld
-516|2578| Bad Kreuznach
+516|2578|Bad Kreuznach
 642|2526|Mainz-Bingen
 716|2510|Mainz
 678|2612|Alzey-Worms
@@ -271,6 +291,8 @@
 868|2842|Rhein-Neckar-Kreis
 846|2745|Rhein-Neckar-Kreis
 855|2793|Heidelberg
+116|2113|Aachen
+64|2097|Aachen
 792|2750|Mannheim
 1032|2754|Neckar-Odenwald-Kreis
 891|3012|Enzkreis
@@ -279,7 +301,7 @@
 704|3046|Rastatt
 708|3116|Baden-Baden
 834|3142|Calw
-834|3142|Freudenstadt
+762|3247|Freudenstadt
 924|3156|Böblingen
 1000|3108|Stuttgart
 1048|3158|Esslingen
@@ -335,6 +357,7 @@
 1602|2535|Bamberg
 1553|2563|Bamberg(Stadt)
 1637|2628|Forchheim
+1599|2682|Forchheim
 1730|2580|Bayreuth
 1770|2527|Bayreuth(Stadt)
 1910|2447|Wunsiedel-Fichtelgebirge
@@ -349,6 +372,7 @@
 1944|2978|Regensburg(Stadt)
 2108|2885|Cham
 1682|2767|Nürnberger Land
+1766|2662|Nürnberger Land
 1620|2715|Erlangen-Höchstadt
 1584|2709|Erlangen
 1434|2718|Neustadt a.d.Aisch-Bad Windsheim
@@ -393,6 +417,7 @@
 2049|3356|Mühldorf a.Inn
 1927|3324|Erding
 1827|3280|Freising
+1921|3258|Freising
 1723|3308|Dachau
 1669|3166|Neuburg-Schrobenhausen
 1719|3112|Ingolstadt
@@ -433,11 +458,13 @@
 2091|2087|Zwickau
 2069|2162|Zwickau
 2136|2143|Zwickau
+2039|2143|Zwickau
 2254|2148|Erzgebirgskreis
 2198|2211|Erzgebirgskreis
 2127|2244|Erzgebirgskreis
 1981|2296|Vogtlandkreis
 1936|2254|Vogtlandkreis
 864|780|Bremerhaven
-928|996|Bremen ACHTUNG KLEINES DING ZUSAMME
+928|996|Bremen
+844|946|Bremen
 1260|776|Hamburg

@@ -16,7 +16,7 @@ namespace PSC2013.ES.InputDataParsers.UI
         {
             InitializeComponent();
             txBoxPopulationFile.Text = "../../population_data.csv";
-            txBoxTextfile.Text = "../../testcoords.txt";
+            txBoxTextfile.Text = "../../landcirclecoords.txt";
         }
 
         private void txBoxPopulationFile_TextChanged(object sender, EventArgs e)

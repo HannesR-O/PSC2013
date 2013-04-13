@@ -23,7 +23,10 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 
             foreach (Tuple<string, Point> tpl in source)
             {
-                Console.WriteLine(tpl.Item1);
+                #if DEBUG
+                    Console.WriteLine(tpl.Item1);
+                #endif
+
                 List<Point> points = Fill(img, tpl.Item2);
                 if (dict.ContainsKey(tpl.Item1))
                     dict[tpl.Item1].AddRange(points);
