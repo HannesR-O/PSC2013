@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CityPopulationInfo.cs" />
+    <Compile Include="Parsers\LandCircleParser.cs" />
     <Compile Include="Parsers\MapParser.cs" />
     <Compile Include="Parsers\PopulationParser.cs" />
     <Compile Include="UI\MainFrm.cs">
