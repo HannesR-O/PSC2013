@@ -40,7 +40,7 @@
 1424|1400|Braunschweig
 1458|1466|Wolfenbüttel
 1380|1468|Salzgitter
-1348|1498|?????
+1348|1498|Wolfenbüttel
 1274|1486|Hildesheim
 1350|1382|Peine
 1196|1328|Region Hannover
@@ -243,7 +243,7 @@
 1929|2215|Greiz
 1916|2064|Gera
 2006|2028|Altenburger Land
-132|2422|Eifelkreis/Bitburg-Prüm?
+132|2422|Bitburg-Prüm
 256|2362|Vulkaneifel
 345|2271|Ahrweiler
 459|2217|Neuwied
@@ -297,7 +297,6 @@
 1032|2754|Neckar-Odenwald-Kreis
 891|3012|Enzkreis
 860|3052|Pforzheim
-772|3036|?enz?
 704|3046|Rastatt
 708|3116|Baden-Baden
 834|3142|Calw
@@ -392,8 +391,7 @@
 1392|3301|Günzburg
 1319|3355|Neu-Ulm
 1414|3453|Unterallgäu
-1327|3500|Memmingen?
-1316|3487|Memmingen?
+1327|3500|Memmingen
 1423|3549|Ostallgäu
 1328|3699|Oberallgäu
 1369|3606|Kempten (Allgäu)
