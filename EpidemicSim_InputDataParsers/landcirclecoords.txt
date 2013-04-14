@@ -7,13 +7,13 @@
 885|298|Nordfriesland
 787|180|Nordfriesland
 1120|237|Schleswig-Flensburg
-1113|171|Flensburg
+1113|171|Flensburg (Stadt)
 996|454|Dithmarschen
 1182|414|Rendsburg-Eckernförde
 1132|568|Steinburg
 1311|404|Kiel
 1389|414|Plön
-1263|512|Neumünster
+1263|512|Neumünster (Stadt)
 1460|489|Ostholstein
 1598|322|Ostholstein
 1286|594|Segeberg
@@ -29,17 +29,17 @@
 1400|894|Lüneburg
 1610|1030|Lüchow-Dannenberg
 1426|1038|Uelzen
-1238|1042|Heidekreis
+1238|1042|Soltau-Fallingbostel
 1074|930|Rotenburg (Wümme)
 930|912|Osterholz
 1016|1042|Verden
 1282|1164|Celle
 1434|1224|Gifhorn
-1504|1328|Wolfsburg
+1504|1328|Wolfsburg (Stadt)
 1540|1398|Helmstedt
-1424|1400|Braunschweig
+1424|1400|Braunschweig (Stadt)
 1458|1466|Wolfenbüttel
-1380|1468|Salzgitter
+1380|1468|Salzgitter (Stadt)
 1348|1498|Wolfenbüttel
 1274|1486|Hildesheim
 1350|1382|Peine
@@ -49,13 +49,13 @@
 1006|1236|Nienburg (Weser)
 888|1178|Diepholz
 808|1060|Oldenburg
-874|1018|Delmenhorst
+874|1018|Delmenhorst (Stadt)
 798|896|Wesermarsch
-750|968|Oldenburg (Oldenburg)
+750|968|Oldenburg (Oldenburg) (Stadt)
 694|924|Ammerland
 696|834|Friesland
 669|651|Friesland
-712|756|Wilhelmshaven
+712|756|Wilhelmshaven (Stadt)
 610|726|Wittmund
 550|666|Wittmund
 615|656|Wittmund
@@ -65,7 +65,7 @@
 410|695|Aurich
 377|698|Aurich
 369|713|Aurich
-456|852|Emden
+456|852|Emden (Stadt)
 528|910|Leer
 320|733|Leer
 644|1026|Cloppenburg
@@ -88,7 +88,7 @@
 1588|644|Nordwestmecklenburg
 1693|605|Nordwestmecklenburg
 1684|558|Nordwestmecklenburg
-1680|738|Schwerin
+1680|738|Schwerin (Stadt)
 1906|640|Rostock
 1802|524|Rostock
 1818|766|Ludwigslust-Parchim
@@ -105,87 +105,87 @@
 2408|900|Uckermark
 2202|1026|Oberhavel
 2113|1171|Oberhavel
-2058|1000|Ostprigniz-Ruppin
+2058|1000|Ostprignitz-Ruppin
 1864|988|Prignitz
 2372|1066|Barnim
 2466|1172|Märkisch-Oderland
 2480|1336|Oder-Spree
 2378|1272|Oder-Spree
-2616|1336|Frankfurt (Oder)
+2616|1336|Frankfurt (Oder) (Stadt)
 2404|1470|Dahme-Spreewald
 2250|1442|Teltow-Fläming
 2080|1412|Potsdam-Mittelmark
-2024|1326|Brandenburg a.d. Havel
+2024|1326|Brandenburg an der Havel (Stadt)
 1994|1194|Havelland
-2168|1306|Potsdam
+2168|1306|Potsdam (Stadt)
 2634|1536|Spree-Neiße
-2586|1596|Cottbus
+2586|1596|Cottbus (Stadt)
 2470|1654|Oberspreewald-Lausitz
 2296|1690|Elbe-Elster
 2274|1260|Berlin
 2072|1602|Wittenberg
-1942|1588|Dessau-Rosslau
+1942|1588|Dessau-Roßlau (Stadt)
 1908|1671|Anhalt-Bitterfeld
 1840|1719|Saalekreis
-1872|1776|Halle (Saale)
+1872|1776|Halle (Saale) (Stadt)
 1845|1934|Burgenlandkreis
 1702|1761|Mansfeld-Südharz
 1748|1622|Salzlandkreis
 1554|1632|Harz
 1638|1461|Börde
 1810|1357|Börde
-1767|1472|Magdeburg
+1767|1472|Magdeburg (Stadt)
 1844|1437|Jerichower Land
 1608|1184|Altmarkkreis Salzwedel
 1776|1196|Stendal
 84|1968|Heinsberg
-169|1908|Mönchengladbach
+169|1908|Mönchengladbach (Stadt)
 135|1845|Viersen
-230|1834|Krefeld
+230|1834|Krefeld (Stadt)
 242|1928|Rhein-Kreis Neuss
-284|1881|Düsseldorf
+284|1881|Düsseldorf (Stadt)
 355|1855|Mettmann
-403|1877|Wuppertal
-419|1911|Remscheid
-369|1920|Solingen
+403|1877|Wuppertal (Stadt)
+419|1911|Remscheid (Stadt)
+369|1920|Solingen (Stadt)
 182|2095|Düren
 247|2203|Euskirchen
 435|2111|Rhein-Sieg-Kreis
-376|2141|Bonn
+376|2141|Bonn (Stadt)
 490|1995|Oberbergischer Kreis
 407|1981|Rheinisch-Bergischer Kreis
-348|2017|Köln
-356|1979|Leverkusen
+348|2017|Köln (Stadt)
+356|1979|Leverkusen (Stadt)
 248|2043|Düren
 653|1965|Olpe
 686|2043|Siegen-Wittgenstein
 766|1885|Hochsauerlandkreis
 564|1900|Märkischer Kreis
 720|1752|Soest
-612|1687|Hamm
+612|1687|Hamm (Stadt)
 572|1740|Unna
-501|1751|Dortmund
-508|1833|Hagen
+501|1751|Dortmund (Stadt)
+508|1833|Hagen (Stadt)
 437|1822|Ennepe-Ruhr-Kreis
-426|1778|Bochum
-431|1740|Herne
-374|1790|Essen
-318|1798|Mülheim a.d. Ruhr
-310|1743|Oberhausen
-340|1740|Bottrop
+426|1778|Bochum (Stadt)
+431|1740|Herne (Stadt)
+374|1790|Essen (Stadt)
+318|1798|Mülheim an der Ruhr (Stadt)
+310|1743|Oberhausen (Stadt)
+340|1740|Bottrop (Stadt)
 403|1677|Recklinghausen
 353|1723|Recklinghausen
-381|1726|Gelsenkirchen
-274|1788|Duisburg
+381|1726|Gelsenkirchen (Stadt)
+274|1788|Duisburg (Stadt)
 255|1701|Wesel
 125|1652|Kleve
 338|1569|Borken
 471|1567|Coesfeld
-544|1541|Münster
+544|1541|Münster (Stadt)
 641|1585|Warendorf
 516|1420|Steinfurt
 775|1578|Gütersloh
-839|1534|Bielefeld
+839|1534|Bielefeld (Stadt)
 864|1666|Paderborn
 1014|1664|Höxter
 946|1544|Lippe
@@ -205,100 +205,100 @@
 1102|1869|Kassel (Stadt)
 920|2328|Wetteraukreis
 1048|2385|Main-Kinzig-Kreis
-788|2343|Hoch-Taunus-Kreis
+788|2343|Hochtaunuskreis
 662|2416|Rheingau-Taunus-Kreis
 722|2462|Wiesbaden
 772|2444|Main-Taunus-Kreis
-850|2451|Frankfurt am Main
-888|2457|Offenbach am Main
+850|2451|Frankfurt am Main (Stadt)
+888|2457|Offenbach am Main (Stadt)
 903|2498|Offenbach
 902|2565|Darmstadt-Dieburg
-849|2558|Darmstadt
+849|2558|Darmstadt (Stadt)
 790|2541|Groß-Gerau
 960|2644|Odenwaldkreis
 912|2774|Odenwaldkreis
 820|2668|Bergstraße
 1336|2092|Wartburgkreis
-1365|2025|Eisenach
+1365|2025|Eisenach (Stadt)
 1419|1932|Unstrut-Hainich-Kreis
 1318|1839|Eichsfeld
 1496|1784|Nordhausen
 1538|1856|Kyffhäuserkreis
 1608|1923|Sömmerda
-1594|2024|Erfurt
+1594|2024|Erfurt (Stadt)
 1476|2050|Gotha
 1392|2169|Schmalkalden-Meiningen
-1476|2212|Suhl
+1476|2212|Suhl (Stadt)
 1572|2126|Ilm-Kreis
 1496|2271|Hildburghausen
 1634|2298|Sonneberg
 1677|2182|Saalfeld-Rudolstadt
 1800|2180|Saale-Orla-Kreis
 1672|2074|Weimarer Land
-1677|2025|Weimar
+1677|2025|Weimar (Stadt)
 1808|2032|Saale-Holzland-Kreis
 1791|1975|Saale-Holzland-Kreis
-1754|2048|Jena
+1754|2048|Jena (Stadt)
 1899|2133|Greiz
 1929|2215|Greiz
-1916|2064|Gera
+1916|2064|Gera (Stadt)
 2006|2028|Altenburger Land
-132|2422|Bitburg-Prüm
+132|2422|Eifelkreis Bitburg-Prüm
 256|2362|Vulkaneifel
 345|2271|Ahrweiler
 459|2217|Neuwied
-590|2103|Altenkirchen
+590|2103|Altenkirchen (Westerwald)
 600|2208|Westerwaldkreis
 438|2319|Mayen-Koblenz
-512|2318|Koblenz
+512|2318|Koblenz (Stadt)
 591|2361|Rhein-Lahn-Kreis
 488|2442|Rhein-Hunsrück-Kreis
 388|2421|Cochem-Zell
 316|2492|Bernkastel-Wittlich
 264|2574|Trier-Saarburg
-220|2588|Trier
+220|2588|Trier (Stadt)
 405|2624|Birkenfeld
 516|2578|Bad Kreuznach
 642|2526|Mainz-Bingen
-716|2510|Mainz
+716|2510|Mainz (Stadt)
 678|2612|Alzey-Worms
-741|2676|Worms
-760|2638|Worms
+741|2676|Worms (Stadt)
+760|2638|Worms (Stadt)
 609|2685|Donnersbergkreis
 498|2697|Kusel
 500|2751|Kaiserslautern
 567|2769|Kaiserslautern (Stadt)
 668|2754|Bad Dürkheim
 531|2842|Südwestpfalz
-504|2882|Pirmasens
-430|2862|Zweibrücken
-627|2914|Südliche-Weinstraße
-666|2889|Landau in der Pfalz
-678|2817|Neustadt a.d.Weinstr.
+504|2882|Pirmasens (Stadt)
+430|2862|Zweibrücken (Stadt)
+627|2914|Südliche Weinstraße
+666|2889|Landau in der Pfalz (Stadt)
+678|2817|Neustadt an der Weinstraße (Stadt)
 738|2902|Germersheim
 753|2792|Rhein-Pfalz-Kreis
-774|2824|Speyer
-762|2756|Ludwigshafen a.Rh.
-748|2730|Frankenthal (Pfalz)
-303|2850|Regionalverband Saarbrücken
+774|2824|Speyer (Stadt)
+762|2756|Ludwigshafen am Rhein (Stadt)
+748|2730|Frankenthal (Pfalz) (Stadt)
+303|2850|Saarbrücken
 376|2859|Saarpfalz-Kreis
 362|2798|Neunkirchen
-356|2727|Sankt Wendel
+356|2727|St. Wendel
 210|2742|Merzig-Wadern
 240|2811|Saarlouis
 822|2937|Karlsruhe
 765|2980|Karlsruhe (Stadt)
 868|2842|Rhein-Neckar-Kreis
 846|2745|Rhein-Neckar-Kreis
-855|2793|Heidelberg
-116|2113|Aachen
-64|2097|Aachen
+855|2793|Heidelberg (Stadt)
+116|2113|Städteregion Aachen (einschl. Stadt Aachen)
+64|2097|Städteregion Aachen (einschl. Stadt Aachen)
 792|2750|Mannheim
 1032|2754|Neckar-Odenwald-Kreis
 891|3012|Enzkreis
-860|3052|Pforzheim
+860|3052|Pforzheim (Stadt)
 704|3046|Rastatt
-708|3116|Baden-Baden
+708|3116|Baden-Baden (Stadt)
 834|3142|Calw
 762|3247|Freudenstadt
 924|3156|Böblingen
@@ -312,7 +312,7 @@
 942|2926|Heilbronn
 1016|2919|Heilbronn (Stadt)
 1142|2864|Hohenlohekreis
-1256|2908|Schwäbisch-Hall
+1256|2908|Schwäbisch Hall
 1174|2734|Main-Tauber-Kreis
 1071|2643|Main-Tauber-Kreis
 940|3242|Tübingen
@@ -331,7 +331,7 @@
 624|3393|Emmendingen
 730|3435|Schwarzwald-Baar-Kreis
 633|3504|Breisgau-Hochschwarzwald
-566|3470|Freiburg i.Br.
+566|3470|Freiburg im Breisgau (Stadt)
 531|3636|Lörrach
 668|3622|Waldshut
 1041|2486|Aschaffenburg
@@ -359,14 +359,14 @@
 1599|2682|Forchheim
 1730|2580|Bayreuth
 1770|2527|Bayreuth (Stadt)
-1910|2447|Wunsiedel-Fichtelgebirge
+1910|2447|Wunsiedel i.Fichtelgebirge
 1975|2546|Tirschenreuth
-1858|2635|Neustadt a.d. Waldnaab
-1946|2657|Weiden i.d.Opf.
+1858|2635|Neustadt a.d.Waldnaab
+1946|2657|Weiden i.d.OPf.
 1827|2713|Amberg-Sulzbach
 1861|2769|Amberg
 1988|2782|Schwandorf
-1766|2869|Neumarkt i.d.Opf.
+1766|2869|Neumarkt i.d.OPf.
 1889|2937|Regensburg
 1944|2978|Regensburg (Stadt)
 2108|2885|Cham
@@ -395,7 +395,7 @@
 1423|3549|Ostallgäu
 1328|3699|Oberallgäu
 1369|3606|Kempten (Allgäu)
-1238|3680|Lindau(Bodensee)
+1238|3680|Lindau (Bodensee)
 1476|3544|Kaufbeuren
 1624|3662|Garmisch-Partenkirchen
 1616|3579|Weilheim-Schongau
@@ -407,7 +407,7 @@
 1803|3466|München
 1770|3409|München (Stadt)
 1679|3461|Starnberg
-1582|3461|Landsberg a.Lech
+1582|3461|Landsberg am Lech
 1654|3384|Fürstenfeldbruck
 2118|3545|Traunstein
 2218|3617|Berchtesgadener Land
@@ -436,15 +436,15 @@
 2726|1780|Görlitz
 2793|1902|Görlitz
 2727|1970|Görlitz
-2438|1962|Dresden
+2438|1962|Dresden (Stadt)
 2482|1863|Bautzen
 2622|1891|Bautzen
 2575|1768|Bautzen
-2521|2003|Sächsische Schweiz Osterzgebirge
-2381|2034|Sächsische Schweiz Osterzgebirge
+2521|2003|Sächsische Schweiz-Osterzgebirge
+2381|2034|Sächsische Schweiz-Osterzgebirge
 2307|1918|Meißen
 2335|1840|Meißen
-2181|2088|Chemnitz
+2181|2088|Chemnitz (Stadt)
 2284|2063|Mittelsachsen
 2215|2021|Mittelsachsen
 2214|1942|Mittelsachsen
@@ -462,7 +462,7 @@
 2127|2244|Erzgebirgskreis
 1981|2296|Vogtlandkreis
 1936|2254|Vogtlandkreis
-864|780|Bremerhaven
-928|996|Bremen
-844|946|Bremen
+864|780|Bremerhaven (Stadt)
+928|996|Bremen (Stadt)
+844|946|Bremen (Stadt)
 1260|776|Hamburg
