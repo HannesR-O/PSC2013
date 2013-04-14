@@ -4606,24 +4606,24 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 09162;      München, Landeshauptstadt;65 bis unter 75 Jahre;138634;62657;75977
 09162;      München, Landeshauptstadt;75 Jahre und mehr;104006;37688;66318
 09162;      München, Landeshauptstadt;Insgesamt;1378176;670940;707236
-09163;      Rosenheim;unter 3 Jahre;1616;822;794
-09163;      Rosenheim;3 bis unter 6 Jahre;1578;779;799
-09163;      Rosenheim;6 bis unter 10 Jahre;2153;1122;1031
-09163;      Rosenheim;10 bis unter 15 Jahre;2793;1412;1381
-09163;      Rosenheim;15 bis unter 18 Jahre;1661;859;802
-09163;      Rosenheim;18 bis unter 20 Jahre;1261;664;597
-09163;      Rosenheim;20 bis unter 25 Jahre;3954;1986;1968
-09163;      Rosenheim;25 bis unter 30 Jahre;4222;2149;2073
-09163;      Rosenheim;30 bis unter 35 Jahre;4095;2024;2071
-09163;      Rosenheim;35 bis unter 40 Jahre;3916;1991;1925
-09163;      Rosenheim;40 bis unter 45 Jahre;4591;2392;2199
-09163;      Rosenheim;45 bis unter 50 Jahre;5489;2853;2636
-09163;      Rosenheim;50 bis unter 55 Jahre;4370;2262;2108
-09163;      Rosenheim;55 bis unter 60 Jahre;3658;1711;1947
-09163;      Rosenheim;60 bis unter 65 Jahre;3775;1784;1991
-09163;      Rosenheim;65 bis unter 75 Jahre;6840;3209;3631
-09163;      Rosenheim;75 Jahre und mehr;5540;2070;3470
-09163;      Rosenheim;Insgesamt;61512;30089;31423
+09163;      Rosenheim, Stadt;unter 3 Jahre;1616;822;794
+09163;      Rosenheim, Stadt;3 bis unter 6 Jahre;1578;779;799
+09163;      Rosenheim, Stadt;6 bis unter 10 Jahre;2153;1122;1031
+09163;      Rosenheim, Stadt;10 bis unter 15 Jahre;2793;1412;1381
+09163;      Rosenheim, Stadt;15 bis unter 18 Jahre;1661;859;802
+09163;      Rosenheim, Stadt;18 bis unter 20 Jahre;1261;664;597
+09163;      Rosenheim, Stadt;20 bis unter 25 Jahre;3954;1986;1968
+09163;      Rosenheim, Stadt;25 bis unter 30 Jahre;4222;2149;2073
+09163;      Rosenheim, Stadt;30 bis unter 35 Jahre;4095;2024;2071
+09163;      Rosenheim, Stadt;35 bis unter 40 Jahre;3916;1991;1925
+09163;      Rosenheim, Stadt;40 bis unter 45 Jahre;4591;2392;2199
+09163;      Rosenheim, Stadt;45 bis unter 50 Jahre;5489;2853;2636
+09163;      Rosenheim, Stadt;50 bis unter 55 Jahre;4370;2262;2108
+09163;      Rosenheim, Stadt;55 bis unter 60 Jahre;3658;1711;1947
+09163;      Rosenheim, Stadt;60 bis unter 65 Jahre;3775;1784;1991
+09163;      Rosenheim, Stadt;65 bis unter 75 Jahre;6840;3209;3631
+09163;      Rosenheim, Stadt;75 Jahre und mehr;5540;2070;3470
+09163;      Rosenheim, Stadt;Insgesamt;61512;30089;31423
 09171;      Altötting, Landkreis;unter 3 Jahre;2628;1403;1225
 09171;      Altötting, Landkreis;3 bis unter 6 Jahre;2759;1423;1336
 09171;      Altötting, Landkreis;6 bis unter 10 Jahre;4077;2086;1991
@@ -5002,42 +5002,42 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 092;    Niederbayern, Regierungsbezirk;65 bis unter 75 Jahre;120654;57860;62794
 092;    Niederbayern, Regierungsbezirk;75 Jahre und mehr;109047;41152;67895
 092;    Niederbayern, Regierungsbezirk;Insgesamt;1192543;591037;601506
-09261;      Landshut;unter 3 Jahre;1810;926;884
-09261;      Landshut;3 bis unter 6 Jahre;1659;875;784
-09261;      Landshut;6 bis unter 10 Jahre;2097;1047;1050
-09261;      Landshut;10 bis unter 15 Jahre;2549;1344;1205
-09261;      Landshut;15 bis unter 18 Jahre;1673;836;837
-09261;      Landshut;18 bis unter 20 Jahre;1285;603;682
-09261;      Landshut;20 bis unter 25 Jahre;4135;2135;2000
-09261;      Landshut;25 bis unter 30 Jahre;4197;2078;2119
-09261;      Landshut;30 bis unter 35 Jahre;4192;2102;2090
-09261;      Landshut;35 bis unter 40 Jahre;4106;2044;2062
-09261;      Landshut;40 bis unter 45 Jahre;5041;2550;2491
-09261;      Landshut;45 bis unter 50 Jahre;5094;2569;2525
-09261;      Landshut;50 bis unter 55 Jahre;4578;2219;2359
-09261;      Landshut;55 bis unter 60 Jahre;4177;1988;2189
-09261;      Landshut;60 bis unter 65 Jahre;3803;1778;2025
-09261;      Landshut;65 bis unter 75 Jahre;7137;3262;3875
-09261;      Landshut;75 Jahre und mehr;6725;2414;4311
-09261;      Landshut;Insgesamt;64258;30770;33488
-09262;      Passau;unter 3 Jahre;972;508;464
-09262;      Passau;3 bis unter 6 Jahre;1003;509;494
-09262;      Passau;6 bis unter 10 Jahre;1437;708;729
-09262;      Passau;10 bis unter 15 Jahre;1904;971;933
-09262;      Passau;15 bis unter 18 Jahre;1166;597;569
-09262;      Passau;18 bis unter 20 Jahre;995;488;507
-09262;      Passau;20 bis unter 25 Jahre;4373;1890;2483
-09262;      Passau;25 bis unter 30 Jahre;3750;1905;1845
-09262;      Passau;30 bis unter 35 Jahre;3019;1516;1503
-09262;      Passau;35 bis unter 40 Jahre;2708;1431;1277
-09262;      Passau;40 bis unter 45 Jahre;3675;1863;1812
-09262;      Passau;45 bis unter 50 Jahre;4312;2151;2161
-09262;      Passau;50 bis unter 55 Jahre;3835;1887;1948
-09262;      Passau;55 bis unter 60 Jahre;3286;1547;1739
-09262;      Passau;60 bis unter 65 Jahre;3076;1481;1595
-09262;      Passau;65 bis unter 75 Jahre;5706;2596;3110
-09262;      Passau;75 Jahre und mehr;5331;1927;3404
-09262;      Passau;Insgesamt;50548;23975;26573
+09261;      Landshut, Stadt;unter 3 Jahre;1810;926;884
+09261;      Landshut, Stadt;3 bis unter 6 Jahre;1659;875;784
+09261;      Landshut, Stadt;6 bis unter 10 Jahre;2097;1047;1050
+09261;      Landshut, Stadt;10 bis unter 15 Jahre;2549;1344;1205
+09261;      Landshut, Stadt;15 bis unter 18 Jahre;1673;836;837
+09261;      Landshut, Stadt;18 bis unter 20 Jahre;1285;603;682
+09261;      Landshut, Stadt;20 bis unter 25 Jahre;4135;2135;2000
+09261;      Landshut, Stadt;25 bis unter 30 Jahre;4197;2078;2119
+09261;      Landshut, Stadt;30 bis unter 35 Jahre;4192;2102;2090
+09261;      Landshut, Stadt;35 bis unter 40 Jahre;4106;2044;2062
+09261;      Landshut, Stadt;40 bis unter 45 Jahre;5041;2550;2491
+09261;      Landshut, Stadt;45 bis unter 50 Jahre;5094;2569;2525
+09261;      Landshut, Stadt;50 bis unter 55 Jahre;4578;2219;2359
+09261;      Landshut, Stadt;55 bis unter 60 Jahre;4177;1988;2189
+09261;      Landshut, Stadt;60 bis unter 65 Jahre;3803;1778;2025
+09261;      Landshut, Stadt;65 bis unter 75 Jahre;7137;3262;3875
+09261;      Landshut, Stadt;75 Jahre und mehr;6725;2414;4311
+09261;      Landshut, Stadt;Insgesamt;64258;30770;33488
+09262;      Passau, Stadt;unter 3 Jahre;972;508;464
+09262;      Passau, Stadt;3 bis unter 6 Jahre;1003;509;494
+09262;      Passau, Stadt;6 bis unter 10 Jahre;1437;708;729
+09262;      Passau, Stadt;10 bis unter 15 Jahre;1904;971;933
+09262;      Passau, Stadt;15 bis unter 18 Jahre;1166;597;569
+09262;      Passau, Stadt;18 bis unter 20 Jahre;995;488;507
+09262;      Passau, Stadt;20 bis unter 25 Jahre;4373;1890;2483
+09262;      Passau, Stadt;25 bis unter 30 Jahre;3750;1905;1845
+09262;      Passau, Stadt;30 bis unter 35 Jahre;3019;1516;1503
+09262;      Passau, Stadt;35 bis unter 40 Jahre;2708;1431;1277
+09262;      Passau, Stadt;40 bis unter 45 Jahre;3675;1863;1812
+09262;      Passau, Stadt;45 bis unter 50 Jahre;4312;2151;2161
+09262;      Passau, Stadt;50 bis unter 55 Jahre;3835;1887;1948
+09262;      Passau, Stadt;55 bis unter 60 Jahre;3286;1547;1739
+09262;      Passau, Stadt;60 bis unter 65 Jahre;3076;1481;1595
+09262;      Passau, Stadt;65 bis unter 75 Jahre;5706;2596;3110
+09262;      Passau, Stadt;75 Jahre und mehr;5331;1927;3404
+09262;      Passau, Stadt;Insgesamt;50548;23975;26573
 09263;      Straubing;unter 3 Jahre;1022;546;476
 09263;      Straubing;3 bis unter 6 Jahre;1066;552;514
 09263;      Straubing;6 bis unter 10 Jahre;1333;697;636
@@ -5254,24 +5254,24 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 09361;      Amberg;65 bis unter 75 Jahre;4740;2114;2626
 09361;      Amberg;75 Jahre und mehr;4864;1739;3125
 09361;      Amberg;Insgesamt;43529;21193;22336
-09362;      Regensburg;unter 3 Jahre;3690;1817;1873
-09362;      Regensburg;3 bis unter 6 Jahre;3521;1780;1741
-09362;      Regensburg;6 bis unter 10 Jahre;4055;2053;2002
-09362;      Regensburg;10 bis unter 15 Jahre;5059;2638;2421
-09362;      Regensburg;15 bis unter 18 Jahre;3000;1503;1497
-09362;      Regensburg;18 bis unter 20 Jahre;2612;1258;1354
-09362;      Regensburg;20 bis unter 25 Jahre;10245;4781;5464
-09362;      Regensburg;25 bis unter 30 Jahre;12307;6025;6282
-09362;      Regensburg;30 bis unter 35 Jahre;11073;5614;5459
-09362;      Regensburg;35 bis unter 40 Jahre;9123;4829;4294
-09362;      Regensburg;40 bis unter 45 Jahre;10435;5494;4941
-09362;      Regensburg;45 bis unter 50 Jahre;11808;6012;5796
-09362;      Regensburg;50 bis unter 55 Jahre;9813;4939;4874
-09362;      Regensburg;55 bis unter 60 Jahre;7716;3715;4001
-09362;      Regensburg;60 bis unter 65 Jahre;6863;3238;3625
-09362;      Regensburg;65 bis unter 75 Jahre;13081;5785;7296
-09362;      Regensburg;75 Jahre und mehr;12176;4279;7897
-09362;      Regensburg;Insgesamt;136577;65760;70817
+09362;      Regensburg, Stadt;unter 3 Jahre;3690;1817;1873
+09362;      Regensburg, Stadt;3 bis unter 6 Jahre;3521;1780;1741
+09362;      Regensburg, Stadt;6 bis unter 10 Jahre;4055;2053;2002
+09362;      Regensburg, Stadt;10 bis unter 15 Jahre;5059;2638;2421
+09362;      Regensburg, Stadt;15 bis unter 18 Jahre;3000;1503;1497
+09362;      Regensburg, Stadt;18 bis unter 20 Jahre;2612;1258;1354
+09362;      Regensburg, Stadt;20 bis unter 25 Jahre;10245;4781;5464
+09362;      Regensburg, Stadt;25 bis unter 30 Jahre;12307;6025;6282
+09362;      Regensburg, Stadt;30 bis unter 35 Jahre;11073;5614;5459
+09362;      Regensburg, Stadt;35 bis unter 40 Jahre;9123;4829;4294
+09362;      Regensburg, Stadt;40 bis unter 45 Jahre;10435;5494;4941
+09362;      Regensburg, Stadt;45 bis unter 50 Jahre;11808;6012;5796
+09362;      Regensburg, Stadt;50 bis unter 55 Jahre;9813;4939;4874
+09362;      Regensburg, Stadt;55 bis unter 60 Jahre;7716;3715;4001
+09362;      Regensburg, Stadt;60 bis unter 65 Jahre;6863;3238;3625
+09362;      Regensburg, Stadt;65 bis unter 75 Jahre;13081;5785;7296
+09362;      Regensburg, Stadt;75 Jahre und mehr;12176;4279;7897
+09362;      Regensburg, Stadt;Insgesamt;136577;65760;70817
 09363;      Weiden i.d.OPf.;unter 3 Jahre;933;459;474
 09363;      Weiden i.d.OPf.;3 bis unter 6 Jahre;958;465;493
 09363;      Weiden i.d.OPf.;6 bis unter 10 Jahre;1343;662;681
@@ -5434,78 +5434,78 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 094;    Oberfranken, Regierungsbezirk;65 bis unter 75 Jahre;115701;54613;61088
 094;    Oberfranken, Regierungsbezirk;75 Jahre und mehr;110028;40646;69382
 094;    Oberfranken, Regierungsbezirk;Insgesamt;1067408;521237;546171
-09461;      Bamberg;unter 3 Jahre;1696;876;820
-09461;      Bamberg;3 bis unter 6 Jahre;1651;818;833
-09461;      Bamberg;6 bis unter 10 Jahre;2084;1048;1036
-09461;      Bamberg;10 bis unter 15 Jahre;2659;1371;1288
-09461;      Bamberg;15 bis unter 18 Jahre;1852;921;931
-09461;      Bamberg;18 bis unter 20 Jahre;1426;688;738
-09461;      Bamberg;20 bis unter 25 Jahre;5562;2455;3107
-09461;      Bamberg;25 bis unter 30 Jahre;5463;2593;2870
-09461;      Bamberg;30 bis unter 35 Jahre;4513;2256;2257
-09461;      Bamberg;35 bis unter 40 Jahre;4124;1981;2143
-09461;      Bamberg;40 bis unter 45 Jahre;5210;2562;2648
-09461;      Bamberg;45 bis unter 50 Jahre;5732;2797;2935
-09461;      Bamberg;50 bis unter 55 Jahre;5176;2598;2578
-09461;      Bamberg;55 bis unter 60 Jahre;4198;2002;2196
-09461;      Bamberg;60 bis unter 65 Jahre;3790;1796;1994
-09461;      Bamberg;65 bis unter 75 Jahre;7341;3300;4041
-09461;      Bamberg;75 Jahre und mehr;7607;2721;4886
-09461;      Bamberg;Insgesamt;70084;32783;37301
-09462;      Bayreuth;unter 3 Jahre;1495;741;754
-09462;      Bayreuth;3 bis unter 6 Jahre;1556;786;770
-09462;      Bayreuth;6 bis unter 10 Jahre;2053;1082;971
-09462;      Bayreuth;10 bis unter 15 Jahre;2797;1465;1332
-09462;      Bayreuth;15 bis unter 18 Jahre;1763;871;892
-09462;      Bayreuth;18 bis unter 20 Jahre;1847;936;911
-09462;      Bayreuth;20 bis unter 25 Jahre;7729;3852;3877
-09462;      Bayreuth;25 bis unter 30 Jahre;5679;3018;2661
-09462;      Bayreuth;30 bis unter 35 Jahre;4423;2327;2096
-09462;      Bayreuth;35 bis unter 40 Jahre;4027;2113;1914
-09462;      Bayreuth;40 bis unter 45 Jahre;4862;2437;2425
-09462;      Bayreuth;45 bis unter 50 Jahre;5846;2930;2916
-09462;      Bayreuth;50 bis unter 55 Jahre;5157;2617;2540
-09462;      Bayreuth;55 bis unter 60 Jahre;4542;2132;2410
-09462;      Bayreuth;60 bis unter 65 Jahre;4378;2058;2320
-09462;      Bayreuth;65 bis unter 75 Jahre;7846;3574;4272
-09462;      Bayreuth;75 Jahre und mehr;7111;2480;4631
-09462;      Bayreuth;Insgesamt;73111;35419;37692
-09463;      Coburg;unter 3 Jahre;874;439;435
-09463;      Coburg;3 bis unter 6 Jahre;967;475;492
-09463;      Coburg;6 bis unter 10 Jahre;1207;636;571
-09463;      Coburg;10 bis unter 15 Jahre;1789;929;860
-09463;      Coburg;15 bis unter 18 Jahre;1161;610;551
-09463;      Coburg;18 bis unter 20 Jahre;842;419;423
-09463;      Coburg;20 bis unter 25 Jahre;2689;1367;1322
-09463;      Coburg;25 bis unter 30 Jahre;2613;1345;1268
-09463;      Coburg;30 bis unter 35 Jahre;2131;1069;1062
-09463;      Coburg;35 bis unter 40 Jahre;2049;1017;1032
-09463;      Coburg;40 bis unter 45 Jahre;3118;1607;1511
-09463;      Coburg;45 bis unter 50 Jahre;3578;1802;1776
-09463;      Coburg;50 bis unter 55 Jahre;3340;1616;1724
-09463;      Coburg;55 bis unter 60 Jahre;2689;1280;1409
-09463;      Coburg;60 bis unter 65 Jahre;2503;1180;1323
-09463;      Coburg;65 bis unter 75 Jahre;4665;2156;2509
-09463;      Coburg;75 Jahre und mehr;4700;1653;3047
-09463;      Coburg;Insgesamt;40915;19600;21315
-09464;      Hof;unter 3 Jahre;1017;548;469
-09464;      Hof;3 bis unter 6 Jahre;995;495;500
-09464;      Hof;6 bis unter 10 Jahre;1456;741;715
-09464;      Hof;10 bis unter 15 Jahre;2116;1080;1036
-09464;      Hof;15 bis unter 18 Jahre;1249;644;605
-09464;      Hof;18 bis unter 20 Jahre;1007;496;511
-09464;      Hof;20 bis unter 25 Jahre;2733;1428;1305
-09464;      Hof;25 bis unter 30 Jahre;2592;1341;1251
-09464;      Hof;30 bis unter 35 Jahre;2499;1279;1220
-09464;      Hof;35 bis unter 40 Jahre;2421;1222;1199
-09464;      Hof;40 bis unter 45 Jahre;3371;1724;1647
-09464;      Hof;45 bis unter 50 Jahre;3670;1878;1792
-09464;      Hof;50 bis unter 55 Jahre;3472;1718;1754
-09464;      Hof;55 bis unter 60 Jahre;3223;1545;1678
-09464;      Hof;60 bis unter 65 Jahre;3100;1432;1668
-09464;      Hof;65 bis unter 75 Jahre;5640;2619;3021
-09464;      Hof;75 Jahre und mehr;5343;1824;3519
-09464;      Hof;Insgesamt;45904;22014;23890
+09461;      Bamberg, Stadt;unter 3 Jahre;1696;876;820
+09461;      Bamberg, Stadt;3 bis unter 6 Jahre;1651;818;833
+09461;      Bamberg, Stadt;6 bis unter 10 Jahre;2084;1048;1036
+09461;      Bamberg, Stadt;10 bis unter 15 Jahre;2659;1371;1288
+09461;      Bamberg, Stadt;15 bis unter 18 Jahre;1852;921;931
+09461;      Bamberg, Stadt;18 bis unter 20 Jahre;1426;688;738
+09461;      Bamberg, Stadt;20 bis unter 25 Jahre;5562;2455;3107
+09461;      Bamberg, Stadt;25 bis unter 30 Jahre;5463;2593;2870
+09461;      Bamberg, Stadt;30 bis unter 35 Jahre;4513;2256;2257
+09461;      Bamberg, Stadt;35 bis unter 40 Jahre;4124;1981;2143
+09461;      Bamberg, Stadt;40 bis unter 45 Jahre;5210;2562;2648
+09461;      Bamberg, Stadt;45 bis unter 50 Jahre;5732;2797;2935
+09461;      Bamberg, Stadt;50 bis unter 55 Jahre;5176;2598;2578
+09461;      Bamberg, Stadt;55 bis unter 60 Jahre;4198;2002;2196
+09461;      Bamberg, Stadt;60 bis unter 65 Jahre;3790;1796;1994
+09461;      Bamberg, Stadt;65 bis unter 75 Jahre;7341;3300;4041
+09461;      Bamberg, Stadt;75 Jahre und mehr;7607;2721;4886
+09461;      Bamberg, Stadt;Insgesamt;70084;32783;37301
+09462;      Bayreuth, Stadt;unter 3 Jahre;1495;741;754
+09462;      Bayreuth, Stadt;3 bis unter 6 Jahre;1556;786;770
+09462;      Bayreuth, Stadt;6 bis unter 10 Jahre;2053;1082;971
+09462;      Bayreuth, Stadt;10 bis unter 15 Jahre;2797;1465;1332
+09462;      Bayreuth, Stadt;15 bis unter 18 Jahre;1763;871;892
+09462;      Bayreuth, Stadt;18 bis unter 20 Jahre;1847;936;911
+09462;      Bayreuth, Stadt;20 bis unter 25 Jahre;7729;3852;3877
+09462;      Bayreuth, Stadt;25 bis unter 30 Jahre;5679;3018;2661
+09462;      Bayreuth, Stadt;30 bis unter 35 Jahre;4423;2327;2096
+09462;      Bayreuth, Stadt;35 bis unter 40 Jahre;4027;2113;1914
+09462;      Bayreuth, Stadt;40 bis unter 45 Jahre;4862;2437;2425
+09462;      Bayreuth, Stadt;45 bis unter 50 Jahre;5846;2930;2916
+09462;      Bayreuth, Stadt;50 bis unter 55 Jahre;5157;2617;2540
+09462;      Bayreuth, Stadt;55 bis unter 60 Jahre;4542;2132;2410
+09462;      Bayreuth, Stadt;60 bis unter 65 Jahre;4378;2058;2320
+09462;      Bayreuth, Stadt;65 bis unter 75 Jahre;7846;3574;4272
+09462;      Bayreuth, Stadt;75 Jahre und mehr;7111;2480;4631
+09462;      Bayreuth, Stadt;Insgesamt;73111;35419;37692
+09463;      Coburg, Stadt;unter 3 Jahre;874;439;435
+09463;      Coburg, Stadt;3 bis unter 6 Jahre;967;475;492
+09463;      Coburg, Stadt;6 bis unter 10 Jahre;1207;636;571
+09463;      Coburg, Stadt;10 bis unter 15 Jahre;1789;929;860
+09463;      Coburg, Stadt;15 bis unter 18 Jahre;1161;610;551
+09463;      Coburg, Stadt;18 bis unter 20 Jahre;842;419;423
+09463;      Coburg, Stadt;20 bis unter 25 Jahre;2689;1367;1322
+09463;      Coburg, Stadt;25 bis unter 30 Jahre;2613;1345;1268
+09463;      Coburg, Stadt;30 bis unter 35 Jahre;2131;1069;1062
+09463;      Coburg, Stadt;35 bis unter 40 Jahre;2049;1017;1032
+09463;      Coburg, Stadt;40 bis unter 45 Jahre;3118;1607;1511
+09463;      Coburg, Stadt;45 bis unter 50 Jahre;3578;1802;1776
+09463;      Coburg, Stadt;50 bis unter 55 Jahre;3340;1616;1724
+09463;      Coburg, Stadt;55 bis unter 60 Jahre;2689;1280;1409
+09463;      Coburg, Stadt;60 bis unter 65 Jahre;2503;1180;1323
+09463;      Coburg, Stadt;65 bis unter 75 Jahre;4665;2156;2509
+09463;      Coburg, Stadt;75 Jahre und mehr;4700;1653;3047
+09463;      Coburg, Stadt;Insgesamt;40915;19600;21315
+09464;      Hof, Stadt;unter 3 Jahre;1017;548;469
+09464;      Hof, Stadt;3 bis unter 6 Jahre;995;495;500
+09464;      Hof, Stadt;6 bis unter 10 Jahre;1456;741;715
+09464;      Hof, Stadt;10 bis unter 15 Jahre;2116;1080;1036
+09464;      Hof, Stadt;15 bis unter 18 Jahre;1249;644;605
+09464;      Hof, Stadt;18 bis unter 20 Jahre;1007;496;511
+09464;      Hof, Stadt;20 bis unter 25 Jahre;2733;1428;1305
+09464;      Hof, Stadt;25 bis unter 30 Jahre;2592;1341;1251
+09464;      Hof, Stadt;30 bis unter 35 Jahre;2499;1279;1220
+09464;      Hof, Stadt;35 bis unter 40 Jahre;2421;1222;1199
+09464;      Hof, Stadt;40 bis unter 45 Jahre;3371;1724;1647
+09464;      Hof, Stadt;45 bis unter 50 Jahre;3670;1878;1792
+09464;      Hof, Stadt;50 bis unter 55 Jahre;3472;1718;1754
+09464;      Hof, Stadt;55 bis unter 60 Jahre;3223;1545;1678
+09464;      Hof, Stadt;60 bis unter 65 Jahre;3100;1432;1668
+09464;      Hof, Stadt;65 bis unter 75 Jahre;5640;2619;3021
+09464;      Hof, Stadt;75 Jahre und mehr;5343;1824;3519
+09464;      Hof, Stadt;Insgesamt;45904;22014;23890
 09471;      Bamberg, Landkreis;unter 3 Jahre;3584;1807;1777
 09471;      Bamberg, Landkreis;3 bis unter 6 Jahre;3782;1945;1837
 09471;      Bamberg, Landkreis;6 bis unter 10 Jahre;5547;2763;2784
@@ -5686,24 +5686,24 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 095;    Mittelfranken, Regierungsbezirk;65 bis unter 75 Jahre;183588;86991;96597
 095;    Mittelfranken, Regierungsbezirk;75 Jahre und mehr;160488;61183;99305
 095;    Mittelfranken, Regierungsbezirk;Insgesamt;1719494;843615;875879
-09561;      Ansbach;unter 3 Jahre;984;516;468
-09561;      Ansbach;3 bis unter 6 Jahre;1007;493;514
-09561;      Ansbach;6 bis unter 10 Jahre;1315;671;644
-09561;      Ansbach;10 bis unter 15 Jahre;1887;956;931
-09561;      Ansbach;15 bis unter 18 Jahre;1241;641;600
-09561;      Ansbach;18 bis unter 20 Jahre;908;438;470
-09561;      Ansbach;20 bis unter 25 Jahre;2597;1285;1312
-09561;      Ansbach;25 bis unter 30 Jahre;2540;1222;1318
-09561;      Ansbach;30 bis unter 35 Jahre;2382;1201;1181
-09561;      Ansbach;35 bis unter 40 Jahre;2261;1097;1164
-09561;      Ansbach;40 bis unter 45 Jahre;2859;1426;1433
-09561;      Ansbach;45 bis unter 50 Jahre;3187;1560;1627
-09561;      Ansbach;50 bis unter 55 Jahre;3134;1533;1601
-09561;      Ansbach;55 bis unter 60 Jahre;2665;1269;1396
-09561;      Ansbach;60 bis unter 65 Jahre;2456;1198;1258
-09561;      Ansbach;65 bis unter 75 Jahre;4440;2028;2412
-09561;      Ansbach;75 Jahre und mehr;4433;1630;2803
-09561;      Ansbach;Insgesamt;40296;19164;21132
+09561;      Ansbach, Stadt;unter 3 Jahre;984;516;468
+09561;      Ansbach, Stadt;3 bis unter 6 Jahre;1007;493;514
+09561;      Ansbach, Stadt;6 bis unter 10 Jahre;1315;671;644
+09561;      Ansbach, Stadt;10 bis unter 15 Jahre;1887;956;931
+09561;      Ansbach, Stadt;15 bis unter 18 Jahre;1241;641;600
+09561;      Ansbach, Stadt;18 bis unter 20 Jahre;908;438;470
+09561;      Ansbach, Stadt;20 bis unter 25 Jahre;2597;1285;1312
+09561;      Ansbach, Stadt;25 bis unter 30 Jahre;2540;1222;1318
+09561;      Ansbach, Stadt;30 bis unter 35 Jahre;2382;1201;1181
+09561;      Ansbach, Stadt;35 bis unter 40 Jahre;2261;1097;1164
+09561;      Ansbach, Stadt;40 bis unter 45 Jahre;2859;1426;1433
+09561;      Ansbach, Stadt;45 bis unter 50 Jahre;3187;1560;1627
+09561;      Ansbach, Stadt;50 bis unter 55 Jahre;3134;1533;1601
+09561;      Ansbach, Stadt;55 bis unter 60 Jahre;2665;1269;1396
+09561;      Ansbach, Stadt;60 bis unter 65 Jahre;2456;1198;1258
+09561;      Ansbach, Stadt;65 bis unter 75 Jahre;4440;2028;2412
+09561;      Ansbach, Stadt;75 Jahre und mehr;4433;1630;2803
+09561;      Ansbach, Stadt;Insgesamt;40296;19164;21132
 09562;      Erlangen;unter 3 Jahre;2882;1478;1404
 09562;      Erlangen;3 bis unter 6 Jahre;2722;1390;1332
 09562;      Erlangen;6 bis unter 10 Jahre;3597;1851;1746
@@ -5722,24 +5722,24 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 09562;      Erlangen;65 bis unter 75 Jahre;10189;4708;5481
 09562;      Erlangen;75 Jahre und mehr;9956;3845;6111
 09562;      Erlangen;Insgesamt;106326;52243;54083
-09563;      Fürth;unter 3 Jahre;3107;1631;1476
-09563;      Fürth;3 bis unter 6 Jahre;3006;1534;1472
-09563;      Fürth;6 bis unter 10 Jahre;4012;2079;1933
-09563;      Fürth;10 bis unter 15 Jahre;5333;2774;2559
-09563;      Fürth;15 bis unter 18 Jahre;3522;1826;1696
-09563;      Fürth;18 bis unter 20 Jahre;2477;1275;1202
-09563;      Fürth;20 bis unter 25 Jahre;7265;3619;3646
-09563;      Fürth;25 bis unter 30 Jahre;7892;3895;3997
-09563;      Fürth;30 bis unter 35 Jahre;8115;3979;4136
-09563;      Fürth;35 bis unter 40 Jahre;7363;3694;3669
-09563;      Fürth;40 bis unter 45 Jahre;9225;4689;4536
-09563;      Fürth;45 bis unter 50 Jahre;10216;5132;5084
-09563;      Fürth;50 bis unter 55 Jahre;8992;4497;4495
-09563;      Fürth;55 bis unter 60 Jahre;7463;3610;3853
-09563;      Fürth;60 bis unter 65 Jahre;6550;3148;3402
-09563;      Fürth;65 bis unter 75 Jahre;11937;5551;6386
-09563;      Fürth;75 Jahre und mehr;9842;3650;6192
-09563;      Fürth;Insgesamt;116317;56583;59734
+09563;      Fürth, Stadt;unter 3 Jahre;3107;1631;1476
+09563;      Fürth, Stadt;3 bis unter 6 Jahre;3006;1534;1472
+09563;      Fürth, Stadt;6 bis unter 10 Jahre;4012;2079;1933
+09563;      Fürth, Stadt;10 bis unter 15 Jahre;5333;2774;2559
+09563;      Fürth, Stadt;15 bis unter 18 Jahre;3522;1826;1696
+09563;      Fürth, Stadt;18 bis unter 20 Jahre;2477;1275;1202
+09563;      Fürth, Stadt;20 bis unter 25 Jahre;7265;3619;3646
+09563;      Fürth, Stadt;25 bis unter 30 Jahre;7892;3895;3997
+09563;      Fürth, Stadt;30 bis unter 35 Jahre;8115;3979;4136
+09563;      Fürth, Stadt;35 bis unter 40 Jahre;7363;3694;3669
+09563;      Fürth, Stadt;40 bis unter 45 Jahre;9225;4689;4536
+09563;      Fürth, Stadt;45 bis unter 50 Jahre;10216;5132;5084
+09563;      Fürth, Stadt;50 bis unter 55 Jahre;8992;4497;4495
+09563;      Fürth, Stadt;55 bis unter 60 Jahre;7463;3610;3853
+09563;      Fürth, Stadt;60 bis unter 65 Jahre;6550;3148;3402
+09563;      Fürth, Stadt;65 bis unter 75 Jahre;11937;5551;6386
+09563;      Fürth, Stadt;75 Jahre und mehr;9842;3650;6192
+09563;      Fürth, Stadt;Insgesamt;116317;56583;59734
 09564;      Nürnberg;unter 3 Jahre;13268;6767;6501
 09564;      Nürnberg;3 bis unter 6 Jahre;12612;6469;6143
 09564;      Nürnberg;6 bis unter 10 Jahre;16030;8187;7843
@@ -5920,60 +5920,60 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 096;    Unterfranken, Regierungsbezirk;65 bis unter 75 Jahre;134711;64603;70108
 096;    Unterfranken, Regierungsbezirk;75 Jahre und mehr;127880;49730;78150
 096;    Unterfranken, Regierungsbezirk;Insgesamt;1314910;647763;667147
-09661;      Aschaffenburg;unter 3 Jahre;1747;919;828
-09661;      Aschaffenburg;3 bis unter 6 Jahre;1789;915;874
-09661;      Aschaffenburg;6 bis unter 10 Jahre;2333;1189;1144
-09661;      Aschaffenburg;10 bis unter 15 Jahre;3144;1572;1572
-09661;      Aschaffenburg;15 bis unter 18 Jahre;1941;1003;938
-09661;      Aschaffenburg;18 bis unter 20 Jahre;1356;675;681
-09661;      Aschaffenburg;20 bis unter 25 Jahre;4103;2060;2043
-09661;      Aschaffenburg;25 bis unter 30 Jahre;4663;2292;2371
-09661;      Aschaffenburg;30 bis unter 35 Jahre;4645;2307;2338
-09661;      Aschaffenburg;35 bis unter 40 Jahre;4279;2136;2143
-09661;      Aschaffenburg;40 bis unter 45 Jahre;5173;2582;2591
-09661;      Aschaffenburg;45 bis unter 50 Jahre;5777;2845;2932
-09661;      Aschaffenburg;50 bis unter 55 Jahre;5230;2627;2603
-09661;      Aschaffenburg;55 bis unter 60 Jahre;4622;2198;2424
-09661;      Aschaffenburg;60 bis unter 65 Jahre;4165;2027;2138
-09661;      Aschaffenburg;65 bis unter 75 Jahre;7076;3278;3798
-09661;      Aschaffenburg;75 Jahre und mehr;6765;2479;4286
-09661;      Aschaffenburg;Insgesamt;68808;33104;35704
-09662;      Schweinfurt;unter 3 Jahre;1243;600;643
-09662;      Schweinfurt;3 bis unter 6 Jahre;1263;655;608
-09662;      Schweinfurt;6 bis unter 10 Jahre;1664;860;804
-09662;      Schweinfurt;10 bis unter 15 Jahre;2211;1123;1088
-09662;      Schweinfurt;15 bis unter 18 Jahre;1424;724;700
-09662;      Schweinfurt;18 bis unter 20 Jahre;1168;595;573
-09662;      Schweinfurt;20 bis unter 25 Jahre;3685;1890;1795
-09662;      Schweinfurt;25 bis unter 30 Jahre;3450;1761;1689
-09662;      Schweinfurt;30 bis unter 35 Jahre;3183;1635;1548
-09662;      Schweinfurt;35 bis unter 40 Jahre;2767;1434;1333
-09662;      Schweinfurt;40 bis unter 45 Jahre;3464;1742;1722
-09662;      Schweinfurt;45 bis unter 50 Jahre;4047;2107;1940
-09662;      Schweinfurt;50 bis unter 55 Jahre;3970;1977;1993
-09662;      Schweinfurt;55 bis unter 60 Jahre;3605;1724;1881
-09662;      Schweinfurt;60 bis unter 65 Jahre;3245;1561;1684
-09662;      Schweinfurt;65 bis unter 75 Jahre;6296;2863;3433
-09662;      Schweinfurt;75 Jahre und mehr;6562;2415;4147
-09662;      Schweinfurt;Insgesamt;53247;25666;27581
-09663;      Würzburg;unter 3 Jahre;2786;1406;1380
-09663;      Würzburg;3 bis unter 6 Jahre;2561;1328;1233
-09663;      Würzburg;6 bis unter 10 Jahre;3268;1663;1605
-09663;      Würzburg;10 bis unter 15 Jahre;4362;2241;2121
-09663;      Würzburg;15 bis unter 18 Jahre;2671;1328;1343
-09663;      Würzburg;18 bis unter 20 Jahre;2790;1281;1509
-09663;      Würzburg;20 bis unter 25 Jahre;14508;6064;8444
-09663;      Würzburg;25 bis unter 30 Jahre;13948;6929;7019
-09663;      Würzburg;30 bis unter 35 Jahre;10224;5347;4877
-09663;      Würzburg;35 bis unter 40 Jahre;7532;3913;3619
-09663;      Würzburg;40 bis unter 45 Jahre;8350;4158;4192
-09663;      Würzburg;45 bis unter 50 Jahre;11958;5667;6291
-09663;      Würzburg;50 bis unter 55 Jahre;9457;4650;4807
-09663;      Würzburg;55 bis unter 60 Jahre;7273;3449;3824
-09663;      Würzburg;60 bis unter 65 Jahre;6585;3000;3585
-09663;      Würzburg;65 bis unter 75 Jahre;12534;5579;6955
-09663;      Würzburg;75 Jahre und mehr;13001;4510;8491
-09663;      Würzburg;Insgesamt;133808;62513;71295
+09661;      Aschaffenburg, Stadt;unter 3 Jahre;1747;919;828
+09661;      Aschaffenburg, Stadt;3 bis unter 6 Jahre;1789;915;874
+09661;      Aschaffenburg, Stadt;6 bis unter 10 Jahre;2333;1189;1144
+09661;      Aschaffenburg, Stadt;10 bis unter 15 Jahre;3144;1572;1572
+09661;      Aschaffenburg, Stadt;15 bis unter 18 Jahre;1941;1003;938
+09661;      Aschaffenburg, Stadt;18 bis unter 20 Jahre;1356;675;681
+09661;      Aschaffenburg, Stadt;20 bis unter 25 Jahre;4103;2060;2043
+09661;      Aschaffenburg, Stadt;25 bis unter 30 Jahre;4663;2292;2371
+09661;      Aschaffenburg, Stadt;30 bis unter 35 Jahre;4645;2307;2338
+09661;      Aschaffenburg, Stadt;35 bis unter 40 Jahre;4279;2136;2143
+09661;      Aschaffenburg, Stadt;40 bis unter 45 Jahre;5173;2582;2591
+09661;      Aschaffenburg, Stadt;45 bis unter 50 Jahre;5777;2845;2932
+09661;      Aschaffenburg, Stadt;50 bis unter 55 Jahre;5230;2627;2603
+09661;      Aschaffenburg, Stadt;55 bis unter 60 Jahre;4622;2198;2424
+09661;      Aschaffenburg, Stadt;60 bis unter 65 Jahre;4165;2027;2138
+09661;      Aschaffenburg, Stadt;65 bis unter 75 Jahre;7076;3278;3798
+09661;      Aschaffenburg, Stadt;75 Jahre und mehr;6765;2479;4286
+09661;      Aschaffenburg, Stadt;Insgesamt;68808;33104;35704
+09662;      Schweinfurt, Stadt;unter 3 Jahre;1243;600;643
+09662;      Schweinfurt, Stadt;;3 bis unter 6 Jahre;1263;655;608
+09662;      Schweinfurt, Stadt;;6 bis unter 10 Jahre;1664;860;804
+09662;      Schweinfurt, Stadt;;10 bis unter 15 Jahre;2211;1123;1088
+09662;      Schweinfurt, Stadt;;15 bis unter 18 Jahre;1424;724;700
+09662;      Schweinfurt, Stadt;;18 bis unter 20 Jahre;1168;595;573
+09662;      Schweinfurt, Stadt;;20 bis unter 25 Jahre;3685;1890;1795
+09662;      Schweinfurt, Stadt;;25 bis unter 30 Jahre;3450;1761;1689
+09662;      Schweinfurt, Stadt;;30 bis unter 35 Jahre;3183;1635;1548
+09662;      Schweinfurt, Stadt;;35 bis unter 40 Jahre;2767;1434;1333
+09662;      Schweinfurt, Stadt;;40 bis unter 45 Jahre;3464;1742;1722
+09662;      Schweinfurt, Stadt;;45 bis unter 50 Jahre;4047;2107;1940
+09662;      Schweinfurt, Stadt;;50 bis unter 55 Jahre;3970;1977;1993
+09662;      Schweinfurt, Stadt;;55 bis unter 60 Jahre;3605;1724;1881
+09662;      Schweinfurt, Stadt;;60 bis unter 65 Jahre;3245;1561;1684
+09662;      Schweinfurt, Stadt;;65 bis unter 75 Jahre;6296;2863;3433
+09662;      Schweinfurt, Stadt;;75 Jahre und mehr;6562;2415;4147
+09662;      Schweinfurt, Stadt;;Insgesamt;53247;25666;27581
+09663;      Würzburg, Stadt;unter 3 Jahre;2786;1406;1380
+09663;      Würzburg, Stadt;3 bis unter 6 Jahre;2561;1328;1233
+09663;      Würzburg, Stadt;6 bis unter 10 Jahre;3268;1663;1605
+09663;      Würzburg, Stadt;10 bis unter 15 Jahre;4362;2241;2121
+09663;      Würzburg, Stadt;15 bis unter 18 Jahre;2671;1328;1343
+09663;      Würzburg, Stadt;18 bis unter 20 Jahre;2790;1281;1509
+09663;      Würzburg, Stadt;20 bis unter 25 Jahre;14508;6064;8444
+09663;      Würzburg, Stadt;25 bis unter 30 Jahre;13948;6929;7019
+09663;      Würzburg, Stadt;30 bis unter 35 Jahre;10224;5347;4877
+09663;      Würzburg, Stadt;35 bis unter 40 Jahre;7532;3913;3619
+09663;      Würzburg, Stadt;40 bis unter 45 Jahre;8350;4158;4192
+09663;      Würzburg, Stadt;45 bis unter 50 Jahre;11958;5667;6291
+09663;      Würzburg, Stadt;50 bis unter 55 Jahre;9457;4650;4807
+09663;      Würzburg, Stadt;55 bis unter 60 Jahre;7273;3449;3824
+09663;      Würzburg, Stadt;60 bis unter 65 Jahre;6585;3000;3585
+09663;      Würzburg, Stadt;65 bis unter 75 Jahre;12534;5579;6955
+09663;      Würzburg, Stadt;75 Jahre und mehr;13001;4510;8491
+09663;      Würzburg, Stadt;Insgesamt;133808;62513;71295
 09671;      Aschaffenburg, Landkreis;unter 3 Jahre;3881;2013;1868
 09671;      Aschaffenburg, Landkreis;3 bis unter 6 Jahre;4266;2133;2133
 09671;      Aschaffenburg, Landkreis;6 bis unter 10 Jahre;6160;3131;3029
@@ -6154,24 +6154,24 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 097;    Schwaben, Regierungsbezirk;65 bis unter 75 Jahre;193111;92740;100371
 097;    Schwaben, Regierungsbezirk;75 Jahre und mehr;164130;63298;100832
 097;    Schwaben, Regierungsbezirk;Insgesamt;1789294;882708;906586
-09761;      Augsburg;unter 3 Jahre;7055;3585;3470
-09761;      Augsburg;3 bis unter 6 Jahre;6758;3497;3261
-09761;      Augsburg;6 bis unter 10 Jahre;8597;4352;4245
-09761;      Augsburg;10 bis unter 15 Jahre;11043;5667;5376
-09761;      Augsburg;15 bis unter 18 Jahre;7036;3500;3536
-09761;      Augsburg;18 bis unter 20 Jahre;5741;2841;2900
-09761;      Augsburg;20 bis unter 25 Jahre;20134;9715;10419
-09761;      Augsburg;25 bis unter 30 Jahre;20077;10246;9831
-09761;      Augsburg;30 bis unter 35 Jahre;18182;9391;8791
-09761;      Augsburg;35 bis unter 40 Jahre;16201;8493;7708
-09761;      Augsburg;40 bis unter 45 Jahre;19864;10177;9687
-09761;      Augsburg;45 bis unter 50 Jahre;21691;11310;10381
-09761;      Augsburg;50 bis unter 55 Jahre;19003;9601;9402
-09761;      Augsburg;55 bis unter 60 Jahre;15819;7720;8099
-09761;      Augsburg;60 bis unter 65 Jahre;14919;7014;7905
-09761;      Augsburg;65 bis unter 75 Jahre;28621;13214;15407
-09761;      Augsburg;75 Jahre und mehr;25906;9420;16486
-09761;      Augsburg;Insgesamt;266647;129743;136904
+09761;      Augsburg, Stadt;unter 3 Jahre;7055;3585;3470
+09761;      Augsburg, Stadt;3 bis unter 6 Jahre;6758;3497;3261
+09761;      Augsburg, Stadt;6 bis unter 10 Jahre;8597;4352;4245
+09761;      Augsburg, Stadt;10 bis unter 15 Jahre;11043;5667;5376
+09761;      Augsburg, Stadt;15 bis unter 18 Jahre;7036;3500;3536
+09761;      Augsburg, Stadt;18 bis unter 20 Jahre;5741;2841;2900
+09761;      Augsburg, Stadt;20 bis unter 25 Jahre;20134;9715;10419
+09761;      Augsburg, Stadt;25 bis unter 30 Jahre;20077;10246;9831
+09761;      Augsburg, Stadt;30 bis unter 35 Jahre;18182;9391;8791
+09761;      Augsburg, Stadt;35 bis unter 40 Jahre;16201;8493;7708
+09761;      Augsburg, Stadt;40 bis unter 45 Jahre;19864;10177;9687
+09761;      Augsburg, Stadt;45 bis unter 50 Jahre;21691;11310;10381
+09761;      Augsburg, Stadt;50 bis unter 55 Jahre;19003;9601;9402
+09761;      Augsburg, Stadt;55 bis unter 60 Jahre;15819;7720;8099
+09761;      Augsburg, Stadt;60 bis unter 65 Jahre;14919;7014;7905
+09761;      Augsburg, Stadt;65 bis unter 75 Jahre;28621;13214;15407
+09761;      Augsburg, Stadt;75 Jahre und mehr;25906;9420;16486
+09761;      Augsburg, Stadt;Insgesamt;266647;129743;136904
 09762;      Kaufbeuren;unter 3 Jahre;1012;506;506
 09762;      Kaufbeuren;3 bis unter 6 Jahre;1060;535;525
 09762;      Kaufbeuren;6 bis unter 10 Jahre;1499;786;713
