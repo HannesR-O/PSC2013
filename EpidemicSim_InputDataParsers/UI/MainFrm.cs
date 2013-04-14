@@ -93,15 +93,19 @@ namespace PSC2013.ES.InputDataParsers.UI
 
             var result = _pp.ParseCompleteSimulationInputData(txBoxPopulationFile.Text, txBoxTextfile.Text, txBoxImage.Text);
 
-            lBoxMatches.Items.Add("Following regions could get matched:");
+            txBoxMatchResults.Text += "Following regions could get matched:" + Environment.NewLine;
+            //lBoxMatches.Items.Add("Following regions could get matched:");
             foreach (var item in result.Item1)
             {
-                lBoxMatches.Items.Add(item.Name);
+                txBoxMatchResults.Text += item.Name + Environment.NewLine;
+                //lBoxMatches.Items.Add(item.Name);
             }
-            lBoxMatches.Items.Add("Follwing regions could not be matched: (check for typos)");
+            //lBoxMatches.Items.Add("Follwing regions could not be matched: (check for typos)");
+            txBoxMatchResults.Text += "Follwing regions could not be matched: (check for typos)" + Environment.NewLine;
             foreach (var item in result.Item2)
             {
-                lBoxMatches.Items.Add(item);
+                txBoxMatchResults.Text += item + Environment.NewLine;
+                //lBoxMatches.Items.Add(item);
             }
         }
     }
