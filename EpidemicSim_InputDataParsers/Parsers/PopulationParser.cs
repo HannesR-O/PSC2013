@@ -57,7 +57,14 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         private RegionPopulationInfo ParseCity(int index)
         {
             string[] firstLine = _lines[index].Split(';');
-            RegionPopulationInfo city = new RegionPopulationInfo() { Name = firstLine[1].Split(',')[0].Trim() };        //TODO: |f| get clear handling of ',' in names
+            string[] nameParts = firstLine[1].Split(',');
+            string name = nameParts[0].Trim();
+
+            if (nameParts.Length == 2)                                                  //TODO: |f| dirty fix
+                if (nameParts[1].Contains("Stadt") || nameParts[1].Contains("stadt"))
+                    name += " (Stadt)";
+
+            RegionPopulationInfo city = new RegionPopulationInfo() { Name = name };
 
             city[0] = int.Parse(firstLine[4]);
             city[4] = int.Parse(firstLine[5]);
@@ -133,11 +140,11 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                     coordinateInfos.Remove(match);
                 }
                 else
-                    result.Item2.Add(populationInfos[i].Name);
+                    result.Item2.Add(populationInfos[i].Name + "(csv)");
             }
             foreach (var item in coordinateInfos)
             {
-                result.Item2.Add(item.Name);
+                result.Item2.Add(item.Name + "(txt)");
             }
 
 

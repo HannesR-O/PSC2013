@@ -304,24 +304,24 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 01062;      Stormarn, Landkreis;65 bis unter 75 Jahre;28784;13877;14907
 01062;      Stormarn, Landkreis;75 Jahre und mehr;22419;8909;13510
 01062;      Stormarn, Landkreis;Insgesamt;231092;112548;118544
-02;  Hamburg;unter 3 Jahre;49537;25446;24091
-02;  Hamburg;3 bis unter 6 Jahre;47397;24443;22954
-02;  Hamburg;6 bis unter 10 Jahre;59234;30300;28934
-02;  Hamburg;10 bis unter 15 Jahre;73702;37776;35926
-02;  Hamburg;15 bis unter 18 Jahre;45363;23500;21863
-02;  Hamburg;18 bis unter 20 Jahre;32987;16530;16457
-02;  Hamburg;20 bis unter 25 Jahre;114337;55319;59018
-02;  Hamburg;25 bis unter 30 Jahre;140993;68091;72902
-02;  Hamburg;30 bis unter 35 Jahre;147069;73556;73513
-02;  Hamburg;35 bis unter 40 Jahre;132522;68918;63604
-02;  Hamburg;40 bis unter 45 Jahre;150709;79524;71185
-02;  Hamburg;45 bis unter 50 Jahre;152934;79853;73081
-02;  Hamburg;50 bis unter 55 Jahre;122840;62183;60657
-02;  Hamburg;55 bis unter 60 Jahre;98385;48278;50107
-02;  Hamburg;60 bis unter 65 Jahre;93491;44767;48724
-02;  Hamburg;65 bis unter 75 Jahre;183086;85828;97258
-02;  Hamburg;75 Jahre und mehr;154250;56660;97590
-02;  Hamburg;Insgesamt;1798836;880972;917864
+02000;  Hamburg;unter 3 Jahre;49537;25446;24091
+02000;  Hamburg;3 bis unter 6 Jahre;47397;24443;22954
+02000;  Hamburg;6 bis unter 10 Jahre;59234;30300;28934
+02000;  Hamburg;10 bis unter 15 Jahre;73702;37776;35926
+02000;  Hamburg;15 bis unter 18 Jahre;45363;23500;21863
+02000;  Hamburg;18 bis unter 20 Jahre;32987;16530;16457
+02000;  Hamburg;20 bis unter 25 Jahre;114337;55319;59018
+02000;  Hamburg;25 bis unter 30 Jahre;140993;68091;72902
+02000;  Hamburg;30 bis unter 35 Jahre;147069;73556;73513
+02000;  Hamburg;35 bis unter 40 Jahre;132522;68918;63604
+02000;  Hamburg;40 bis unter 45 Jahre;150709;79524;71185
+02000;  Hamburg;45 bis unter 50 Jahre;152934;79853;73081
+02000;  Hamburg;50 bis unter 55 Jahre;122840;62183;60657
+02000;  Hamburg;55 bis unter 60 Jahre;98385;48278;50107
+02000;  Hamburg;60 bis unter 65 Jahre;93491;44767;48724
+02000;  Hamburg;65 bis unter 75 Jahre;183086;85828;97258
+02000;  Hamburg;75 Jahre und mehr;154250;56660;97590
+02000;  Hamburg;Insgesamt;1798836;880972;917864
 03;  Niedersachsen;unter 3 Jahre;188974;97156;91818
 03;  Niedersachsen;3 bis unter 6 Jahre;199562;102705;96857
 03;  Niedersachsen;6 bis unter 10 Jahre;287609;147193;140416
@@ -6550,24 +6550,24 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 10046;      St. Wendel, Landkreis;65 bis unter 75 Jahre;9947;4778;5169
 10046;      St. Wendel, Landkreis;75 Jahre und mehr;9770;3787;5983
 10046;      St. Wendel, Landkreis;Insgesamt;89882;44352;45530
-11;  Berlin;unter 3 Jahre;98118;50303;47815
-11;  Berlin;3 bis unter 6 Jahre;91822;47320;44502
-11;  Berlin;6 bis unter 10 Jahre;109273;56221;53052
-11;  Berlin;10 bis unter 15 Jahre;133246;68201;65045
-11;  Berlin;15 bis unter 18 Jahre;77317;39665;37652
-11;  Berlin;18 bis unter 20 Jahre;57041;28876;28165
-11;  Berlin;20 bis unter 25 Jahre;231178;112278;118900
-11;  Berlin;25 bis unter 30 Jahre;284687;140575;144112
-11;  Berlin;30 bis unter 35 Jahre;276989;141188;135801
-11;  Berlin;35 bis unter 40 Jahre;232551;120445;112106
-11;  Berlin;40 bis unter 45 Jahre;270099;140902;129197
-11;  Berlin;45 bis unter 50 Jahre;307041;158015;149026
-11;  Berlin;50 bis unter 55 Jahre;253595;129132;124463
-11;  Berlin;55 bis unter 60 Jahre;215153;105508;109645
-11;  Berlin;60 bis unter 65 Jahre;200495;95593;104902
-11;  Berlin;65 bis unter 75 Jahre;384343;180196;204147
-11;  Berlin;75 Jahre und mehr;278924;103227;175697
-11;  Berlin;Insgesamt;3501872;1717645;1784227
+11000;  Berlin;unter 3 Jahre;98118;50303;47815
+11000;  Berlin;3 bis unter 6 Jahre;91822;47320;44502
+11000;  Berlin;6 bis unter 10 Jahre;109273;56221;53052
+11000;  Berlin;10 bis unter 15 Jahre;133246;68201;65045
+11000;  Berlin;15 bis unter 18 Jahre;77317;39665;37652
+11000;  Berlin;18 bis unter 20 Jahre;57041;28876;28165
+11000;  Berlin;20 bis unter 25 Jahre;231178;112278;118900
+11000;  Berlin;25 bis unter 30 Jahre;284687;140575;144112
+11000;  Berlin;30 bis unter 35 Jahre;276989;141188;135801
+11000;  Berlin;35 bis unter 40 Jahre;232551;120445;112106
+11000;  Berlin;40 bis unter 45 Jahre;270099;140902;129197
+11000;  Berlin;45 bis unter 50 Jahre;307041;158015;149026
+11000;  Berlin;50 bis unter 55 Jahre;253595;129132;124463
+11000;  Berlin;55 bis unter 60 Jahre;215153;105508;109645
+11000;  Berlin;60 bis unter 65 Jahre;200495;95593;104902
+11000;  Berlin;65 bis unter 75 Jahre;384343;180196;204147
+11000;  Berlin;75 Jahre und mehr;278924;103227;175697
+11000;  Berlin;Insgesamt;3501872;1717645;1784227
 12;  Brandenburg;unter 3 Jahre;57489;29483;28006
 12;  Brandenburg;3 bis unter 6 Jahre;59272;30420;28852
 12;  Brandenburg;6 bis unter 10 Jahre;78584;40432;38152
@@ -6928,42 +6928,42 @@ DG;Deutschland;Insgesamt;81843743;40206663;41637080
 13;  Mecklenburg-Vorpommern;65 bis unter 75 Jahre;194955;89994;104961
 13;  Mecklenburg-Vorpommern;75 Jahre und mehr;164103;59509;104594
 13;  Mecklenburg-Vorpommern;Insgesamt;1634734;809203;825531
-13003;      Kreisfreie Stadt Rostock, Hansestadt;unter 3 Jahre;5314;2737;2577
-13003;      Kreisfreie Stadt Rostock, Hansestadt;3 bis unter 6 Jahre;4723;2422;2301
-13003;      Kreisfreie Stadt Rostock, Hansestadt;6 bis unter 10 Jahre;5554;2849;2705
-13003;      Kreisfreie Stadt Rostock, Hansestadt;10 bis unter 15 Jahre;6159;3146;3013
-13003;      Kreisfreie Stadt Rostock, Hansestadt;15 bis unter 18 Jahre;2928;1507;1421
-13003;      Kreisfreie Stadt Rostock, Hansestadt;18 bis unter 20 Jahre;2823;1352;1471
-13003;      Kreisfreie Stadt Rostock, Hansestadt;20 bis unter 25 Jahre;18698;9217;9481
-13003;      Kreisfreie Stadt Rostock, Hansestadt;25 bis unter 30 Jahre;18355;9863;8492
-13003;      Kreisfreie Stadt Rostock, Hansestadt;30 bis unter 35 Jahre;14378;7901;6477
-13003;      Kreisfreie Stadt Rostock, Hansestadt;35 bis unter 40 Jahre;9829;5358;4471
-13003;      Kreisfreie Stadt Rostock, Hansestadt;40 bis unter 45 Jahre;12521;6646;5875
-13003;      Kreisfreie Stadt Rostock, Hansestadt;45 bis unter 50 Jahre;15531;8064;7467
-13003;      Kreisfreie Stadt Rostock, Hansestadt;50 bis unter 55 Jahre;14872;7566;7306
-13003;      Kreisfreie Stadt Rostock, Hansestadt;55 bis unter 60 Jahre;14291;7058;7233
-13003;      Kreisfreie Stadt Rostock, Hansestadt;60 bis unter 65 Jahre;11697;5521;6176
-13003;      Kreisfreie Stadt Rostock, Hansestadt;65 bis unter 75 Jahre;26093;11591;14502
-13003;      Kreisfreie Stadt Rostock, Hansestadt;75 Jahre und mehr;20494;7680;12814
-13003;      Kreisfreie Stadt Rostock, Hansestadt;Insgesamt;204260;100478;103782
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;unter 3 Jahre;2380;1218;1162
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;3 bis unter 6 Jahre;2257;1180;1077
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;6 bis unter 10 Jahre;2892;1467;1425
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;10 bis unter 15 Jahre;3130;1592;1538
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;15 bis unter 18 Jahre;1560;816;744
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;18 bis unter 20 Jahre;1322;622;700
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;20 bis unter 25 Jahre;6206;3032;3174
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;25 bis unter 30 Jahre;6490;3355;3135
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;30 bis unter 35 Jahre;6262;3354;2908
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;35 bis unter 40 Jahre;4819;2614;2205
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;40 bis unter 45 Jahre;6271;3295;2976
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;45 bis unter 50 Jahre;7842;3953;3889
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;50 bis unter 55 Jahre;7441;3605;3836
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;55 bis unter 60 Jahre;7597;3638;3959
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;60 bis unter 65 Jahre;6192;2968;3224
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;65 bis unter 75 Jahre;12203;5451;6752
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;75 Jahre und mehr;10436;3653;6783
-13004;      Kreisfreie Stadt Schwerin, Landeshauptstadt;Insgesamt;95300;45813;49487
+13003;      Rostock, Hansestadt;unter 3 Jahre;5314;2737;2577
+13003;      Rostock, Hansestadt;3 bis unter 6 Jahre;4723;2422;2301
+13003;      Rostock, Hansestadt;6 bis unter 10 Jahre;5554;2849;2705
+13003;      Rostock, Hansestadt;10 bis unter 15 Jahre;6159;3146;3013
+13003;      Rostock, Hansestadt;15 bis unter 18 Jahre;2928;1507;1421
+13003;      Rostock, Hansestadt;18 bis unter 20 Jahre;2823;1352;1471
+13003;      Rostock, Hansestadt;20 bis unter 25 Jahre;18698;9217;9481
+13003;      Rostock, Hansestadt;25 bis unter 30 Jahre;18355;9863;8492
+13003;      Rostock, Hansestadt;30 bis unter 35 Jahre;14378;7901;6477
+13003;      Rostock, Hansestadt;35 bis unter 40 Jahre;9829;5358;4471
+13003;      Rostock, Hansestadt;40 bis unter 45 Jahre;12521;6646;5875
+13003;      Rostock, Hansestadt;45 bis unter 50 Jahre;15531;8064;7467
+13003;      Rostock, Hansestadt;50 bis unter 55 Jahre;14872;7566;7306
+13003;      Rostock, Hansestadt;55 bis unter 60 Jahre;14291;7058;7233
+13003;      Rostock, Hansestadt;60 bis unter 65 Jahre;11697;5521;6176
+13003;      Rostock, Hansestadt;65 bis unter 75 Jahre;26093;11591;14502
+13003;      Rostock, Hansestadt;75 Jahre und mehr;20494;7680;12814
+13003;      Rostock, Hansestadt;Insgesamt;204260;100478;103782
+13004;      Schwerin, Landeshauptstadt;unter 3 Jahre;2380;1218;1162
+13004;      Schwerin, Landeshauptstadt;3 bis unter 6 Jahre;2257;1180;1077
+13004;      Schwerin, Landeshauptstadt;6 bis unter 10 Jahre;2892;1467;1425
+13004;      Schwerin, Landeshauptstadt;10 bis unter 15 Jahre;3130;1592;1538
+13004;      Schwerin, Landeshauptstadt;15 bis unter 18 Jahre;1560;816;744
+13004;      Schwerin, Landeshauptstadt;18 bis unter 20 Jahre;1322;622;700
+13004;      Schwerin, Landeshauptstadt;20 bis unter 25 Jahre;6206;3032;3174
+13004;      Schwerin, Landeshauptstadt;25 bis unter 30 Jahre;6490;3355;3135
+13004;      Schwerin, Landeshauptstadt;30 bis unter 35 Jahre;6262;3354;2908
+13004;      Schwerin, Landeshauptstadt;35 bis unter 40 Jahre;4819;2614;2205
+13004;      Schwerin, Landeshauptstadt;40 bis unter 45 Jahre;6271;3295;2976
+13004;      Schwerin, Landeshauptstadt;45 bis unter 50 Jahre;7842;3953;3889
+13004;      Schwerin, Landeshauptstadt;50 bis unter 55 Jahre;7441;3605;3836
+13004;      Schwerin, Landeshauptstadt;55 bis unter 60 Jahre;7597;3638;3959
+13004;      Schwerin, Landeshauptstadt;60 bis unter 65 Jahre;6192;2968;3224
+13004;      Schwerin, Landeshauptstadt;65 bis unter 75 Jahre;12203;5451;6752
+13004;      Schwerin, Landeshauptstadt;75 Jahre und mehr;10436;3653;6783
+13004;      Schwerin, Landeshauptstadt;Insgesamt;95300;45813;49487
 13071;      Mecklenburgische Seenplatte;unter 3 Jahre;6306;3181;3125
 13071;      Mecklenburgische Seenplatte;3 bis unter 6 Jahre;6452;3304;3148
 13071;      Mecklenburgische Seenplatte;6 bis unter 10 Jahre;8167;4190;3977
