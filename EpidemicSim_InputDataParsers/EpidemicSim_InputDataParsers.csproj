@@ -88,6 +88,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="departments_coloured_big.png" />
     <Content Include="Deutschland_og.bmp" />
     <Content Include="landcirclecoords.txt" />
     <Content Include="testcoords.txt" />
