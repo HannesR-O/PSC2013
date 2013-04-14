@@ -24,8 +24,10 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 
             Dictionary<string, List<Point>> dict = new Dictionary<string,List<Point>>();
 
+#if DEBUG
             Stopwatch sw = new Stopwatch();
             sw.Start();
+#endif
 
             //foreach (Tuple<string, Point> tpl in source)
             //{
@@ -59,8 +61,10 @@ namespace PSC2013.ES.InputDataParsers.Parsers
             //string dir = fi.DirectoryName;
             //img.Save(dir + @"\testimg.bmp");
 
+#if DEBUG
             sw.Stop();
             Console.WriteLine("Stopwatch: " + sw.Elapsed);
+#endif
 
             return dict;
         }
