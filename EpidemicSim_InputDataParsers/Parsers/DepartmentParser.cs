@@ -20,7 +20,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         /// <returns>Fancy shit.</returns>
         public static Dictionary<string, List<Point>> Parse(string imageFile, List<Tuple<string, Point>> source)
         {
-            Bitmap img = new Bitmap(imageFile);
+            //Bitmap img = new Bitmap(imageFile);
 
             Dictionary<string, List<Point>> dict = new Dictionary<string,List<Point>>();
 
@@ -29,28 +29,33 @@ namespace PSC2013.ES.InputDataParsers.Parsers
             sw.Start();
 #endif
 
-            foreach (Tuple<string, Point> tpl in source)
-            {
-                #if DEBUG
-                    Console.WriteLine(tpl.Item1);
-                #endif
+//            foreach (Tuple<string, Point> tpl in source)
+//            {
+//#if DEBUG
+//                Console.WriteLine(tpl.Item1);
+//#endif
 
-                TaskWorking(img, tpl, dict);
-            } // 00:02:12.7397335
+//                TaskWorking(img, tpl, dict);
+//            } // 00:02:12.7397335
 
             // seems not to work on every pc. pity
-//            Parallel.ForEach(source,
-//                new ParallelOptions() { MaxDegreeOfParallelism = 3 },
-//                item =>
-//                {
-//#if DEBUG
-//                    Console.WriteLine(item.Item1);
-//#endif
-//                    Bitmap bmp = new Bitmap(imageFile);
-//                    TaskWorking(bmp, item, dict);
-//                });
+
+            int degree = (Environment.ProcessorCount >> 1) - 1; // half of processor minus one
+            degree = Math.Max(1, degree);                       // but minimum of 1
+
+            Parallel.ForEach(source,
+                new ParallelOptions() { MaxDegreeOfParallelism = degree },
+                item =>
+                {
+#if DEBUG
+                    Console.WriteLine(item.Item1);
+#endif
+                    Bitmap bmp = new Bitmap(imageFile);
+                    TaskWorking(bmp, item, dict);
+                });
             // 2 -- 00:01:23.8058131
-            // 3 -- 00:01:10.0338862
+            // 3 -- 00:01:10.0338862 // 00:01:00.9140840 // 00:01:09.9917304
+            // 4 -- 00:00:56.4766085 // 00:00:52.2842363 // why did it work now?
             // 4 uses 1.5GB Memory => Out of Memory (btw. why?)
 
             // to see the modified file...
@@ -69,10 +74,13 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         private static void TaskWorking(Bitmap img, Tuple<string, Point> tpl, Dictionary<string, List<Point>> dict)
         {
             List<Point> points = Fill(img, tpl.Item2);
-            if (dict.ContainsKey(tpl.Item1))
-                dict[tpl.Item1].AddRange(points);
-            else
-                dict[tpl.Item1] = points;
+            lock (typeof(DepartmentParser))
+            {
+                if (dict.ContainsKey(tpl.Item1))
+                    dict[tpl.Item1].AddRange(points);
+                else
+                    dict[tpl.Item1] = points;
+            }
         }
 
         /// <summary>
