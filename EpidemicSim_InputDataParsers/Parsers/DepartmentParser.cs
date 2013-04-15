@@ -20,7 +20,17 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         /// <returns>Fancy shit.</returns>
         public static Dictionary<string, List<Point>> Parse(string imageFile, List<Tuple<string, Point>> source)
         {
-            //Bitmap img = new Bitmap(imageFile);
+            Bitmap img = new Bitmap(imageFile);
+#if DEBUG
+            Console.WriteLine("Intializing Image-Array...");
+#endif
+            Color[,] imgArray = new Color[img.Width, img.Height];
+            for (int x = 0; x < img.Width; x++)
+                for (int y = 0; y < img.Height; y++)
+                    imgArray[x, y] = img.GetPixel(x, y);
+#if DEBUG
+            Console.WriteLine("Image-Array initialized.");
+#endif
 
             Dictionary<string, List<Point>> dict = new Dictionary<string,List<Point>>();
 
@@ -38,11 +48,9 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 //                TaskWorking(img, tpl, dict);
 //            } // 00:02:12.7397335
 
-            // seems not to work on every pc. pity
-
-            int degree = (Environment.ProcessorCount >> 1) - 1; // half of processor minus one
+            int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
             degree = Math.Max(1, degree);                       // but minimum of 1
-
+            
             Parallel.ForEach(source,
                 new ParallelOptions() { MaxDegreeOfParallelism = degree },
                 item =>
@@ -50,15 +58,18 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 #if DEBUG
                     Console.WriteLine(item.Item1);
 #endif
-                    Bitmap bmp = new Bitmap(imageFile);
-                    TaskWorking(bmp, item, dict);
+                    TaskWorking(imgArray, item, dict);
                 });
+            // 4 -- 00:00:04.5294358
+            // -1(8) -- 00:00:03.8231940
+
+            //vvv single way by using multiple Bitmaps or one Bitmap and lock-conditions...
             // 2 -- 00:01:23.8058131
             // 3 -- 00:01:10.0338862 // 00:01:00.9140840 // 00:01:09.9917304
-            // 4 -- 00:00:56.4766085 // 00:00:52.2842363 // why did it work now?
-            // 4 uses 1.5GB Memory => Out of Memory (btw. why?)
+            // 4 -- 00:00:56.4766085 // 00:00:52.2842363
+            // 4 uses 1.5GB Memory => Out of Memory
 
-            // to see the modified file...
+            // to see the modified file... (doesn't work now, because of array-usage)
             //FileInfo fi = new FileInfo(imagepath);
             //string dir = fi.DirectoryName;
             //img.Save(dir + @"\testimg.bmp");
@@ -67,11 +78,11 @@ namespace PSC2013.ES.InputDataParsers.Parsers
             sw.Stop();
             Console.WriteLine("Stopwatch: " + sw.Elapsed);
 #endif
-
             return dict;
         }
 
-        private static void TaskWorking(Bitmap img, Tuple<string, Point> tpl, Dictionary<string, List<Point>> dict)
+        private static void TaskWorking(Color[,] img,
+            Tuple<string, Point> tpl, Dictionary<string, List<Point>> dict)
         {
             List<Point> points = Fill(img, tpl.Item2);
             lock (typeof(DepartmentParser))
@@ -84,9 +95,9 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         }
 
         /// <summary>
-        /// The flood fill algorithm to 
+        /// The flood fill algorithm to detect the connected parts.
         /// </summary>
-        private static List<Point> Fill(Bitmap img, Point point)
+        private static List<Point> Fill(Color[,] img, Point point)
         {
             Point start = point;
             Color currentColor = GetColor(img, start);
@@ -100,7 +111,10 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                 Point n = stack.Pop();
                 if (GetColor(img, n).Equals(currentColor))
                 {
-                    img.SetPixel(n.X, n.Y, FILLEDCOLOR);    // colour current pixel
+                    lock (typeof(DepartmentParser))
+                    {
+                        img[n.X, n.Y] = FILLEDCOLOR;        // color current pixel
+                    }
                     points.Add(n);                          // add pixel to department
 
                     Step(stack, img, n, currentColor);      // step to the neighbours...
@@ -113,16 +127,16 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         /// <summary>
         /// Shortener to get the color of a pixel.
         /// </summary>
-        private static Color GetColor(Bitmap img, Point p)
+        private static Color GetColor(Color[,] img, Point p)
         {
-            return img.GetPixel(p.X, p.Y);
+            return img[p.X, p.Y];
         }
 
         /// <summary>
         /// Steps to the neighbours and puts the on the stack.
         /// But only if they fulfil the conditions...
         /// </summary>
-        private static void Step(Stack<Point> stack, Bitmap img,
+        private static void Step(Stack<Point> stack, Color[,] img,
             Point currentPoint, Color currentColor)
         {
             for (int y = -1; y <= 1; y++)                                                       // height traversal
@@ -150,10 +164,10 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         /// <summary>
         /// Validates the point (so it stays in boundaries).
         /// </summary>
-        private static bool CheckPoint(Bitmap img, Point n, int x, int y)
+        private static bool CheckPoint(Color[,] img, Point n, int x, int y)
         {
-            int h = img.Height;
-            int w = img.Width;
+            int h = img.GetLength(1);
+            int w = img.GetLength(0);
 
             return (n.X + x) >= 0 &&
                     (n.X + x) < w &&
