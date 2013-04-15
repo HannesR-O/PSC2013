@@ -8,6 +8,8 @@ namespace PSC2013.ES.Library.Population
 {
     public class Human
     {
+        private static byte FLAG_AGE = 0x03;    // 0000 0011
+
         /// <summary>
         /// xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx
         ///    4    8    12   16    20   24    28   32
@@ -26,7 +28,17 @@ namespace PSC2013.ES.Library.Population
 
         public Gender GetGender()
         {
-            return (Gender)(_data[0] & 128 >> 7);
+            return (Gender)(_data[0] >> 7);
+        }
+
+        public Age GetAge()
+        {
+            return (Age)(_data[0] >> 5 & FLAG_AGE);
+        }
+
+        public int GetTicksTillNextAge()
+        {
+            return _data[0] & 31;
         }
     }
 }
