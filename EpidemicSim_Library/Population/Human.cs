@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Population
 {
-    public class Human
+    public struct Human
     {
-        private static byte FLAG_AGE = 0x03;    // 0000 0011
+        private const byte FLAG_AGE = 0x03;    // 0000 0011
 
         /// <summary>
         /// xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx
@@ -20,7 +20,7 @@ namespace PSC2013.ES.Library.Population
         /// </summary>
         private byte[] _data;
 
-        public Human()
+        public Human(byte bla)
         {
             _data = new byte[4];
             new Random().NextBytes(_data);
