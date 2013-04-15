@@ -101,7 +101,7 @@ namespace PSC2013.ES.InputDataParsers.UI
                 //lBoxMatches.Items.Add(item.Name);
             }
             //lBoxMatches.Items.Add("Follwing regions could not be matched: (check for typos)");
-            txBoxMatchResults.Text += "Follwing regions could not be matched: (" + result.Item2.Count + ") (check for typos)" + Environment.NewLine;
+            txBoxMatchResults.Text += "Following regions could not be matched: (" + result.Item2.Count + ") (check for typos)" + Environment.NewLine;
             foreach (var item in result.Item2)
             {
                 txBoxMatchResults.Text += item + Environment.NewLine;
