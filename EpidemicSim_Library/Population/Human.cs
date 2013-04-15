@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,14 @@ namespace PSC2013.ES.Library.Population
 {
     public struct Human
     {
-        private const byte FLAG_AGE = 0x03;    // 0000 0011
+        private const byte MASK_GENDER      = 0x80;     // 128 = 1000 0000
+        private const byte MASK_AGE         = 0x60;     // 96  = 0110 0000
+        private const byte MASK_AGE_TICKS   = 0x1F;     // 31  = 0001 1111
+
+        private const byte TICKCOUNT_BABY   = 0x00;     // 0000 0000
+        private const byte TICKCOUNT_CHILD  = 0x00;     // 0000 0000
+        private const byte TICKCOUNT_ADULT  = 0x00;     // 0000 0000
+        private const byte TICKCOUNT_SENIOR = 0x00;     // 0000 0000
 
         /// <summary>
         /// xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx
@@ -18,27 +26,92 @@ namespace PSC2013.ES.Library.Population
         /// 3. Byte:
         /// 4. Byte:
         /// </summary>
-        private byte[] _data;
+        private byte _general, _data1, _data2, _data3;                          //TODO: |f| Find proper names for _dataX according to use
 
-        public Human(byte bla)
+        private Human(byte[] data)
         {
-            _data = new byte[4];
-            new Random().NextBytes(_data);
+            if (data.Length < 4)
+                throw new ArgumentException("Given byte[] must at least contain 4 values!", "data");
+
+            _general = data[0];
+            _data1 = data[1];
+            _data2 = data[2];
+            _data3 = data[3];
+        }
+
+        public static Human CreateHuman(Gender gender, Age age)
+        {
+            byte[] data = new byte[4];
+
+            data[0] = (byte)((byte)gender + (byte)age);                         //TODO: |f| Fill in proper values and TEST IT!
+            data[1] = 0;
+            data[2] = 0;
+            data[3] = 0;
+
+            return new Human(data);
         }
 
         public Gender GetGender()
         {
-            return (Gender)(_data[0] >> 7);
+            return (Gender)(_general & MASK_GENDER);
+        }
+
+        private void SetAge(Age age)
+        {
+            _general = (byte)(_general & ~MASK_AGE + (byte)age);
         }
 
         public Age GetAge()
         {
-            return (Age)(_data[0] >> 5 & FLAG_AGE);
+            return (Age)(_general & MASK_AGE);
+        }
+
+        private void SetTickTillNextAge(int ticks)
+        {
+            if (ticks < 0 || ticks > 31)
+                throw new ArgumentOutOfRangeException("Tickcount must be in between 0-31!", "ticks");
+
+            _general = (byte)(_general & ~MASK_AGE_TICKS + ticks);
         }
 
         public int GetTicksTillNextAge()
         {
-            return _data[0] & 31;
+            return _general & MASK_AGE_TICKS;
+        }
+
+        public void DoAgeTick()
+        {
+            int afterChange = GetTicksTillNextAge() - 1;
+            if (!(afterChange == 0))
+                SetTickTillNextAge(afterChange);
+            else
+            {
+                // Tickcount == 0 -> Human ages to next level
+                Age newAge = Age.Senior;
+                int newTicks = TICKCOUNT_SENIOR;
+                switch (GetAge())
+                {
+                    case Age.Baby:
+                        newAge = Age.Child;
+                        newTicks = TICKCOUNT_CHILD;
+                        break;
+                    case Age.Child:
+                        newAge = Age.Adult;
+                        newTicks = TICKCOUNT_ADULT;
+                        break;
+                    case Age.Adult:
+                        newAge = Age.Senior;
+                        newTicks = TICKCOUNT_SENIOR;
+                        break;
+                    case Age.Senior:
+                        //TODO: |f| Define dead Human and kill it here
+                        break;
+                    default:
+                        throw new Exception("There was an error in the aging process!");
+                }
+                SetAge(newAge);
+                SetTickTillNextAge(newTicks);
+            }
         }
     }
 }

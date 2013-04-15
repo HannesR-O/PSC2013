@@ -9,8 +9,8 @@ namespace PSC2013.ES.Library.Population
     public enum Age : byte
     {
         Baby    = 0,
-        Child   = 1,
-        Adult   = 2,
-        Senior  = 4
+        Child   = 32,
+        Adult   = 64,
+        Senior  = 96
     }
 }

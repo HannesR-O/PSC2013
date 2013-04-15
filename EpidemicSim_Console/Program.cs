@@ -1,5 +1,6 @@
 ﻿using System;
 using PSC2013.ES.Library.Population;
+using System.Diagnostics;
 
 namespace PSC2013.ES.Console
 {
@@ -7,8 +8,7 @@ namespace PSC2013.ES.Console
     {
         static void Main(string[] args)
         {
-            Human h = new Human();
-            var gH = h.GetGender();
+
 #if DEBUG
             System.Console.ReadKey();
 #endif
