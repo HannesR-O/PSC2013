@@ -43,7 +43,26 @@ namespace PSC2013.ES.Library.Population
         {
             byte[] data = new byte[4];
 
-            data[0] = (byte)((byte)gender + (byte)age);                         //TODO: |f| Fill in proper values and TEST IT!
+            byte ticks = 0;
+            switch (age)
+            {
+                case Age.Baby:
+                    ticks = TICKCOUNT_BABY;
+                    break;
+                case Age.Child:
+                    ticks = TICKCOUNT_CHILD;
+                    break;
+                case Age.Adult:
+                    ticks = TICKCOUNT_ADULT;
+                    break;
+                case Age.Senior:
+                    ticks = TICKCOUNT_SENIOR;
+                    break;
+                default:
+                    throw new Exception("Invalid Age, could not create Human!");
+            }
+
+            data[0] = (byte)((byte)gender + (byte)age + ticks);                         //TODO: |f| Fill in proper values and TEST IT!
             data[1] = 0;
             data[2] = 0;
             data[3] = 0;
