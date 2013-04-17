@@ -9,8 +9,7 @@ namespace PSC2013.ES.Library.AreaData
 {
     public class CellSnapshot
     {
-        public static int X { get; private set; }
-        public static int y { get; private set; }
+        public static int Position { get; private set; }
 
         public static int Count { get; private set; }
         public static int CountMale { get; private set; }
@@ -48,25 +47,22 @@ namespace PSC2013.ES.Library.AreaData
             CountF10 = infos[9];
             CountF11 = infos[10];
 
-            X = infos[11];
-            y = infos[12];
+            Position = infos[11];
 
             //TODO Deaths
         }
 
-        public static CellSnapshot FromCell(PopulationCell input, int x, int y)
+        public static CellSnapshot FromCell(PopulationCell input, int position)
         {
             int[] temp = new int[12];
             temp[0] = input.HumanCount;
-            temp[11] = x;
-            temp[12] = y;
-
-            Count = input.HumanCount;
+          // temp[1] = input.
+            temp[11] = position;
 
             return new CellSnapshot(temp);
         }
 
-        public static CellSnapshot FromFile(int[])
+        public static CellSnapshot FromFile(int[] input)
         {
             return null; //TODO 
         }
