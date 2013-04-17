@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,22 +23,21 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         {
             Bitmap img = new Bitmap(imageFile);
 #if DEBUG
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             Console.WriteLine("Intializing Image-Array...");
 #endif
             Color[,] imgArray = new Color[img.Width, img.Height];
+            // might not be the best way (e.g. LockBit(...) possible)
             for (int x = 0; x < img.Width; x++)
                 for (int y = 0; y < img.Height; y++)
                     imgArray[x, y] = img.GetPixel(x, y);
+
 #if DEBUG
             Console.WriteLine("Image-Array initialized.");
 #endif
 
             Dictionary<string, List<Point>> dict = new Dictionary<string,List<Point>>();
-
-#if DEBUG
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-#endif
 
 //            foreach (Tuple<string, Point> tpl in source)
 //            {
@@ -61,6 +61,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
                     TaskWorking(imgArray, item, dict);
                 });
             // 4 -- 00:00:04.5294358
+            // 4 (including copying image) -- 00:00:14.0000079 // 00:00:13.9494022
             // -1(8) -- 00:00:03.8231940
 
             //vvv single way by using multiple Bitmaps or one Bitmap and lock-conditions...
