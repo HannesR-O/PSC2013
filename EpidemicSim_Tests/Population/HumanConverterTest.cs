@@ -13,6 +13,8 @@ namespace PSC2013.ES.Tests.Population
         [Fact]
         public void testGender()
         {
+            // Male = False
+            // Female = True
             ulong male = 0x0; 
             ulong male2 = 0x3A;
             ulong female = 0x1;            
