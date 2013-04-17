@@ -11,13 +11,18 @@ namespace PSC2013.ES.Library.PopulationData
         private const byte MASK_GENDER  = 0x80;             // 1000 0000
         private const byte MASK_AGE     = 0x7F;             // 0111 1111
 
+        private const byte MASK_INFECTED = 0x80;             // 1000 0000
+        private const byte MASK_SPREADING = 0x40;            // 0100 0000
+        private const byte MASK_DISEASED = 0x20;             // 0010 0000
+        private const byte MASK_DEATH = 0x10;                // 0001 0000
+
         /// <summary>
         /// HomeCell of the Human
         /// </summary>
         public readonly int HomeCell;
 
-        private byte _data0;
-        private byte _data1;
+        private byte _data0;  // Age & Gender
+        private byte _data1;  // Infected & Spreading & Diseased & Death
         private byte _data2;
 
         private short _counter1;
@@ -111,6 +116,46 @@ namespace PSC2013.ES.Library.PopulationData
             _data0 = (byte)(_data0 & MASK_AGE + age);
         }
 
+        public bool GetInfected()
+        {
+            return ((_data1 & MASK_INFECTED) == 0);
+        }
+
+        private void SetInfected(bool infected)
+        {
+            _data1 = (byte)((_data1 & ~MASK_INFECTED) + (infected ? 1 : 0) << 7);
+        }
+
+        public bool GetSpreading()
+        {
+            return ((_data1 & MASK_SPREADING) == 2);
+        }
+
+        private void SetSpreading(bool spreading)
+        {
+            _data1 = (byte)((_data1 & ~MASK_SPREADING) + (spreading ? 1 : 0) << 6);
+        }
+
+        public bool GetDiseased()
+        {
+            return ((_data1 & MASK_DISEASED) == 4);
+        }
+
+        private void SetSDiseased(bool diseased)
+        {
+            _data1 = (byte)((_data1 & ~MASK_DISEASED) + (diseased ? 1 : 0) << 5);
+        }
+
+        public bool GetDeath()
+        {
+            return ((_data1 & MASK_DEATH) == 8);
+        }
+
+        private void SetDeath(bool death)
+        {
+            _data1 = (byte)((_data1 & ~MASK_DEATH) + (death ? 1 : 0) << 4);
+        }
+
         /// <summary>
         /// Performes an age-tick on the human. Increases its age in years and decides wether the Human dies from ageing.
         /// </summary>
@@ -127,8 +172,8 @@ namespace PSC2013.ES.Library.PopulationData
 
         private bool KillHuman()
         {
-            //TODO: |f| set death flag and return false;
-
+            SetDeath(true);
+            //TODO T |Anything else? Alwasy return False?
             return false;
         }
     }
