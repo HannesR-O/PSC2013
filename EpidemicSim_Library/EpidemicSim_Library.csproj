@@ -56,7 +56,9 @@
     <Compile Include="Manipulation\InfectionContainer.cs" />
     <Compile Include="Manipulation\InfluencingContainer.cs" />
     <Compile Include="PopulationData\Human.cs" />
+    <Compile Include="PopulationData\Mindset.cs" />
     <Compile Include="PopulationData\PopulationCell.cs" />
+    <Compile Include="PopulationData\Profession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulator\SimulationData.cs" />
     <Compile Include="Simulator\Simulator.cs" />

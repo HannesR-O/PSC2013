@@ -16,6 +16,9 @@ namespace PSC2013.ES.Library.PopulationData
         private const byte MASK_DISEASED = 0x20;             // 0010 0000
         private const byte MASK_DEATH = 0x10;                // 0001 0000
 
+        private const byte MASK_PROFESSION = 0xF0;            // 1111 0000
+        private const byte MASK_MINDSET = 0x0F;               // 0000 1111
+
         /// <summary>
         /// HomeCell of the Human
         /// </summary>
@@ -23,7 +26,7 @@ namespace PSC2013.ES.Library.PopulationData
 
         private byte _data0;  // Age & Gender
         private byte _data1;  // Infected & Spreading & Diseased & Death
-        private byte _data2;
+        private byte _data2; // Profession & Mindset
 
         private short _counter1;
         private short _counter2;
@@ -171,6 +174,39 @@ namespace PSC2013.ES.Library.PopulationData
         {
             _data1 = (byte)((_data1 & ~MASK_DEATH) + (death ? 1 : 0) << 4);
         }
+
+        /// <summary>
+        /// Returns the current Profession of the human
+        /// </summary>
+        /// <returns>the Profession</returns>
+        public Profession GetProfession()
+        {
+            return (Profession)(_data2 >> 4);
+        }
+
+        private void SetProfession(Profession profession)
+        {
+            _data2 = (byte)(_data2 & ~MASK_PROFESSION + ((byte)profession) << 4);
+        }
+
+        /// <summary>
+        /// Returns the current Mindset of the human
+        /// </summary>
+        /// <returns>the Mindset</returns>
+        public Mindset GetMindset()
+        {
+            return (Mindset)(_data2 & MASK_MINDSET);
+        }
+
+        private void SetMindset(Mindset mindset)
+        {
+            _data2 = (byte)((_data2 & ~MASK_MINDSET) +  (byte)mindset);
+        }
+
+
+
+
+
 
         /// <summary>
         /// Performes an age-tick on the human. Increases its age in years and decides whether the Human dies from ageing.
