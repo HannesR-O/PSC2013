@@ -9,7 +9,7 @@ namespace PSC2013.ES.Library.PopulationData
     public struct PopulationCell
     {
         public Human[] Humans;
-        public int RefLandCircle;
+        public int RefDepartment;
         public int HumanCount;
 
         public void Init()
