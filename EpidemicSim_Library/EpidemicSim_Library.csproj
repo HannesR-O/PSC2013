@@ -44,11 +44,12 @@
   <ItemGroup>
     <Compile Include="AreaData\Departement.cs" />
     <Compile Include="Diseases\Disease.cs" />
+    <Compile Include="Diseases\FactorContainer.cs" />
     <Compile Include="PopulationData\Age.cs" />
+    <Compile Include="PopulationData\Gender.cs" />
     <Compile Include="AreaData\FederalState.cs" />
     <Compile Include="Converter\HumanConverter.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="PopulationData\Gender.cs" />
     <Compile Include="Manipulation\AIContainer.cs" />
     <Compile Include="Manipulation\InfectionContainer.cs" />
     <Compile Include="Manipulation\InfluencingContainer.cs" />

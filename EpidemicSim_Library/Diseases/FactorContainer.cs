@@ -11,7 +11,7 @@ namespace PSC2013.ES.Library.Diseases
     /// factors for each gender
     /// and age-group.
     /// </summary>
-    struct FactorContainer
+    public struct FactorContainer
     {
         // TODO | dj | rethink about types...
 

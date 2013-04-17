@@ -23,20 +23,20 @@ namespace PSC2013.ES.Library.PopulationData
         private short _counter1;
         private short _counter2;
 
-        /// <summary>
-        /// Only for explicit purposes. Initializes everything to 0.
-        /// </summary>
-        private Human()
-        {
-            HomeCell = 0;
+        ///// <summary>
+        ///// Only for explicit purposes. Initializes everything to 0.
+        ///// </summary>
+        //private Human()
+        //{
+        //    HomeCell = 0;
 
-            _data0 = 0;
-            _data1 = 0;
-            _data2 = 0;
+        //    _data0 = 0;
+        //    _data1 = 0;
+        //    _data2 = 0;
 
-            _counter1 = 0;
-            _counter2 = 0;
-        }
+        //    _counter1 = 0;
+        //    _counter2 = 0;
+        //}
 
         /// <summary>
         /// Needs to be an extra constructor, because HomeCell is readonly
