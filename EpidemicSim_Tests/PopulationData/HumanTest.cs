@@ -59,6 +59,18 @@ namespace PSC2013.ES.Tests.PopulationData
         }
 
         [Fact]
+        public void AgeBordersTest()
+        {
+            SetUp();
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                new Assert.ThrowsDelegateWithReturn(() => Human.CreateHuman(Gender.Female, 0, HOMECELL)));
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                new Assert.ThrowsDelegateWithReturn(() => Human.CreateHuman(Gender.Female, 111, HOMECELL)));
+        }
+
+        [Fact]
         public void IsInfectedTest()
         {
             SetUp();
