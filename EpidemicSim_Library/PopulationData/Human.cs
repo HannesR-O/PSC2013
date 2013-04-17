@@ -8,13 +8,13 @@ namespace PSC2013.ES.Library.PopulationData
 {
     public struct Human
     {
-        private const byte MASK_GENDER  = 0x80;              // 1000 0000
-        private const byte MASK_AGE     = 0x7F;              // 0111 1111
+        private const byte MASK_GENDER  = 0x80;               // 1000 0000
+        private const byte MASK_AGE     = 0x7F;               // 0111 1111
 
-        private const byte MASK_INFECTED = 0x80;             // 1000 0000
-        private const byte MASK_SPREADING = 0x40;            // 0100 0000
-        private const byte MASK_DISEASED = 0x20;             // 0010 0000
-        private const byte MASK_DEATH = 0x10;                // 0001 0000
+        private const byte MASK_INFECTED = 0x80;              // 1000 0000
+        private const byte MASK_SPREADING = 0x40;             // 0100 0000
+        private const byte MASK_DISEASED = 0x20;              // 0010 0000
+        private const byte MASK_DEATH = 0x10;                 // 0001 0000
 
         private const byte MASK_PROFESSION = 0xF0;            // 1111 0000
         private const byte MASK_MINDSET = 0x0F;               // 0000 1111
@@ -88,7 +88,7 @@ namespace PSC2013.ES.Library.PopulationData
 
         private void SetGender(Gender gender)
         {
-            _data0 = (byte)(_data0 & ~MASK_GENDER + (byte)gender);
+            _data0 = (byte)((_data0 & ~MASK_GENDER) + (byte)gender);
         }
 
         /// <summary>
@@ -101,9 +101,11 @@ namespace PSC2013.ES.Library.PopulationData
 
             Age age = Age.Baby;
 
-            if (value < 25)
+            if (value <= 6)
+                age = Age.Baby;
+            else if (value <= 25)
                 age = Age.Child;
-            else if (value < 60)
+            else if (value <= 60)
                 age = Age.Adult;
             else
                 age = Age.Senior;
@@ -116,7 +118,7 @@ namespace PSC2013.ES.Library.PopulationData
             if (age < 1 || age > 110)
                 throw new ArgumentOutOfRangeException("Age has to be in 1-110", "age");
 
-            _data0 = (byte)(_data0 & MASK_AGE + age);
+            _data0 = (byte)((_data0 & ~MASK_AGE) + age);
         }
 
         /// <summary>
@@ -125,12 +127,12 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>true if infected, false if not</returns>
         public bool IsInfected()
         {
-            return ((_data1 & MASK_INFECTED) == 0);
+            return ((_data1 & MASK_INFECTED) == 128);
         }
 
         private void SetInfected(bool infected)
         {
-            _data1 = (byte)((_data1 & ~MASK_INFECTED) + (infected ? 1 : 0) << 7);
+            _data1 = (byte)((_data1 & ~MASK_INFECTED) + (infected ? 128 : 0));
         }
 
         /// <summary>
@@ -139,12 +141,12 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>true if spreading, false if not</returns>
         public bool IsSpreading()
         {
-            return ((_data1 & MASK_SPREADING) == 2);
+            return ((_data1 & MASK_SPREADING) == 64);
         }
 
         private void SetSpreading(bool spreading)
         {
-            _data1 = (byte)((_data1 & ~MASK_SPREADING) + (spreading ? 1 : 0) << 6);
+            _data1 = (byte)((_data1 & ~MASK_SPREADING) + (spreading ? 64 : 0));
         }
 
         /// <summary>
@@ -153,12 +155,12 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>true if diseased, false if not</returns>
         public bool IsDiseased()
         {
-            return ((_data1 & MASK_DISEASED) == 4);
+            return ((_data1 & MASK_DISEASED) == 32);
         }
 
         private void SetDiseased(bool diseased)
         {
-            _data1 = (byte)((_data1 & ~MASK_DISEASED) + (diseased ? 1 : 0) << 5);
+            _data1 = (byte)((_data1 & ~MASK_DISEASED) + (diseased ? 32 : 0));
         }
 
         /// <summary>
@@ -167,12 +169,12 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>true if dead, false if not</returns>
         public bool IsDead()
         {
-            return ((_data1 & MASK_DEATH) == 8);
+            return ((_data1 & MASK_DEATH) == 16);
         }
 
         private void SetDeath(bool death)
         {
-            _data1 = (byte)((_data1 & ~MASK_DEATH) + (death ? 1 : 0) << 4);
+            _data1 = (byte)((_data1 & ~MASK_DEATH) + (death ? 16 : 0));
         }
 
         /// <summary>
@@ -203,11 +205,6 @@ namespace PSC2013.ES.Library.PopulationData
             _data2 = (byte)((_data2 & ~MASK_MINDSET) +  (byte)mindset);
         }
 
-
-
-
-
-
         /// <summary>
         /// Performes an age-tick on the human. Increases its age in years and decides whether the Human dies from ageing.
         /// </summary>
@@ -222,7 +219,7 @@ namespace PSC2013.ES.Library.PopulationData
             return true;
         }
 
-        private bool KillHuman()
+        public bool KillHuman()
         {
             SetDeath(true);
             //TODO T |Anything else? Always return False?
