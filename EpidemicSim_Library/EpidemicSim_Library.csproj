@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AreaData\FederalState.cs" />
     <Compile Include="AreaData\LandCircle.cs" />
+    <Compile Include="Converter\HumanConverter.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="PopulationData\Human.cs" />
     <Compile Include="PopulationData\PopulationCell.cs" />
