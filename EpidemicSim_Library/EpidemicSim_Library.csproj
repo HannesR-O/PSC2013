@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaData\Department.cs" />
+    <Compile Include="AreaData\DepartmentInfo.cs" />
+    <Compile Include="AreaData\MatrixGenerator.cs" />
     <Compile Include="Diseases\Disease.cs" />
     <Compile Include="Diseases\FactorContainer.cs" />
     <Compile Include="IO\Writers\IFileWriter.cs" />
