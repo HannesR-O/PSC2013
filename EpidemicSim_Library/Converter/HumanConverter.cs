@@ -8,7 +8,7 @@ namespace PSC2013.ES.Library.Converter
 {
     public static class HumanConverter
     {
-        public static bool getGender(long input)
+        public static bool getGender(ulong input)
         {
             if ((input & 0x1) == 1)
                 return true;
