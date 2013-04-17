@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSC2013.ES.Library.AreaData
+namespace PSC2013.ES.Library.Diseases
 {
-    public class LandCircle
+    public class Disease
     {
-        public int RefFederalState;
     }
 }

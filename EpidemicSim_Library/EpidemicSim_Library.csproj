@@ -44,8 +44,9 @@
   <ItemGroup>
     <Compile Include="Age.cs" />
     <Compile Include="AreaData\FederalState.cs" />
-    <Compile Include="AreaData\LandCircle.cs" />
+    <Compile Include="AreaData\Departement.cs" />
     <Compile Include="Converter\HumanConverter.cs" />
+    <Compile Include="Diseases\Disease.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Gender.cs" />
     <Compile Include="Human.cs" />

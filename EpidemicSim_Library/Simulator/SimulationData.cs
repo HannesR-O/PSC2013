@@ -1,4 +1,5 @@
 ﻿using PSC2013.ES.Library.AreaData;
+using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.PopulationData;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace PSC2013.ES.Library.Simulator
         public static PopulationCell[] Population;
 
         //AreaData
-        public static LandCircle[] LandCircles;
+        public static Departement[] Departements;
         public static FederalState[] FederalStates;
 
         //TimeConstants
@@ -23,13 +24,16 @@ namespace PSC2013.ES.Library.Simulator
         public static DayTime CurrentDayTime;
         public static int CurrentTime; // 0-23 Uhr
 
+        //Used Disease
+        public static Disease CurrentDisease;
+        
 
 
         static SimulationData()
         {
 
             FederalStates = new FederalState[16];
-            LandCircles = new LandCircle[401];
+            Departements = new Departement[401];
             Population = new PopulationCell[10808574];
 
             for (int i = 0; i < Population.Length; ++i)

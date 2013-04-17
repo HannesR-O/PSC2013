@@ -1,0 +1,25 @@
+<<<<<<< HEAD
+﻿using PSC2013.ES.Library.Simulator;
+using System;
+=======
+﻿using System;
+//using PSC2013.ES.Library.Population;
+>>>>>>> eefa4bbb084c404739c126cd71802ab6e2b27f45
+using System.Diagnostics;
+
+namespace PSC2013.ES.Console
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+#if DEBUG
+           // System.Console.ReadKey();
+            System.Console.WriteLine(SimulationData.CurrentDay);
+            System.Console.ReadLine();
+
+#endif
+        }
+    }
+}
