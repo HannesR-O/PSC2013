@@ -116,7 +116,11 @@ namespace PSC2013.ES.Library.PopulationData
             _data0 = (byte)(_data0 & MASK_AGE + age);
         }
 
-        public bool GetInfected()
+        /// <summary>
+        /// Returns whether the human is infected or not
+        /// </summary>
+        /// <returns>true if infected, false if not</returns>
+        public bool IsInfected()
         {
             return ((_data1 & MASK_INFECTED) == 0);
         }
@@ -126,7 +130,11 @@ namespace PSC2013.ES.Library.PopulationData
             _data1 = (byte)((_data1 & ~MASK_INFECTED) + (infected ? 1 : 0) << 7);
         }
 
-        public bool GetSpreading()
+        /// <summary>
+        /// Returns whether the human is spreading or not
+        /// </summary>
+        /// <returns>true if spreading, false if not</returns>
+        public bool IsSpreading()
         {
             return ((_data1 & MASK_SPREADING) == 2);
         }
@@ -136,17 +144,25 @@ namespace PSC2013.ES.Library.PopulationData
             _data1 = (byte)((_data1 & ~MASK_SPREADING) + (spreading ? 1 : 0) << 6);
         }
 
-        public bool GetDiseased()
+        /// <summary>
+        /// Returns whether the human is diseased or not
+        /// </summary>
+        /// <returns>true if diseased, false if not</returns>
+        public bool IsDiseased()
         {
             return ((_data1 & MASK_DISEASED) == 4);
         }
 
-        private void SetSDiseased(bool diseased)
+        private void SetDiseased(bool diseased)
         {
             _data1 = (byte)((_data1 & ~MASK_DISEASED) + (diseased ? 1 : 0) << 5);
         }
 
-        public bool GetDeath()
+        /// <summary>
+        /// Returns whether the human is dead or not
+        /// </summary>
+        /// <returns>true if dead, false if not</returns>
+        public bool IsDead()
         {
             return ((_data1 & MASK_DEATH) == 8);
         }
@@ -157,14 +173,14 @@ namespace PSC2013.ES.Library.PopulationData
         }
 
         /// <summary>
-        /// Performes an age-tick on the human. Increases its age in years and decides wether the Human dies from ageing.
+        /// Performes an age-tick on the human. Increases its age in years and decides whether the Human dies from ageing.
         /// </summary>
         /// <returns>True if the ageing process was completed sucessfully (the Human is still alive)
         /// False if the Human died in the process (age > 110)</returns>
         public bool DoAgeTick()
         {
             int currentAge = _data0 & MASK_AGE;
-            if (currentAge > 110)
+            if (currentAge > 109)
                 return KillHuman();
             SetAge(currentAge + 1);
             return true;
@@ -173,7 +189,7 @@ namespace PSC2013.ES.Library.PopulationData
         private bool KillHuman()
         {
             SetDeath(true);
-            //TODO T |Anything else? Alwasy return False?
+            //TODO T |Anything else? Always return False?
             return false;
         }
     }
