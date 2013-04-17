@@ -56,8 +56,8 @@ namespace PSC2013.ES.Library.Simulator
                 }
 
             //DiseaseTick
-                for (int i = 0; i < SimulationData.Population.Length; ++i)
-                {
+              for (int i = 0; i < SimulationData.Population.Length; ++i)
+               {
                     for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                     {
                         if (SimulationData.Population[i].Humans[j].IsDead())
@@ -65,7 +65,9 @@ namespace PSC2013.ES.Library.Simulator
 
                         //SimulationData.Population[i].Humans[j].DoDiseaseTick();
                     }
-                }
+               }
+
+
 
 
             //if a day has passed recalculate Mindset

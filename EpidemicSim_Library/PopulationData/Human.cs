@@ -184,7 +184,7 @@ namespace PSC2013.ES.Library.PopulationData
             return (Profession)(_data2 >> 4);
         }
 
-        private void SetProfession(Profession profession)
+        public void SetProfession(Profession profession)
         {
             _data2 = (byte)(_data2 & ~MASK_PROFESSION + ((byte)profession) << 4);
         }
@@ -198,7 +198,7 @@ namespace PSC2013.ES.Library.PopulationData
             return (Mindset)(_data2 & MASK_MINDSET);
         }
 
-        private void SetMindset(Mindset mindset)
+        public void SetMindset(Mindset mindset)
         {
             _data2 = (byte)((_data2 & ~MASK_MINDSET) +  (byte)mindset);
         }
