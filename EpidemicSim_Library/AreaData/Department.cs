@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.AreaData
 {
-    public class Departement
+    public class Department
     {
         public int RefFederalState;
     }

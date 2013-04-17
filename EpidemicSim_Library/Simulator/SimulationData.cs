@@ -15,7 +15,7 @@ namespace PSC2013.ES.Library.Simulator
         public static PopulationCell[] Population;
 
         //AreaData
-        public static Departement[] Departements;
+        public static Department[] Departements;
         public static FederalState[] FederalStates;
 
         //TimeConstants
@@ -33,7 +33,7 @@ namespace PSC2013.ES.Library.Simulator
         {
 
             FederalStates = new FederalState[16];
-            Departements = new Departement[401];
+            Departements = new Department[401];
             Population = new PopulationCell[10808574];
 
             for (int i = 0; i < Population.Length; ++i)
