@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSC2013.ES.Library.AreaData
+namespace PSC2013.ES.Library.Manipulation
 {
-    public class FederalState
+    public class AIContainer
     {
+        public static void DefaultAIMethod()
+        {
 
+        }
     }
 }

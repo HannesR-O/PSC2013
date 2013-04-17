@@ -46,14 +46,17 @@
     <Compile Include="AreaData\LandCircle.cs" />
     <Compile Include="Converter\HumanConverter.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Manipulation\AIContainer.cs" />
+    <Compile Include="Manipulation\InfectionContainer.cs" />
+    <Compile Include="Manipulation\InfluencingContainer.cs" />
     <Compile Include="PopulationData\Human.cs" />
     <Compile Include="PopulationData\PopulationCell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulator\SimulationData.cs" />
+    <Compile Include="Simulator\Simulator.cs" />
+    <Compile Include="Simulator\TimeConstants.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Manipulation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

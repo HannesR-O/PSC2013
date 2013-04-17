@@ -10,9 +10,19 @@ namespace PSC2013.ES.Library.Simulator
 {
     public class SimulationData
     {
-        private static PopulationCell[] Population;
-        private static LandCircle[] LandCircles;
-        private static FederalState[] FederalStates;
+        //PopulationData
+        public static PopulationCell[] Population;
+
+        //AreaData
+        public static LandCircle[] LandCircles;
+        public static FederalState[] FederalStates;
+
+        //TimeConstants
+        public static Day CurrentDay;
+        public static Month CurrentMonth;
+        public static DayTime CurrentDayTime;
+        public static int CurrentTime; // 0-23 Uhr
+
 
         static SimulationData()
         {
