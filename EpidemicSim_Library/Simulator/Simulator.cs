@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSC2013.ES.Library.PopulationData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +12,83 @@ namespace PSC2013.ES.Library.Simulator
 
         public void Simulate()
         {
+            //Assumption : SimulationData initialized Completely, including default Mindset, Professions, etc
+
+
             //Let people think + save their number
+            for (int i = 0; i < SimulationData.Population.Length; ++i)
+            {
+                for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
+                {
+                    switch(SimulationData.Population[i].Humans[j].GetMindset())
+                    {
+                        case Mindset.Stationary: break;
+                        case Mindset.HomeStaying: break;
+                        case Mindset.Working: break;
+                        case Mindset.Vacationing: break;
+                        case Mindset.Shopping: break;
+                    }
+                }
+            }
+
+
 
             //refresh influencing Factors
+            for (int i = 0; i < SimulationData.FederalStates.Length; ++i)
+            {
+                //SimulationData.FederalStates[i].Influence = 0;
+            }
 
-            //Calculate new Infected
+                //Calculate new Infected
+                for (int i = 0; i < SimulationData.Population.Length; ++i)
+                {
+                    for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
+                    {
+
+                    }
+                }
 
             //DiseaseTick
+                for (int i = 0; i < SimulationData.Population.Length; ++i)
+                {
+                    for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
+                    {
+                        //SimulationData.Population[i].Humans[j].DoDiseaseTick();
+                    }
+                }
+
 
             //if a day has passed recalculate Mindset
+                for (int i = 0; i < SimulationData.Population.Length; ++i)
+                {
+                    for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
+                    {
+                        
+                    }
+                }
 
             //if a Month has passed give Birth to new Babys
+                for (int i = 0; i < SimulationData.Population.Length; ++i)
+                {
+                    for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
+                    {
+                        //NEEDS FEMALE/MALE 
+                    }
+                }
 
             //if a year has passed trigger Aging
-
+                for (int i = 0; i < SimulationData.Population.Length; ++i)
+                {
+                    for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
+                    {
+                        SimulationData.Population[i].Humans[j].DoAgeTick();
+                        //if human got older change Profession!!!!!!
+                    }
+                }
 
         }
+
+        
 
     }
 }
