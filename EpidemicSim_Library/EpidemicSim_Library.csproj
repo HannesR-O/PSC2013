@@ -42,12 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaData\FederalState.cs" />
+    <Compile Include="AreaData\LandCircle.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Population\Age.cs" />
-    <Compile Include="Population\Gender.cs" />
-    <Compile Include="Population\Human.cs" />
-    <Compile Include="Population\PopulationCell.cs" />
+    <Compile Include="PopulationData\Human.cs" />
+    <Compile Include="PopulationData\PopulationCell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simulator\SimulationData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Manipulation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

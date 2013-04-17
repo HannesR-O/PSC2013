@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSC2013.ES.Library.Population
+namespace PSC2013.ES.Library.AreaData
 {
-    public enum Gender : byte
+    public class LandCircle
     {
-        Female  = 0,
-        Male    = 128
+        public int RefFederalState;
     }
 }
