@@ -38,8 +38,6 @@ namespace PSC2013.ES.Library.Simulator
 
             for (int i = 0; i < Population.Length; ++i)
                 Population[i].Init();
-
         }
-
     }
 }
