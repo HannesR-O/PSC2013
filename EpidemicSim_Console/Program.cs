@@ -1,5 +1,5 @@
-﻿using System;
-using PSC2013.ES.Library.Population;
+﻿using PSC2013.ES.Library.Simulator;
+using System;
 using System.Diagnostics;
 
 namespace PSC2013.ES.Console
@@ -10,7 +10,10 @@ namespace PSC2013.ES.Console
         {
 
 #if DEBUG
-            System.Console.ReadKey();
+           // System.Console.ReadKey();
+            System.Console.WriteLine(SimulationData.CurrentDay);
+            System.Console.ReadLine();
+
 #endif
         }
     }

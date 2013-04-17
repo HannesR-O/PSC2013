@@ -24,12 +24,17 @@ namespace PSC2013.ES.Library.Simulator
         public static int CurrentTime; // 0-23 Uhr
 
 
+
         static SimulationData()
         {
 
             FederalStates = new FederalState[16];
             LandCircles = new LandCircle[401];
             Population = new PopulationCell[10808574];
+
+            for (int i = 0; i < Population.Length; ++i)
+                Population[i].Init();
+
         }
 
     }

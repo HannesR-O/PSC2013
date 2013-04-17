@@ -11,5 +11,10 @@ namespace PSC2013.ES.Library.PopulationData
         public Human[] Humans;
         public int RefLandCircle;
         public int HumanCount;
+
+        public void Init()
+        {
+            Humans = new Human[10];
+        }
     }
 }

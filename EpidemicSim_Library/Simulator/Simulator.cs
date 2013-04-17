@@ -13,6 +13,10 @@ namespace PSC2013.ES.Library.Simulator
         private Action Infection_Action;
         private Action Disease_Action;
 
+
+        
+
+
         //TODO Has to be Multithreaded
         public void Simulate()
         {
