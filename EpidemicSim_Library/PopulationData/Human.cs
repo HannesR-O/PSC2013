@@ -8,8 +8,8 @@ namespace PSC2013.ES.Library.PopulationData
 {
     public struct Human
     {
-        private const byte MASK_GENDER  = 0x80;             // 1000 0000
-        private const byte MASK_AGE     = 0x7F;             // 0111 1111
+        private const byte MASK_GENDER  = 0x80;              // 1000 0000
+        private const byte MASK_AGE     = 0x7F;              // 0111 1111
 
         private const byte MASK_INFECTED = 0x80;             // 1000 0000
         private const byte MASK_SPREADING = 0x40;            // 0100 0000

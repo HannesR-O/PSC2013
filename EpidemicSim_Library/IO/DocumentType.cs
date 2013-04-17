@@ -8,9 +8,9 @@ namespace PSC2013.ES.Library.IO
 {
     public enum DocumentType
     {
-        Other           = -1,
-        ConfigFile      = 0,
-        SimulationInput = 1,
-        SimulationData  = 2
+        Other               = -1,
+        ConfigFile          = 0,
+        SimulationInput     = 1,
+        SimulationSnapshot  = 2
     }
 }

@@ -51,7 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Population\HumanConverterTest.cs" />
     <Compile Include="Population\PopulationCellTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExampleTest.cs" />

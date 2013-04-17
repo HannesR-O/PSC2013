@@ -47,7 +47,7 @@
     <Compile Include="Diseases\FactorContainer.cs" />
     <Compile Include="IO\DocumentType.cs" />
     <Compile Include="IO\ES_Document.cs" />
-    <Compile Include="IO\IDocumentWriter.cs" />
+    <Compile Include="IO\Writers\IDocumentWriter.cs" />
     <Compile Include="PopulationData\Age.cs" />
     <Compile Include="PopulationData\Gender.cs" />
     <Compile Include="AreaData\FederalState.cs" />
