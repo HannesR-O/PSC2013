@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaData\CellSnapshot.cs" />
     <Compile Include="AreaData\Department.cs" />
     <Compile Include="AreaData\DepartmentInfo.cs" />
     <Compile Include="AreaData\MatrixGenerator.cs" />
