@@ -15,11 +15,14 @@ namespace PSC2013.ES.Library.Simulator
             //Assumption : SimulationData initialized Completely, including default Mindset, Professions, etc
 
 
-            //Let people think + save their number
+            //Let people think and Move them
             for (int i = 0; i < SimulationData.Population.Length; ++i)
             {
                 for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                 {
+                    if (SimulationData.Population[i].Humans[j].IsDead())
+                        continue;
+
                     switch(SimulationData.Population[i].Humans[j].GetMindset())
                     {
                         case Mindset.Stationary: break;
@@ -36,6 +39,7 @@ namespace PSC2013.ES.Library.Simulator
             //refresh influencing Factors
             for (int i = 0; i < SimulationData.FederalStates.Length; ++i)
             {
+
                 //SimulationData.FederalStates[i].Influence = 0;
             }
 
@@ -44,6 +48,9 @@ namespace PSC2013.ES.Library.Simulator
                 {
                     for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                     {
+                        if (SimulationData.Population[i].Humans[j].IsDead())
+                            continue;
+
 
                     }
                 }
@@ -53,6 +60,9 @@ namespace PSC2013.ES.Library.Simulator
                 {
                     for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                     {
+                        if (SimulationData.Population[i].Humans[j].IsDead())
+                            continue;
+
                         //SimulationData.Population[i].Humans[j].DoDiseaseTick();
                     }
                 }
@@ -63,17 +73,15 @@ namespace PSC2013.ES.Library.Simulator
                 {
                     for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                     {
-                        
+                        if (SimulationData.Population[i].Humans[j].IsDead())
+                            continue;
                     }
                 }
 
             //if a Month has passed give Birth to new Babys
                 for (int i = 0; i < SimulationData.Population.Length; ++i)
                 {
-                    for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
-                    {
-                        //NEEDS FEMALE/MALE 
-                    }
+                    //Add all Females/males calculate new Babys by chance
                 }
 
             //if a year has passed trigger Aging
