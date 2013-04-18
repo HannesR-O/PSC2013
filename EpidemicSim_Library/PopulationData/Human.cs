@@ -24,27 +24,12 @@ namespace PSC2013.ES.Library.PopulationData
         /// </summary>
         public readonly int HomeCell;
 
-        private byte _data0;  // Age & Gender
-        private byte _data1;  // Infected & Spreading & Diseased & Death
-        private byte _data2; // Profession & Mindset
+        private byte _data0;    // Age & Gender
+        private byte _data1;    // Infected & Spreading & Diseased & Death
+        private byte _data2;    // Profession & Mindset 
 
-        private short _counter1;
-        private short _counter2;
-
-        ///// <summary>
-        ///// Only for explicit purposes. Initializes everything to 0.
-        ///// </summary>
-        //private Human()
-        //{
-        //    HomeCell = 0;
-
-        //    _data0 = 0;
-        //    _data1 = 0;
-        //    _data2 = 0;
-
-        //    _counter1 = 0;
-        //    _counter2 = 0;
-        //}
+        private short _counterInfect;
+        private short _counterSpreading;
 
         /// <summary>
         /// Needs to be an extra constructor, because HomeCell is readonly
@@ -56,8 +41,8 @@ namespace PSC2013.ES.Library.PopulationData
             _data0 = 0;
             _data1 = 0;
             _data2 = 0;
-            _counter1 = 1;
-            _counter2 = 2;
+            _counterInfect = 1;
+            _counterSpreading = 2;
         }
 
         /// <summary>
@@ -84,7 +69,7 @@ namespace PSC2013.ES.Library.PopulationData
 
             Human other = (Human)obj;
             return (this.HomeCell == other.HomeCell) && (this._data0 == other._data0) && (this._data1 == other._data1) &&
-                (this._data2 == other._data2) && (this._counter1 == other._counter1) && (this._counter2 == other._counter2);
+                (this._data2 == other._data2) && (this._counterInfect == other._counterInfect) && (this._counterSpreading == other._counterSpreading);
         }
 
         public override int GetHashCode()
@@ -259,9 +244,9 @@ namespace PSC2013.ES.Library.PopulationData
             sb.Append(',');
             sb.Append(Convert.ToBase64String(new byte[] {_data0, _data1, _data2 }));
             sb.Append(',');
-            sb.Append(_counter1.ToBase64());
+            sb.Append(_counterInfect.ToBase64());
             sb.Append(',');
-            sb.Append(_counter2.ToBase64());
+            sb.Append(_counterSpreading.ToBase64());
 
             return sb.ToString();
         }
@@ -280,8 +265,8 @@ namespace PSC2013.ES.Library.PopulationData
             human._data0 = data[0];
             human._data1 = data[1];
             human._data2 = data[2];
-            human._counter1 = new short().FromBase64(parts[2]);
-            human._counter2 = new short().FromBase64(parts[3]);
+            human._counterInfect = new short().FromBase64(parts[2]);
+            human._counterSpreading = new short().FromBase64(parts[3]);
 
             return human;
         }

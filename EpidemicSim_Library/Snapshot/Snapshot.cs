@@ -7,8 +7,7 @@ using PSC2013.ES.Library.IO.Document;
 
 namespace PSC2013.ES.Library.Snapshot
 {
-    // Noch verschieben?
-    class Snapshot : IDocument
+    public class Snapshot
     {
         private CellSnapshot[] cells;
         //TODO | T |Implement
