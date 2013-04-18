@@ -58,14 +58,24 @@ namespace PSC2013.ES.Library.AreaData
             temp[0] = input.HumanCount;
             temp[1] = input.Humans.Count(x => x.GetGender() == EGender.Male);
             temp[2] = input.Humans.Count(x => x.GetGender() == EGender.Female);
+            temp[3] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Baby);
+            temp[4] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Child);
+            temp[5] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Adult);
+            temp[6] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Senior);
+            temp[7] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Baby);
+            temp[8] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Child);
+            temp[9] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Adult);
+            temp[10] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Senior);
             temp[11] = position;
+
+            //TODO Deaths
 
             return new CellSnapshot(temp);
         }
 
         public static CellSnapshot FromFile(int[] input)
         {
-            return null; //TODO 
+            return null; //TODO File
         }
     }
 }
