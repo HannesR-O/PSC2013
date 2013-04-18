@@ -19,19 +19,15 @@ namespace PSC2013.ES.Library.Simulator
         public static FederalState[] FederalStates;
 
         //TimeConstants
-        public static Day CurrentDay;
-        public static Month CurrentMonth;
-        public static DayTime CurrentDayTime;
+        public static DayOfWeek CurrentDay;
+        public static EMonth CurrentMonth;
         public static int CurrentTime; // 0-23 Uhr
 
         //Used Disease
         public static Disease CurrentDisease;
-        
-
 
         static SimulationData()
         {
-
             FederalStates = new FederalState[16];
             Departments = new Department[401];
             Population = new PopulationCell[10808574];
