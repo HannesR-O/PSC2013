@@ -8,7 +8,6 @@ using PSC2013.ES.Library.IO.Document;
 namespace PSC2013.ES.Library.AreaData
 {
     // Noch verschieben?
-   
     class Snapshot : IDocument
     {
         private CellSnapshot[] cells;
