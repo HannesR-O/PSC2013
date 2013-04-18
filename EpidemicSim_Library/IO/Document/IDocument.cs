@@ -11,6 +11,6 @@ namespace PSC2013.ES.Library.IO.Document
     /// </summary>
     public interface IDocument
     {
-
+        byte[] GetBytes();
     }
 }

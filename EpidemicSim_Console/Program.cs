@@ -1,16 +1,16 @@
 ﻿using PSC2013.ES.Library.PopulationData;
-using PSC2013.ES.Library.Simulator;
+using PSC2013.ES.Library.Simulation;
 using System;
 using System.Diagnostics;
 
-namespace PSC2013.ES.Console
+namespace PSC2013.ES.Cmd
 {
     class Program
     {
         static void Main(string[] args)
         {
 #if DEBUG
-
+            Console.WriteLine();
 #endif
         }
     }

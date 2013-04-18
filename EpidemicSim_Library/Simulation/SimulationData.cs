@@ -3,7 +3,7 @@ using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.PopulationData;
 using System;
 
-namespace PSC2013.ES.Library.Simulator
+namespace PSC2013.ES.Library.Simulation
 {
     public class SimulationData
     {

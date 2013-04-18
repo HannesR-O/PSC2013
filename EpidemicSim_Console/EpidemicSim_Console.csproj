@@ -7,7 +7,7 @@
     <ProjectGuid>{FBA36DC3-487F-445F-930E-0D8D4350C242}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PSC2013.ES.Console</RootNamespace>
+    <RootNamespace>PSC2013.ES.Cmd</RootNamespace>
     <AssemblyName>ES Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -35,7 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>PSC2013.ES.Console.Program</StartupObject>
+    <StartupObject>PSC2013.ES.Cmd.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

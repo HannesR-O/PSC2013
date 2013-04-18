@@ -16,7 +16,7 @@ namespace PSC2013.ES.Library.PopulationData
 
         public void Init() // TODO | dj | should be called normally
         {
-            Humans = new Human[10];
+            Humans = new Human[0];
         }
 
         public void AddHuman(Human h)
