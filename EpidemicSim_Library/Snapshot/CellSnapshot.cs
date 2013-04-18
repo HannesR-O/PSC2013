@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.PopulationData;
 
-namespace PSC2013.ES.Library.AreaData
+namespace PSC2013.ES.Library.Snapshot
 {
     /// <summary>
     /// Snapshot of a single PopulationCell. Can be created from File or from a Cell; Usable both Ways.

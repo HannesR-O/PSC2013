@@ -43,11 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreaData\CellSnapshot.cs" />
+    <Compile Include="Snapshot\CellSnapshot.cs" />
     <Compile Include="AreaData\Department.cs" />
     <Compile Include="AreaData\DepartmentInfo.cs" />
     <Compile Include="AreaData\MatrixGenerator.cs" />
-    <Compile Include="AreaData\Snapshot.cs" />
+    <Compile Include="Snapshot\Snapshot.cs" />
     <Compile Include="Diseases\Disease.cs" />
     <Compile Include="Diseases\FactorContainer.cs" />
     <Compile Include="IO\Document\IDocument.cs" />
@@ -64,6 +64,7 @@
     <Compile Include="Simulator\SimulationData.cs" />
     <Compile Include="Simulator\Simulator.cs" />
     <Compile Include="Simulator\TimeConstants.cs" />
+    <Compile Include="Snapshot\SnapshotManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.IO.Document;
 
-namespace PSC2013.ES.Library.AreaData
+namespace PSC2013.ES.Library.Snapshot
 {
     // Noch verschieben?
     class Snapshot : IDocument
