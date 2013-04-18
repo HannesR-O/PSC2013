@@ -67,7 +67,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// <param name="age">Age in Years of the Human to create (1-110)</param>
         /// <param name="homeCell">HomeCell of the Human to create</param>
         /// <returns>The newly created Human struct</returns>
-        public static Human CreateHuman(Gender gender, int age, int homeCell)
+        public static Human CreateHuman(EGender gender, int age, int homeCell)
         {
             Human human = new Human(homeCell);
 
@@ -77,16 +77,37 @@ namespace PSC2013.ES.Library.PopulationData
             return human;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Human))
+                return false;
+
+            Human other = (Human)obj;
+            return (this.HomeCell == other.HomeCell) && (this._data0 == other._data0) && (this._data1 == other._data1) &&
+                (this._data2 == other._data2) && (this._counter1 == other._counter1) && (this._counter2 == other._counter2);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)_data0;
+        }
+
+        public override string ToString()
+        {
+            //TODO: |f| Add later
+            return base.ToString();
+        }
+
         /// <summary>
         /// Returns the Human's Gender
         /// </summary>
         /// <returns>The Gender</returns>
-        public Gender GetGender()
+        public EGender GetGender()
         {
-            return (Gender)(_data0 & MASK_GENDER);
+            return (EGender)(_data0 & MASK_GENDER);
         }
 
-        private void SetGender(Gender gender)
+        private void SetGender(EGender gender)
         {
             _data0 = (byte)((_data0 & ~MASK_GENDER) + (byte)gender);
         }
@@ -95,20 +116,20 @@ namespace PSC2013.ES.Library.PopulationData
         /// Return the Human's Age as PopulationData.Age
         /// </summary>
         /// <returns>The Age</returns>
-        public Age GetAge()
+        public EAge GetAge()
         {
             int value = _data0 & MASK_AGE;
 
-            Age age = Age.Baby;
+            EAge age = EAge.Baby;
 
             if (value <= 6)
-                age = Age.Baby;
+                age = EAge.Baby;
             else if (value <= 25)
-                age = Age.Child;
+                age = EAge.Child;
             else if (value <= 60)
-                age = Age.Adult;
+                age = EAge.Adult;
             else
-                age = Age.Senior;
+                age = EAge.Senior;
 
             return age;
         }
@@ -181,12 +202,12 @@ namespace PSC2013.ES.Library.PopulationData
         /// Returns the current Profession of the human
         /// </summary>
         /// <returns>the Profession</returns>
-        public Profession GetProfession()
+        public EProfession GetProfession()
         {
-            return (Profession)(_data2 >> 4);
+            return (EProfession)(_data2 >> 4);
         }
 
-        public void SetProfession(Profession profession)
+        public void SetProfession(EProfession profession)
         {
             _data2 = (byte)(_data2 & ~MASK_PROFESSION + ((byte)profession) << 4);
         }
@@ -195,12 +216,12 @@ namespace PSC2013.ES.Library.PopulationData
         /// Returns the current Mindset of the human
         /// </summary>
         /// <returns>the Mindset</returns>
-        public Mindset GetMindset()
+        public EMindset GetMindset()
         {
-            return (Mindset)(_data2 & MASK_MINDSET);
+            return (EMindset)(_data2 & MASK_MINDSET);
         }
 
-        public void SetMindset(Mindset mindset)
+        public void SetMindset(EMindset mindset)
         {
             _data2 = (byte)((_data2 & ~MASK_MINDSET) +  (byte)mindset);
         }
@@ -224,6 +245,45 @@ namespace PSC2013.ES.Library.PopulationData
             SetDeath(true);
             //TODO T |Anything else? Always return False?
             return false;
+        }
+
+        /// <summary>
+        /// Returns a Base64 string representing the human
+        /// </summary>
+        /// <returns>The Base64 representation</returns>
+        public string ToBase64()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(HomeCell.ToBase64());
+            sb.Append(',');
+            sb.Append(Convert.ToBase64String(new byte[] {_data0, _data1, _data2 }));
+            sb.Append(',');
+            sb.Append(_counter1.ToBase64());
+            sb.Append(',');
+            sb.Append(_counter2.ToBase64());
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Creates a new Human based on a given Base64 representation string
+        /// </summary>
+        /// <param name="base64">The string containing the Human info</param>
+        /// <returns>The newly created Human</returns>
+        public static Human FromBase64(string base64)
+        {
+            string[] parts = base64.Split(',');
+
+            var human = new Human(new int().FromBase64(parts[0]));
+            byte[] data = Convert.FromBase64String(parts[1]);
+            human._data0 = data[0];
+            human._data1 = data[1];
+            human._data2 = data[2];
+            human._counter1 = new short().FromBase64(parts[2]);
+            human._counter2 = new short().FromBase64(parts[3]);
+
+            return human;
         }
     }
 }

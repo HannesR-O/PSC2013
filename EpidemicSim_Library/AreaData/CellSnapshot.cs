@@ -25,7 +25,7 @@ namespace PSC2013.ES.Library.AreaData
         public static int CountF10 { get; private set; }
         public static int CountF11 { get; private set; }
 
-        public static List<Tuple<bool, Age, int>> Deaths { get; private set; }
+        public static List<Tuple<bool, EAge, int>> Deaths { get; private set; }
 
         /// <summary>
         /// Creates an new Cellsnapshot
@@ -56,8 +56,8 @@ namespace PSC2013.ES.Library.AreaData
         {
             int[] temp = new int[12];
             temp[0] = input.HumanCount;
-            temp[1] = input.Humans.Count(x => x.GetGender() == Gender.Male);
-            temp[2] = input.Humans.Count(x => x.GetGender() == Gender.Female);
+            temp[1] = input.Humans.Count(x => x.GetGender() == EGender.Male);
+            temp[2] = input.Humans.Count(x => x.GetGender() == EGender.Female);
             temp[11] = position;
 
             return new CellSnapshot(temp);

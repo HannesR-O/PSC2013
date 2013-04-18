@@ -22,5 +22,25 @@ namespace PSC2013.ES.Library
                 eventHandler(sender, e);
             }
         }
+
+        public static int FromBase64(this int value, string base64)
+        {
+            return BitConverter.ToInt32(Convert.FromBase64String(base64), 0);
+        }
+
+        public static string ToBase64(this int value)
+        {
+            return Convert.ToBase64String(BitConverter.GetBytes(value));
+        }
+
+        public static short FromBase64(this short value, string base64)
+        {
+            return BitConverter.ToInt16(Convert.FromBase64String(base64), 0);
+        }
+
+        public static string ToBase64(this short value)
+        {
+            return Convert.ToBase64String(BitConverter.GetBytes(value));
+        }
     }
 }

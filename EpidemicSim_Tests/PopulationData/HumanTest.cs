@@ -21,8 +21,8 @@ namespace PSC2013.ES.Tests.PopulationData
         private void SetUp()
         {
             r = new Random((int)DateTime.Now.Ticks);
-            h1 = Human.CreateHuman(Gender.Female, AGE_FEMALE, HOMECELL);
-            h2 = Human.CreateHuman(Gender.Male, AGE_MALE, HOMECELL);
+            h1 = Human.CreateHuman(EGender.Female, AGE_FEMALE, HOMECELL);
+            h2 = Human.CreateHuman(EGender.Male, AGE_MALE, HOMECELL);
         }
 
         [Fact]
@@ -30,8 +30,8 @@ namespace PSC2013.ES.Tests.PopulationData
         {
             SetUp();
 
-            Assert.Equal(Gender.Female, h1.GetGender());
-            Assert.Equal(Gender.Male, h2.GetGender());
+            Assert.Equal(EGender.Female, h1.GetGender());
+            Assert.Equal(EGender.Male, h2.GetGender());
         }
 
         [Fact]
@@ -39,21 +39,21 @@ namespace PSC2013.ES.Tests.PopulationData
         {
             SetUp();
 
-            Assert.Equal(Age.Adult, h1.GetAge());
-            Assert.Equal(Age.Child, h2.GetAge());
+            Assert.Equal(EAge.Adult, h1.GetAge());
+            Assert.Equal(EAge.Child, h2.GetAge());
 
             int age = r.Next(110);
-            var human = Human.CreateHuman(Gender.Female, age, r.Next());
-            Age expected = Age.Baby;
+            var human = Human.CreateHuman(EGender.Female, age, r.Next());
+            EAge expected = EAge.Baby;
 
             if (age <= 6)
-                expected = Age.Baby;
+                expected = EAge.Baby;
             else if (age <= 25)
-                expected = Age.Child;
+                expected = EAge.Child;
             else if (age <= 60)
-                expected = Age.Adult;
+                expected = EAge.Adult;
             else
-                expected = Age.Senior;
+                expected = EAge.Senior;
 
             Assert.Equal(expected, human.GetAge()); 
         }
@@ -64,10 +64,10 @@ namespace PSC2013.ES.Tests.PopulationData
             SetUp();
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                new Assert.ThrowsDelegateWithReturn(() => Human.CreateHuman(Gender.Female, 0, HOMECELL)));
+                new Assert.ThrowsDelegateWithReturn(() => Human.CreateHuman(EGender.Female, 0, HOMECELL)));
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                new Assert.ThrowsDelegateWithReturn(() => Human.CreateHuman(Gender.Female, 111, HOMECELL)));
+                new Assert.ThrowsDelegateWithReturn(() => Human.CreateHuman(EGender.Female, 111, HOMECELL)));
         }
 
         [Fact]
@@ -97,46 +97,46 @@ namespace PSC2013.ES.Tests.PopulationData
         {
             SetUp();
 
-            var human = Human.CreateHuman(Gender.Male, 1, r.Next());
+            var human = Human.CreateHuman(EGender.Male, 1, r.Next());
 
-            Assert.Equal(Age.Baby, human.GetAge());
+            Assert.Equal(EAge.Baby, human.GetAge());
 
             for (int i = 0; i < 5; i++)
                 human.DoAgeTick();
 
-            Assert.Equal(Age.Baby, human.GetAge());         // age should be 6 now
+            Assert.Equal(EAge.Baby, human.GetAge());         // age should be 6 now
 
             human.DoAgeTick();
 
-            Assert.Equal(Age.Child, human.GetAge());        // age should be 7 now => GetAge() should return Age.Child
+            Assert.Equal(EAge.Child, human.GetAge());        // age should be 7 now => GetAge() should return Age.Child
 
             for (int i = 0; i < 18; i++)
                 human.DoAgeTick();
 
-            Assert.Equal(Age.Child, human.GetAge());        // age should be 25 now
+            Assert.Equal(EAge.Child, human.GetAge());        // age should be 25 now
 
             human.DoAgeTick();
 
-            Assert.Equal(Age.Adult, human.GetAge());        // age should be 26 now => GetAge() should return Age.Adult
+            Assert.Equal(EAge.Adult, human.GetAge());        // age should be 26 now => GetAge() should return Age.Adult
 
             for (int i = 0; i < 34; i++)
                 human.DoAgeTick();
 
-            Assert.Equal(Age.Adult, human.GetAge());        // age should be 60 now
+            Assert.Equal(EAge.Adult, human.GetAge());        // age should be 60 now
 
             human.DoAgeTick();
 
-            Assert.Equal(Age.Senior, human.GetAge());       // age should be 61 now => GetAge() should return Age.Senior
+            Assert.Equal(EAge.Senior, human.GetAge());       // age should be 61 now => GetAge() should return Age.Senior
 
             for (int i = 0; i < 49; i++)
                 human.DoAgeTick();
 
-            Assert.Equal(Age.Senior, human.GetAge());       // age should be 110 now 
+            Assert.Equal(EAge.Senior, human.GetAge());       // age should be 110 now 
             Assert.Equal(false, human.IsDead());            // => human is still alive
 
             human.DoAgeTick();
 
-            Assert.Equal(Age.Senior, human.GetAge());       // age should be 111 now
+            Assert.Equal(EAge.Senior, human.GetAge());       // age should be 111 now
             Assert.Equal(true, human.IsDead());             // => human dies from overageing, but GetAge() still is valid
         }
 
@@ -154,7 +154,7 @@ namespace PSC2013.ES.Tests.PopulationData
             Assert.Equal(true, h1.IsDead());
             Assert.Equal(true, h2.IsDead());
 
-            var human = Human.CreateHuman(Gender.Female, r.Next(110), r.Next());
+            var human = Human.CreateHuman(EGender.Female, r.Next(110), r.Next());
 
             Assert.Equal(false, human.IsDead());
 

@@ -25,11 +25,11 @@ namespace PSC2013.ES.Library.Simulator
 
                     switch(SimulationData.Population[i].Humans[j].GetMindset())
                     {
-                        case Mindset.Stationary: break;
-                        case Mindset.HomeStaying: break;
-                        case Mindset.Working: break;
-                        case Mindset.Vacationing: break;
-                        case Mindset.Shopping: break;
+                        case EMindset.Stationary: break;
+                        case EMindset.HomeStaying: break;
+                        case EMindset.Working: break;
+                        case EMindset.Vacationing: break;
+                        case EMindset.Shopping: break;
                     }
                 }
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PSC2013.ES.Library.PopulationData
 {
   
-    public enum Profession : byte
+    public enum EProfession : byte
     {
         //Maximum count for Professions = 16
         Pupil, 

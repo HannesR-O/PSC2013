@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.PopulationData
 {
-    public enum Age : byte
+    public enum EAge : byte
     {
         Baby    = 0,
         Child   = 32,
