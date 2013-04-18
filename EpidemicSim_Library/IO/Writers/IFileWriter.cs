@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PSC2013.ES.Library.IO.Document;
 
 namespace PSC2013.ES.Library.IO.Writers
 {
@@ -14,7 +15,7 @@ namespace PSC2013.ES.Library.IO.Writers
         /// </summary>
         /// <param name="fileName">The fileName to write the document in</param>
         /// <param name="file">The ES_Document to write</param>
-        void WriteFile(string fileName, object file);
+        void WriteFile(string fileName, IDocument file);
 
         /// <summary>
         /// Reads an ES_Document from the specified fileName

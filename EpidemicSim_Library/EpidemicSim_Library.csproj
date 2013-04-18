@@ -47,8 +47,10 @@
     <Compile Include="AreaData\Department.cs" />
     <Compile Include="AreaData\DepartmentInfo.cs" />
     <Compile Include="AreaData\MatrixGenerator.cs" />
+    <Compile Include="AreaData\Snapshot.cs" />
     <Compile Include="Diseases\Disease.cs" />
     <Compile Include="Diseases\FactorContainer.cs" />
+    <Compile Include="IO\Document\IDocument.cs" />
     <Compile Include="IO\Writers\IFileWriter.cs" />
     <Compile Include="PopulationData\EAge.cs" />
     <Compile Include="PopulationData\EGender.cs" />
