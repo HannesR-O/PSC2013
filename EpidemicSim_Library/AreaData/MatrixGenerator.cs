@@ -22,7 +22,7 @@ namespace PSC2013.ES.Library.AreaData
         /// </summary>
         /// <param name="populationArray">The PopulationCell-matrix which will be
         /// used for most stuff. This array will be modified!</param>
-        /// <param name="rawData">The raw DepartmentInfos.</param>
+        /// <param name="rawData">The raw DepartmentInfos. This array will be modified!</param>
         /// <returns>The input-populationCell-array (modified).</returns>
         public static PopulationCell[] GenerateMatrix(
             PopulationCell[] populationArray,
@@ -68,18 +68,25 @@ namespace PSC2013.ES.Library.AreaData
             if (!depInfo.Coordinates.Any(p => p.Equals(initialPoint)))
                 initialPoint = depInfo.Coordinates[0];
 
-            short avgFactor = 110;
+            short avgFactor = 115;
             int areaSize = depInfo.Coordinates.Length;
+            int currentRun = 0;
 
-            Queue<Point> workingQueue = new Queue<Point>();
-            workingQueue.Enqueue(initialPoint);
+            Queue<Tuple<int, Point>> workingQueue = new Queue<Tuple<int, Point>>();
+            workingQueue.Enqueue(new Tuple<int, Point>(currentRun, initialPoint));
 
             while (workingQueue.Count > 0)
             {
-                Point n = workingQueue.Dequeue();
+                Tuple<int, Point> n = workingQueue.Dequeue();
 
-                //depInfo.GetTotal();
+                int remainingTplOfSameRun = workingQueue.Count(x => x.Item1 == currentRun);
+                int possibles = depInfo.GetTotal() / areaSize / remainingTplOfSameRun;
+                
+                // - fill (with random?!)
 
+                // - if remainingTpl... == 0? avgFactor -= x;
+                
+                // - queue neighbours
             }
 
             // TODO | dj | continue..
