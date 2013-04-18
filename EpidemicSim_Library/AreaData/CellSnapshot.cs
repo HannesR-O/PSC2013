@@ -9,29 +9,29 @@ namespace PSC2013.ES.Library.AreaData
 {
     public class CellSnapshot
     {
-        public static int Position { get; private set; }
+        public int Position { get; private set; }
 
-        public static int Count { get; private set; }
-        public static int CountMale { get; private set; }
-        public static int CountFemale { get; private set; }
+        public int Count { get; private set; }
+        public int CountMale { get; private set; }
+        public int CountFemale { get; private set; }
 
-        public static int CountM00 { get; private set; }
-        public static int CountM01 { get; private set; }
-        public static int CountM10 { get; private set; }
-        public static int CountM11 { get; private set; }
+        public int CountM00 { get; private set; }
+        public int CountM01 { get; private set; }
+        public int CountM10 { get; private set; }
+        public int CountM11 { get; private set; }
 
-        public static int CountF00 { get; private set; }
-        public static int CountF01 { get; private set; }
-        public static int CountF10 { get; private set; }
-        public static int CountF11 { get; private set; }
+        public int CountF00 { get; private set; }
+        public int CountF01 { get; private set; }
+        public int CountF10 { get; private set; }
+        public int CountF11 { get; private set; }
 
-        public static List<Tuple<bool, EAge, int>> Deaths { get; private set; }
+        public string[] Dead{ get; private set; }
 
         /// <summary>
-        /// Creates an new Cellsnapshot
+        /// Creates an new Cellsnapshot, private becaus it's static
         /// </summary>
         /// <param name="param">The Population to be Snaped</param>
-        private CellSnapshot(int[] infos)
+        private CellSnapshot(int[] infos, string[] dead)
         {
             Count = infos[0];
             CountMale = infos[1];
@@ -49,12 +49,20 @@ namespace PSC2013.ES.Library.AreaData
 
             Position = infos[11];
 
-            //TODO Deaths
+            Dead = dead;
         }
 
-        public static CellSnapshot FromCell(PopulationCell input, int position)
+        /// <summary>
+        /// Creates an CellSnapshot from a PopulationCell
+        /// </summary>
+        /// <param name="input">Input Counts</param>
+        /// <param name="position">Position of the cell</param>
+        /// <param name="deaths">An array containing the dead people as strings</param>
+        /// <returns></returns>
+        public static CellSnapshot FromCell(PopulationCell input, int position, string[] deaths)
         {
             int[] temp = new int[12];
+
             temp[0] = input.HumanCount;
             temp[1] = input.Humans.Count(x => x.GetGender() == EGender.Male);
             temp[2] = input.Humans.Count(x => x.GetGender() == EGender.Female);
@@ -66,16 +74,20 @@ namespace PSC2013.ES.Library.AreaData
             temp[8] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Child);
             temp[9] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Adult);
             temp[10] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Senior);
-            temp[11] = position;
+            temp[11] = position; 
 
-            //TODO Deaths
-
-            return new CellSnapshot(temp);
+            return new CellSnapshot(temp, deaths);
         }
 
-        public static CellSnapshot FromFile(int[] input)
+        /// <summary>
+        /// Creates an new CellSnapshot from Information parsed from an file
+        /// </summary>
+        /// <param name="counts">input counts</param>
+        /// <param name="dead"></param>
+        /// <returns>An array containing the dead people as strings</returns>
+        public static CellSnapshot FromFile(int[] counts, string[] dead)
         {
-            return null; //TODO File
+            return new CellSnapshot(counts, dead);
         }
     }
 }
