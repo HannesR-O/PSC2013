@@ -7,25 +7,28 @@ using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library.AreaData
 {
+    /// <summary>
+    /// Snapshot of a single PopulationCell. Can be created from File or from a Cell; Usable both Ways.
+    /// </summary>
     public class CellSnapshot
     {
-        public int Position { get; private set; }
+        public int Position { get; private set; } // Position in Array (If 1-dimensional)
 
-        public int Count { get; private set; }
-        public int CountMale { get; private set; }
-        public int CountFemale { get; private set; }
+        public int Count { get; private set; } // Total count of humans in this cell while shot was taken
+        public int CountMale { get; private set; } // Total count of Males in this cell
+        public int CountFemale { get; private set; } // Total count of Female in this cell
 
-        public int CountM00 { get; private set; }
-        public int CountM01 { get; private set; }
-        public int CountM10 { get; private set; }
-        public int CountM11 { get; private set; }
+        public int CountM00 { get; private set; } // Males Baby
+        public int CountM01 { get; private set; } // Males Child
+        public int CountM10 { get; private set; } // Males Adult
+        public int CountM11 { get; private set; } // Males Senior
 
-        public int CountF00 { get; private set; }
-        public int CountF01 { get; private set; }
-        public int CountF10 { get; private set; }
-        public int CountF11 { get; private set; }
+        public int CountF00 { get; private set; } // Females Baby
+        public int CountF01 { get; private set; } // Females Child
+        public int CountF10 { get; private set; } // Females Adult
+        public int CountF11 { get; private set; } // Females Senior
 
-        public string[] Dead{ get; private set; }
+        public string[] Dead{ get; private set; } // base64-string of humans that died in this snapshot. Should contain Death-Cause, Age and Gender
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
