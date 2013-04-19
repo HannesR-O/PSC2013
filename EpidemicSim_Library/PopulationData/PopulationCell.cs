@@ -6,45 +6,42 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.PopulationData
 {
-    public struct PopulationCell
+    public class PopulationCell
     {
         private const int STANDARD_ARRAY_LENGTH = 8;
 
-        public Human[] Humans { get { if (_humans == null) Initialize(); return _humans; } private set { _humans = value;  } }
-        private Human[] _humans;
+        public Human[] Humans { get; private set; }
 
         public int RefDepartment { get; set; }
         public int HumanCount { get; set; }
+        public int SpreadingCount { get; set; }
 
-        private void Initialize()
+        public PopulationCell()
         {
-            _humans = new Human[16];
+            Humans = new Human[0];
         }
 
         public void AddHuman(Human human)
         {
-            if (_humans == null)                    // safety first :P
-                Initialize();
-
             for (int i = 0; i < Humans.Length; i++)
             {
-                if (_humans[i].IsDead())
+                if (Humans[i].IsDead())
                 {
-                    _humans[i] = human;
+                    Humans[i] = human;
                     return;
                 }
             }
 
-            int l = (_humans.Length <= 1) ? STANDARD_ARRAY_LENGTH : (int)(_humans.Length * 1.5f);
-            Human[] arr = new Human[l];
+            int length = (Humans.Length <= 1) ? STANDARD_ARRAY_LENGTH : (int)(Humans.Length * 1.5f);
+            Human[] newArray = new Human[length];
 
             int n = 0;
-            foreach (Human oldHuman in _humans)
+            foreach (Human toCopy in Humans)
             {
-                arr[n++] = oldHuman;
+                newArray[n++] = toCopy;
             }
 
-            arr[++n] = human;
+            newArray[++n] = human;
         }
     }
 }

@@ -78,12 +78,15 @@ namespace PSC2013.ES.InputDataParsers.UI
             Dictionary<string, List<Point>> result =
                 DepartmentParser.Parse(txBoxImage.Text, source);
 
+            int count = 0;
             foreach (string key in result.Keys)
             {
                 List<Point> list = result[key];
                 lBoxDepartments.Items.Add(key + " | Count: " + list.Count
                     + " | First Point: " + list[0].ToString());
+                count += list.Count;
             }
+            lBoxDepartments.Items.Add("Total point: " + count);
         }
 
         private void btnParseMatch_Click(object sender, EventArgs e)

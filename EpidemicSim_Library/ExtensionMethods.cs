@@ -42,5 +42,13 @@ namespace PSC2013.ES.Library
         {
             return Convert.ToBase64String(BitConverter.GetBytes(value));
         }
+
+        public static void Initialize<T>(this T[] array) where T : new()
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = new T();
+            }
+        }
     }
 }
