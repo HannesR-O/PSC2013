@@ -1,4 +1,4 @@
-﻿using PSC2013.ES.Library.IO.Document;
+﻿using PSC2013.ES.Library.IO.Files;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,6 @@ namespace PSC2013.ES.Library.Snapshot
 {
     public class SimulationInfo : IDocument
     {
-        byte[] IDocument.GetBytes()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

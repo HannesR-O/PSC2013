@@ -10,38 +10,41 @@ namespace PSC2013.ES.Library.PopulationData
     {
         private const int STANDARD_ARRAY_LENGTH = 8;
 
-        public Human[] Humans;
-        public int RefDepartment;
-        public int HumanCount;
+        public Human[] Humans { get { if (_humans == null) Initialize(); return _humans; } private set { _humans = value;  } }
+        private Human[] _humans;
 
-        public void Init() // TODO | dj | would be nice if called normally
+        public int RefDepartment { get; set; }
+        public int HumanCount { get; set; }
+
+        private void Initialize()
         {
-            Humans = new Human[0];
+            _humans = new Human[16];
         }
 
-        public void AddHuman(Human h)
+        public void AddHuman(Human human)
         {
-            if (Humans == null) // safety first :P
-                Init();
+            if (_humans == null)                    // safety first :P
+                Initialize();
 
             for (int i = 0; i < Humans.Length; i++)
             {
-                if (Humans[i].IsDead())
+                if (_humans[i].IsDead())
                 {
-                    Humans[i] = h;
+                    _humans[i] = human;
                     return;
                 }
             }
 
-            int l = (Humans.Length <= 1) ? STANDARD_ARRAY_LENGTH : (int)(Humans.Length * 1.5f);
+            int l = (_humans.Length <= 1) ? STANDARD_ARRAY_LENGTH : (int)(_humans.Length * 1.5f);
             Human[] arr = new Human[l];
 
             int n = 0;
-            foreach (Human human in Humans)
+            foreach (Human oldHuman in _humans)
             {
-                arr[n] = human;
-                n++;
+                arr[n++] = oldHuman;
             }
+
+            arr[++n] = human;
         }
     }
 }

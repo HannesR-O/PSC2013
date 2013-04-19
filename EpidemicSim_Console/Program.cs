@@ -10,7 +10,6 @@ namespace PSC2013.ES.Cmd
         static void Main(string[] args)
         {
 #if DEBUG
-            Console.WriteLine();
 #endif
         }
     }

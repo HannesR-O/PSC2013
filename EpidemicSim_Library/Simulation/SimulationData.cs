@@ -27,9 +27,6 @@ namespace PSC2013.ES.Library.Simulation
             FederalStates = new FederalState[16];
             Departments = new Department[401];
             Population = new PopulationCell[10808574];
-
-            for (int i = 0; i < Population.Length; ++i)
-                Population[i].Init();
         }
     }
 }

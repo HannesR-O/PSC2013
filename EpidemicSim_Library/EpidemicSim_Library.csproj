@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\Files\IDocument.cs" />
     <Compile Include="IO\Writers\AsyncBinaryWriter.cs" />
     <Compile Include="Snapshot\CellSnapshot.cs" />
     <Compile Include="AreaData\Department.cs" />
@@ -53,8 +54,8 @@
     <Compile Include="Snapshot\Snapshot.cs" />
     <Compile Include="Diseases\Disease.cs" />
     <Compile Include="Diseases\FactorContainer.cs" />
-    <Compile Include="IO\Document\IDocument.cs" />
-    <Compile Include="IO\Writers\IDocumentWriter.cs" />
+    <Compile Include="IO\Files\IBinaryFile.cs" />
+    <Compile Include="IO\Writers\IBinaryWriter.cs" />
     <Compile Include="PopulationData\EAge.cs" />
     <Compile Include="PopulationData\EGender.cs" />
     <Compile Include="AreaData\FederalState.cs" />
