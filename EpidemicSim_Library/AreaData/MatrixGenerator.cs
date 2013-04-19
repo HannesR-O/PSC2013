@@ -119,9 +119,11 @@ namespace PSC2013.ES.Library.AreaData
 
                         Human h = Human.CreateHuman(gender, age, fn);
                         pc.AddHuman(h);
+                        
+                        // remove from DepartmentInfo
+                        depInfo.Population[i] -= 1;
                     }
                 }
-                // TODO | dj | current ^^^
 
                 // - if remainingTpl... == 0? avgFactor -= x;
                 if (remainingTplOfSameRun == 0)
@@ -129,11 +131,21 @@ namespace PSC2013.ES.Library.AreaData
                     short rand = (short)(RANDOM.Next(15) - 5);
                     if (avgFactor + rand <= 0) rand = 7;
                     avgFactor = (byte)(avgFactor + rand);
-                    
                 }
+                currentRun++;
                 
-                // - queue neighbours
+                // - queue neighbours (8-way)
 
+                for (int y = -1; y <= 1; y++)
+                {
+                    for (int x = -1; x <= 1; x++)
+                    {
+                        Point p = new Point(x, y);
+                        if (CheckPoint(p, populationArray, depInfo.Coordinates))
+                            workingQueue.Enqueue(new Tuple<int,Point>(currentRun, p));
+                    }
+                }
+                // TODO | dj | current ^^^
             }
 
             // TODO | dj | continue..
@@ -145,6 +157,31 @@ namespace PSC2013.ES.Library.AreaData
         private static int FlattenPoint(Point p)
         {
             return p.X + (p.Y * WIDTH);
+        }
+
+        // TODO | dj | wether? whether
+        /// <summary>
+        /// Checks 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="arr"></param>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        private static bool CheckPoint(Point p, PopulationCell[] arr, Point[] points)
+        {
+            if (!points.Contains(p))
+                return false;                               // out of local bound
+
+            if (p.X < 0 ||
+                p.Y < 0 ||
+                p.X >= WIDTH ||
+                p.Y >= HEIGHT)
+                return false;                               // out of global bound
+
+            if (arr[FlattenPoint(p)].Humans.Length > 0)
+                return false;                               // already taken
+
+            return true;
         }
     }
 }
