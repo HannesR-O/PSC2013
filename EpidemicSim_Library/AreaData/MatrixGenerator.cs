@@ -83,23 +83,44 @@ namespace PSC2013.ES.Library.AreaData
                 Point n = nTpl.Item2;
 
                 int remainingTplOfSameRun = workingQueue.Count(x => x.Item1 == currentRun);
-                
-                int possibles = depInfo.GetTotal() / areaSize / remainingTplOfSameRun; // might be more for each agegroup one...
 
-                int toSetCount = (int)(possibles * (100f - avgFactor));
-
-                int r = RANDOM.Next(10) - 5; // ???
-
-
-
-                // - fill (with random?!) and remove used from DepartmentInfo
-                PopulationCell pc = populationArray[FlattenPoint(n)];
-
-                for (int i = 0; i < toSetCount; i++)                 // foreach human (which has to be set)
+                for (int i = 0; i < 8; i++) // for each age-group
                 {
+                    int r = RANDOM.Next(10) - 5;
+                    int possibles = depInfo.Population[i] / areaSize / remainingTplOfSameRun;
+                    int toSetCount = (int)(possibles * (100f - (avgFactor + r)));
 
+                    int fn = FlattenPoint(n);
+                    PopulationCell pc = populationArray[fn];
+
+                    for (int j = 0; j < toSetCount; j++)                 // foreach human (which has to be set)
+                    {
+                        // Gender
+                        EGender gender = (i < 4)? EGender.Male : EGender.Female;
+                        
+                        // Age
+                        int lowerBound = 0;
+                        int upperBound = 110;
+                        if (i % 4 == 0)
+                            upperBound = 6;
+                        else if (i % 4 == 1)
+                        {
+                            lowerBound = 7;
+                            upperBound = 25;
+                        }
+                        else if (i % 4 == 2)
+                        {
+                            lowerBound = 26;
+                            upperBound = 60;
+                        }
+                        else
+                            lowerBound = 61;
+                        int age = RANDOM.Next(lowerBound, upperBound + 1);
+
+                        Human h = Human.CreateHuman(gender, age, fn);
+                        pc.AddHuman(h);
+                    }
                 }
-
                 // TODO | dj | current ^^^
 
                 // - if remainingTpl... == 0? avgFactor -= x;

@@ -99,7 +99,7 @@ namespace PSC2013.ES.Library.PopulationData
         }
 
         /// <summary>
-        /// Return the Human's Age as PopulationData.Age
+        /// Return the Human's Age as PopulationData.EAge
         /// </summary>
         /// <returns>The Age</returns>
         public EAge GetAge()
