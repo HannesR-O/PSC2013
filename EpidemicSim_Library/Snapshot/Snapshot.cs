@@ -9,8 +9,16 @@ namespace PSC2013.ES.Library.Snapshot
 {
     public class Snapshot : IBinaryFile
     {
-        private CellSnapshot[] cells;
+        private DateTime _stamp;
+        private CellSnapshot[] _cells;
+        private String _head;
         //TODO | T |Implement
+
+        public Snapshot()
+        {
+            _stamp = DateTime.Now;
+            _head = "This Snapshot was created on [" + _stamp.ToString() + "].";
+        }
 
         byte[] IBinaryFile.GetBytes()
         {

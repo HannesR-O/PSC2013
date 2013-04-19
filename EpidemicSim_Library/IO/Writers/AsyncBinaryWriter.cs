@@ -31,7 +31,7 @@ namespace PSC2013.ES.Library.IO.Writers
                 var header = fs.ReadByte();
                 byte[] bytes = new byte[fs.Length - 1];
                 fs.Read(bytes, 0, (int)(fs.Length - 1));        //TODO: |f| allows a max filesize of 2047 MB, might need to use a loop
-                //TODO: |f| not the best way to do this, because classes need to set their header correct
+                //TODO: |f| not the best way to do this, because classes need to set their header correct // |t| I don#t see a problem here...
                 IBinaryFile file = null;
                 switch (header)
                 {
