@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSC2013.ES.Library.Snapshot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,7 +75,7 @@ namespace PSC2013.ES.Library.PopulationData
 
         public override int GetHashCode()
         {
-            return (int)_data0;
+            return (int)(_data0 + _data1);
         }
 
         public override string ToString()
@@ -103,7 +104,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>The Age</returns>
         public EAge GetAge()
         {
-            int value = _data0 & MASK_AGE;
+            int value = GetAgeInYears();
 
             EAge age = EAge.Baby;
 
@@ -117,6 +118,15 @@ namespace PSC2013.ES.Library.PopulationData
                 age = EAge.Senior;
 
             return age;
+        }
+
+        /// <summary>
+        /// Returns the Human's age in years
+        /// </summary>
+        /// <returns>Human's age as int</returns>
+        public int GetAgeInYears()
+        {
+            return _data0 & MASK_AGE;
         }
 
         private void SetAge(int age)
@@ -218,7 +228,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// False if the Human died in the process (age > 110)</returns>
         public bool DoAgeTick()
         {
-            int currentAge = _data0 & MASK_AGE;
+            int currentAge = GetAgeInYears();
             if (currentAge > 109)
                 return KillHuman();
             SetAge(currentAge + 1);

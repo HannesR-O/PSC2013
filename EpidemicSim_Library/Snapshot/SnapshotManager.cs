@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSC2013.ES.Library.PopulationData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,6 +56,12 @@ namespace PSC2013.ES.Library.Snapshot
             }
             else
                 throw new Exception("Folder already exists!");
+        }
+
+        //TODO: |f| might wanna move this into the actual simulation, so we can transfer the dead people as snapshots
+        public HumanSnapschot TakeSnapshot(Human human, int deathCell)
+        {
+            return new HumanSnapschot(human.GetGender(), human.GetAgeInYears(), human.HomeCell, deathCell);
         }
     }
 }
