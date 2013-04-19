@@ -12,6 +12,7 @@ namespace PSC2013.ES.Library.AreaData
     {
         private const int WIDTH = 2814;
         private const int HEIGHT = 3841;
+        private static readonly Random RANDOM = new Random();
 
         /// <summary>
         /// Generates the ultimative matrix. It
@@ -20,8 +21,9 @@ namespace PSC2013.ES.Library.AreaData
         /// 
         /// **In-Place**
         /// </summary>
-        /// <param name="populationArray">The PopulationCell-matrix which will be
-        /// used for most stuff. This array will be modified!</param>
+        /// <param name="populationArray">The already initialized
+        /// PopulationCell-matrix which will be used for most stuff.
+        /// This array will be modified!</param>
         /// <param name="rawData">The raw DepartmentInfos. This array will be modified!</param>
         /// <returns>The input-populationCell-array (modified).</returns>
         public static PopulationCell[] GenerateMatrix(
@@ -68,25 +70,49 @@ namespace PSC2013.ES.Library.AreaData
             if (!depInfo.Coordinates.Any(p => p.Equals(initialPoint)))
                 initialPoint = depInfo.Coordinates[0];
 
-            short avgFactor = 115;
+            byte avgFactor = 20;
             int areaSize = depInfo.Coordinates.Length;
-            int currentRun = 0;
 
             Queue<Tuple<int, Point>> workingQueue = new Queue<Tuple<int, Point>>();
-            workingQueue.Enqueue(new Tuple<int, Point>(currentRun, initialPoint));
+            workingQueue.Enqueue(new Tuple<int, Point>(0, initialPoint));
 
             while (workingQueue.Count > 0)
             {
-                Tuple<int, Point> n = workingQueue.Dequeue();
+                Tuple<int, Point> nTpl = workingQueue.Dequeue();
+                int currentRun = nTpl.Item1;
+                Point n = nTpl.Item2;
 
                 int remainingTplOfSameRun = workingQueue.Count(x => x.Item1 == currentRun);
-                int possibles = depInfo.GetTotal() / areaSize / remainingTplOfSameRun;
                 
-                // - fill (with random?!)
+                int possibles = depInfo.GetTotal() / areaSize / remainingTplOfSameRun; // might be more for each agegroup one...
+
+                int toSetCount = (int)(possibles * (100f - avgFactor));
+
+                int r = RANDOM.Next(10) - 5; // ???
+
+
+
+                // - fill (with random?!) and remove used from DepartmentInfo
+                PopulationCell pc = populationArray[FlattenPoint(n)];
+
+                for (int i = 0; i < toSetCount; i++)                 // foreach human (which has to be set)
+                {
+
+                }
+
+                // TODO | dj | current ^^^
 
                 // - if remainingTpl... == 0? avgFactor -= x;
+                if (remainingTplOfSameRun == 0)
+                {
+                    short rand = (short)(RANDOM.Next(15) - 5);
+                    if (avgFactor + rand <= 0) rand = 7;
+                    avgFactor = (byte)(avgFactor + rand);
+                    
+                }
                 
                 // - queue neighbours
+
             }
 
             // TODO | dj | continue..

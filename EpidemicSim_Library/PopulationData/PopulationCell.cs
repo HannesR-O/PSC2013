@@ -14,13 +14,16 @@ namespace PSC2013.ES.Library.PopulationData
         public int RefDepartment;
         public int HumanCount;
 
-        public void Init() // TODO | dj | should be called normally
+        public void Init() // TODO | dj | would be nice if called normally
         {
             Humans = new Human[0];
         }
 
         public void AddHuman(Human h)
         {
+            if (Humans == null) // safety first :P
+                Init();
+
             for (int i = 0; i < Humans.Length; i++)
             {
                 if (Humans[i].IsDead())
