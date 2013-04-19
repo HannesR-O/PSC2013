@@ -23,7 +23,7 @@ namespace PSC2013.ES.Library
             }
         }
 
-        public static int FromBase64(this int value, string base64)
+        public static int GetIntFromBase64(string base64)
         {
             return BitConverter.ToInt32(Convert.FromBase64String(base64), 0);
         }
@@ -33,7 +33,7 @@ namespace PSC2013.ES.Library
             return Convert.ToBase64String(BitConverter.GetBytes(value));
         }
 
-        public static short FromBase64(this short value, string base64)
+        public static short GetShortFromBase64(string base64)
         {
             return BitConverter.ToInt16(Convert.FromBase64String(base64), 0);
         }

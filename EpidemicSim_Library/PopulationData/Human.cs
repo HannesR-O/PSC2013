@@ -260,13 +260,13 @@ namespace PSC2013.ES.Library.PopulationData
         {
             string[] parts = base64.Split(',');
 
-            var human = new Human(new int().FromBase64(parts[0]));
+            var human = new Human(ExtensionMethods.GetIntFromBase64(parts[0]));
             byte[] data = Convert.FromBase64String(parts[1]);
             human._data0 = data[0];
             human._data1 = data[1];
             human._data2 = data[2];
-            human._counterInfect = new short().FromBase64(parts[2]);
-            human._counterSpreading = new short().FromBase64(parts[3]);
+            human._counterInfect = ExtensionMethods.GetShortFromBase64(parts[2]);
+            human._counterSpreading = ExtensionMethods.GetShortFromBase64(parts[3]);
 
             return human;
         }

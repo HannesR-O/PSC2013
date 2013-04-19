@@ -21,13 +21,14 @@ namespace PSC2013.ES.Library.AreaData
         public Point[] Coordinates { get; set; }
 
         /// <summary>
-        /// The ages in this population.
+        /// The poulation of this Department.
+        /// [0-3] Males, [4-7] Females
         /// </summary>
-        public int[] Ages { get; private set; }
+        public int[] Population { get; private set; }
 
         public DepartmentInfo()
         {
-            Ages = new int[8];
+            Population = new int[8];
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace PSC2013.ES.Library.AreaData
         /// </summary>
         public int GetTotal()
         {
-            return Ages.Sum();
+            return Population.Sum();
         }
     }
 }
