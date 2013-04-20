@@ -9,7 +9,7 @@ namespace PSC2013.ES.Library.PopulationData
     public enum EAge : byte
     {
         /// <summary>
-        /// 0? - 6 years old
+        /// 1 - 6 years old
         /// </summary>
         Baby    = 0,
         /// <summary>

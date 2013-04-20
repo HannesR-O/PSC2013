@@ -59,6 +59,7 @@ namespace PSC2013.ES.Library.PopulationData
 
             human.SetGender(gender);
             human.SetAge(age);
+            human.SetDeath(false);
 
             return human;
         }
@@ -185,12 +186,12 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>True if the Human is alive, false if not</returns>
         public bool IsAlive()
         {
-            return ((_data1 & MASK_DEATH) == 16);
+            return !((_data1 & MASK_DEATH) == 16);
         }
 
         private void SetDeath(bool death)
         {
-            _data1 = (byte)((_data1 & ~MASK_DEATH) + (death ? 16 : 0));
+            _data1 = (byte)((_data1 & ~MASK_DEATH) + (!death ? 16 : 0));
         }
 
         /// <summary>

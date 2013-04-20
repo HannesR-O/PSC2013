@@ -10,10 +10,11 @@ namespace PSC2013.ES.Library.AreaData
 {
     public static class MatrixGenerator
     {
-        private const int WIDTH = 2814;
-        private const int HEIGHT = 3841;
         private static readonly Random RANDOM = new Random();
 
+        private static int WIDTH = 2814;
+        private static int HEIGHT = 3841;
+        
         /// <summary>
         /// Generates the ultimative matrix. It
         /// spreads the people ALLL over their departments.
@@ -25,11 +26,17 @@ namespace PSC2013.ES.Library.AreaData
         /// PopulationCell-matrix which will be used for most stuff.
         /// This array will be modified!</param>
         /// <param name="rawData">The raw DepartmentInfos. This array will be modified!</param>
+        /// <param name="width">width of the populationArray (used for offsets)</param>
+        /// <param name="height">height of the populationArray (used for offsets)</param>
         /// <returns>The input-populationCell-array (modified).</returns>
         public static PopulationCell[] GenerateMatrix(
             PopulationCell[] populationArray,
-            IEnumerable<DepartmentInfo> rawData)
+            IEnumerable<DepartmentInfo> rawData,
+            int width, int height)
         {
+            WIDTH = width;
+            HEIGHT = height;
+
             if (populationArray.Length != WIDTH * HEIGHT)
                 throw new ArgumentException(
                     "The argument has to be an array if PopulationCell with a length of '10808574'",
@@ -87,8 +94,10 @@ namespace PSC2013.ES.Library.AreaData
                 for (int i = 0; i < 8; i++) // for each age-group
                 {
                     int r = RANDOM.Next(10) - 5;
-                    int possibles = depInfo.Population[i] / areaSize / remainingTplOfSameRun;
-                    int toSetCount = (int)(possibles * (100f - (avgFactor + r)));
+                    int possibles = (int)(
+                        depInfo.Population[i] / (float)areaSize / (remainingTplOfSameRun + 1)
+                        ); // TODO | dj | problem... not working with to low population...
+                    int toSetCount = (int)(possibles * ((100f - (avgFactor + r)) / 100));
 
                     int fn = FlattenPoint(n);
                     PopulationCell pc = populationArray[fn];
@@ -99,7 +108,7 @@ namespace PSC2013.ES.Library.AreaData
                         EGender gender = (i < 4)? EGender.Male : EGender.Female;
                         
                         // Age
-                        int lowerBound = 0;
+                        int lowerBound = 1;
                         int upperBound = 110;
                         if (i % 4 == 0)
                             upperBound = 6;
@@ -132,20 +141,29 @@ namespace PSC2013.ES.Library.AreaData
                     if (avgFactor + rand <= 0) rand = 7;
                     avgFactor = (byte)(avgFactor + rand);
                 }
-                currentRun++;
-                
-                // - queue neighbours (8-way)
-
-                for (int y = -1; y <= 1; y++)
+                areaSize--;
+                if (areaSize > 0)
                 {
-                    for (int x = -1; x <= 1; x++)
+                    currentRun++;
+
+                    // - queue neighbours (8-way)
+
+                    for (int y = -1; y <= 1; y++)
                     {
-                        Point p = new Point(x, y);
-                        if (CheckPoint(p, populationArray, depInfo.Coordinates))
-                            workingQueue.Enqueue(new Tuple<int,Point>(currentRun, p));
+                        for (int x = -1; x <= 1; x++)
+                        {
+                            Point p = new Point(n.X + x, n.Y + y);
+                            if (!p.Equals(n))
+                                if (CheckPoint(p, populationArray, depInfo.Coordinates, workingQueue))
+                                    workingQueue.Enqueue(new Tuple<int, Point>(currentRun, p));
+                        }
                     }
                 }
                 // TODO | dj | current ^^^
+#if DEBUG
+                Console.WriteLine("Point done: " + n);
+#endif
+
             }
 
             // TODO | dj | continue..
@@ -159,24 +177,31 @@ namespace PSC2013.ES.Library.AreaData
             return p.X + (p.Y * WIDTH);
         }
 
-        // TODO | dj | wether? whether
         /// <summary>
-        /// Checks 
+        /// Checks whether the Point is valid or not.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="arr"></param>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        private static bool CheckPoint(Point p, PopulationCell[] arr, Point[] points)
+        private static bool CheckPoint(Point p, PopulationCell[] arr, Point[] points, Queue<Tuple<int, Point>> queue)
         {
-            if (!points.Contains(p))
-                return false;                               // out of local bound
+            bool result = false;
+            Parallel.ForEach(queue, (tpl, state) =>
+                {
+                    if (tpl.Item2.Equals(p))
+                    {
+                        result = true;
+                        state.Break();
+                    }
+                });
+            if (result)
+                return false;
 
             if (p.X < 0 ||
                 p.Y < 0 ||
                 p.X >= WIDTH ||
                 p.Y >= HEIGHT)
                 return false;                               // out of global bound
+
+            if (!points.Contains(p))
+                return false;                               // out of local bound
 
             if (arr[FlattenPoint(p)].Humans.Length > 0)
                 return false;                               // already taken
