@@ -15,16 +15,19 @@ namespace PSC2013.ES.Library.Snapshot
         // Need to use public readonly fields, since auto-properties cannot get initialized in struct-constructors
         public readonly EGender Gender;
         public readonly int Age;
-        public readonly int HomeCell ;
+        public readonly int HomeCell;
         public readonly int DeathCell;      //TODO: |f| add more relevant fields?
+        public readonly bool Infected;
+        public readonly bool Spreading;
 
-        public HumanSnapschot(EGender gender, int age, int home) : this(gender, age, home, -1)  {}
-        public HumanSnapschot(EGender gender, int age, int homeCell, int deathCell)
+        public HumanSnapschot(EGender gender, int age, int homeCell, int deathCell, bool infected, bool spreading)
         {
             Gender = gender;
             Age = age;
             HomeCell = homeCell;
             DeathCell = deathCell;
+            Infected = infected;
+            Spreading = spreading;
         }
     }
 }
