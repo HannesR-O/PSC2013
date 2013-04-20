@@ -9,24 +9,24 @@ namespace PSC2013.ES.Library.Snapshot
 {
     public class Snapshot : IBinaryFile
     {
-        private DateTime _stamp;
+        public DateTime _stamp;
         private CellSnapshot[] _cells;
-        private String _head;
+        public String Head {get; private set;}
         //TODO | T |Implement
 
         public Snapshot()
         {
             _stamp = DateTime.Now;
-            _head = "This Snapshot was created on [" + _stamp.ToString() + "].";
+            Head = "[" + _stamp.ToString() + "].";
         }
 
-        byte[] IBinaryFile.GetBytes()
+        public byte[] GetBytes()
         {
             throw new NotImplementedException();
         }
 
 
-        void IBinaryFile.InitializeFromFile(byte[] bytes)
+        public void InitializeFromFile(byte[] bytes)
         {
             throw new NotImplementedException();
         }
