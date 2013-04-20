@@ -11,18 +11,20 @@ namespace PSC2013.ES.Library.Snapshot
     {
         public DateTime _stamp;
         private CellSnapshot[] _cells;
-        public String Head {get; private set;}
+        public String Head {get; private set;} // Identifier for the Snapshot is a Timestamp
         //TODO | T |Implement
 
         public Snapshot()
         {
             _stamp = DateTime.Now;
-            Head = "[" + _stamp.ToString() + "].";
+            Head = "[" + _stamp.Hour + "-" + _stamp.Minute + "]";
         }
 
         public byte[] GetBytes()
         {
-            throw new NotImplementedException();
+            // TODO | T | Fill with data...
+            System.Text.ASCIIEncoding conv = new ASCIIEncoding();
+            return conv.GetBytes(2 + Head);
         }
 
 

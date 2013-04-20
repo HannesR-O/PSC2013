@@ -11,16 +11,15 @@ namespace PSC2013.ES.Library.Snapshot
 {
     public class SnapshotManager
     {
-        private Snapshot _last;
         private SimulationInfo _info;
         private IBinaryWriter _writer;
-
+        private string _target;
 
         public SnapshotManager()
         {
-            // Write Simulation Info
             _writer = new AsyncBinaryWriter();
             _info = new SimulationInfo("Test Disease 1");
+
             init();
         }
 
@@ -28,36 +27,30 @@ namespace PSC2013.ES.Library.Snapshot
         /// Takes a Snapshot of the current state of arts
         /// </summary>
         public void TakeSnapshot()
-        {
- 
-        }
-
-        /// <summary>
-        /// Creates various statistics // TBD
-        /// </summary>
-        /// <param name="shot"></param>
-        public void CreateStatistics(Snapshot shot)
-        {
- 
+        {            
+            writeSnapshot(new Snapshot());
         }
 
         /// <summary>
         /// Writes an Snapshot into a file
         /// </summary>
-        /// <returns>Bool, succsessfully written or not</returns>
-        private void writeSnapshot()
+        private void writeSnapshot(Snapshot snap)
         {
-            _writer.WriteFile(_last, _last.Head, false);
+            Console.WriteLine(Path.Combine(_target, snap.Head)) ;
+            Console.ReadKey();
+            _writer.WriteFile(snap, Path.Combine(_target, snap.Head), true);
         }
 
         private void init()
         {
-            var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Sim");
-            if (!Directory.Exists(dir))
+            _target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Simulation");
+
+            if (!Directory.Exists(_target))
             {
-                Directory.CreateDirectory(dir);
-                _writer.WriteFile(_info, dir + "/head.siminfo", true);
-                ZipFile.CreateFromDirectory(dir, dir+ "ulation.zip");
+                Directory.CreateDirectory(_target);
+                _writer.WriteFile(_info, _target + "\\head.siminfo", true);
+                
+                ZipFile.CreateFromDirectory(_target, _target + ".sim");
             }
             else
                 throw new ArgumentException("Folder already exists!");

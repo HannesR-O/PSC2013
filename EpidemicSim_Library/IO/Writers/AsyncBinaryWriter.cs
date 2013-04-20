@@ -35,7 +35,9 @@ namespace PSC2013.ES.Library.IO.Writers
                 IBinaryFile file = null;
                 switch (header)
                 {
-                    case 0x1:
+                    case 0x1: // Simulation Info / Archive Header
+                        break;
+                    case 0x2: // Snapshot incl. CellsSnapshots
                         break;
                     default:
                         throw new Exception("Unknown file header while reading " + fileName);
