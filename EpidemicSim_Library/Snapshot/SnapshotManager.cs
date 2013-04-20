@@ -16,6 +16,7 @@ namespace PSC2013.ES.Library.Snapshot
         private IBinaryWriter _writer;
         private string _target;
 
+
         public SnapshotManager()
         {
             _writer = new AsyncBinaryWriter();
@@ -56,6 +57,28 @@ namespace PSC2013.ES.Library.Snapshot
             }
             else
                 throw new Exception("Folder already exists!");
+        }
+
+        /// <summary>
+        /// Writes an Snapshot into a file
+        /// </summary>
+        /// <returns>Bool, succsessfully written or not</returns>
+        private void writeSnapshot()
+        {
+            _writer.WriteFile(_last, _last.Head, false);
+        }
+
+        private void init()
+        {
+            var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Sim");
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+                _writer.WriteFile(_info, dir + "/head.siminfo", true);
+                ZipFile.CreateFromDirectory(dir, dir+ "ulation.zip");
+            }
+            else
+                throw new ArgumentException("Folder already exists!");
         }
     }
 }

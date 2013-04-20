@@ -13,16 +13,13 @@ namespace PSC2013.ES.Library.Snapshot
     public class SimulationInfo : IBinaryFile
     {
         private string _diseaseInfo;
-
         public SimulationInfo(string info)
         {
-            //TODO |T| What do we need?
             _diseaseInfo = info;
         }
 
         public byte[] GetBytes()
         {
-            //TODO |T| Write Header.
             System.Text.ASCIIEncoding conv = new ASCIIEncoding();
             return conv.GetBytes(_diseaseInfo);
         }
