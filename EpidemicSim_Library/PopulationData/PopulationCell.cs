@@ -25,7 +25,7 @@ namespace PSC2013.ES.Library.PopulationData
         {
             for (int i = 0; i < Humans.Length; i++)
             {
-                if (!Humans[i].IsAlive())
+                if (Humans[i].IsDead())
                 {
                     Humans[i] = human;
                     return;

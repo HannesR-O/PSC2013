@@ -126,7 +126,7 @@ namespace PSC2013.ES.Library.AreaData
                             lowerBound = 61;
                         int age = RANDOM.Next(lowerBound, upperBound + 1);
 
-                        Human h = Human.CreateHuman(gender, age, fn);
+                        Human h = Human.Create(gender, age, fn);
                         pc.AddHuman(h);
                         
                         // remove from DepartmentInfo

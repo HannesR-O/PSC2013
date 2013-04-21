@@ -184,7 +184,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// Returns whether the human is dead or not
         /// </summary>
         /// <returns>True if the Human is alive, false if not</returns>
-        public bool IsAlive()
+        public bool IsDead()
         {
             return !((_data1 & MASK_DEATH) == 16);
         }

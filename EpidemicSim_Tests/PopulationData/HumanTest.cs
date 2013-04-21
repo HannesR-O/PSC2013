@@ -132,12 +132,12 @@ namespace PSC2013.ES.Tests.PopulationData
                 human.DoAgeTick();
 
             Assert.Equal(EAge.Senior, human.GetAge());       // age should be 110 now 
-            Assert.True(human.IsAlive());            // => human is still alive
+            Assert.False(human.IsDead());            // => human is still alive
 
             human.DoAgeTick();
 
             Assert.Equal(EAge.Senior, human.GetAge());       // age should be 111 now
-            Assert.False(human.IsAlive());             // => human dies from overageing, but GetAge() still is valid
+            Assert.True(human.IsDead());             // => human dies from overageing, but GetAge() still is valid
         }
 
         [Fact]
@@ -145,22 +145,22 @@ namespace PSC2013.ES.Tests.PopulationData
         {
             SetUp();
 
-            Assert.True(h1.IsAlive());
-            Assert.True(h2.IsAlive());
+            Assert.False(h1.IsDead());
+            Assert.False(h2.IsDead());
 
             h1.KillHuman();
             h2.KillHuman();
 
-            Assert.False(h1.IsAlive());
-            Assert.False(h2.IsAlive());
+            Assert.True(h1.IsDead());
+            Assert.True(h2.IsDead());
 
             var human = Human.Create(EGender.Female, r.Next(110), r.Next());
 
-            Assert.True(human.IsAlive());
+            Assert.False(human.IsDead());
 
             human.KillHuman();
 
-            Assert.False(human.IsAlive());
+            Assert.True(human.IsDead());
         }
     }
 }
