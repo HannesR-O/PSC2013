@@ -24,13 +24,13 @@ namespace PSC2013.ES.Library.Snapshot
         public int CountF10 { get; private set; } // Females Adult
         public int CountF11 { get; private set; } // Females Senior
 
-        public string[] Dead{ get; private set; } // base64-string of humans that died in this snapshot. Should contain Death-Cause, Age and Gender
+        public HumanSnapshot[] Dead{ get; private set; } // base64-string of humans that died in this snapshot. Should contain Death-Cause, Age and Gender
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
         /// </summary>
         /// <param name="param">The Population to be Snaped</param>
-        private CellSnapshot(int[] infos, string[] dead)
+        private CellSnapshot(int[] infos, HumanSnapshot[] dead)
         {
             CountM00 = infos[0];
             CountM01 = infos[1];
@@ -54,7 +54,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="position">Position of the cell</param>
         /// <param name="deaths">An array containing the dead people as strings</param>
         /// <returns></returns>
-        public static CellSnapshot FromCell(PopulationCell input, int position, string[] deaths)
+        public static CellSnapshot FromCell(PopulationCell input, int position, HumanSnapshot[] deaths)
         {
             int[] temp = new int[9];
 
@@ -77,7 +77,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="counts">input counts</param>
         /// <param name="dead"></param>
         /// <returns>An array containing the dead people as strings</returns>
-        public static CellSnapshot FromFile(int[] counts, string[] dead)
+        public static CellSnapshot FromFile(int[] counts, HumanSnapshot[] dead)
         {
             return new CellSnapshot(counts, dead);
         }

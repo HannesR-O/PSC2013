@@ -10,7 +10,7 @@ namespace PSC2013.ES.Library.Snapshot
     /// <summary>
     /// A snapshot of a Human, containing only important data. Can only be created from given values and is immutable.
     /// </summary>
-    public struct HumanSnapschot
+    public struct HumanSnapshot
     {
         // Need to use public readonly fields, since auto-properties cannot get initialized in struct-constructors
         public readonly EGender Gender;
@@ -20,7 +20,7 @@ namespace PSC2013.ES.Library.Snapshot
         public readonly bool Infected;
         public readonly bool Spreading;
 
-        public HumanSnapschot(EGender gender, int age, int homeCell, int deathCell, bool infected, bool spreading)
+        public HumanSnapshot(EGender gender, int age, int homeCell, int deathCell, bool infected, bool spreading)
         {
             Gender = gender;
             Age = age;

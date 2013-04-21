@@ -12,7 +12,6 @@ namespace PSC2013.ES.Library.Snapshot
         public DateTime _stamp;
         private CellSnapshot[] _cells;
         public String Head {get; private set;}
-        //TODO | T |Implement
 
         public Snapshot(CellSnapshot[] cells)
         {
@@ -27,7 +26,7 @@ namespace PSC2013.ES.Library.Snapshot
         {
             // TODO | T | Fill with data...
             System.Text.ASCIIEncoding conv = new ASCIIEncoding();
-            return conv.GetBytes(2 + "|" + Head + "|");
+            return System.Text.Encoding.UTF8.GetBytes(0x2 + "|" + Head + "|");
         }
 
 

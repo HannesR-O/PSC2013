@@ -22,17 +22,19 @@ namespace PSC2013.ES.Library.Snapshot
         public SimulationInfo(DateTime time, string name, Disease disease)
         {
             TimeStarted = time;
+            Name = name;
             _disease = disease;
             _info = "Simulation \"" + Name + "\" was started at " + TimeStarted;
         }
 
         public byte[] GetBytes()
         {
-            return System.Text.Encoding.UTF8.GetBytes(0x2 + "|" +  _info + "|");
+            return System.Text.Encoding.UTF8.GetBytes(0x1 + "|" +  _info + "|");
         }
 
         public void InitializeFromFile(byte[] bytes)
-        { 
+        {
+            throw new NotImplementedException();
         }
     }
 }

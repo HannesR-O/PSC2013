@@ -34,13 +34,13 @@ namespace PSC2013.ES.Library.Snapshot
         public void InitalizeSimulation(string destination, string name, Disease disease)
         {
             _snapshots = new Queue<Snapshot>();
-            _target = Path.Combine(destination, name);
+            _target = Path.Combine(name, name);
 
             if (!Directory.Exists(_target))
-               Directory.CreateDirectory(_target);
+                Directory.CreateDirectory(_target);
 
             _simInfo = new SimulationInfo(DateTime.Now, name, disease);
-            _writer.WriteFile(_simInfo, _target + "/header", true);
+            _writer.WriteFile(_simInfo, _target, true);
         }
 
         /// <summary>
