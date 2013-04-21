@@ -48,6 +48,10 @@
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\Files\IDocument.cs" />
     <Compile Include="IO\Writers\AsyncBinaryWriter.cs" />
+    <Compile Include="Simulation\ESimulationStage.cs" />
+    <Compile Include="Simulation\ISimulationComponent.cs" />
+    <Compile Include="Simulation\SimulationEventArgs.cs" />
+    <Compile Include="Simulation\SimulationException.cs" />
     <Compile Include="Snapshot\CellSnapshot.cs" />
     <Compile Include="AreaData\Department.cs" />
     <Compile Include="AreaData\DepartmentInfo.cs" />
