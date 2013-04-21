@@ -1,62 +1,98 @@
 ﻿using PSC2013.ES.Library.PopulationData;
+using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.IO.Writers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PSC2013.ES.Library.IO.Writers;
 using System.IO;
 using System.IO.Compression;
+
 
 namespace PSC2013.ES.Library.Snapshot
 {
     public class SnapshotManager
     {
-        private SimulationInfo _info;
-        private IBinaryWriter _writer;
         private string _target;
-
+        private SimulationInfo _simInfo;
+        private Queue<Snapshot> _snapshots;
+        private IBinaryWriter _writer;
 
         public SnapshotManager()
         {
             _writer = new AsyncBinaryWriter();
-            _info = new SimulationInfo("Test Disease 1");
-
-            init();
+            _snapshots = new Queue<Snapshot>();
         }
 
         /// <summary>
-        /// Takes a Snapshot of the current state of arts
+        /// Initializes a Simulation, everytime this method is called, a new simulation is logged
         /// </summary>
-        public void TakeSnapshot()
-        {            
-            writeSnapshot(new Snapshot());
+        /// <param name="destination">Where to save the Simulation</param>
+        /// <param name="name">The simulations name</param>
+        /// <param name="disease">The Disease used in this Simulation</param>
+        public void InitalizeSimulation(string destination, string name, Disease disease)
+        {
+            _snapshots = new Queue<Snapshot>();
+            _target = Path.Combine(name, name);
+
+            if (!Directory.Exists(_target))
+                Directory.CreateDirectory(_target);
+
+            _simInfo = new SimulationInfo(DateTime.Now, name, disease);
+            _writer.WriteFile(_simInfo, _target, true);
         }
 
-        public void End()
+        /// <summary>
+        /// Finishes writing the Snapshot Queue
+        /// </summary>
+        public void Finish()
         {
+            foreach (Snapshot s in _snapshots)
+                WriteNextSnapshot();
             ZipFile.CreateFromDirectory(_target, _target + ".sim");
         }
 
         /// <summary>
-        /// Writes an Snapshot into a file
+        /// Takes a Snapshot
         /// </summary>
-        private void writeSnapshot(Snapshot snap)
+        /// <param name="cells">The NOT EMPTY PopulationCells</param>
+        /// <param name="deaths"></param>
+        public void TakeSnapshot(PopulationCell[] cells, string[] deaths)
         {
-            _writer.WriteFile(snap, Path.Combine(_target, snap.Head), true);
+            CellSnapshot[] temp = new CellSnapshot[cells.Length];
+            for (int i = 0; i < cells.Length - 1; ++i)
+            {
+                temp[i] = CellSnapshot.FromCell(cells[i], i, null);
+            }
+            Snapshot snap = new Snapshot(temp);
+
+            _snapshots.Enqueue(snap);
         }
 
-        private void init()
+        /// <summary>
+        /// Writes the next snapshot in the queue. Returns false, if there is none
+        /// </summary>
+        /// <returns>True, if a SnapShot is written, false, when there is none to write</returns>
+        public bool WriteNextSnapshot()
         {
-            _target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Simulation");
-
-            if (!Directory.Exists(_target))
+            if (_snapshots.Count > 0)
             {
-                Directory.CreateDirectory(_target);
-                _writer.WriteFile(_info, _target + "\\head.siminfo", true);              
+                Snapshot temp = _snapshots.Dequeue();
+                _writer.WriteFile(temp, _target + temp.Head, true);
+                return true;
             }
-            else
-                throw new Exception("Folder already exists!");
+                
+            return false;
+        }
+
+        /// <summary>
+        /// Return whether there is a Snapshotleft to be written
+        /// </summary>
+        /// <returns></returns>
+        public bool SnapshotLeft()
+        {
+            return _snapshots.Count > 0;
         }
     }
 }

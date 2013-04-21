@@ -14,17 +14,20 @@ namespace PSC2013.ES.Library.Snapshot
         public String Head {get; private set;}
         //TODO | T |Implement
 
-        public Snapshot()
+        public Snapshot(CellSnapshot[] cells)
         {
             _stamp = DateTime.Now;
             Head = "[" + _stamp.Hour + "-" + _stamp.Minute + "]";
+
+            _cells = cells;
+
         }
 
         public byte[] GetBytes()
         {
             // TODO | T | Fill with data...
             System.Text.ASCIIEncoding conv = new ASCIIEncoding();
-            return conv.GetBytes(2 + Head);
+            return conv.GetBytes(2 + "|" + Head + "|");
         }
 
 

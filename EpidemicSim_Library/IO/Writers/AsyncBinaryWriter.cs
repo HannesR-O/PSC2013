@@ -37,7 +37,9 @@ namespace PSC2013.ES.Library.IO.Writers
                 {
                     case 0x1: // Simulation Info / Archive Header
                         break;
-                    case 0x2: // Snapshot incl. CellsSnapshots
+                    case 0x2: // Disease Info
+                        break;
+                    case 0x3: // Snapshot incl. CellsSnapshots
                         break;
                     default:
                         throw new Exception("Unknown file header while reading " + fileName);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PSC2013.ES.Library.Diseases;
 
 namespace PSC2013.ES.Library.Snapshot
 {
@@ -12,16 +13,22 @@ namespace PSC2013.ES.Library.Snapshot
     /// </summary>
     public class SimulationInfo : IBinaryFile
     {
-        private string _diseaseInfo;
-        public SimulationInfo(string info)
+        public DateTime TimeStarted { get; private set; }
+        public string Name { get; private set; }
+        private Disease _disease;
+        private string _info;
+
+
+        public SimulationInfo(DateTime time, string name, Disease disease)
         {
-            _diseaseInfo = info;
+            TimeStarted = time;
+            _disease = disease;
+            _info = "Simulation \"" + Name + "\" was started at " + TimeStarted;
         }
 
         public byte[] GetBytes()
         {
-            System.Text.ASCIIEncoding conv = new ASCIIEncoding();
-            return conv.GetBytes(_diseaseInfo);
+            return System.Text.Encoding.UTF8.GetBytes(0x2 + "|" +  _info + "|");
         }
 
         public void InitializeFromFile(byte[] bytes)
