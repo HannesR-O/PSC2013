@@ -53,7 +53,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// <param name="age">Age in Years of the Human to create (1-110)</param>
         /// <param name="homeCell">HomeCell of the Human to create</param>
         /// <returns>The newly created Human struct</returns>
-        public static Human CreateHuman(EGender gender, int age, int homeCell)
+        public static Human Create(EGender gender, int age, int homeCell)
         {
             Human human = new Human(homeCell);
 

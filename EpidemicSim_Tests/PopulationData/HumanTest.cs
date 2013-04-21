@@ -21,8 +21,8 @@ namespace PSC2013.ES.Tests.PopulationData
         private void SetUp()
         {
             r = new Random((int)DateTime.Now.Ticks);
-            h1 = Human.CreateHuman(EGender.Female, AGE_FEMALE, HOMECELL);
-            h2 = Human.CreateHuman(EGender.Male, AGE_MALE, HOMECELL);
+            h1 = Human.Create(EGender.Female, AGE_FEMALE, HOMECELL);
+            h2 = Human.Create(EGender.Male, AGE_MALE, HOMECELL);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace PSC2013.ES.Tests.PopulationData
             Assert.Equal(EAge.Child, h2.GetAge());
 
             int age = r.Next(110);
-            var human = Human.CreateHuman(EGender.Female, age, r.Next());
+            var human = Human.Create(EGender.Female, age, r.Next());
             EAge expected = EAge.Baby;
 
             if (age <= 6)
@@ -64,10 +64,10 @@ namespace PSC2013.ES.Tests.PopulationData
             SetUp();
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                new Assert.ThrowsDelegateWithReturn(() => Human.CreateHuman(EGender.Female, 0, HOMECELL)));
+                new Assert.ThrowsDelegateWithReturn(() => Human.Create(EGender.Female, 0, HOMECELL)));
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                new Assert.ThrowsDelegateWithReturn(() => Human.CreateHuman(EGender.Female, 111, HOMECELL)));
+                new Assert.ThrowsDelegateWithReturn(() => Human.Create(EGender.Female, 111, HOMECELL)));
         }
 
         [Fact]
@@ -97,7 +97,7 @@ namespace PSC2013.ES.Tests.PopulationData
         {
             SetUp();
 
-            var human = Human.CreateHuman(EGender.Male, 1, r.Next());
+            var human = Human.Create(EGender.Male, 1, r.Next());
 
             Assert.Equal(EAge.Baby, human.GetAge());
 
@@ -154,7 +154,7 @@ namespace PSC2013.ES.Tests.PopulationData
             Assert.Equal(true, h1.IsDead());
             Assert.Equal(true, h2.IsDead());
 
-            var human = Human.CreateHuman(EGender.Female, r.Next(110), r.Next());
+            var human = Human.Create(EGender.Female, r.Next(110), r.Next());
 
             Assert.Equal(false, human.IsDead());
 

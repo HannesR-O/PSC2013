@@ -6,9 +6,7 @@ using System;
 namespace PSC2013.ES.Library.Simulation
 {
     public class SimulationData
-    {
-        private static string defaultHuman = Human.CreateHuman(EGender.Female, 23, 1337).ToBase64();
-
+    {        
         //PopulationData
         public static PopulationCell[] Population;
 
@@ -36,7 +34,7 @@ namespace PSC2013.ES.Library.Simulation
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    Population[i].AddHuman(Human.FromBase64(defaultHuman));
+                    Population[i].AddHuman(Human.Create(EGender.Female, 22, 1337));
                 }
                 if (i % 10000 == 0)
                     Console.WriteLine("Finished cell: " + i);
