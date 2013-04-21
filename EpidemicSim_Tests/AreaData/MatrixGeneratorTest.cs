@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.AreaData;
 using PSC2013.ES.Library.PopulationData;
+using PSC2013.ES.Library;
 using Xunit;
 
 namespace PSC2013.ES.Tests.AreaData
@@ -17,11 +18,13 @@ namespace PSC2013.ES.Tests.AreaData
 
         private DepartmentInfo[] _deps;
         private PopulationCell[] _pops;
+        private int _depC;
 
         private void StartUp()
         {
             _deps = new DepartmentInfo[1];
             _pops = new PopulationCell[WIDTH * HEIGHT];
+            _pops.Initialize<PopulationCell>();
 
             DepartmentInfo dpi = new DepartmentInfo();
             dpi.Name = "TestDep";
@@ -38,6 +41,9 @@ namespace PSC2013.ES.Tests.AreaData
                 }
 
             _deps = new DepartmentInfo[1] { dpi };
+
+            foreach (DepartmentInfo item in _deps)
+                _depC += item.Population.Sum();
         }
 
         [Fact]
@@ -65,6 +71,12 @@ namespace PSC2013.ES.Tests.AreaData
             }
 
             Console.WriteLine("Matrix generated.");
+            
+            int cn = 0;
+            foreach (PopulationCell item in _pops)
+                cn += item.Humans.Count(x => !x.IsDead());
+            Console.WriteLine("Is: " + cn);
+            Console.WriteLine("Wanted: " + _depC);
 #endif
             
         }

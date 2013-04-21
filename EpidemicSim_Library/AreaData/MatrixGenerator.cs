@@ -77,7 +77,7 @@ namespace PSC2013.ES.Library.AreaData
             if (!depInfo.Coordinates.Any(p => p.Equals(initialPoint)))
                 initialPoint = depInfo.Coordinates[0];
 
-            byte avgFactor = 20;
+            byte avgFactor = 25;
             int areaSize = depInfo.Coordinates.Length;
 
             Queue<Tuple<int, Point>> workingQueue = new Queue<Tuple<int, Point>>();
@@ -95,9 +95,9 @@ namespace PSC2013.ES.Library.AreaData
                 {
                     int r = RANDOM.Next(10) - 5;
                     int possibles = (int)(
-                        depInfo.Population[i] / (float)areaSize / (remainingTplOfSameRun + 1)
-                        ); // TODO | dj | problem... not working with to low population...
-                    int toSetCount = (int)(possibles * ((100f - (avgFactor + r)) / 100));
+                        depInfo.Population[i] / (float)areaSize// / (remainingTplOfSameRun + 1)
+                        );
+                    int toSetCount = (int)(possibles * ((100f + (avgFactor + r)) / 100));
 
                     int fn = FlattenPoint(n);
                     PopulationCell pc = populationArray[fn];
@@ -137,7 +137,7 @@ namespace PSC2013.ES.Library.AreaData
                 // - if remainingTpl... == 0? avgFactor -= x;
                 if (remainingTplOfSameRun == 0)
                 {
-                    short rand = (short)(RANDOM.Next(15) - 5);
+                    short rand = (short)(RANDOM.Next(25) - 15);
                     if (avgFactor + rand <= 0) rand = 7;
                     avgFactor = (byte)(avgFactor + rand);
                 }

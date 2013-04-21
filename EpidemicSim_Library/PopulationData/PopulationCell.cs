@@ -23,7 +23,7 @@ namespace PSC2013.ES.Library.PopulationData
 
         public void AddHuman(Human human)
         {
-            for (int i = 0; i < _humans.Length; i++)
+            for (int i = 0; i < Humans.Length; i++)
             {
                 if (!Humans[i].IsAlive())
                 {
@@ -43,6 +43,11 @@ namespace PSC2013.ES.Library.PopulationData
 
             newArray[++n] = human;
             Humans = newArray;
+        }
+
+        public override string ToString()
+        {
+            return Humans.Count(p => !p.IsDead()).ToString();
         }
     }
 }
