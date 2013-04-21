@@ -18,7 +18,7 @@ namespace PSC2013.ES.Library.Simulation
             {
                 for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                 {
-                    if (SimulationData.Population[i].Humans[j].IsDead())
+                    if (!SimulationData.Population[i].Humans[j].IsAlive())
                         continue;
 
                     switch (SimulationData.Population[i].Humans[j].GetMindset())
@@ -44,7 +44,7 @@ namespace PSC2013.ES.Library.Simulation
             {
                 for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                 {
-                    if (SimulationData.Population[i].Humans[j].IsDead())
+                    if (!SimulationData.Population[i].Humans[j].IsAlive())
                         continue;
 
 
@@ -56,7 +56,7 @@ namespace PSC2013.ES.Library.Simulation
             {
                 for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                 {
-                    if (SimulationData.Population[i].Humans[j].IsDead())
+                    if (!SimulationData.Population[i].Humans[j].IsAlive())
                         continue;
 
                     //SimulationData.Population[i].Humans[j].DoDiseaseTick();
@@ -68,7 +68,7 @@ namespace PSC2013.ES.Library.Simulation
             {
                 for (int j = 0; j < SimulationData.Population[i].Humans.Length; ++j)
                 {
-                    if (SimulationData.Population[i].Humans[j].IsDead())
+                    if (SimulationData.Population[i].Humans[j].IsAlive())
                         continue;
                 }
             }
