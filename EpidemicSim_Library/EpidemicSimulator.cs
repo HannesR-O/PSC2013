@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Snapshot;
+using System.IO;
+using System.Threading;
 
 namespace PSC2013.ES.Library
 {
@@ -21,11 +23,15 @@ namespace PSC2013.ES.Library
         private SnapshotManager _snapshotMgr;
 
         // ISimulationComponents
-        private List<ISimulationComponent> _stage1, _stage2, _stage3;
+        private ISimulationComponent _infectionSimulator;
+        private List<ISimulationComponent> _before, _after;
 
         // Misc
         private volatile bool _simulationLock = false;       //TODO: |f| might not need volatile
         private long _simulationRound = 1;
+
+        // Properties
+        public bool IsSimulationg { get { return _simulationLock; } }
 
         // Events
         public event EventHandler<SimulationEventArgs> SimulationStarted;
@@ -39,11 +45,15 @@ namespace PSC2013.ES.Library
 
             _snapshotMgr = new SnapshotManager();
 
-            _stage1 = new List<ISimulationComponent>();
-            _stage2 = new List<ISimulationComponent>();
-            _stage3 = new List<ISimulationComponent>();
+            _before = new List<ISimulationComponent>();
+            _after = new List<ISimulationComponent>();
         }
 
+        /// <summary>
+        /// Creates a new EpidemicSimulator with the given ISimulationComponents
+        /// </summary>
+        /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
+        /// <returns>The created instance of EpidemicSimulator</returns>
         public EpidemicSimulator Create(params ISimulationComponent[] components)
         {
             var sim = new EpidemicSimulator();
@@ -56,6 +66,11 @@ namespace PSC2013.ES.Library
             return sim;
         }
 
+        /// <summary>
+        /// Adds a new ISimulationComponent to the EpidemicSimulator. If the given ISimulationComponent is an Infection Simulator,
+        /// the previous one will be overriden
+        /// </summary>
+        /// <param name="component"></param>
         public void AddSimulationComponent(ISimulationComponent component)
         {
             if(_simulationLock)
@@ -64,49 +79,73 @@ namespace PSC2013.ES.Library
             switch (component.GetSimulationStage())
             {
                 case ESimulationStage.BeforeInfectedCalculation:
-                    _stage1.Add(component);
+                    if(!_before.Contains(component))
+                        _before.Add(component);
                     break;
                 case ESimulationStage.InfectedCalculation:
-                    _stage2.Add(component);
+                    _infectionSimulator = component;
                     break;
                 case ESimulationStage.AfterInfectedCalculation:
-                    _stage3.Add(component);
+                    if(!_after.Contains(component))
+                        _after.Add(component);
                     break;
                 default:
                     throw new ArgumentException("The component's ESimulationStage is not valid!", "component");
             }
         }
 
-        public void StartSimulation()
+        /// <summary>
+        /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to have an ISimulationComponent
+        /// for the Infection calculation.
+        /// </summary>
+        public void StartSimulation(string saveDirectory)
         {
+            if (_infectionSimulator == null)
+                throw new SimulationException("No ISimulationComponent specified for disease spreading!");
+
             if (_simulationLock)
                 throw new SimulationException("Could not start a new Simulation. " + ERROR_MESSAGE_SIMULATION);
 
-            _simulationLock = true;
-            // _snapshotMgr.StartSimulation().. TODO: |f| Start snapshot capturing here
+            if (!Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
+                throw new ArgumentException("Could not start a new Simulation. Could not create given directory!", "saveDirectory");
 
+            OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
+            _simulationLock = true;
+            //_snapshotMgr.InitalizeSimulation(saveDirectory, "Test-Sim", SimulationData.CurrentDisease); //TODO: |f| Get correct values.
+
+            Thread simulation = new Thread(PerformSimulation);
+            simulation.Start();
+
+            //_snapshotMgr.Finish();
+            OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false });
+        }
+
+        private void PerformSimulation()
+        {
             while (_simulationLock)
             {
-                foreach (ISimulationComponent comp in _stage1)
+                foreach (ISimulationComponent comp in _before)
                 {
                     comp.PerformSimulationStage(ref _simData);
                 }
 
-                foreach (ISimulationComponent comp in _stage2)
+                // Main simulation step
+                _infectionSimulator.PerformSimulationStage(ref _simData);
+
+                foreach (ISimulationComponent comp in _after)
                 {
                     comp.PerformSimulationStage(ref _simData);
                 }
 
-                foreach (ISimulationComponent comp in _stage3)
-                {
-                    comp.PerformSimulationStage(ref _simData);
-                }
-
+                //_snapshotMgr.TakeSnapshot(SimulationData.Population, new string[] { "Test" });  //TODO: |f| Figure out where to get dead people
                 _simulationRound++;
-                //TODO: |f| Add current snapshot to the SnapshotManager
+                OnTickFinished(new SimulationEventArgs() { SimulationRunning = true });
             }
         }
 
+        /// <summary>
+        /// Stops the current Simulation.
+        /// </summary>
         public void StopSimulation()
         {
             if (!_simulationLock)
