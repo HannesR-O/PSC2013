@@ -31,13 +31,16 @@ namespace PSC2013.ES.Library.Snapshot
             writeSnapshot(new Snapshot());
         }
 
+        public void End()
+        {
+            ZipFile.CreateFromDirectory(_target, _target + ".sim");
+        }
+
         /// <summary>
         /// Writes an Snapshot into a file
         /// </summary>
         private void writeSnapshot(Snapshot snap)
         {
-            Console.WriteLine(Path.Combine(_target, snap.Head)) ;
-            Console.ReadKey();
             _writer.WriteFile(snap, Path.Combine(_target, snap.Head), true);
         }
 
@@ -48,12 +51,10 @@ namespace PSC2013.ES.Library.Snapshot
             if (!Directory.Exists(_target))
             {
                 Directory.CreateDirectory(_target);
-                _writer.WriteFile(_info, _target + "\\head.siminfo", true);
-                
-                ZipFile.CreateFromDirectory(_target, _target + ".sim");
+                _writer.WriteFile(_info, _target + "\\head.siminfo", true);              
             }
             else
-                throw new ArgumentException("Folder already exists!");
+                throw new Exception("Folder already exists!");
         }
     }
 }
