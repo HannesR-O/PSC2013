@@ -19,6 +19,7 @@ namespace PSC2013.ES.Library
 
         // Data
         private SimulationData _simData;
+        private Task _simulation;
 
         // Managers
         private SnapshotManager _snapshotMgr;
@@ -30,6 +31,7 @@ namespace PSC2013.ES.Library
         // Misc
         private volatile bool _simulationLock = false;       //TODO: |f| might not need volatile
         private long _simulationRound = 1;
+        private long _simulationLimit = -1;
 
         // Properties
         public bool IsSimulationg { get { return _simulationLock; } }
@@ -55,7 +57,7 @@ namespace PSC2013.ES.Library
         /// </summary>
         /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
         /// <returns>The created instance of EpidemicSimulator</returns>
-        public EpidemicSimulator Create(params ISimulationComponent[] components)
+        public static EpidemicSimulator Create(params ISimulationComponent[] components)
         {
             var sim = new EpidemicSimulator();
 
@@ -87,6 +89,7 @@ namespace PSC2013.ES.Library
                         "component");
 
                 _infectionSimulator = component;
+                return;
             }
             else
             {
@@ -106,9 +109,21 @@ namespace PSC2013.ES.Library
 
         /// <summary>
         /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to have an ISimulationComponent
-        /// for the Infection calculation.
+        /// set for the Infection calculation.
         /// </summary>
+        /// <param name="saveDirectory">The directory to save the snapshots in</param>
         public void StartSimulation(string saveDirectory)
+        {
+            StartSimulation(saveDirectory, -1);
+        }
+
+        /// <summary>
+        /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to have an ISimulationComponent
+        /// set for the Infection calculation.
+        /// </summary>
+        /// <param name="saveDirectory">The directory to save the snapshots in</param>
+        /// <param name="limit"The limit of simulation rounds to perform</param>
+        public void StartSimulation(string saveDirectory, long limit)
         {
             if (_infectionSimulator == null)
                 throw new SimulationException("No ISimulationComponent specified for disease spreading!");
@@ -119,15 +134,17 @@ namespace PSC2013.ES.Library
             if (!Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
                 throw new ArgumentException("Could not start a new Simulation. Could not create given directory!", "saveDirectory");
 
+            if (limit < -1 || limit == 0)
+                throw new ArgumentOutOfRangeException("limit", "The given simulation round limit must be greater than 0!");
+
+            _simulationLimit = limit;
+
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            //_snapshotMgr.InitalizeSimulation(saveDirectory, "Test-Sim", SimulationData.CurrentDisease); //TODO: |f| Get correct values.
+            //_snapshotMgr.InitalizeSimulation(saveDirectory, SimulationData.CurrentDisease); //TODO: |f| Get correct values.
 
-            Thread simulation = new Thread(PerformSimulation);
-            simulation.Start();
-
-            //_snapshotMgr.Finish();
-            OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false });
+            // Actual Simulation TODO: |f| figure out what to parallelize
+            _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
         }
 
         private void PerformSimulation()
@@ -148,7 +165,10 @@ namespace PSC2013.ES.Library
                 }
 
                 //_snapshotMgr.TakeSnapshot(SimulationData.Population, new string[] { "Test" });  //TODO: |f| Figure out where to get dead people
-                _simulationRound++;
+                Interlocked.Increment(ref _simulationRound);
+                if (_simulationLimit != -1)
+                    _simulationLock = _simulationRound <= _simulationLimit;
+
                 OnTickFinished(new SimulationEventArgs() { SimulationRunning = true });
             }
         }
@@ -161,21 +181,37 @@ namespace PSC2013.ES.Library
             if (!_simulationLock)
                 throw new SimulationException("Could not stop Simulation. " + ERROR_MESSAGE_NO_SIMULATION);
             //TODO: |f| make simulationticks execute in a seperate thread and use locks, so this method can actually stop the calculation
+
             _simulationLock = false;
+        }
+
+        private void PerformSimulationStop()
+        {
+            //_snapshotMgr.Finish();
+            OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false });
         }
 
         protected virtual void OnSimulationStarted(SimulationEventArgs e)
         {
+#if DEBUG
+            Console.WriteLine("Simulation started!");
+#endif
             SimulationStarted.Raise(this, e);
         }
 
         protected virtual void OnSimulationEnded(SimulationEventArgs e)
         {
+#if DEBUG
+            Console.WriteLine("Simulation ended!");
+#endif
             SimulationEnded.Raise(this, e);
         }
 
         protected virtual void OnTickFinished(SimulationEventArgs e)
         {
+#if DEBUG
+            Console.WriteLine("Finished Tick: " + _simulationRound);
+#endif
             TickFinished.Raise(this, e);
         }
     }
