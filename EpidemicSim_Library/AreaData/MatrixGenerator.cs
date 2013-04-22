@@ -39,7 +39,7 @@ namespace PSC2013.ES.Library.AreaData
 
             if (populationArray.Length != WIDTH * HEIGHT)
                 throw new ArgumentException(
-                    "The argument has to be an array if PopulationCell with a length of '10808574'",
+                    "The argument has to be an array if PopulationCell with a length of '" + WIDTH * HEIGHT + "'.",
                     "populationArray");
 
             // TODO | dj | this could be done parallel
@@ -53,7 +53,7 @@ namespace PSC2013.ES.Library.AreaData
         {
             Point initialPoint = CalculateInitialPoint(depInfo);
 
-            byte avgFactor = 100;
+            byte avgFactor = 125;
             int areaSize = depInfo.Coordinates.Length;
 
             Queue<Tuple<int, Point>> workingQueue = new Queue<Tuple<int, Point>>();
@@ -70,9 +70,7 @@ namespace PSC2013.ES.Library.AreaData
                 for (int i = 0; i < 8; i++) // for each age-group
                 {
                     int r = RANDOM.Next(10) - 5;
-                    int possibles = (int)(
-                        depInfo.Population[i] / (float)areaSize// / (remainingTplOfSameRun + 1)
-                        ); // TODO | dj | still not finished...
+                    int possibles = (int)(depInfo.Population[i] / (float)areaSize);
                     int toSetCount = (int)(possibles * ((100f + (avgFactor + r)) / 100));
 
                     int fn = FlattenPoint(n);
@@ -113,7 +111,7 @@ namespace PSC2013.ES.Library.AreaData
                 // - if remainingTpl... == 0? avgFactor -= x;
                 if (remainingTplOfSameRun == 0)
                 {
-                    short rand = (short)(RANDOM.Next(50) - 45);
+                    short rand = (short)(RANDOM.Next(75) - 65);
                     if (avgFactor + rand <= 0) rand = 7;
                     avgFactor = (byte)(avgFactor + rand);
                 }
@@ -121,9 +119,7 @@ namespace PSC2013.ES.Library.AreaData
                 if (areaSize > 0)
                 {
                     currentRun++;
-
                     // - queue neighbours (8-way)
-
                     for (int y = -1; y <= 1; y++)
                     {
                         for (int x = -1; x <= 1; x++)
@@ -135,14 +131,7 @@ namespace PSC2013.ES.Library.AreaData
                         }
                     }
                 }
-                // TODO | dj | current ^^^
-#if DEBUG
-                Console.WriteLine("Point done: " + n);
-#endif
-
             }
-
-            // TODO | dj | continue..
         }
 
         /// <summary>

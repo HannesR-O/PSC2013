@@ -31,7 +31,7 @@ namespace PSC2013.ES.Tests.AreaData
             for (int i = 0; i < 8; i++)
                 dpi.Population[i] = 10000;
 
-            dpi.Coordinates = new Point[WIDTH * HEIGHT];
+            dpi.Coordinates = new Point[(WIDTH * HEIGHT)];
 
             for (int x = 0; x < WIDTH; x++)
                 for (int y = 0; y < HEIGHT; y++)
@@ -52,31 +52,15 @@ namespace PSC2013.ES.Tests.AreaData
             StartUp();
 
             MatrixGenerator.GenerateMatrix(_pops, _deps, WIDTH, HEIGHT);
-
-#if DEBUG
-            int[,] matrix = new int[WIDTH, HEIGHT];
-
-            for (int x = 0; x < WIDTH; x++)
-            {
-                for (int y = 0; y < HEIGHT; y++)
-                {
-                    matrix[x, y] = _pops[x + (y * WIDTH)].Humans.Count(p => !p.IsDead());
-                }
-            }
-
-            int[] snglMatrix = new int[WIDTH * HEIGHT];
-            for (int i = 0; i < _pops.Length; i++)
-            {
-                snglMatrix[i] = _pops[i].Humans.Count(x => !x.IsDead());
-            }
-
-            Console.WriteLine("Matrix generated.");
             
             int cn = 0;
             foreach (PopulationCell item in _pops)
                 cn += item.Humans.Count(x => !x.IsDead());
-            Console.WriteLine("Is: " + cn);
-            Console.WriteLine("Wanted: " + _depC);
+
+            Assert.True(cn >= _depC); // maybe not the best test, but it's one. :P
+
+#if DEBUG
+            int[,] matrix = _pops.To2DIntArray(WIDTH);
 #endif
             
         }
