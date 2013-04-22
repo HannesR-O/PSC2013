@@ -42,9 +42,11 @@ namespace PSC2013.ES.Library.AreaData
                     "The argument has to be an array if PopulationCell with a length of '" + WIDTH * HEIGHT + "'.",
                     "populationArray");
 
-            // TODO | dj | this could be done parallel
-            foreach (DepartmentInfo item in rawData)
-                PopulateDepartment(item, populationArray);
+            // the parallel call.
+            Parallel.ForEach(rawData, (item) =>
+                {
+                    PopulateDepartment(item, populationArray);
+                });
 
             return populationArray;
         }
