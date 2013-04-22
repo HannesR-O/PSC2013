@@ -31,15 +31,15 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="destination">Where to save the Simulation</param>
         /// <param name="name">The simulations name</param>
         /// <param name="disease">The Disease used in this Simulation</param>
-        public void InitalizeSimulation(string destination, string name, Disease disease)
+        public void InitalizeSimulation(string destination, Disease disease)
         {
             _snapshots = new Queue<Snapshot>();
-            _target = Path.Combine(destination, name);
+            _target = Path.Combine(destination, disease.Name);
 
             if (!Directory.Exists(_target))
                Directory.CreateDirectory(_target);
 
-            _simInfo = new SimulationInfo(DateTime.Now, name, disease);
+            _simInfo = new SimulationInfo(DateTime.Now, disease.Name, disease);
             _writer.WriteFile(_simInfo, _target + "/header", true);
         }
 

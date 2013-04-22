@@ -18,7 +18,9 @@ namespace PSC2013.ES.Cmd
         public static void testSnapshot()
         {
             SnapshotManager m = new SnapshotManager();
-            m.InitalizeSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Desktop Test!", new Library.Diseases.Disease());
+            Library.Diseases.Disease d = new Library.Diseases.Disease();
+            d.Name = "Illnes";
+            m.InitalizeSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), d);
             m.Finish();
         }
 

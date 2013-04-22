@@ -16,6 +16,11 @@ namespace PSC2013.ES.Library.Diseases
         // TODO | dj | types might be changed...
 
         /// <summary>
+        /// Name of the Disease
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Incubation period until a subject
         /// is showing symptoms.
         /// </summary>
