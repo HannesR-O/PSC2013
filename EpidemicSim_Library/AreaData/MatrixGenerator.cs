@@ -51,33 +51,9 @@ namespace PSC2013.ES.Library.AreaData
 
         private static void PopulateDepartment(DepartmentInfo depInfo, PopulationCell[] populationArray)
         {
-            int minX = WIDTH;
-            int minY = HEIGHT;
-            int maxX = 0;
-            int maxY = 0;
+            Point initialPoint = CalculateInitialPoint(depInfo);
 
-            foreach (Point item in depInfo.Coordinates)
-            {
-                minX = Math.Min(minX, item.X);
-                minY = Math.Min(minY, item.Y);
-                maxX = Math.Max(maxX, item.X);
-                maxY = Math.Max(maxY, item.Y);
-            }
-            
-            int avgX = (maxX + minX) / 2;
-            int avgY = (maxY + minY) / 2;
-
-            Point initialPoint = new Point(avgX, avgY);
-
-            /* If the average point is not in the area
-             * of the department, the first - hand
-             * gathered - coordinate will be chosen.
-             * This is most times near the center.
-             */
-            if (!depInfo.Coordinates.Any(p => p.Equals(initialPoint)))
-                initialPoint = depInfo.Coordinates[0];
-
-            byte avgFactor = 25;
+            byte avgFactor = 100;
             int areaSize = depInfo.Coordinates.Length;
 
             Queue<Tuple<int, Point>> workingQueue = new Queue<Tuple<int, Point>>();
@@ -96,7 +72,7 @@ namespace PSC2013.ES.Library.AreaData
                     int r = RANDOM.Next(10) - 5;
                     int possibles = (int)(
                         depInfo.Population[i] / (float)areaSize// / (remainingTplOfSameRun + 1)
-                        );
+                        ); // TODO | dj | still not finished...
                     int toSetCount = (int)(possibles * ((100f + (avgFactor + r)) / 100));
 
                     int fn = FlattenPoint(n);
@@ -137,7 +113,7 @@ namespace PSC2013.ES.Library.AreaData
                 // - if remainingTpl... == 0? avgFactor -= x;
                 if (remainingTplOfSameRun == 0)
                 {
-                    short rand = (short)(RANDOM.Next(25) - 15);
+                    short rand = (short)(RANDOM.Next(50) - 45);
                     if (avgFactor + rand <= 0) rand = 7;
                     avgFactor = (byte)(avgFactor + rand);
                 }
@@ -167,6 +143,40 @@ namespace PSC2013.ES.Library.AreaData
             }
 
             // TODO | dj | continue..
+        }
+
+        /// <summary>
+        /// Returns the initial System.Drawing.Point of the
+        /// given DepartmentInfo
+        /// </summary>
+        private static Point CalculateInitialPoint(DepartmentInfo depInfo)
+        {
+            int minX = WIDTH;
+            int minY = HEIGHT;
+            int maxX = 0;
+            int maxY = 0;
+
+            foreach (Point item in depInfo.Coordinates)
+            {
+                minX = Math.Min(minX, item.X);
+                minY = Math.Min(minY, item.Y);
+                maxX = Math.Max(maxX, item.X);
+                maxY = Math.Max(maxY, item.Y);
+            }
+
+            int avgX = (maxX + minX) / 2;
+            int avgY = (maxY + minY) / 2;
+
+            Point initialPoint = new Point(avgX, avgY);
+
+            /* If the average point is not in the area
+             * of the department, the first - hand
+             * gathered - coordinate will be chosen.
+             * This is most times near the center.
+             */
+            if (!depInfo.Coordinates.Any(p => p.Equals(initialPoint)))
+                initialPoint = depInfo.Coordinates[0];
+            return initialPoint;
         }
 
         /// <summary>
