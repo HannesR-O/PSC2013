@@ -48,8 +48,8 @@
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\Files\IDocument.cs" />
     <Compile Include="IO\Writers\AsyncBinaryWriter.cs" />
-    <Compile Include="Simulation\ESimulationStage.cs" />
-    <Compile Include="Simulation\ISimulationComponent.cs" />
+    <Compile Include="Simulation\Component\ESimulationStage.cs" />
+    <Compile Include="Simulation\Component\ISimulationComponent.cs" />
     <Compile Include="Simulation\SimulationEventArgs.cs" />
     <Compile Include="Simulation\SimulationException.cs" />
     <Compile Include="Snapshot\CellSnapshot.cs" />
@@ -79,9 +79,7 @@
     <Compile Include="Simulation\ETimeConstants.cs" />
     <Compile Include="Snapshot\SnapshotManager.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Simulation\Component\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSC2013.ES.Library.Simulation
+namespace PSC2013.ES.Library.Simulation.Component
 {
     public interface ISimulationComponent
     {
@@ -14,6 +14,11 @@ namespace PSC2013.ES.Library.Simulation
         /// <param name="data">The data for the simulation to work with</param>
         void PerformSimulationStage(ref SimulationData data);
 
-        ESimulationStage GetSimulationStage();
+        /// <summary>
+        /// Returns the ISimulationComponent's simulation stage(s) to determine when PerformSimulationStage()
+        /// gets executed.
+        /// </summary>
+        /// <returns>The stage(s)</returns>
+        ESimulationStage GetSimulationStages();
     }
 }

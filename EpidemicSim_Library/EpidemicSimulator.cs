@@ -7,6 +7,7 @@ using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Snapshot;
 using System.IO;
 using System.Threading;
+using PSC2013.ES.Library.Simulation.Component;
 
 namespace PSC2013.ES.Library
 {
@@ -73,25 +74,34 @@ namespace PSC2013.ES.Library
         /// <param name="component"></param>
         public void AddSimulationComponent(ISimulationComponent component)
         {
-            if(_simulationLock)
+            if (_simulationLock)
                 throw new SimulationException("Could not add a new ISimulationComponent. " + ERROR_MESSAGE_SIMULATION);
 
-            switch (component.GetSimulationStage())
+            ESimulationStage stages = component.GetSimulationStages();
+            if ((stages & ESimulationStage.InfectedCalculation) == ESimulationStage.InfectedCalculation)
             {
-                case ESimulationStage.BeforeInfectedCalculation:
-                    if(!_before.Contains(component))
-                        _before.Add(component);
-                    break;
-                case ESimulationStage.InfectedCalculation:
-                    _infectionSimulator = component;
-                    break;
-                case ESimulationStage.AfterInfectedCalculation:
-                    if(!_after.Contains(component))
-                        _after.Add(component);
-                    break;
-                default:
-                    throw new ArgumentException("The component's ESimulationStage is not valid!", "component");
+                if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation ||
+                    (stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation)
+                    throw new ArgumentException(
+                        "The given ISimulationComponent cannot get executed in the Infection stage and before/after!",
+                        "component");
+
+                _infectionSimulator = component;
             }
+            else
+            {
+                if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation &&
+                    _before.Contains(component))
+                    _before.Add(component);
+
+                if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation &&
+                    _after.Contains(component))
+                    _after.Add(component);
+
+                return;
+            }
+
+            throw new ArgumentException("The component's ESimulationStage is not valid!", "component");
         }
 
         /// <summary>
