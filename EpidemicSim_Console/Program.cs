@@ -16,7 +16,7 @@ namespace PSC2013.ES.Cmd
 #if DEBUG
             //TestEpidemicSimulator();
 
-            //TestSnapshot();
+            TestSnapshot();
 #endif
         }
 
@@ -51,6 +51,7 @@ namespace PSC2013.ES.Cmd
             SnapshotManager m = new SnapshotManager();
             Library.Diseases.Disease d = new Library.Diseases.Disease();
             d.Name = "Illnes";
+            d.IdleTime = 65156165;
             m.InitalizeSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), d);
             m.Finish();
         }

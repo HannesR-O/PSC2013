@@ -18,6 +18,7 @@ namespace PSC2013.ES.Library.Snapshot
         private SimulationInfo _simInfo;
         private Queue<Snapshot> _snapshots;
         private IBinaryWriter _writer;
+        private int _tick;
 
         public SnapshotManager()
         {
@@ -35,6 +36,7 @@ namespace PSC2013.ES.Library.Snapshot
         {
             _snapshots = new Queue<Snapshot>();
             _target = Path.Combine(destination, disease.Name);
+            _tick = 1;
 
             if (!Directory.Exists(_target))
                Directory.CreateDirectory(_target);
@@ -65,7 +67,7 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 temp[i] = CellSnapshot.FromCell(cells[i], i, null);
             }
-            Snapshot snap = new Snapshot(temp);
+            Snapshot snap = new Snapshot(_tick, temp);
 
             _snapshots.Enqueue(snap);
         }

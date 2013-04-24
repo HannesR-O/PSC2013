@@ -9,14 +9,16 @@ namespace PSC2013.ES.Library.Snapshot
 {
     public class Snapshot : IBinaryFile
     {
-        public DateTime _stamp;
+        public DateTime Stamp { get; private set; }
+        public int Tick { get; private set; }
+        public String Head { get; private set; }
         private CellSnapshot[] _cells;
-        public String Head {get; private set;}
 
-        public Snapshot(CellSnapshot[] cells)
+
+        public Snapshot(int tick, CellSnapshot[] cells)
         {
-            _stamp = DateTime.Now;
-            Head = "[" + _stamp.Hour + "-" + _stamp.Minute + "]";
+            Stamp = DateTime.Now;
+            Head = Tick + "_-_[" + Stamp.Hour + "-" + Stamp.Minute + "]";
 
             _cells = cells;
 

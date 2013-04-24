@@ -14,10 +14,10 @@ namespace PSC2013.ES.Library.Snapshot
     {
         public int Position { get; private set; } // Position in Array (If 1-dimensional)    
 
-        public int CountM00 { get; private set; } // Males Baby
-        public int CountM01 { get; private set; } // Males Child
-        public int CountM10 { get; private set; } // Males Adult
-        public int CountM11 { get; private set; } // Males Senior
+        public int CountMaleBaby { get; private set; } // Males Baby
+        public int CountMaleChild { get; private set; } // Males Child
+        public int CountMaleAdult { get; private set; } // Males Adult
+        public int CountMaleSenior { get; private set; } // Males Senior
 
         public int CountF00 { get; private set; } // Females Baby
         public int CountF01 { get; private set; } // Females Child
@@ -32,10 +32,10 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="param">The Population to be Snaped</param>
         private CellSnapshot(int[] infos, HumanSnapshot[] dead)
         {
-            CountM00 = infos[0];
-            CountM01 = infos[1];
-            CountM10 = infos[2];
-            CountM11 = infos[3];
+            CountMaleBaby = infos[0];
+            CountMaleChild = infos[1];
+            CountMaleAdult = infos[2];
+            CountMaleSenior = infos[3];
 
             CountF00 = infos[4];
             CountF01 = infos[5];
@@ -84,7 +84,7 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] getBytes()
         {
-            return System.Text.Encoding.UTF8.GetBytes(Position + "|" + CountM00 + "|" + CountM01 + "|"+ CountM10);
+            return System.Text.Encoding.UTF8.GetBytes(Position + "|" + CountMaleBaby + "|" + CountMaleChild + "|"+ CountMaleAdult);
         }
     }
 }

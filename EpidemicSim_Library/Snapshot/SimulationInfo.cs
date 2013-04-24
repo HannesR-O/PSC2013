@@ -29,7 +29,8 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] GetBytes()
         {
-            return System.Text.Encoding.UTF8.GetBytes(0x1 + "|" +  _info + "|");
+            //return System.Text.Encoding.UTF8.GetBytes(0x1 + "|" +  _info + "|");
+            return BitConverter.GetBytes(_disease.IdleTime);
         }
 
         public void InitializeFromFile(byte[] bytes)
