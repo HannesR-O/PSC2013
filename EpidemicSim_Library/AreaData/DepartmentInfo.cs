@@ -22,7 +22,7 @@ namespace PSC2013.ES.Library.AreaData
 
         /// <summary>
         /// The poulation of this Department.
-        /// [1-3] Males, [4-7] Females
+        /// [0-3] Males, [4-7] Females
         /// </summary>
         public int[] Population { get; private set; }
 

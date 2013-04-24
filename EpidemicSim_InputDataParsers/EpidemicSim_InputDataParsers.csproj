@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\RegionPopulationInfo.cs" />
+    <Compile Include="IO\DataWriter.cs" />
     <Compile Include="Parsers\DepartmentParser.cs" />
     <Compile Include="Parsers\LandCircleParser.cs" />
     <Compile Include="Parsers\MapParser.cs" />

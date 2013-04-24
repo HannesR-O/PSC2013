@@ -44,9 +44,10 @@
             this.txBoxTextfile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tPageMatch = new System.Windows.Forms.TabPage();
+            this.txBoxMatchResults = new System.Windows.Forms.TextBox();
             this.btnParseMatch = new System.Windows.Forms.Button();
             this.fileDlg = new System.Windows.Forms.OpenFileDialog();
-            this.txBoxMatchResults = new System.Windows.Forms.TextBox();
+            this.btnMatchWrite = new System.Windows.Forms.Button();
             this.tControl.SuspendLayout();
             this.tPagePopulation.SuspendLayout();
             this.tPageCoordinates.SuspendLayout();
@@ -207,6 +208,7 @@
             // 
             // tPageMatch
             // 
+            this.tPageMatch.Controls.Add(this.btnMatchWrite);
             this.tPageMatch.Controls.Add(this.txBoxMatchResults);
             this.tPageMatch.Controls.Add(this.btnParseMatch);
             this.tPageMatch.Location = new System.Drawing.Point(4, 22);
@@ -215,16 +217,6 @@
             this.tPageMatch.TabIndex = 2;
             this.tPageMatch.Text = "Match RegionInfos";
             this.tPageMatch.UseVisualStyleBackColor = true;
-            // 
-            // btnParseMatch
-            // 
-            this.btnParseMatch.Location = new System.Drawing.Point(8, 8);
-            this.btnParseMatch.Name = "btnParseMatch";
-            this.btnParseMatch.Size = new System.Drawing.Size(660, 23);
-            this.btnParseMatch.TabIndex = 1;
-            this.btnParseMatch.Text = "Match RegionInfos";
-            this.btnParseMatch.UseVisualStyleBackColor = true;
-            this.btnParseMatch.Click += new System.EventHandler(this.btnParseMatch_Click);
             // 
             // txBoxMatchResults
             // 
@@ -237,6 +229,26 @@
             this.txBoxMatchResults.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txBoxMatchResults.Size = new System.Drawing.Size(660, 340);
             this.txBoxMatchResults.TabIndex = 2;
+            // 
+            // btnParseMatch
+            // 
+            this.btnParseMatch.Location = new System.Drawing.Point(8, 8);
+            this.btnParseMatch.Name = "btnParseMatch";
+            this.btnParseMatch.Size = new System.Drawing.Size(327, 23);
+            this.btnParseMatch.TabIndex = 1;
+            this.btnParseMatch.Text = "Match RegionInfos";
+            this.btnParseMatch.UseVisualStyleBackColor = true;
+            this.btnParseMatch.Click += new System.EventHandler(this.btnParseMatch_Click);
+            // 
+            // btnMatchWrite
+            // 
+            this.btnMatchWrite.Location = new System.Drawing.Point(341, 8);
+            this.btnMatchWrite.Name = "btnMatchWrite";
+            this.btnMatchWrite.Size = new System.Drawing.Size(327, 23);
+            this.btnMatchWrite.TabIndex = 3;
+            this.btnMatchWrite.Text = "Match and Store";
+            this.btnMatchWrite.UseVisualStyleBackColor = true;
+            this.btnMatchWrite.Click += new System.EventHandler(this.btnMatchWrite_Click);
             // 
             // MainFrm
             // 
@@ -278,6 +290,7 @@
         private System.Windows.Forms.TabPage tPageMatch;
         private System.Windows.Forms.Button btnParseMatch;
         private System.Windows.Forms.TextBox txBoxMatchResults;
+        private System.Windows.Forms.Button btnMatchWrite;
     }
 }
 

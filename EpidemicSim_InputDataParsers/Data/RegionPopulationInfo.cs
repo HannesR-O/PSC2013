@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PSC2013.ES.InputDataParsers.Data
 {
-    internal class RegionPopulationInfo
+    public class RegionPopulationInfo
     {
         private int[] _populationInfo;
 

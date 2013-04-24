@@ -91,6 +91,18 @@ namespace PSC2013.ES.InputDataParsers.UI
 
         private void btnParseMatch_Click(object sender, EventArgs e)
         {
+            ParseAndMatch();
+        }
+
+        private void btnMatchWrite_Click(object sender, EventArgs e)
+        {
+            var res = ParseAndMatch();
+            IO.DataWriter.StoreMatchedData(null, res.Item1);
+            Console.WriteLine("Stored!");
+        }
+
+        private Tuple<List<RegionPopulationInfo>, List<string>> ParseAndMatch()
+        {
             if (_pp == null)
                 _pp = new Parsers.PopulationParser();
 
@@ -110,6 +122,8 @@ namespace PSC2013.ES.InputDataParsers.UI
                 txBoxMatchResults.Text += item + Environment.NewLine;
                 //lBoxMatches.Items.Add(item);
             }
+
+            return result;
         }
     }
 }
