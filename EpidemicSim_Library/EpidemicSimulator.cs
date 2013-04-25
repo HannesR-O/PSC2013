@@ -17,6 +17,9 @@ namespace PSC2013.ES.Library
         private const string ERROR_MESSAGE_SIMULATION = "A Simulation is already running!";
         private const string ERROR_MESSAGE_NO_SIMULATION = "No Simulation running!";
 
+        private const int SIMULATION_DEFAULT_START = 0x0;
+        private const int SIMULATION_DEFAULT_LIMIT = 0x0;
+
         // Data
         private SimulationData _simData;
         private Task _simulation;
@@ -29,9 +32,9 @@ namespace PSC2013.ES.Library
         private List<ISimulationComponent> _before, _after;
 
         // Misc
-        private volatile bool _simulationLock = false;       //TODO: |f| might not need volatile
-        private long _simulationRound = 1;
-        private long _simulationLimit = -1;
+        private volatile bool _simulationLock = false;
+        private long _simulationRound = SIMULATION_DEFAULT_START;
+        private long _simulationLimit = SIMULATION_DEFAULT_LIMIT;
 
         // Properties
         public bool IsSimulationg { get { return _simulationLock; } }
@@ -114,7 +117,7 @@ namespace PSC2013.ES.Library
         /// <param name="saveDirectory">The directory to save the snapshots in</param>
         public void StartSimulation(string saveDirectory)
         {
-            StartSimulation(saveDirectory, -1);
+            StartSimulation(saveDirectory, SIMULATION_DEFAULT_LIMIT);
         }
 
         /// <summary>
@@ -134,8 +137,8 @@ namespace PSC2013.ES.Library
             if (!Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
                 throw new ArgumentException("Could not start a new Simulation. Could not create given directory!", "saveDirectory");
 
-            if (limit < -1 || limit == 0)
-                throw new ArgumentOutOfRangeException("limit", "The given simulation round limit must be greater than 0!");
+            if (limit < 0)
+                throw new ArgumentException("Simulationround limit must be greater than 0!", "limit");
 
             _simulationLimit = limit;
 
@@ -143,7 +146,7 @@ namespace PSC2013.ES.Library
             _simulationLock = true;
             //_snapshotMgr.InitalizeSimulation(saveDirectory, SimulationData.CurrentDisease); //TODO: |f| Get correct values.
 
-            // Actual Simulation TODO: |f| figure out what to parallelize
+            // Actual Simulation
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
         }
 
@@ -153,23 +156,23 @@ namespace PSC2013.ES.Library
             {
                 foreach (ISimulationComponent comp in _before)
                 {
-                    comp.PerformSimulationStage(ref _simData);
+                    comp.PerformSimulationStage(_simData);
                 }
 
                 // Main simulation step
-                _infectionSimulator.PerformSimulationStage(ref _simData);
+                _infectionSimulator.PerformSimulationStage(_simData);
 
                 foreach (ISimulationComponent comp in _after)
                 {
-                    comp.PerformSimulationStage(ref _simData);
+                    comp.PerformSimulationStage(_simData);
                 }
 
                 //_snapshotMgr.TakeSnapshot(SimulationData.Population, new string[] { "Test" });  //TODO: |f| Figure out where to get dead people
-                Interlocked.Increment(ref _simulationRound);
-                if (_simulationLimit != -1)
-                    _simulationLock = _simulationRound <= _simulationLimit;
+                long round = Interlocked.Increment(ref _simulationRound);
+                if (round != SIMULATION_DEFAULT_LIMIT)
+                    _simulationLock = round <= _simulationLimit;
 
-                OnTickFinished(new SimulationEventArgs() { SimulationRunning = true });
+                OnTickFinished(new SimulationEventArgs() { SimulationRunning = true, SimulationRound = round });
             }
         }
 
@@ -180,15 +183,15 @@ namespace PSC2013.ES.Library
         {
             if (!_simulationLock)
                 throw new SimulationException("Could not stop Simulation. " + ERROR_MESSAGE_NO_SIMULATION);
-            //TODO: |f| make simulationticks execute in a seperate thread and use locks, so this method can actually stop the calculation
 
             _simulationLock = false;
         }
 
         private void PerformSimulationStop()
         {
+            long rounds = Interlocked.Read(ref _simulationRound);
             //_snapshotMgr.Finish();
-            OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false });
+            OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
         }
 
         protected virtual void OnSimulationStarted(SimulationEventArgs e)
