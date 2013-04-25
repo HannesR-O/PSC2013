@@ -43,20 +43,35 @@ namespace PSC2013.ES.Library.AreaData
                     "populationArray");
 
             // the parallel call.
-            Parallel.ForEach(rawData, (item) =>
+            int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
+            degree = Math.Max(1, degree);                       // but minimum of 1
+            //degree = -1;
+            Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
+                (item) =>
                 {
                     PopulateDepartment(item, populationArray);
                 });
+            //foreach (var item in rawData)
+            //{
+            //    PopulateDepartment(item, populationArray);
+            //}
 
             return populationArray;
         }
 
         private static void PopulateDepartment(DepartmentInfo depInfo, PopulationCell[] populationArray)
         {
+#if DEBUG
+            Console.WriteLine("Calculating " + depInfo.Name);
+#endif
             Point initialPoint = CalculateInitialPoint(depInfo);
 
             byte avgFactor = 125;
             int areaSize = depInfo.Coordinates.Length;
+
+            Tuple<int, PopulationCell>[] tmpInfo = new Tuple<int, PopulationCell>[areaSize];
+            int tmpCounter = 0;
+            //List<Tuple<int, PopulationCell>> tmpInfo = new List<Tuple<int, PopulationCell>>();
 
             Queue<Tuple<int, Point>> workingQueue = new Queue<Tuple<int, Point>>();
             workingQueue.Enqueue(new Tuple<int, Point>(0, initialPoint));
@@ -69,14 +84,17 @@ namespace PSC2013.ES.Library.AreaData
 
                 int remainingTplOfSameRun = workingQueue.Count(x => x.Item1 == currentRun);
 
+                int fn = FlattenPoint(n);
+                //PopulationCell pc = populationArray[fn];
+                PopulationCell pc = new PopulationCell();
+                tmpInfo[tmpCounter++] = new Tuple<int, PopulationCell>(fn, pc);
+                //tmpInfo.Add(new Tuple<int, PopulationCell>(fn, pc));
+
                 for (int i = 0; i < 8; i++) // for each age-group
                 {
                     int r = RANDOM.Next(10) - 5;
                     int possibles = (int)(depInfo.Population[i] / (float)areaSize);
                     int toSetCount = (int)(possibles * ((100f + (avgFactor + r)) / 100));
-
-                    int fn = FlattenPoint(n);
-                    PopulationCell pc = populationArray[fn];
 
                     for (int j = 0; j < toSetCount; j++)                 // foreach human (which has to be set)
                     {
@@ -128,12 +146,26 @@ namespace PSC2013.ES.Library.AreaData
                         {
                             Point p = new Point(n.X + x, n.Y + y);
                             if (!p.Equals(n))
-                                if (CheckPoint(p, populationArray, depInfo.Coordinates, workingQueue))
+                                //if (CheckPoint(p, populationArray, depInfo.Coordinates, workingQueue))
+                                if (Check(p, depInfo, tmpInfo, workingQueue))
                                     workingQueue.Enqueue(new Tuple<int, Point>(currentRun, p));
                         }
                     }
                 }
             }
+
+            lock (populationArray)
+            {
+                foreach (var item in tmpInfo)
+                    if (item != null)                               // TODO | dj | this should not be necessary!
+                        populationArray[item.Item1] = item.Item2;
+            }
+
+            tmpInfo = null;     // deleting reference to encourage GC...
+
+#if DEBUG
+            Console.WriteLine(" -- Finished " + depInfo.Name);
+#endif
         }
 
         /// <summary>
@@ -178,9 +210,31 @@ namespace PSC2013.ES.Library.AreaData
             return p.X + (p.Y * WIDTH);
         }
 
+        private static bool Check(Point p, DepartmentInfo dep, Tuple<int, PopulationCell>[] arr, Queue<Tuple<int, Point>> queue)
+        {
+            if (!dep.Coordinates.Contains(p))
+                return false;                   // not part of the department.
+            
+            if (arr.Select((tpl) => { return (tpl != null) ? tpl.Item1 : -1; }).Contains(FlattenPoint(p)))
+                return false;                   // already calculated.
+            //int i = 0;
+            //while (i < arr.Length && arr[i] != null)
+            //    if (arr[i++].Item1 == FlattenPoint(p))
+            //        return false;
+
+            if (queue.Select((tpl) => { return tpl.Item2; }).Contains(p))
+                return false;                   // already in queue.
+            //foreach (var item in queue)
+            //    if (item.Item2.Equals(p))
+            //        return false;
+
+            return true;
+        }
+
         /// <summary>
         /// Checks whether the Point is valid or not.
         /// </summary>
+        [Obsolete]
         private static bool CheckPoint(Point p, PopulationCell[] arr, Point[] points, Queue<Tuple<int, Point>> queue)
         {
             bool result = false;
