@@ -10,49 +10,36 @@ namespace PSC2013.ES.Library.Simulation
     public class SimulationData
     {        
         //PopulationData
-        public static PopulationCell[] Population;
+        public PopulationCell[] Population { get; private set; }
 
         //AreaData
-        public static Department[] Departments;
-        public static FederalState[] FederalStates;
+        public Department[] Departments { get; private set; }
+        public FederalState[] FederalStates { get; private set; }
 
         //TimeConstants
-        public static DayOfWeek CurrentDay;
-        public static EMonth CurrentMonth;
-        public static int CurrentTime;          // 0-23 Uhr
+        public DayOfWeek CurrentDay { get; private set; }
+        public EMonth CurrentMonth { get; private set; }
+        public int CurrentTime { get; private set; }                // 0-23 Uhr
 
         //Used Disease
-        public static Disease CurrentDisease;
+        public Disease CurrentDisease;
 
-        static SimulationData()
+        public SimulationData()
         {
             FederalStates = new FederalState[16];
             Departments = new Department[401];
             Population = new PopulationCell[10808574];
             Population.Initialize<PopulationCell>();
-
-#if DEBUG
-            for (int i = 0; i < 6861016; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    Population[i].AddHuman(Human.Create(EGender.Female, 22, 1337));
-                }
-                if (i % 10000 == 0)
-                    Console.WriteLine("Finished cell: " + i);
-            }
-#endif
         }
 
         /// <summary>
         /// Reads the information out of
         /// the given file and sets the
-        /// corresponding variables.
+        /// corresponding values.
         /// </summary>
         /// <param name="filePath">The path to the .dep-file.</param>
-        /// <param name="matrix">The PopulationCell-array...</param>
         /// <exception cref="IOException">Might be thrown.</exception>
-        public void UseData(string filePath, PopulationCell[] matrix)       // TODO | dj | might be extracted to another class...
+        public void CreateFromFile(string filePath)       // TODO | dj | might be extracted to another class...
         {
             DepartmentMapReader dmr = new DepartmentMapReader(filePath);
 #if DEBUG
@@ -63,8 +50,7 @@ namespace PSC2013.ES.Library.Simulation
 #if DEBUG
             Console.WriteLine("Generating Matrix...");
 #endif
-            matrix = MatrixGenerator.GenerateMatrix(matrix, deps, img.Width, img.Height);
-            Population = matrix; // not necessary, because GenerateMatrix is In-Place.
+            MatrixGenerator.GenerateMatrix(Population, deps, img.Width, img.Height);
         }
     }
 }

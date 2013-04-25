@@ -60,8 +60,13 @@ namespace PSC2013.ES.Cmd
         {
             var simData = new SimulationData();
             Console.WriteLine("Current size in MB: " + Process.GetCurrentProcess().PrivateMemorySize64 / (1024 * 1024));
-            Console.WriteLine("Total Humancount in 1000: " + SimulationData.Population.Length * 8 / 1000);
+            Console.WriteLine("Total Humancount in 1000: " + simData.Population.Length * 8 / 1000);
             Console.ReadKey();
+        }
+
+        public static void TestCalculations()
+        {
+
         }
     }
 }
