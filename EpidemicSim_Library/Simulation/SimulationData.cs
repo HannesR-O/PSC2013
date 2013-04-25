@@ -2,6 +2,8 @@
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.PopulationData;
 using System;
+using PSC2013.ES.Library.IO.Readers;
+using System.Drawing;
 
 namespace PSC2013.ES.Library.Simulation
 {
@@ -40,6 +42,29 @@ namespace PSC2013.ES.Library.Simulation
                     Console.WriteLine("Finished cell: " + i);
             }
 #endif
+        }
+
+        /// <summary>
+        /// Reads the information out of
+        /// the given file and sets the
+        /// corresponding variables.
+        /// </summary>
+        /// <param name="filePath">The path to the .dep-file.</param>
+        /// <param name="matrix">The PopulationCell-array...</param>
+        /// <exception cref="IOException">Might be thrown.</exception>
+        public void UseData(string filePath, PopulationCell[] matrix)       // TODO | dj | might be extracted to another class...
+        {
+            DepartmentMapReader dmr = new DepartmentMapReader(filePath);
+#if DEBUG
+            Console.WriteLine("Reading File...");
+#endif
+            DepartmentInfo[] deps = dmr.ReadFile();
+            Image img = dmr.ReadImage();
+#if DEBUG
+            Console.WriteLine("Generating Matrix...");
+#endif
+            matrix = MatrixGenerator.GenerateMatrix(matrix, deps, img.Width, img.Height);
+            Population = matrix; // not necessary, because GenerateMatrix is In-Place.
         }
     }
 }

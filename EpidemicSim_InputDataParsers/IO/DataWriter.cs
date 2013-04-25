@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.IO.Compression;
 using System.Text;
-using System.Threading.Tasks;
 using PSC2013.ES.InputDataParsers.Data;
 
 namespace PSC2013.ES.InputDataParsers.IO
 {
     public static class DataWriter
     {
-        private const string DEFAULT_STORAGE_PATH = @"../../germany.dep";
+        private const string DEFAULT_STORAGE_PATH = @"../../germany";
 
         /// <summary>
         /// Stores the given data in the given file.
@@ -33,12 +31,15 @@ namespace PSC2013.ES.InputDataParsers.IO
             if (path == null)
                 path = DEFAULT_STORAGE_PATH;
 
+            Directory.CreateDirectory(path);
+            string filePath = Path.Combine(path, "map");
+
 #if DEBUG
             Stopwatch sw = new Stopwatch();
             sw.Start();
             int n = 0;
 #endif
-            using (StreamWriter writer = new StreamWriter(path))
+            using (StreamWriter writer = new StreamWriter(filePath))
             {
                 foreach (RegionPopulationInfo rpi in data)
                 {
@@ -56,10 +57,49 @@ namespace PSC2013.ES.InputDataParsers.IO
                 }
                 writer.Flush();
             }
+
+            ZipFile.CreateFromDirectory(path, path + ".dep", CompressionLevel.Optimal, false, Encoding.UTF8);
+            Directory.Delete(path, true);
+
 #if DEBUG
             sw.Stop();
             Console.WriteLine("Time elapsed: " + sw.Elapsed);
 #endif
+        }
+
+        /// <summary>
+        /// Stores the image in the given file.
+        /// Choose for this the same as used for
+        /// the corresponding RegionPopulationInfo(s).
+        /// 
+        /// This data can be read by the
+        /// Library.IO.Readers.DepartmentMapReader...
+        /// </summary>
+        /// <param name="storagePath">Path where to store the file.</param>
+        /// <param name="imagePath">Path to the existing image
+        /// (it will NOT be modified/deleted).</param>
+        public static void StoreMapImage(string storagePath, string imagePath)
+        {
+            if (imagePath == null)
+                throw new ArgumentNullException("imagePath");
+
+            if (storagePath == null)
+                storagePath = DEFAULT_STORAGE_PATH;
+
+            if (!storagePath.EndsWith(".dep"))
+                storagePath += ".dep";
+
+            if (!File.Exists(storagePath)) // if the file does not exist.
+            {
+                string tmpPath = storagePath.Replace(".dep", "");
+                Directory.CreateDirectory(tmpPath);
+                ZipFile.CreateFromDirectory(tmpPath, storagePath, CompressionLevel.Optimal, false);
+                Directory.Delete(tmpPath, true);
+            }
+
+            ZipArchive archive = ZipFile.Open(storagePath, ZipArchiveMode.Update);
+            archive.CreateEntryFromFile(imagePath, "image", CompressionLevel.Optimal);
+            archive.Dispose();
         }
     }
 }

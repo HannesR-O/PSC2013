@@ -28,5 +28,15 @@ namespace PSC2013.ES.Tests.IO.Readers
 
             Assert.True(result != null); // sorry but it is not so easy to test this usefully.
         }
+
+        [Fact]
+        public void ReadImageTest()
+        {
+            StartUp();
+
+            //var result = _reader.ReadImage();
+
+            // TODO | dj | test has to be implemented.
+        }
     }
 }

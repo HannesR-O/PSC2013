@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,15 +33,18 @@ namespace PSC2013.ES.Library.IO.Readers
 
         /// <summary>
         /// Reads the previously given file and
-        /// tries to interpret it as an array
-        /// of DepartmenInfos.
+        /// tries to interpret its content file
+        /// as an array of DepartmenInfos.
         /// </summary>
         /// <returns>The DepartmentInfo-Array.</returns>
         public DepartmentInfo[] ReadFile()
         {
             List<DepartmentInfo> depInfList = new List<DepartmentInfo>();
 
-            using (StreamReader sr = new StreamReader(Path))
+            ZipArchive archive = ZipFile.OpenRead(Path);
+            Stream stream = archive.GetEntry("map").Open();
+
+            using (StreamReader sr = new StreamReader(stream))
             {
                 while (!sr.EndOfStream)
                 {
@@ -62,6 +66,22 @@ namespace PSC2013.ES.Library.IO.Readers
             }
 
             return depInfList.ToArray();
+        }
+
+        /// <summary>
+        /// Reads the map-image of the .dep-file.
+        /// </summary>
+        /// <returns></returns>
+        public Image ReadImage()
+        {
+            ZipArchive archive = ZipFile.OpenRead(Path);
+            Stream stream = archive.GetEntry("image").Open();
+            //Stream stream = archive.Entries.Where(
+            //    (entry) => { return entry.Name.Equals("image"); } // TODO | dj | maybe a different filename...
+            //    ).First().Open();
+
+            // TODO | dj | to be continued...
+            throw new NotImplementedException();
         }
     }
 }

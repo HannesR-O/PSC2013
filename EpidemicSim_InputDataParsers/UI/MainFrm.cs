@@ -98,6 +98,7 @@ namespace PSC2013.ES.InputDataParsers.UI
         {
             var res = ParseAndMatch();
             IO.DataWriter.StoreMatchedData(null, res.Item1);
+            IO.DataWriter.StoreMapImage(null, txBoxImage.Text);
             Console.WriteLine("Stored!");
         }
 
