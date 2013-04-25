@@ -8,7 +8,9 @@ using System.Drawing;
 namespace PSC2013.ES.Library.Simulation
 {
     public class SimulationData
-    {        
+    {
+        private DateTime _time;
+
         //PopulationData
         public PopulationCell[] Population { get; private set; }
 
@@ -17,9 +19,9 @@ namespace PSC2013.ES.Library.Simulation
         public FederalState[] FederalStates { get; private set; }
 
         //TimeConstants
-        public DayOfWeek CurrentDay { get; private set; }
-        public EMonth CurrentMonth { get; private set; }
-        public int CurrentTime { get; private set; }                // 0-23 Uhr
+        public EMonth CurrentMonth { get { return (EMonth)_time.Month; } }
+        public DayOfWeek CurrentDay { get { return _time.DayOfWeek; } }
+        public int CurrentHour { get { return _time.Hour; } }                // 0-23 Uhr
 
         //Used Disease
         public Disease CurrentDisease;
@@ -30,6 +32,8 @@ namespace PSC2013.ES.Library.Simulation
             Departments = new Department[401];
             Population = new PopulationCell[10808574];
             Population.Initialize<PopulationCell>();
+
+            _time = DateTime.Now;
 
 #if DEBUG
             foreach (var item in Population)
@@ -61,6 +65,12 @@ namespace PSC2013.ES.Library.Simulation
             Console.WriteLine("Generating Matrix...");
 #endif
             MatrixGenerator.GenerateMatrix(Population, deps, img.Width, img.Height);
+        }
+
+        public void Tick()
+        {
+            //TODO: |f| consider adding tick timspan
+            _time.AddHours(1);
         }
     }
 }
