@@ -22,15 +22,13 @@ namespace PSC2013.ES.Library.Snapshot
         public int CountF00 { get; private set; } // Females Baby
         public int CountF01 { get; private set; } // Females Child
         public int CountF10 { get; private set; } // Females Adult
-        public int CountF11 { get; private set; } // Females Senior
-
-        public HumanSnapshot[] Dead{ get; private set; } // base64-string of humans that died in this snapshot. Should contain Death-Cause, Age and Gender
+        public int CountF11 { get; private set; } // Females Senior      
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
         /// </summary>
         /// <param name="param">The Population to be Snaped</param>
-        private CellSnapshot(int[] infos, HumanSnapshot[] dead)
+        private CellSnapshot(int[] infos)
         {
             CountMaleBaby = infos[0];
             CountMaleChild = infos[1];
@@ -43,8 +41,6 @@ namespace PSC2013.ES.Library.Snapshot
             CountF11 = infos[7];
 
             Position = infos[8];
-
-            Dead = dead;
         }
 
         /// <summary>
@@ -54,7 +50,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="position">Position of the cell</param>
         /// <param name="deaths">An array containing the dead people as strings</param>
         /// <returns></returns>
-        public static CellSnapshot InitializeFromRuntime(PopulationCell input, int position, HumanSnapshot[] deaths)
+        public static CellSnapshot InitializeFromRuntime(PopulationCell input, int position)
         {
             int[] temp = new int[9];
 
@@ -68,7 +64,7 @@ namespace PSC2013.ES.Library.Snapshot
             temp[7] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Senior);
             temp[8] = position; 
 
-            return new CellSnapshot(temp, deaths);
+            return new CellSnapshot(temp);
         }
 
         /// <summary>
@@ -77,9 +73,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="counts">input counts</param>
         /// <param name="dead"></param>
         /// <returns>An array containing the dead people as strings</returns>
-        public static CellSnapshot FromFile(int[] counts, HumanSnapshot[] dead)
+        public static CellSnapshot FromFile(int[] counts)
         {
-            return new CellSnapshot(counts, dead);
+            return new CellSnapshot(counts);
         }
 
         public byte[] getBytes()

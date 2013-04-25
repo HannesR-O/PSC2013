@@ -1,6 +1,7 @@
 ﻿using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.IO.Writers;
+using PSC2013.ES.Library.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,19 @@ namespace PSC2013.ES.Library.Snapshot
 {
     public class SnapshotManager
     {
-        private string _target;
         private SimulationInfo _simInfo;
-        private Queue<Snapshot> _snapshots;
-        private IBinaryWriter _writer;
-        private long _tick;
+        private static string _target;       
+        private static long _tick;
+        private static Queue<Snapshot> _snapshots;
+        
+        private delegate void SenderHandler(object sender, EventArgs e);
+        private event SenderHandler _snapToWrite;
+        private writer _writer;
 
         public SnapshotManager()
         {
-            _writer = new AsyncBinaryWriter();
+            _writer = new writer();
+            _snapToWrite += new SenderHandler(_writer.Recieve);
             _snapshots = new Queue<Snapshot>();
         }
 
@@ -42,7 +47,7 @@ namespace PSC2013.ES.Library.Snapshot
                Directory.CreateDirectory(_target);
 
             _simInfo = SimulationInfo.InitializeFromRuntime(DateTime.Now, disease.Name, disease);
-            _writer.WriteFile(_simInfo, _target + "/header", true);
+            //_writer.WriteFile(_simInfo, _target + "/header", true);
         }
 
         /// <summary>
@@ -51,7 +56,7 @@ namespace PSC2013.ES.Library.Snapshot
         public void Finish()
         {
             foreach (Snapshot s in _snapshots)
-                WriteNextSnapshot();
+                _snapToWrite(this, null);
             ZipFile.CreateFromDirectory(_target, _target + ".sim");
         }
 
@@ -60,41 +65,71 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         /// <param name="cells">The NOT EMPTY PopulationCells</param>
         /// <param name="deaths"></param>
-        public void TakeSnapshot(PopulationCell[] cells, string[] deaths)
+        public void TakeSnapshot(SimulationData sim)
         {
-            CellSnapshot[] temp = new CellSnapshot[cells.Length];
-            for (int i = 0; i < cells.Length - 1; ++i)
+            CellSnapshot[] temp = new CellSnapshot[sim.Population.Length]; //TODO |t|How many do we really need? Only the populated ones...
+            int pos = 0;
+            foreach (PopulationCell c in sim.Population)
             {
-                temp[i] = CellSnapshot.InitializeFromRuntime(cells[i], i, null);
+                if (!(c == null))
+                    temp[pos] = CellSnapshot.InitializeFromRuntime(c, pos);
             }
-            Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, temp);
 
+            //TODO |t| Creating Humansnapshot[] from sim-
+
+            Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, temp, null); //TODO |t| Sim does NOT hava list of deaths right now? Am i right?
+            
             _snapshots.Enqueue(snap);
-        }
+            _snapToWrite(this, null);
+        }   
 
-        /// <summary>
-        /// Writes the next snapshot in the queue. Returns false, if there is none
-        /// </summary>
-        /// <returns>True, if a SnapShot is written, false, when there is none to write</returns>
-        public bool WriteNextSnapshot()
-        {
-            if (_snapshots.Count > 0)
-            {
-                Snapshot temp = _snapshots.Dequeue();
-                _writer.WriteFile(temp, _target + temp.Head, true);
-                return true;
-            }
-                
-            return false;
-        }
-
+        // |t| Not necessary anymore me thinks...
         /// <summary>
         /// Return whether there is a Snapshotleft to be written
         /// </summary>
         /// <returns></returns>
-        public bool SnapshotLeft()
+        //public bool SnapshotLeft()
+        //{
+        //    return _snapshots.Count > 0;
+        //}
+
+        /// <summary>
+        /// Nested class for writing the snapshots
+        /// </summary>
+        class writer
         {
-            return _snapshots.Count > 0;
+            private IBinaryWriter _writer;
+
+            /// <summary>
+            /// Creates a new Writer
+            /// </summary>
+            public writer()
+            {
+                _writer = new AsyncBinaryWriter();
+            }
+
+            /// <summary>
+            /// Recieves an event, calling to write some shots
+            /// </summary>
+            /// <param name="sender">Sender of the event</param>
+            /// <param name="e">Params fo the event</param>
+            public void Recieve(object sender, EventArgs e)
+            {
+                WriteNextSnapshot();
+            }
+
+            /// <summary>
+            /// Writes the next snapshots in the queue, until there
+            /// are none left. Returns false, if there is none
+            /// </summary>
+            private void WriteNextSnapshot()
+            {
+                while (_snapshots.Count > 0)
+                {
+                    Snapshot temp = _snapshots.Dequeue();
+                    _writer.WriteFile(temp, _target + temp.Head, true);
+                }
+            }
         }
     }
 }

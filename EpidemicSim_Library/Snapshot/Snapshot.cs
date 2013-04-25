@@ -13,14 +13,16 @@ namespace PSC2013.ES.Library.Snapshot
         public long Tick { get; private set; }
         public String Head { get; private set; }
         private CellSnapshot[] _cells;
+        private HumanSnapshot[] _deaths;
 
 
-        private Snapshot(long tick, CellSnapshot[] cells)
+        private Snapshot(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
         {
             Stamp = DateTime.Now;
             Head = Tick + "_-_[" + Stamp.Hour + "-" + Stamp.Minute + "]";
 
             _cells = cells;
+            _deaths = deaths;
         }
 
         public byte[] GetBytes()
@@ -31,9 +33,9 @@ namespace PSC2013.ES.Library.Snapshot
         }
 
 
-        public static Snapshot IntitializeFromRuntime(long tick, CellSnapshot[] cells)
+        public static Snapshot IntitializeFromRuntime(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
         {
-            return new Snapshot(tick, cells);    
+            return new Snapshot(tick, cells, deaths);    
         }
 
         public static void InitializeFromFile(byte[] bytes)
