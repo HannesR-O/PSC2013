@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace PSC2013.ES.Tests.IO.Readers
             var result = _reader.ReadFile();
 
             Assert.True(result != null); // sorry but it is not so easy to test this usefully.
+            Assert.Equal(401, result.Length);
         }
 
         [Fact]
@@ -34,9 +36,11 @@ namespace PSC2013.ES.Tests.IO.Readers
         {
             StartUp();
 
-            //var result = _reader.ReadImage();
+            Image result = _reader.ReadImage();
+            Image orig = Image.FromFile("../../../EpidemicSim_InputDataParsers/departments_coloured_big.png");
 
-            // TODO | dj | test has to be implemented.
+            Assert.Equal(orig.Height, result.Height);
+            Assert.Equal(orig.Width, result.Width);
         }
     }
 }

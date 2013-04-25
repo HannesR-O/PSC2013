@@ -76,12 +76,11 @@ namespace PSC2013.ES.Library.IO.Readers
         {
             ZipArchive archive = ZipFile.OpenRead(Path);
             Stream stream = archive.GetEntry("image").Open();
-            //Stream stream = archive.Entries.Where(
-            //    (entry) => { return entry.Name.Equals("image"); } // TODO | dj | maybe a different filename...
-            //    ).First().Open();
 
-            // TODO | dj | to be continued...
-            throw new NotImplementedException();
+            Image img = Image.FromStream(stream);
+            stream.Close();
+
+            return img;
         }
     }
 }
