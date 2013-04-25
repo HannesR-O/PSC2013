@@ -40,7 +40,7 @@ namespace PSC2013.ES.Library.Snapshot
             //byte[] output = new byte[101 + name.Length];
             //output = temp.ToArray();
             //return BitConverter.GetBytes(_disease.IdleTime);
-            byte[] output = new byte[113];
+            byte[] output = new byte[140];
             output[0] = HEADER;
             Array.Copy(BitConverter.GetBytes(_disease.IncubationPeriod), 0, output, 1, 4);
             Array.Copy(BitConverter.GetBytes(_disease.IdleTime), 0, output, 5, 4);
@@ -62,6 +62,8 @@ namespace PSC2013.ES.Library.Snapshot
             Array.Copy(BitConverter.GetBytes(_disease.HealingFactor.Female_Child), 0, output, 71, 4);
             Array.Copy(BitConverter.GetBytes(_disease.HealingFactor.Female_Adult), 0, output, 75, 4);
             Array.Copy(BitConverter.GetBytes(_disease.HealingFactor.Female_Senior), 0, output, 79, 4);
+            byte[] t = System.Text.Encoding.UTF8.GetBytes(_disease.Name);
+            Array.Copy(t, 0, output, 113, t.Length);
             return output;
         }
 

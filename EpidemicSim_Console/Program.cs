@@ -53,11 +53,14 @@ namespace PSC2013.ES.Cmd
         {
             SnapshotManager m = new SnapshotManager();
             Library.Diseases.Disease d = new Library.Diseases.Disease();
-            d.Name = "Illnes";
-            d.IncubationPeriod = 12;
-            d.IdleTime = 13;
-            d.SpreadingTime = 24;
-            d.Transferability = 13;
+            d.Name = "Test_Disease";
+            d.IncubationPeriod = 238475;
+            d.IdleTime = 123415;
+            d.SpreadingTime = 123123;
+            d.Transferability = 901237;
+            d.MortalityRate = new Library.Diseases.FactorContainer(new int[] {1, 2, 14, 151, 11515, 123,123, 120});
+            d.HealingFactor= new Library.Diseases.FactorContainer(new int[] { 1, 2, 14, 151, 11515, 123, 123, 120 });
+            d.ResistanceFactor = new Library.Diseases.FactorContainer(new int[] { 1, 2, 14, 151, 11515, 123, 123, 120 });
             m.InitalizeSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), d);
             m.Finish();
         }
