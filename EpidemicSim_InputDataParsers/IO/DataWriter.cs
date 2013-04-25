@@ -54,7 +54,7 @@ namespace PSC2013.ES.InputDataParsers.IO
                 foreach (RegionPopulationInfo rpi in data)
                 {
 #if DEBUG
-                    Console.WriteLine("#" + n++ + "Writing at " + rpi.Name);
+                    Console.WriteLine("#" + n++ + " : Writing at " + rpi.Name);
 #endif
                     byte[] bytes = Encoding.UTF8.GetBytes(rpi.Name);    // Name
                     writer.BaseStream.Write(bytes, 0, bytes.Length);
