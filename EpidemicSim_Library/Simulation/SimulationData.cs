@@ -30,6 +30,16 @@ namespace PSC2013.ES.Library.Simulation
             Departments = new Department[401];
             Population = new PopulationCell[10808574];
             Population.Initialize<PopulationCell>();
+
+#if DEBUG
+            foreach (var item in Population)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    item.AddHuman(Human.Create(EGender.Female, 60, 7331));
+                }
+            }
+#endif
         }
 
         /// <summary>

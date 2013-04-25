@@ -75,35 +75,44 @@ namespace PSC2013.ES.Cmd
         public static void TestCalculations()
         {
             var simData = new SimulationData();
-            simData.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
+            //simData.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
 
+#if DEBUG
+            var watch = new Stopwatch();
+            Console.WriteLine("Testing non-parallel..");
+            watch.Start();
+#endif
+            var c = 0;
             foreach (PopulationCell cell in simData.Population)
             {
-#if DEBUG
-                var watch = new Stopwatch();
-                Console.WriteLine("Testing non-parallel..");
-                watch.Start();
-#endif
-                foreach (Human hu in cell.Humans)
+                foreach (Human human in cell.Humans)
                 {
-                    int value = hu.GetAgeInYears() % 4;
+                    int value = human.GetAgeInYears() % 4;
+                    value = human.GetAgeInYears() * 16;
+                    if (!human.IsDead())
+                        c++;
                 }
-#if DEBUG
-                watch.Stop();
-                Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                watch.Reset();
-                Console.WriteLine("Testing parallel..");
-                watch.Start();
-#endif
-                Parallel.ForEach(cell.Humans, (human) =>
-                    {
-                        int value = human.GetAgeInYears() % 4;
-                    });
-#if DEBUG
-                watch.Stop();
-                Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-#endif
             }
+#if DEBUG
+            watch.Stop();
+            Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
+            Console.WriteLine();
+            watch.Reset();
+            Console.WriteLine("Testing parallel..");
+            watch.Start();
+#endif
+            Parallel.ForEach(simData.Population, new ParallelOptions() { MaxDegreeOfParallelism = 1 }, (cell) =>
+            {
+                Parallel.ForEach(cell.Humans, new ParallelOptions() { MaxDegreeOfParallelism = 1 }, (human) =>
+                {
+                    int value = human.GetAgeInYears() % 4;
+                    value = human.GetAgeInYears() * 16;
+                });
+            });
+#if DEBUG
+            watch.Stop();
+            Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
+#endif
         }
     }
 }

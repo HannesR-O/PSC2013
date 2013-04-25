@@ -24,7 +24,7 @@ namespace PSC2013.ES.Library.PopulationData
 
         public void AddHuman(Human human)
         {
-            lock (this)
+            lock (Humans)
             {
                 for (int i = 0; i < Humans.Length; i++)
                 {
