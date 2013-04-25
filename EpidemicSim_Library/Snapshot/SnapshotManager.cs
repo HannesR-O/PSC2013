@@ -18,7 +18,7 @@ namespace PSC2013.ES.Library.Snapshot
         private SimulationInfo _simInfo;
         private Queue<Snapshot> _snapshots;
         private IBinaryWriter _writer;
-        private int _tick;
+        private long _tick;
 
         public SnapshotManager()
         {
@@ -41,7 +41,7 @@ namespace PSC2013.ES.Library.Snapshot
             if (!Directory.Exists(_target))
                Directory.CreateDirectory(_target);
 
-            _simInfo = new SimulationInfo(DateTime.Now, disease.Name, disease);
+            _simInfo = SimulationInfo.InitializeFromRuntime(DateTime.Now, disease.Name, disease);
             _writer.WriteFile(_simInfo, _target + "/header", true);
         }
 
@@ -65,9 +65,9 @@ namespace PSC2013.ES.Library.Snapshot
             CellSnapshot[] temp = new CellSnapshot[cells.Length];
             for (int i = 0; i < cells.Length - 1; ++i)
             {
-                temp[i] = CellSnapshot.FromCell(cells[i], i, null);
+                temp[i] = CellSnapshot.InitializeFromRuntime(cells[i], i, null);
             }
-            Snapshot snap = new Snapshot(_tick, temp);
+            Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, temp);
 
             _snapshots.Enqueue(snap);
         }

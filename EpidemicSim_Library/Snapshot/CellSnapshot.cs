@@ -54,7 +54,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="position">Position of the cell</param>
         /// <param name="deaths">An array containing the dead people as strings</param>
         /// <returns></returns>
-        public static CellSnapshot FromCell(PopulationCell input, int position, HumanSnapshot[] deaths)
+        public static CellSnapshot InitializeFromRuntime(PopulationCell input, int position, HumanSnapshot[] deaths)
         {
             int[] temp = new int[9];
 
@@ -85,6 +85,11 @@ namespace PSC2013.ES.Library.Snapshot
         public byte[] getBytes()
         {
             return System.Text.Encoding.UTF8.GetBytes(Position + "|" + CountMaleBaby + "|" + CountMaleChild + "|"+ CountMaleAdult);
+        }
+
+        public static CellSnapshot InitializeFromFile(byte[] bytes)
+        {
+            throw new NotImplementedException();
         }
     }
 }

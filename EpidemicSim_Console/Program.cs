@@ -51,7 +51,10 @@ namespace PSC2013.ES.Cmd
             SnapshotManager m = new SnapshotManager();
             Library.Diseases.Disease d = new Library.Diseases.Disease();
             d.Name = "Illnes";
-            d.IdleTime = 65156165;
+            d.IncubationPeriod = 12;
+            d.IdleTime = 13;
+            d.SpreadingTime = 24;
+            d.Transferability = 13;
             m.InitalizeSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), d);
             m.Finish();
         }

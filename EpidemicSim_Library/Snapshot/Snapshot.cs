@@ -10,18 +10,17 @@ namespace PSC2013.ES.Library.Snapshot
     public class Snapshot : IBinaryFile
     {
         public DateTime Stamp { get; private set; }
-        public int Tick { get; private set; }
+        public long Tick { get; private set; }
         public String Head { get; private set; }
         private CellSnapshot[] _cells;
 
 
-        public Snapshot(int tick, CellSnapshot[] cells)
+        private Snapshot(long tick, CellSnapshot[] cells)
         {
             Stamp = DateTime.Now;
             Head = Tick + "_-_[" + Stamp.Hour + "-" + Stamp.Minute + "]";
 
             _cells = cells;
-
         }
 
         public byte[] GetBytes()
@@ -32,7 +31,12 @@ namespace PSC2013.ES.Library.Snapshot
         }
 
 
-        public void InitializeFromFile(byte[] bytes)
+        public static Snapshot IntitializeFromRuntime(long tick, CellSnapshot[] cells)
+        {
+            return new Snapshot(tick, cells);    
+        }
+
+        public static void InitializeFromFile(byte[] bytes)
         {
             throw new NotImplementedException();
         }

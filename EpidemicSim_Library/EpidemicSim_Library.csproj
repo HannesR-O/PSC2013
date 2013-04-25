@@ -60,7 +60,6 @@
     <Compile Include="AreaData\MatrixGenerator.cs" />
     <Compile Include="Snapshot\ECauseOfDeath.cs" />
     <Compile Include="Snapshot\HumanSnapshot.cs" />
-    <Compile Include="Snapshot\SimulationContainer.cs" />
     <Compile Include="Snapshot\SimulationInfo.cs" />
     <Compile Include="Snapshot\Snapshot.cs" />
     <Compile Include="Diseases\Disease.cs" />

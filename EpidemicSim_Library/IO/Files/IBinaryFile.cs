@@ -17,11 +17,11 @@ namespace PSC2013.ES.Library.IO.Files
         /// <returns>A byte[] containing all data of the IBinaryFile</returns>
         byte[] GetBytes();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <returns></returns>
-        void InitializeFromFile(byte[] bytes);
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="bytes"></param>
+        ///// <returns></returns>
+        //void InitializeFromFile(byte[] bytes);
     }
 }
