@@ -39,7 +39,7 @@ namespace PSC2013.ES.Library.Simulation
         /// </summary>
         /// <param name="filePath">The path to the .dep-file.</param>
         /// <exception cref="IOException">Might be thrown.</exception>
-        public void CreateFromFile(string filePath)       // TODO | dj | might be extracted to another class...
+        public void InitializeFromFile(string filePath)       // TODO | dj | might be extracted to another class...
         {
             DepartmentMapReader dmr = new DepartmentMapReader(filePath);
 #if DEBUG

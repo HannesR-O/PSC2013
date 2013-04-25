@@ -6,6 +6,7 @@ using PSC2013.ES.Library.Snapshot;
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace PSC2013.ES.Cmd
 {
@@ -16,7 +17,11 @@ namespace PSC2013.ES.Cmd
 #if DEBUG
             //TestEpidemicSimulator();
 
-            TestSnapshot();
+            //TestSnapshot();
+
+            TestCalculations();
+
+            Console.ReadKey();
 #endif
         }
 
@@ -27,8 +32,6 @@ namespace PSC2013.ES.Cmd
             sim.TickFinished += new EventHandler<SimulationEventArgs>(OnTickfinishedEvent);
             sim.SimulationEnded += new EventHandler<SimulationEventArgs>(OnSimEndedEvent);
             sim.StartSimulation(Environment.CurrentDirectory, 5000);
-
-            Console.ReadKey();
         }
 
         public static void OnSimStartEvent(object sender, SimulationEventArgs e)
@@ -64,12 +67,40 @@ namespace PSC2013.ES.Cmd
             var simData = new SimulationData();
             Console.WriteLine("Current size in MB: " + Process.GetCurrentProcess().PrivateMemorySize64 / (1024 * 1024));
             Console.WriteLine("Total Humancount in 1000: " + simData.Population.Length * 8 / 1000);
-            Console.ReadKey();
         }
 
         public static void TestCalculations()
         {
+            var simData = new SimulationData();
+            simData.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
 
+            foreach (PopulationCell cell in simData.Population)
+            {
+#if DEBUG
+                var watch = new Stopwatch();
+                Console.WriteLine("Testing non-parallel..");
+                watch.Start();
+#endif
+                foreach (Human hu in cell.Humans)
+                {
+                    int value = hu.GetAgeInYears() % 4;
+                }
+#if DEBUG
+                watch.Stop();
+                Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
+                watch.Reset();
+                Console.WriteLine("Testing parallel..");
+                watch.Start();
+#endif
+                Parallel.ForEach(cell.Humans, (human) =>
+                    {
+                        int value = human.GetAgeInYears() % 4;
+                    });
+#if DEBUG
+                watch.Stop();
+                Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
+#endif
+            }
         }
     }
 }
