@@ -13,8 +13,6 @@ namespace PSC2013.ES.Library.Diseases
     /// </summary>
     public struct FactorContainer
     {
-        // TODO | dj | rethink about types...
-
         public int Male_Baby;
         public int Male_Child;
         public int Male_Adult;

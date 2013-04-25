@@ -9,9 +9,23 @@ using PSC2013.ES.InputDataParsers.Data;
 
 namespace PSC2013.ES.InputDataParsers.IO
 {
-    public static class DataWriter
+    public class DataWriter
     {
-        private const string DEFAULT_STORAGE_PATH = @"../../germany";
+        private const string DEFAULT_STORAGE_PATH = @"../../germany.dep";
+
+        private readonly string _path;
+
+        /// <summary>
+        /// Initializes a new writer with the given
+        /// destination file.
+        /// </summary>
+        /// <param name="path">The target-file.</param>
+        public DataWriter (string path)
+	    {
+            _path = path;
+            if (path == null)
+                _path = DEFAULT_STORAGE_PATH;
+	    }
 
         /// <summary>
         /// Stores the given data in the given file.
@@ -21,25 +35,21 @@ namespace PSC2013.ES.InputDataParsers.IO
         /// This data can be read by the
         /// Library.IO.Readers.DepartmentMapReader...
         /// </summary>
-        /// <param name="path">The filepath.</param>
         /// <param name="data">The data.</param>
-        public static void StoreMatchedData(string path, List<RegionPopulationInfo> data)
+        public void StoreMatchedData(List<RegionPopulationInfo> data)
         {
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            if (path == null)
-                path = DEFAULT_STORAGE_PATH;
-
-            Directory.CreateDirectory(path);
-            string filePath = Path.Combine(path, "map");
+            CheckFile();
+            var tpl = OpenStream("map");
 
 #if DEBUG
             Stopwatch sw = new Stopwatch();
             sw.Start();
             int n = 0;
 #endif
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using (StreamWriter writer = new StreamWriter(tpl.Item1))
             {
                 foreach (RegionPopulationInfo rpi in data)
                 {
@@ -58,8 +68,7 @@ namespace PSC2013.ES.InputDataParsers.IO
                 writer.Flush();
             }
 
-            ZipFile.CreateFromDirectory(path, path + ".dep", CompressionLevel.Optimal, false, Encoding.UTF8);
-            Directory.Delete(path, true);
+            tpl.Item2.Dispose();
 
 #if DEBUG
             sw.Stop();
@@ -75,31 +84,36 @@ namespace PSC2013.ES.InputDataParsers.IO
         /// This data can be read by the
         /// Library.IO.Readers.DepartmentMapReader...
         /// </summary>
-        /// <param name="storagePath">Path where to store the file.</param>
         /// <param name="imagePath">Path to the existing image
         /// (it will NOT be modified/deleted).</param>
-        public static void StoreMapImage(string storagePath, string imagePath)
+        public void StoreMapImage(string imagePath)
         {
             if (imagePath == null)
                 throw new ArgumentNullException("imagePath");
 
-            if (storagePath == null)
-                storagePath = DEFAULT_STORAGE_PATH;
+            CheckFile();
 
-            if (!storagePath.EndsWith(".dep"))
-                storagePath += ".dep";
-
-            if (!File.Exists(storagePath)) // if the file does not exist.
-            {
-                string tmpPath = storagePath.Replace(".dep", "");
-                Directory.CreateDirectory(tmpPath);
-                ZipFile.CreateFromDirectory(tmpPath, storagePath, CompressionLevel.Optimal, false);
-                Directory.Delete(tmpPath, true);
-            }
-
-            ZipArchive archive = ZipFile.Open(storagePath, ZipArchiveMode.Update);
+            ZipArchive archive = ZipFile.Open(_path, ZipArchiveMode.Update);
             archive.CreateEntryFromFile(imagePath, "image", CompressionLevel.Optimal);
             archive.Dispose();
+        }
+
+        private void CheckFile()
+        {
+            if (!File.Exists(_path))
+            {
+                string tmp = _path.Replace(".dep", "");
+                Directory.CreateDirectory(tmp);
+                ZipFile.CreateFromDirectory(tmp, _path, CompressionLevel.Optimal, false);
+                Directory.Delete(tmp, true);
+            }
+        }
+
+        private Tuple<Stream, ZipArchive> OpenStream(string name)
+        {
+            ZipArchive archive = ZipFile.Open(_path, ZipArchiveMode.Update);
+            archive.CreateEntry(name);
+            return new Tuple<Stream, ZipArchive>(archive.GetEntry(name).Open(), archive);
         }
     }
 }

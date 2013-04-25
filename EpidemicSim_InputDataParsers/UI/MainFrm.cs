@@ -97,8 +97,9 @@ namespace PSC2013.ES.InputDataParsers.UI
         private void btnMatchWrite_Click(object sender, EventArgs e)
         {
             var res = ParseAndMatch();
-            IO.DataWriter.StoreMatchedData(null, res.Item1);
-            IO.DataWriter.StoreMapImage(null, txBoxImage.Text);
+            var writer = new IO.DataWriter(null);
+            writer.StoreMatchedData(res.Item1);
+            writer.StoreMapImage(txBoxImage.Text);
             Console.WriteLine("Stored!");
         }
 
