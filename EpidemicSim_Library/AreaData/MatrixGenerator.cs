@@ -130,10 +130,10 @@ namespace PSC2013.ES.Library.AreaData
                 /* got an idea how to do it in another way: use instead of the run only the factor... */
                 if (workingQueue.Count(tpl => tpl.Item1 == currentRun) == 0)// number of points of the same 'run' has to be 0.
                 {
-                    int miniRandom = RANDOM.Next(75) - 65;
-                    miniRandom = (int)(miniRandom * (1 - (float)currentRun / approxMaxRuns + 0.01));
-                    if (runDifferenceFactor + miniRandom <= 0) miniRandom = 5;
-                    runDifferenceFactor += miniRandom;                      // adjusting the factor for a new run.
+                    int randomDown = 0 - RANDOM.Next(runDifferenceFactor / 3) + 10;
+                    randomDown = (int)(randomDown * (1 - (float)currentRun / approxMaxRuns + 0.01));
+                    if (runDifferenceFactor + randomDown <= 0) randomDown = 5;
+                    runDifferenceFactor += randomDown;                      // adjusting the factor for a new run.
                 }
 
                 if (areaSize > 0)
