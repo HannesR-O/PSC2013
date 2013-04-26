@@ -10,7 +10,7 @@ namespace PSC2013.ES.Library.PopulationData
     public enum EProfession : byte
     {
         //Maximum count for Professions = 16
-        Pupil, 
+        Pupil, //At Home from 18-7; At School from 7-(10-14); Chance to visit friends from 14-18; Weekend : ???; Holidays : ?
         Student, 
         DeskJobber, 
         Plumber, 
