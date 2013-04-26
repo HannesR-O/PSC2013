@@ -90,12 +90,10 @@ namespace PSC2013.ES.Library.Simulation.Component
                     
                     break;
 
-                //HomeStaying -> Pupil
-                case PopulationData.EMindset.HomeStaying:                
-                    break;
                 case PopulationData.EMindset.Shopping: break;
-                case PopulationData.EMindset.Travelling: break;
-                case PopulationData.EMindset.Vacationing: break;
+                case PopulationData.EMindset.Vacationing: 
+                    //Assert : traveltime <= 10 h 
+                    break;
             }
         }
 

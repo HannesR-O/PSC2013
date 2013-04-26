@@ -12,6 +12,7 @@ namespace PSC2013.ES.Library.PopulationData
         private const byte MASK_SPREADING = 0x40;             // 0100 0000
         private const byte MASK_DISEASED = 0x20;              // 0010 0000
         private const byte MASK_DEATH = 0x10;                 // 0001 0000
+        private const byte MASK_TRAVELLING = 0x08;            // 0000 1000
 
         private const byte MASK_PROFESSION = 0xF0;            // 1111 0000
         private const byte MASK_MINDSET = 0x0F;               // 0000 1111
@@ -188,6 +189,24 @@ namespace PSC2013.ES.Library.PopulationData
         private void SetDeath(bool death)
         {
             _data1 = (byte)((_data1 & ~MASK_DEATH) + (!death ? 16 : 0));
+        }
+
+        /// <summary>
+        /// Returns whether the human is currently travelling or not
+        /// </summary>
+        /// <returns>True if the human is travelling, false if not</returns>
+        public bool IsTravelling()
+        {
+            return ((_data1 & MASK_TRAVELLING) == 8);
+        }
+
+        /// <summary>
+        /// Sets whether a human is travelling or not
+        /// </summary>
+        /// <param name="travelling"></param>
+        public void SetTravelling(bool travelling)
+        {
+            _data1 = (byte)((_data1 & ~MASK_TRAVELLING) + (travelling ? 8 : 0));
         }
 
         /// <summary>
