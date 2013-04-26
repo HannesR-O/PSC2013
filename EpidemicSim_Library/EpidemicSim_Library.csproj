@@ -52,6 +52,7 @@
     <Compile Include="Simulation\Component\DebugSimulationComponent.cs" />
     <Compile Include="Simulation\Component\ESimulationStage.cs" />
     <Compile Include="Simulation\Component\ISimulationComponent.cs" />
+    <Compile Include="Simulation\Component\MindsetSimulationComponent.cs" />
     <Compile Include="Simulation\Component\MovementSimulationComponent.cs" />
     <Compile Include="Simulation\SimulationEventArgs.cs" />
     <Compile Include="Simulation\SimulationException.cs" />
