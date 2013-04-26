@@ -14,7 +14,84 @@ namespace PSC2013.ES.Library.AreaData
 
         private static int WIDTH = 2814;
         private static int HEIGHT = 3841;
-        
+
+        #region DUMMY METHODS
+        public static void GenerateDummyMatrix(
+            PopulationCell[] populationArray,
+            IEnumerable<DepartmentInfo> rawData,
+            int width, int height)
+        {
+            WIDTH = width;
+            HEIGHT = height;
+
+            int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
+            degree = Math.Max(1, degree);                       // but minimum of 1
+            degree = -1;
+            Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
+                (item) =>
+                {
+#if DEBUG
+                    Console.WriteLine("Started " + item.Name);
+#endif
+                    var res = DummyPopulate(item);
+                    lock (populationArray)
+                    {
+                        foreach (var tpl in res)
+                            populationArray[tpl.Item1] = tpl.Item2;
+                    }
+
+                    res = null;
+#if DEBUG
+                    Console.WriteLine(" -- Finished " + item.Name);
+#endif
+                });
+            //foreach (var item in rawData)
+            //{
+            //    Console.Write("Started " + item.Name);
+            //    var res = DummyPopulate(item);
+            //    foreach (var tpl in res)
+            //        populationArray[tpl.Item1] = tpl.Item2;
+            //    Console.WriteLine(" -- finished");
+            //}
+        }
+
+        private static Tuple<int, PopulationCell>[] DummyPopulate(DepartmentInfo depInfo)
+        {
+            int areaSize = depInfo.Coordinates.Length;
+
+            Tuple<int, PopulationCell>[] tmpArray = new Tuple<int, PopulationCell>[areaSize];
+            int tmpCounter = 0;
+
+            int[] popsPerPoint = depInfo.Population.Select(x => x / areaSize).ToArray();
+
+            foreach (Point point in depInfo.Coordinates)
+            {
+                PopulationCell cell = new PopulationCell();
+
+                for (int i = 0; i < 8; i++)
+                {
+                    EGender gender = (i < 4) ? EGender.Male : EGender.Female;
+
+                    var bounds = GetBounds(i);
+                    int lowerAgeBound = bounds.Item1;
+                    int upperAgeBound = bounds.Item2;
+
+                    for (int n = 0; n < popsPerPoint[i]; n++)
+                    {
+                        int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
+                        Human thisHuman = Human.Create(gender, thisAge, FlattenPoint(point));
+                        cell.AddHuman(thisHuman);
+                    }
+                }
+
+                tmpArray[tmpCounter++] = new Tuple<int, PopulationCell>(FlattenPoint(point), cell);
+
+            }
+
+            return tmpArray;
+        }
+        #endregion DUMMY METHODS
+
         /// <summary>
         /// Generates the ultimative matrix. It
         /// spreads the people ALLL over their departments.
@@ -54,6 +131,7 @@ namespace PSC2013.ES.Library.AreaData
                     var res = Populate(item);
                     lock (populationArray) {
                         foreach (var tpl in res)
+                            if (tpl != null)    // TODO | dj | this should never have to be necessary... -.-
                                 populationArray[tpl.Item1] = tpl.Item2;
                     }
 

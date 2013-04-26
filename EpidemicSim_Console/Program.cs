@@ -80,32 +80,58 @@ namespace PSC2013.ES.Cmd
             var simData = new SimulationData();
             simData.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
 
+            var sw = new Stopwatch();
+            sw.Start();
+            Console.WriteLine("Starting cell-run.");
+
+            int i = 0;
+            //System.IO.StreamWriter stream = new System.IO.StreamWriter(
+            //    Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/test.txt");
             foreach (PopulationCell cell in simData.Population)
             {
-                var watch = new Stopwatch();
-                Console.WriteLine("Testing non-parallel..");
-                watch.Start();
-      
-                foreach (Human hu in cell.Humans)
+                Console.Write("Cell#{0,9}", i++);
+
+                //if (i % 2814 == 0)
+                //    stream.Write(Environment.NewLine);
+
+                if (cell != null)
                 {
-                    int value = hu.GetAgeInYears() % 4;
-                }
-         
-                watch.Stop();
-                Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                watch.Reset();
-                Console.WriteLine("Testing parallel..");
-                watch.Start();
-      
-                Parallel.ForEach(cell.Humans, (human) =>
+                    //var watch = new Stopwatch();
+                    //Console.WriteLine("Testing non-parallel..");
+                    //watch.Start();
+
+                    foreach (Human hu in cell.Humans)
                     {
-                        int value = human.GetAgeInYears() % 4;
-                    });
-         
-                watch.Stop();
-                Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-      
+                        int value = hu.GetAgeInYears() % 4;
+                    }
+
+                    //watch.Stop();
+                    //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
+                    //watch.Reset();
+                    //Console.WriteLine("Testing parallel..");
+                    //watch.Start();
+
+                    Parallel.ForEach(cell.Humans, (human) =>
+                        {
+                            int value = human.GetAgeInYears() % 4;
+                        });
+
+                    //watch.Stop();
+                    //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
+                    Console.WriteLine(" - done");
+                    //stream.Write("8");
+                }
+                else
+                {
+                    Console.WriteLine(" - abort : NULL");
+                    //stream.Write("-");
+                }
             }
+            //stream.Flush();
+            //stream.Close();
+            //stream.Dispose();
+            sw.Stop();
+            Console.WriteLine("Overall only-operation-time: " + sw.Elapsed);
         }
     }
 }

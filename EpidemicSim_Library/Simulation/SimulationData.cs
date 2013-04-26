@@ -42,7 +42,7 @@ namespace PSC2013.ES.Library.Simulation
             FederalStates = new FederalState[16];
             Departments = new Department[401];
             Population = new PopulationCell[10808574];
-            Population.Initialize<PopulationCell>();
+            //Population.Initialize<PopulationCell>();
 
             _time = DateTime.Now;
 
@@ -75,7 +75,8 @@ namespace PSC2013.ES.Library.Simulation
 #if DEBUG
             Console.WriteLine("Generating Matrix...");
 #endif
-            MatrixGenerator.GenerateMatrix(Population, deps, img.Width, img.Height);
+            // TODO | dj | should be changed back to .GenerateMatrix...
+            MatrixGenerator.GenerateDummyMatrix(Population, deps, img.Width, img.Height);
         }
 
         public void Tick()
