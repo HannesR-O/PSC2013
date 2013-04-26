@@ -28,16 +28,31 @@ namespace PSC2013.ES.Library.Simulation.Component
                 for (int j = 0; j < data.Population[i].Humans.Length; ++j)
                 {
                     //Stationary Mindset implies the human chosen won't move this day regardless of profession
-                    if (data.Population[i].Humans[j].IsDead() || 
+                    //If the human is dead he won't move....
+                    if (data.Population[i].Humans[j].IsDead() ||
                         data.Population[i].Humans[j].GetMindset() == PopulationData.EMindset.Stationary)
-                        continue;
-                    //else if (data.Population[i].Humans[j].IsTravelling())
-                    //reduce counter, if counter == 0 remove flag travelling else continue
-
-                    //Handle Movement for different professions
-                    switch (data.Population[i].Humans[j].GetProfession())
                     {
-                        case PopulationData.EProfession.Pupil: MovePupil(data, i, j); break;
+                        continue;
+                    }
+                    //Travelling implies ignoring the Mindset until the human reached its Destination
+                    else if (data.Population[i].Humans[j].IsTravelling())
+                    {
+                        //reduce counter, if counter == 0 remove flag travelling else continue
+                    }
+                    //Staying Home doesn't vary no matter what profession the human is having.
+                    else if (data.Population[i].Humans[j].GetMindset() == PopulationData.EMindset.HomeStaying)
+                    {
+                        //chance every day to go out 1-3 hours
+                        //if ill -> go to hospital
+                        //if healthy wander around aimlessly in departement
+                    }
+                    //Handle Movement for Mindsets which are dependent on the profession od the selected human
+                    else
+                    {
+                        switch (data.Population[i].Humans[j].GetProfession())
+                        {
+                            case PopulationData.EProfession.Pupil: MovePupil(data, i, j); break;
+                        }
                     }
                 }
             }
