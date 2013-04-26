@@ -51,18 +51,20 @@ namespace PSC2013.ES.Cmd
 
         public static void TestSnapshot()
         {
-            Disease d = new Library.Diseases.Disease();
-            d.Name = "Test_Disease";
-            d.IncubationPeriod = 238475;
-            d.IdleTime = 123415;
-            d.SpreadingTime = 123123;
-            d.Transferability = 901237;
-            d.MortalityRate = new FactorContainer(new[] {1, 2, 14, 151, 11515, 123,123, 120});
-            d.HealingFactor= new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 });
-            d.ResistanceFactor = new FactorContainer(new [] { 1, 2, 14, 151, 11515, 123, 123, 120 });
-            SnapshotManager m = new SnapshotManager();
-            m.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), d);
-            m.Finish();
+            var disease = new Disease
+                {
+                    Name = "Test_Disease",
+                    IncubationPeriod = 238475,
+                    IdleTime = 123415,
+                    SpreadingTime = 123123,
+                    Transferability = 901237,
+                    MortalityRate = new FactorContainer(new[] {1, 2, 14, 151, 11515, 123, 123, 120}),
+                    HealingFactor = new FactorContainer(new[] {1, 2, 14, 151, 11515, 123, 123, 120}),
+                    ResistanceFactor = new FactorContainer(new[] {1, 2, 14, 151, 11515, 123, 123, 120})
+                };
+            var mgr = new SnapshotManager();
+            mgr.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), disease);
+            mgr.Finish();
         }
 
         public static void TestMemory()
