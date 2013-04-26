@@ -29,6 +29,13 @@ namespace PSC2013.ES.Library.Simulation
         //Used Disease
         public Disease CurrentDisease;
 
+        // Used to check whether the currently set data is ready for simulating
+        //TODO: |f| add relevant checks
+        public bool IsValid
+        {
+            get { return CurrentDisease != null && Population != null; }
+        }
+
         public SimulationData()
         {
             FederalStates = new FederalState[16];
@@ -58,12 +65,12 @@ namespace PSC2013.ES.Library.Simulation
         /// <exception cref="IOException">Might be thrown.</exception>
         public void InitializeFromFile(string filePath)       // TODO | dj | might be extracted to another class...
         {
-            DepartmentMapReader dmr = new DepartmentMapReader(filePath);
+            var reader = new DepartmentMapReader(filePath);
 #if DEBUG
             Console.WriteLine("Reading File...");
 #endif
-            DepartmentInfo[] deps = dmr.ReadFile();
-            Image img = dmr.ReadImage();
+            DepartmentInfo[] deps = reader.ReadFile();
+            Image img = reader.ReadImage();
 #if DEBUG
             Console.WriteLine("Generating Matrix...");
 #endif
@@ -73,7 +80,7 @@ namespace PSC2013.ES.Library.Simulation
         public void Tick()
         {
             //TODO: |f| consider adding tick timspan
-            _time.AddHours(1);
+            _time = _time.AddHours(1);
         }
     }
 }

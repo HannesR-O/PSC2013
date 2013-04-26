@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Snapshot;
@@ -14,8 +12,10 @@ namespace PSC2013.ES.Library
     public class EpidemicSimulator
     {
         // Constants
-        private const string ERROR_MESSAGE_SIMULATION = "A Simulation is already running!";
-        private const string ERROR_MESSAGE_NO_SIMULATION = "No Simulation running!";
+        private const string ERROR_STARTING_SIMULATION = "Could not start Simulation. ";
+        private const string ERROR_STOPPING_SIMULATION = "Could not stop Simulation. ";
+        private const string ERROR_MESSAGE_SIMULATION_RUNNING = "A Simulation is already running!";
+        private const string ERROR_MESSAGE_NO_SIMULATION_RUNNING = "No Simulation running!";
 
         private const int SIMULATION_DEFAULT_START = 0x0;
         private const int SIMULATION_DEFAULT_LIMIT = 0x0;
@@ -37,6 +37,10 @@ namespace PSC2013.ES.Library
         private long _simulationLimit = SIMULATION_DEFAULT_LIMIT;
 
         // Properties
+        public bool CanStartSimulation 
+        {
+            get { return !_simulationLock && _infectionSimulator != null && _simData.IsValid; }
+        }
         public bool IsSimulationg { get { return _simulationLock; } }
 
         // Events
@@ -49,7 +53,7 @@ namespace PSC2013.ES.Library
         {
             _simData = new SimulationData();
 
-            _snapshotMgr = new SnapshotManager(); // Needs to be initialized before using
+            _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
 
             _before = new List<ISimulationComponent>();
             _after = new List<ISimulationComponent>();
@@ -73,6 +77,30 @@ namespace PSC2013.ES.Library
         }
 
         /// <summary>
+        /// Creates a new EpidemicSimulator with the given ISimulationComponents
+        /// </summary>
+        /// <param name="dataFilePath"></param>
+        /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
+        /// <returns>The created instance of EpidemicSimulator</returns>
+        public static EpidemicSimulator Create(string dataFilePath, params ISimulationComponent[] components)
+        {
+            var sim = Create(components);
+
+            sim.LoadSimulationBaseFromFile(dataFilePath);
+
+            return sim;
+        }
+
+        /// <summary>
+        /// Loads a .dep containing population information into the EpidemicSimulator's SimulationData
+        /// </summary>
+        /// <param name="dataFilePath">Path of the .deb file to read</param>
+        public void LoadSimulationBaseFromFile(string dataFilePath)
+        {
+            _simData.InitializeFromFile(dataFilePath);
+        }
+
+        /// <summary>
         /// Adds a new ISimulationComponent to the EpidemicSimulator. If the given ISimulationComponent is an Infection Simulator,
         /// the previous one will be overriden
         /// </summary>
@@ -80,7 +108,7 @@ namespace PSC2013.ES.Library
         public void AddSimulationComponent(ISimulationComponent component)
         {
             if (_simulationLock)
-                throw new SimulationException("Could not add a new ISimulationComponent. " + ERROR_MESSAGE_SIMULATION);
+                throw new SimulationException("Could not add a new ISimulationComponent. " + ERROR_MESSAGE_SIMULATION_RUNNING);
 
             ESimulationStage stages = component.GetSimulationStages();
             if ((stages & ESimulationStage.InfectedCalculation) == ESimulationStage.InfectedCalculation)
@@ -94,20 +122,13 @@ namespace PSC2013.ES.Library
                 _infectionSimulator = component;
                 return;
             }
-            else
-            {
-                if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation &&
+            if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation &&
                     _before.Contains(component))
                     _before.Add(component);
-
-                if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation &&
+            
+            if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation &&
                     _after.Contains(component))
                     _after.Add(component);
-
-                return;
-            }
-
-            throw new ArgumentException("The component's ESimulationStage is not valid!", "component");
         }
 
         /// <summary>
@@ -128,26 +149,34 @@ namespace PSC2013.ES.Library
         /// <param name="limit">The limit of simulation rounds to perform</param>
         public void StartSimulation(string saveDirectory, long limit)
         {
-            if (_infectionSimulator == null)
-                throw new SimulationException("No ISimulationComponent specified for disease spreading!");
-
-            if (_simulationLock)
-                throw new SimulationException("Could not start a new Simulation. " + ERROR_MESSAGE_SIMULATION);
+            if (!CanStartSimulation)
+                throw new SimulationException(ERROR_STARTING_SIMULATION + "Not all mandatory settings are set up correctly.");
 
             if (!Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
-                throw new ArgumentException("Could not start a new Simulation. Could not create given directory!", "saveDirectory");
+                throw new ArgumentException(ERROR_STARTING_SIMULATION + "Could not create given directory!", "saveDirectory");
 
             if (limit < 0)
-                throw new ArgumentException("Simulationround limit must be greater than 0!", "limit");
+                throw new ArgumentException(ERROR_STARTING_SIMULATION + "Simulationround limit must be greater than 0!", "limit");
 
             _simulationLimit = limit;
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            //_snapshotMgr.InitalizeSimulation(saveDirectory, SimulationData.CurrentDisease); //TODO: |f| Get correct values.
+            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
 
             // Actual Simulation
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
+        }
+
+        /// <summary>
+        /// Stops the current Simulation.
+        /// </summary>
+        public void StopSimulation()
+        {
+            if (!_simulationLock)
+                throw new SimulationException(ERROR_STOPPING_SIMULATION + ERROR_MESSAGE_NO_SIMULATION_RUNNING);
+
+            _simulationLock = false;
         }
 
         private void PerformSimulation()
@@ -167,24 +196,13 @@ namespace PSC2013.ES.Library
                     comp.PerformSimulationStage(_simData);
                 }
 
-                //_snapshotMgr.TakeSnapshot(SimulationData.Population, new string[] { "Test" });  //TODO: |f| Figure out where to get dead people
+                _snapshotMgr.TakeSnapshot(_simData);
                 long round = Interlocked.Increment(ref _simulationRound);
                 if (round != SIMULATION_DEFAULT_LIMIT)
                     _simulationLock = round <= _simulationLimit;
 
                 OnTickFinished(new SimulationEventArgs() { SimulationRunning = true, SimulationRound = round });
             }
-        }
-
-        /// <summary>
-        /// Stops the current Simulation.
-        /// </summary>
-        public void StopSimulation()
-        {
-            if (!_simulationLock)
-                throw new SimulationException("Could not stop Simulation. " + ERROR_MESSAGE_NO_SIMULATION);
-
-            _simulationLock = false;
         }
 
         private void PerformSimulationStop()
