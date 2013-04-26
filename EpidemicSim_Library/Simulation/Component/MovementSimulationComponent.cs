@@ -43,6 +43,28 @@ namespace PSC2013.ES.Library.Simulation.Component
             }
         }
 
+        /// <summary>
+        /// Moves a selected Human to another Area in the PopulationCellGrid.
+        /// </summary>
+        /// <param name="data">Reference to SimulationData</param>
+        /// <param name="currentcell">The cell the human to move is currently in</param>
+        /// <param name="human">The index of the selected human in the current cell</param>
+        /// <param name="destinationcell">The index of the cell the human should be moved to</param>
+        private void MoveHuman(SimulationData data, int currentcell, int human, int destinationcell)
+        {
+            //Set selected Human to status "travelling"
+            data.Population[currentcell].Humans[human].SetTravelling(true);
+
+            //Add the selected Human in the Destinationcell
+            data.Population[destinationcell].AddHuman(data.Population[currentcell].Humans[human]);
+            //TODO |f| Add Fields for age/gender-groups to Populationcell!!!
+            //Increment Humancount (if it isn't incremented in AddHuman later on...)
+
+            //Remove/Kill the selected Human in its original Location
+            data.Population[currentcell].Humans[human].KillHuman();
+            //Decrement Humancount!
+        }
+
         private void MovePupil(SimulationData data , int cell, int human)
         {
             switch(data.Population[cell].Humans[human].GetMindset())
