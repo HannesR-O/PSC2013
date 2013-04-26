@@ -125,7 +125,7 @@ namespace PSC2013.ES.Library
         /// set for the Infection calculation.
         /// </summary>
         /// <param name="saveDirectory">The directory to save the snapshots in</param>
-        /// <param name="limit"The limit of simulation rounds to perform</param>
+        /// <param name="limit">The limit of simulation rounds to perform</param>
         public void StartSimulation(string saveDirectory, long limit)
         {
             if (_infectionSimulator == null)
