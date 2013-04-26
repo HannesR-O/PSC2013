@@ -4,9 +4,6 @@ using PSC2013.ES.Library.IO.Writers;
 using PSC2013.ES.Library.Simulation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.IO.Compression;
 
@@ -21,10 +18,9 @@ namespace PSC2013.ES.Library.Snapshot
         private static string _target;       
         private static long _tick;
         private static Queue<Snapshot> _snapshots;
-        
-        private delegate void SenderHandler(object sender, EventArgs e);
-        private event SenderHandler _snapToWrite;
-        private writer _writer;
+
+        private event EventHandler TookSnapshot;
+        private SnapshotWriter _writer;
 
         public SnapshotManager()
         {            
@@ -36,29 +32,28 @@ namespace PSC2013.ES.Library.Snapshot
             _target = Path.Combine(destination, disease.Name);
             _snapshots = new Queue<Snapshot>();
             _tick = 1;
-            _writer = new writer();
-            _snapToWrite += new SenderHandler(_writer.Recieve);
+            _writer = new SnapshotWriter();
+            TookSnapshot += _writer.Recieve;
         }
 
         /// <summary>
-        /// Takes a Snapshot
+        /// Takes a Snapshot of the current state
         /// </summary>
-        /// <param name="cells">The NOT EMPTY PopulationCells</param>
-        /// <param name="deaths"></param>
-        public void TakeSnapshot(SimulationData sim)
+        /// <param name="simData">Current SimulationData to take a Snapshot of</param>
+        public void TakeSnapshot(SimulationData simData)
         {
-            CellSnapshot[] cells = new CellSnapshot[sim.Population.Length]; //TODO |t|How many do we really need? Only the populated ones...
+            CellSnapshot[] cells = new CellSnapshot[simData.Population.Length]; //TODO |t|How many do we really need? Only the populated ones...
             int pos = 0;
-            foreach (PopulationCell c in sim.Population)
+            foreach (PopulationCell cell in simData.Population)
             {
-                if (!(c == null))
+                if (!(cell == null))
                 {
-                    cells[pos] = CellSnapshot.InitializeFromRuntime(c, pos);
+                    cells[pos] = CellSnapshot.InitializeFromRuntime(cell, pos);
                     ++pos;
                 }
             }
-            HumanSnapshot[] deadPeople = new HumanSnapshot[sim.Deaths.Length];
-            foreach (Tuple<Human, int, bool> t in sim.Deaths)
+            HumanSnapshot[] deadPeople = new HumanSnapshot[simData.Deaths.Length];
+            foreach (Tuple<Human, int, bool> t in simData.Deaths)
             {
                 Human temp = t.Item1;
                 HumanSnapshot ha = new HumanSnapshot(temp.GetGender(), temp.GetAgeInYears(), temp.HomeCell, t.Item2, t.Item3);
@@ -67,7 +62,7 @@ namespace PSC2013.ES.Library.Snapshot
             Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, cells, deadPeople);
 
             _snapshots.Enqueue(snap);
-            _snapToWrite(this, null);
+            TookSnapshot(this, null);
         }
 
         /// <summary>
@@ -76,7 +71,7 @@ namespace PSC2013.ES.Library.Snapshot
         public void Finish()
         {
             foreach (Snapshot s in _snapshots)
-                _snapToWrite(this, null);
+                TookSnapshot(this, null);
             ZipFile.CreateFromDirectory(_target, _target + ".sim");
             Directory.Delete(_target, true);
         }
@@ -84,14 +79,14 @@ namespace PSC2013.ES.Library.Snapshot
         /// <summary>
         /// Nested class for writing the snapshots
         /// </summary>
-        class writer
+        class SnapshotWriter
         {
             private IBinaryWriter _writer;
 
             /// <summary>
             /// Creates a new Writer
             /// </summary>
-            public writer()
+            public SnapshotWriter()
             {
                 _writer = new AsyncBinaryWriter();
 
@@ -108,14 +103,14 @@ namespace PSC2013.ES.Library.Snapshot
             /// <param name="e">Params fo the event</param>
             public void Recieve(object sender, EventArgs e)
             {
-                WriteNextSnapshot();
+                WriteAllSnapshots();
             }
 
             /// <summary>
             /// Writes the next snapshots in the queue, until there
             /// are none left. Returns false, if there is none
             /// </summary>
-            private void WriteNextSnapshot()
+            private void WriteAllSnapshots()
             {
                 while (_snapshots.Count > 0)
                 {

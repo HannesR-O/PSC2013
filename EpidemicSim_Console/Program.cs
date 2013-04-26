@@ -6,7 +6,6 @@ using PSC2013.ES.Library.Simulation.Component;
 using PSC2013.ES.Library.Snapshot;
 using System;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace PSC2013.ES.Cmd
@@ -29,9 +28,9 @@ namespace PSC2013.ES.Cmd
         private static void TestEpidemicSimulator()
         {
             var sim = EpidemicSimulator.Create(new DebugSimulationComponent());
-            sim.SimulationStarted += new EventHandler<SimulationEventArgs>(OnSimStartEvent);
-            sim.TickFinished += new EventHandler<SimulationEventArgs>(OnTickfinishedEvent);
-            sim.SimulationEnded += new EventHandler<SimulationEventArgs>(OnSimEndedEvent);
+            sim.SimulationStarted += OnSimStartEvent;
+            sim.TickFinished += OnTickfinishedEvent;
+            sim.SimulationEnded += OnSimEndedEvent;
             sim.StartSimulation(Environment.CurrentDirectory, 5000);
         }
 
@@ -52,15 +51,15 @@ namespace PSC2013.ES.Cmd
 
         public static void TestSnapshot()
         {
-            Library.Diseases.Disease d = new Library.Diseases.Disease();
+            Disease d = new Library.Diseases.Disease();
             d.Name = "Test_Disease";
             d.IncubationPeriod = 238475;
             d.IdleTime = 123415;
             d.SpreadingTime = 123123;
             d.Transferability = 901237;
-            d.MortalityRate = new Library.Diseases.FactorContainer(new int[] {1, 2, 14, 151, 11515, 123,123, 120});
-            d.HealingFactor= new Library.Diseases.FactorContainer(new int[] { 1, 2, 14, 151, 11515, 123, 123, 120 });
-            d.ResistanceFactor = new Library.Diseases.FactorContainer(new int[] { 1, 2, 14, 151, 11515, 123, 123, 120 });
+            d.MortalityRate = new FactorContainer(new[] {1, 2, 14, 151, 11515, 123,123, 120});
+            d.HealingFactor= new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 });
+            d.ResistanceFactor = new FactorContainer(new [] { 1, 2, 14, 151, 11515, 123, 123, 120 });
             SnapshotManager m = new SnapshotManager();
             m.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), d);
             m.Finish();
