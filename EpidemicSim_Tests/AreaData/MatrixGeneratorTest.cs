@@ -16,34 +16,34 @@ namespace PSC2013.ES.Tests.AreaData
         private const int WIDTH = 15;
         private const int HEIGHT = 15;
 
-        private DepartmentInfo[] _deps;
-        private PopulationCell[] _pops;
-        private int _depC;
+        private DepartmentInfo[] _departments;
+        private PopulationCell[] _populationCells;
+        private int _originalCount;
 
         private void StartUp()
         {
-            _deps = new DepartmentInfo[1];
-            _pops = new PopulationCell[WIDTH * HEIGHT];
-            _pops.Initialize<PopulationCell>();
+            _departments = new DepartmentInfo[1];
+            _populationCells = new PopulationCell[WIDTH * HEIGHT];
+            _populationCells.Initialize<PopulationCell>();
 
-            DepartmentInfo dpi = new DepartmentInfo();
-            dpi.Name = "TestDep";
+            DepartmentInfo depInfo = new DepartmentInfo();
+            depInfo.Name = "TestDep";
             for (int i = 0; i < 8; i++)
-                dpi.Population[i] = 10000;
+                depInfo.Population[i] = 10000;
 
-            dpi.Coordinates = new Point[(WIDTH * HEIGHT)];
+            depInfo.Coordinates = new Point[(WIDTH * HEIGHT)];
 
             for (int x = 0; x < WIDTH; x++)
                 for (int y = 0; y < HEIGHT; y++)
                 {
                     Point p = new Point(x, y);
-                    dpi.Coordinates[x + (y * WIDTH)] = p;
+                    depInfo.Coordinates[x + (y * WIDTH)] = p;
                 }
 
-            _deps = new DepartmentInfo[1] { dpi };
+            _departments = new DepartmentInfo[1] { depInfo };
 
-            foreach (DepartmentInfo item in _deps)
-                _depC += item.Population.Sum();
+            foreach (DepartmentInfo item in _departments)
+                _originalCount += item.Population.Sum();
         }
 
         [Fact]
@@ -51,17 +51,17 @@ namespace PSC2013.ES.Tests.AreaData
         {
             StartUp();
 
-            MatrixGenerator.GenerateMatrix(_pops, _deps, WIDTH, HEIGHT);
+            MatrixGenerator.GenerateMatrix(_populationCells, _departments, WIDTH, HEIGHT);
             
-            int cn = 0;
-            foreach (PopulationCell item in _pops)
-                cn += item.Humans.Count(x => !x.IsDead());
-
-            Assert.True(cn >= _depC); // maybe not the best test, but it's one. :P
+            int actualCount = 0;
+            foreach (PopulationCell item in _populationCells)
+                actualCount += item.Humans.Count(x => !x.IsDead());
 
 #if DEBUG
-            int[,] matrix = _pops.To2DIntArray(WIDTH);
+            int[,] matrix = _populationCells.To2DIntArray(WIDTH);
 #endif
+            // Test allows 1%-difference. (having 80000 people it results into +-800...)
+            Assert.True(actualCount <= _originalCount * 1.01 && actualCount >= _originalCount * 0.99);
             
         }
     }

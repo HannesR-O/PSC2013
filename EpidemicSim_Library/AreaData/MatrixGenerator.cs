@@ -47,9 +47,20 @@ namespace PSC2013.ES.Library.AreaData
             degree = Math.Max(1, degree);                       // but minimum of 1
             //degree = -1;
             Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
-                (item) =>
-                {
-                    PopulateDepartment(item, populationArray);
+                (item) => {
+#if DEBUG
+                    Console.WriteLine("Started " + item.Name);
+#endif
+                    var res = Populate(item);
+                    lock (populationArray) {
+                        foreach (var tpl in res)
+                                populationArray[tpl.Item1] = tpl.Item2;
+                    }
+
+                    res = null;
+#if DEBUG
+                    Console.WriteLine(" -- Finished " + item.Name);
+#endif
                 });
             //foreach (var item in rawData)
             //{
@@ -59,12 +70,141 @@ namespace PSC2013.ES.Library.AreaData
             return populationArray;
         }
 
+        private static Tuple<int, PopulationCell>[] Populate(DepartmentInfo depInfo)
+        {
+            int areaSize = depInfo.Coordinates.Length;                      // number of point to be populated.
+
+            Tuple<int, PopulationCell>[] finishedArray =                    // the array which will also be returned.
+                new Tuple<int, PopulationCell>[areaSize];
+            int arrayCounter = 0;                                           // the working counter/index for the above array.
+
+            Queue<Tuple<int, Point>> workingQueue =                         // the queue for the points an their run-number.
+                new Queue<Tuple<int, Point>>();
+
+            Point initialPoint = CalculateInitialPoint(depInfo.Coordinates);// the start point for the algorithm.
+            workingQueue.Enqueue(new Tuple<int, Point>(0, initialPoint));   // enqueuing the first point with the run-number 0.
+
+            int approxMaxRuns =                                             // the approx. maximum of runs, needed for this department.
+                CalculateMaxRuns(initialPoint, depInfo.Coordinates) + 1;
+
+            int runDifferenceFactor = 225;                                  // factor for the drop-like behaviour. changes every run.
+
+            while (workingQueue.Count > 0)                                  // while there are still points to be used, do magic.
+            {
+                var currentTuple = workingQueue.Dequeue();                  // dequeuing first item for usage.
+                int currentRun = currentTuple.Item1;
+                Point currentPoint = currentTuple.Item2;
+                int currentIndex = FlattenPoint(currentPoint);
+
+                PopulationCell currentCell = new PopulationCell();          // the PopulationCell to work on.
+
+                for (int i = 0; i < 8; i++)                                 // for each age-group
+                {
+                    int additionalRand = RANDOM.Next(10) - 5;
+                    int numberForEvenSpread =                               // number of humans if everything would be even/the same.
+                        (int)(depInfo.Population[i] / (float)areaSize);
+                    int numberOfPeopleToSet =                               // number of humans to be set for this age-group.
+                        (int)(numberForEvenSpread *
+                        (runDifferenceFactor + additionalRand) / 100f);
+
+                    EGender gender = (i < 4) ?                              // the first four are male, the last female.
+                        EGender.Male : EGender.Female;
+
+                    var bounds = GetBounds(i);                              // the age-boundaries for the corresponding age-group.
+                    int lowerAgeBound = bounds.Item1;
+                    int upperAgeBound = bounds.Item2;
+
+                    for (int setCount = 0; setCount < numberOfPeopleToSet; setCount++)
+                    {
+                        int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
+                        Human thisHuman = Human.Create(gender, thisAge, currentIndex);
+                        currentCell.AddHuman(thisHuman);                    // add the human to its cell.
+
+                        depInfo.Population[i]--;                            // 'removes' the human out of the population.
+                    }
+                }
+
+                areaSize--;                                                 // 'removes' point from rest-area.
+                // human-creation is done here. now only management of the next points.
+
+                /* got an idea how to do it in another way: use instead of the run only the factor... */
+                if (workingQueue.Count(tpl => tpl.Item1 == currentRun) == 0)// number of points of the same 'run' has to be 0.
+                {
+                    int miniRandom = RANDOM.Next(75) - 65;
+                    miniRandom = (int)(miniRandom * (1 - (float)currentRun / approxMaxRuns + 0.01));
+                    if (runDifferenceFactor + miniRandom <= 0) miniRandom = 5;
+                    runDifferenceFactor += miniRandom;                      // adjusting the factor for a new run.
+                }
+
+                if (areaSize > 0)
+                {
+                    currentRun++;
+                                                                            // 8-way
+                    for (int y = -1; y <= 1; y++)
+                    {
+                        for (int x = -1; x <= 1; x++)
+                        {
+                            if (!(x == 0 && y == 0))
+                            {
+                                Point pointToBeAdded =                      // the possible new Point.
+                                    new Point(currentPoint.X + x, currentPoint.Y + y);
+                                if (Check(pointToBeAdded, depInfo.Coordinates, finishedArray, workingQueue))
+                                    workingQueue.Enqueue(new Tuple<int, Point>(currentRun, pointToBeAdded));
+                            }
+                        }
+                    }
+                }
+
+                // do magic
+
+                finishedArray[arrayCounter++] =                             // 'adding' the cell to the finished array.
+                    new Tuple<int, PopulationCell>(currentIndex, currentCell);
+            }
+            return finishedArray;
+        }
+
+        private static int CalculateMaxRuns(Point zeroP, Point[] points)
+        {
+            int maxX = points.Max(p => p.X) - zeroP.X;
+            int minX = zeroP.X - points.Min(p => p.X);
+            int maxY = points.Max(p => p.Y) - zeroP.Y;
+            int minY = zeroP.Y - points.Min(p => p.Y);
+
+            int extremumX = Math.Max(maxX, minX);
+            int extremumY = Math.Max(maxY, minY);
+
+            return Math.Max(extremumX, extremumY);
+        }
+
+        private static Tuple<int, int> GetBounds(int i)
+        {
+            int lower = 1;
+            int upper = 110;
+            // if is to be called faster than switch...
+            if (i % 4 == 0)         // first age-group
+                upper = 6;
+            else if (i % 4 == 1)    // second age-group
+            {
+                lower = 7;
+                upper = 25;
+            }
+            else if (i % 4 == 2)    // third age-group
+            {
+                lower = 26;
+                upper = 60;
+            }
+            else
+                lower = 61;
+            return new Tuple<int, int>(lower, upper);
+        }
+
+        [Obsolete]
         private static void PopulateDepartment(DepartmentInfo depInfo, PopulationCell[] populationArray)
         {
 #if DEBUG
             Console.WriteLine("Calculating " + depInfo.Name);
 #endif
-            Point initialPoint = CalculateInitialPoint(depInfo);
+            Point initialPoint = CalculateInitialPoint(depInfo.Coordinates);
 
             byte avgFactor = 125;
             int areaSize = depInfo.Coordinates.Length;
@@ -147,7 +287,7 @@ namespace PSC2013.ES.Library.AreaData
                             Point p = new Point(n.X + x, n.Y + y);
                             if (!p.Equals(n))
                                 //if (CheckPoint(p, populationArray, depInfo.Coordinates, workingQueue))
-                                if (Check(p, depInfo, tmpInfo, workingQueue))
+                                if (Check(p, depInfo.Coordinates, tmpInfo, workingQueue))
                                     workingQueue.Enqueue(new Tuple<int, Point>(currentRun, p));
                         }
                     }
@@ -172,14 +312,14 @@ namespace PSC2013.ES.Library.AreaData
         /// Returns the initial System.Drawing.Point of the
         /// given DepartmentInfo
         /// </summary>
-        private static Point CalculateInitialPoint(DepartmentInfo depInfo)
+        private static Point CalculateInitialPoint(Point[] coords)
         {
             int minX = WIDTH;
             int minY = HEIGHT;
             int maxX = 0;
             int maxY = 0;
 
-            foreach (Point item in depInfo.Coordinates)
+            foreach (Point item in coords)
             {
                 minX = Math.Min(minX, item.X);
                 minY = Math.Min(minY, item.Y);
@@ -197,8 +337,8 @@ namespace PSC2013.ES.Library.AreaData
              * gathered - coordinate will be chosen.
              * This is most times near the center.
              */
-            if (!depInfo.Coordinates.Any(p => p.Equals(initialPoint)))
-                initialPoint = depInfo.Coordinates[0];
+            if (!coords.Any(p => p.Equals(initialPoint)))
+                initialPoint = coords[0];
             return initialPoint;
         }
 
@@ -210,23 +350,19 @@ namespace PSC2013.ES.Library.AreaData
             return p.X + (p.Y * WIDTH);
         }
 
-        private static bool Check(Point p, DepartmentInfo dep, Tuple<int, PopulationCell>[] arr, Queue<Tuple<int, Point>> queue)
+        /// <summary>
+        /// Checks whether the Point is valid or not.
+        /// </summary>
+        private static bool Check(Point p, Point[] coords, Tuple<int, PopulationCell>[] arr, Queue<Tuple<int, Point>> queue)
         {
-            if (!dep.Coordinates.Contains(p))
+            if (!coords.Contains(p))
                 return false;                   // not part of the department.
             
             if (arr.Select((tpl) => { return (tpl != null) ? tpl.Item1 : -1; }).Contains(FlattenPoint(p)))
                 return false;                   // already calculated.
-            //int i = 0;
-            //while (i < arr.Length && arr[i] != null)
-            //    if (arr[i++].Item1 == FlattenPoint(p))
-            //        return false;
 
             if (queue.Select((tpl) => { return tpl.Item2; }).Contains(p))
                 return false;                   // already in queue.
-            //foreach (var item in queue)
-            //    if (item.Item2.Equals(p))
-            //        return false;
 
             return true;
         }
