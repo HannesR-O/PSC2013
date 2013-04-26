@@ -19,10 +19,10 @@ namespace PSC2013.ES.Library.Snapshot
         public int CountMaleAdult { get; private set; } // Males Adult
         public int CountMaleSenior { get; private set; } // Males Senior
 
-        public int CountF00 { get; private set; } // Females Baby
-        public int CountF01 { get; private set; } // Females Child
-        public int CountF10 { get; private set; } // Females Adult
-        public int CountF11 { get; private set; } // Females Senior      
+        public int CountFemaleBaby { get; private set; } // Females Baby
+        public int CountFemaleChild { get; private set; } // Females Child
+        public int CountFemaleAdult { get; private set; } // Females Adult
+        public int CountFemaleSenior { get; private set; } // Females Senior      
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
@@ -35,10 +35,10 @@ namespace PSC2013.ES.Library.Snapshot
             CountMaleAdult = infos[2];
             CountMaleSenior = infos[3];
 
-            CountF00 = infos[4];
-            CountF01 = infos[5];
-            CountF10 = infos[6];
-            CountF11 = infos[7];
+            CountFemaleBaby = infos[4];
+            CountFemaleChild = infos[5];
+            CountFemaleAdult = infos[6];
+            CountFemaleSenior = infos[7];
 
             Position = infos[8];
         }
@@ -80,7 +80,17 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] getBytes()
         {
-            return System.Text.Encoding.UTF8.GetBytes(Position + "|" + CountMaleBaby + "|" + CountMaleChild + "|"+ CountMaleAdult);
+            byte[] output = new byte[36];
+            Array.Copy(BitConverter.GetBytes(CountMaleBaby), 0, output, 0, 4);
+            Array.Copy(BitConverter.GetBytes(CountMaleChild), 0, output, 4, 4);
+            Array.Copy(BitConverter.GetBytes(CountMaleAdult), 0, output, 8, 4);
+            Array.Copy(BitConverter.GetBytes(CountMaleSenior), 0, output, 12, 4);
+            Array.Copy(BitConverter.GetBytes(CountFemaleBaby), 0, output, 16, 4);
+            Array.Copy(BitConverter.GetBytes(CountFemaleChild), 0, output, 20, 4);
+            Array.Copy(BitConverter.GetBytes(CountFemaleAdult), 0, output, 24, 4);
+            Array.Copy(BitConverter.GetBytes(CountFemaleSenior), 0, output, 28, 4);
+            Array.Copy(BitConverter.GetBytes(Position), 0, output, 32, 4);
+            return output;
         }
 
         public static CellSnapshot InitializeFromFile(byte[] bytes)

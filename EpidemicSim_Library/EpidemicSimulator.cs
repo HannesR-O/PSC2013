@@ -49,7 +49,7 @@ namespace PSC2013.ES.Library
         {
             _simData = new SimulationData();
 
-            _snapshotMgr = new SnapshotManager();
+            _snapshotMgr = new SnapshotManager(); // Needs to be initialized before using
 
             _before = new List<ISimulationComponent>();
             _after = new List<ISimulationComponent>();

@@ -14,6 +14,9 @@ namespace PSC2013.ES.Library.Simulation
         //PopulationData
         public PopulationCell[] Population { get; private set; }
 
+        //Dead Humans
+        public Tuple<Human, int, bool>[] Deaths { get; private set; } // Human, DeathCell, CauseOfDeath ( 0 = natural, 1 = disease) //TODO |t| Maybe not the best solution...
+
         //AreaData
         public Department[] Departments { get; private set; }
         public FederalState[] FederalStates { get; private set; }

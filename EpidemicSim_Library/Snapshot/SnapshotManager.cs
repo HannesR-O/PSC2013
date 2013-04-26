@@ -15,7 +15,9 @@ namespace PSC2013.ES.Library.Snapshot
 {
     public class SnapshotManager
     {
-        private SimulationInfo _simInfo;
+        private string defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // ...
+
+        private static SimulationInfo _simInfo;
         private static string _target;       
         private static long _tick;
         private static Queue<Snapshot> _snapshots;
@@ -25,29 +27,47 @@ namespace PSC2013.ES.Library.Snapshot
         private writer _writer;
 
         public SnapshotManager()
+        {            
+        }
+
+        public void Initialize(string destination, Disease disease)
         {
+            _simInfo = SimulationInfo.InitializeFromRuntime(DateTime.Now, disease.Name, disease);
+            _target = Path.Combine(destination, disease.Name);
+            _snapshots = new Queue<Snapshot>();
+            _tick = 1;
             _writer = new writer();
             _snapToWrite += new SenderHandler(_writer.Recieve);
-            _snapshots = new Queue<Snapshot>();
         }
 
         /// <summary>
-        /// Initializes a Simulation, everytime this method is called, a new simulation is logged
+        /// Takes a Snapshot
         /// </summary>
-        /// <param name="destination">Where to save the Simulation</param>
-        /// <param name="name">The simulations name</param>
-        /// <param name="disease">The Disease used in this Simulation</param>
-        public void InitalizeSimulation(string destination, Disease disease)
+        /// <param name="cells">The NOT EMPTY PopulationCells</param>
+        /// <param name="deaths"></param>
+        public void TakeSnapshot(SimulationData sim)
         {
-            _snapshots = new Queue<Snapshot>();
-            _target = Path.Combine(destination, disease.Name);
-            _tick = 1;
+            CellSnapshot[] cells = new CellSnapshot[sim.Population.Length]; //TODO |t|How many do we really need? Only the populated ones...
+            int pos = 0;
+            foreach (PopulationCell c in sim.Population)
+            {
+                if (!(c == null))
+                {
+                    cells[pos] = CellSnapshot.InitializeFromRuntime(c, pos);
+                    ++pos;
+                }
+            }
+            HumanSnapshot[] deadPeople = new HumanSnapshot[sim.Deaths.Length];
+            foreach (Tuple<Human, int, bool> t in sim.Deaths)
+            {
+                Human temp = t.Item1;
+                HumanSnapshot ha = new HumanSnapshot(temp.GetGender(), temp.GetAgeInYears(), temp.HomeCell, t.Item2, t.Item3);
+            }
 
-            if (!Directory.Exists(_target))
-               Directory.CreateDirectory(_target);
+            Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, cells, deadPeople);
 
-            _simInfo = SimulationInfo.InitializeFromRuntime(DateTime.Now, disease.Name, disease);
-            //_writer.WriteFile(_simInfo, _target + "/header", true);
+            _snapshots.Enqueue(snap);
+            _snapToWrite(this, null);
         }
 
         /// <summary>
@@ -58,40 +78,8 @@ namespace PSC2013.ES.Library.Snapshot
             foreach (Snapshot s in _snapshots)
                 _snapToWrite(this, null);
             ZipFile.CreateFromDirectory(_target, _target + ".sim");
+            Directory.Delete(_target, true);
         }
-
-        /// <summary>
-        /// Takes a Snapshot
-        /// </summary>
-        /// <param name="cells">The NOT EMPTY PopulationCells</param>
-        /// <param name="deaths"></param>
-        public void TakeSnapshot(SimulationData sim)
-        {
-            CellSnapshot[] temp = new CellSnapshot[sim.Population.Length]; //TODO |t|How many do we really need? Only the populated ones...
-            int pos = 0;
-            foreach (PopulationCell c in sim.Population)
-            {
-                if (!(c == null))
-                    temp[pos] = CellSnapshot.InitializeFromRuntime(c, pos);
-            }
-
-            //TODO |t| Creating Humansnapshot[] from sim-
-
-            Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, temp, null); //TODO |t| Sim does NOT hava list of deaths right now? Am i right?
-            
-            _snapshots.Enqueue(snap);
-            _snapToWrite(this, null);
-        }   
-
-        // |t| Not necessary anymore me thinks...
-        /// <summary>
-        /// Return whether there is a Snapshotleft to be written
-        /// </summary>
-        /// <returns></returns>
-        //public bool SnapshotLeft()
-        //{
-        //    return _snapshots.Count > 0;
-        //}
 
         /// <summary>
         /// Nested class for writing the snapshots
@@ -106,6 +94,11 @@ namespace PSC2013.ES.Library.Snapshot
             public writer()
             {
                 _writer = new AsyncBinaryWriter();
+
+                if (!Directory.Exists(_target))
+                    Directory.CreateDirectory(_target);
+
+                _writer.WriteFile(_simInfo, _target + "/header", true);
             }
 
             /// <summary>

@@ -15,7 +15,6 @@ namespace PSC2013.ES.Library.Snapshot
         private CellSnapshot[] _cells;
         private HumanSnapshot[] _deaths;
 
-
         private Snapshot(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
         {
             Stamp = DateTime.Now;
@@ -27,11 +26,8 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] GetBytes()
         {
-            // TODO | T | Fill with data...
-            System.Text.ASCIIEncoding conv = new ASCIIEncoding();
-            return System.Text.Encoding.UTF8.GetBytes(0x2 + "|" + Head + "|");
+            throw new NotImplementedException();
         }
-
 
         public static Snapshot IntitializeFromRuntime(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
         {

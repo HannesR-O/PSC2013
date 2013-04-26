@@ -17,9 +17,9 @@ namespace PSC2013.ES.Cmd
 #if DEBUG
             //TestEpidemicSimulator();
 
-            //TestSnapshot();
+            TestSnapshot();
 
-            TestCalculations();
+            //TestCalculations();
 
             Console.ReadKey();
 #endif
@@ -51,7 +51,6 @@ namespace PSC2013.ES.Cmd
 
         public static void TestSnapshot()
         {
-            SnapshotManager m = new SnapshotManager();
             Library.Diseases.Disease d = new Library.Diseases.Disease();
             d.Name = "Test_Disease";
             d.IncubationPeriod = 238475;
@@ -61,7 +60,8 @@ namespace PSC2013.ES.Cmd
             d.MortalityRate = new Library.Diseases.FactorContainer(new int[] {1, 2, 14, 151, 11515, 123,123, 120});
             d.HealingFactor= new Library.Diseases.FactorContainer(new int[] { 1, 2, 14, 151, 11515, 123, 123, 120 });
             d.ResistanceFactor = new Library.Diseases.FactorContainer(new int[] { 1, 2, 14, 151, 11515, 123, 123, 120 });
-            m.InitalizeSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), d);
+            SnapshotManager m = new SnapshotManager();
+            m.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), d);
             m.Finish();
         }
 
