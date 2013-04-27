@@ -5,7 +5,7 @@ using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Snapshot;
 using System.IO;
 using System.Threading;
-using PSC2013.ES.Library.Simulation.Component;
+using PSC2013.ES.Library.Simulation.Components;
 
 namespace PSC2013.ES.Library
 {

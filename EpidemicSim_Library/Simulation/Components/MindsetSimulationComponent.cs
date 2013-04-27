@@ -1,4 +1,4 @@
-﻿namespace PSC2013.ES.Library.Simulation.Component
+﻿namespace PSC2013.ES.Library.Simulation.Components
 {
     public class MindsetSimulationComponent : ISimulationComponent
     {

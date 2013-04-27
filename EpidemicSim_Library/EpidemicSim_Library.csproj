@@ -48,11 +48,11 @@
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\Readers\DepartmentMapReader.cs" />
     <Compile Include="IO\Writers\AsyncBinaryWriter.cs" />
-    <Compile Include="Simulation\Component\DebugSimulationComponent.cs" />
-    <Compile Include="Simulation\Component\ESimulationStage.cs" />
-    <Compile Include="Simulation\Component\ISimulationComponent.cs" />
-    <Compile Include="Simulation\Component\MindsetSimulationComponent.cs" />
-    <Compile Include="Simulation\Component\MovementSimulationComponent.cs" />
+    <Compile Include="Simulation\Components\DebugSimulationComponent.cs" />
+    <Compile Include="Simulation\Components\ESimulationStage.cs" />
+    <Compile Include="Simulation\Components\ISimulationComponent.cs" />
+    <Compile Include="Simulation\Components\MindsetSimulationComponent.cs" />
+    <Compile Include="Simulation\Components\MovementSimulationComponent.cs" />
     <Compile Include="Simulation\SimulationEventArgs.cs" />
     <Compile Include="Simulation\SimulationException.cs" />
     <Compile Include="Snapshot\CellSnapshot.cs" />

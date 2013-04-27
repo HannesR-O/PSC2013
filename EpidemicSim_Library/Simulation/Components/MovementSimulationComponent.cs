@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PSC2013.ES.Library.Simulation.Component
+namespace PSC2013.ES.Library.Simulation.Components
 {
     /// <summary>
     /// SimulationComponent to move the entire human population 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PSC2013.ES.Library.Simulation.Component
+namespace PSC2013.ES.Library.Simulation.Components
 {
     /// <summary>
     /// Enum to determine when the ISimulationComponent should exeute. [Flags] to allow multiple stages
