@@ -257,44 +257,5 @@ namespace PSC2013.ES.Library.PopulationData
             //TODO T |Anything else? Always return False?
             return false;
         }
-
-        /// <summary>
-        /// Returns a Base64 string representing the human
-        /// </summary>
-        /// <returns>The Base64 representation</returns>
-        public string ToBase64()
-        {
-            var sb = new StringBuilder();
-
-            sb.Append(HomeCell.ToBase64());
-            sb.Append(',');
-            sb.Append(Convert.ToBase64String(new byte[] {_data0, _data1, _data2 }));
-            sb.Append(',');
-            sb.Append(_counterInfect.ToBase64());
-            sb.Append(',');
-            sb.Append(_counterSpreading.ToBase64());
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Creates a new Human based on a given Base64 representation string
-        /// </summary>
-        /// <param name="base64">The string containing the Human info</param>
-        /// <returns>The newly created Human</returns>
-        public static Human FromBase64(string base64)
-        {
-            string[] parts = base64.Split(',');
-
-            var human = new Human(ExtensionMethods.GetIntFromBase64(parts[0]));
-            byte[] data = Convert.FromBase64String(parts[1]);
-            human._data0 = data[0];
-            human._data1 = data[1];
-            human._data2 = data[2];
-            human._counterInfect = ExtensionMethods.GetShortFromBase64(parts[2]);
-            human._counterSpreading = ExtensionMethods.GetShortFromBase64(parts[3]);
-
-            return human;
-        }
     }
 }
