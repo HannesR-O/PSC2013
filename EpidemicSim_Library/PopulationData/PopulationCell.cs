@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace PSC2013.ES.Library.PopulationData
 {
@@ -36,7 +32,7 @@ namespace PSC2013.ES.Library.PopulationData
                 }
 
            	int length = (Humans.Length <= 1) ? DEFAULT_ARRAY_LENGTH : (int)(Humans.Length * 1.5f);
-                Human[] newArray = new Human[length];
+                var newArray = new Human[length];
 
                 int n = 0;
                 foreach (Human toCopy in Humans)

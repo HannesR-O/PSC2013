@@ -1,9 +1,5 @@
 ﻿using PSC2013.ES.Library.IO.Files;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PSC2013.ES.Library.Diseases;
 
 namespace PSC2013.ES.Library.Snapshot
@@ -33,7 +29,7 @@ namespace PSC2013.ES.Library.Snapshot
         public byte[] GetBytes()
         {
             byte[] t = System.Text.Encoding.UTF8.GetBytes(_disease.Name);
-            byte[] output = new byte[112 + t.Length];
+            var output = new byte[112 + t.Length];
             output[0] = HEADER;
             Array.Copy(BitConverter.GetBytes(_disease.IncubationPeriod), 0, output, 1, 4);
             Array.Copy(BitConverter.GetBytes(_disease.IdleTime), 0, output, 5, 4);
