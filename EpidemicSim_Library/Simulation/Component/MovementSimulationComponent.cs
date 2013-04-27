@@ -96,7 +96,7 @@ namespace PSC2013.ES.Library.Simulation.Component
                         //Pupil should be in School from 7-10
                         else if (data.CurrentHour == 7)
                         {
-                            //Move Pupil to school set traveltime + travelflag
+                            //MoveHuman(data, cell, human, school);
                         }
                         else if (data.CurrentHour < 11)
                         {
@@ -107,31 +107,43 @@ namespace PSC2013.ES.Library.Simulation.Component
                         {
                             if (data.Population[cell].Humans[human].HomeCell != cell)
                             {
-                                //calculate chance and return pupil home
+                                if ((randomHolder = random.Next(3)) == 3)
+                                {
+                                    MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
+                                }
+                                else
+                                    return;
+
                             }
                             else
                                 return;
                             
                         }
+                        //School ends definately
                         else if (data.CurrentHour == 14)
                         {
                             if (data.Population[cell].Humans[human].HomeCell != cell)
                             {
-                                //return pupil home
+                                MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
                             }
                             else
                                 return;
                         }
                         else if (data.CurrentHour == 15)
                         {
-                            //chance to visit friend
+                            if (random.Next(1) == 1)
+                            {
+                                //MoveHuman(data, cell, human, friend);
+                            }
+                            else
+                                return;
                         }
                         //Return pupil home if he isn't already
                         else if (data.CurrentHour == 18)
                         {
                             if (data.Population[cell].Humans[human].HomeCell != cell)
                             {
-                                //return pupil
+                                MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
                             }
                             else
                                 return;
@@ -144,9 +156,11 @@ namespace PSC2013.ES.Library.Simulation.Component
                     
                     break;
 
-                case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Vacationing: 
                     //Assert : traveltime <= 10 h 
+                    break;
+                case PopulationData.EMindset.DayOff: 
+                    
                     break;
             }
         }
@@ -160,7 +174,7 @@ namespace PSC2013.ES.Library.Simulation.Component
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.Travelling: break;
+                case PopulationData.EMindset.DayOff: break;
                 case PopulationData.EMindset.Vacationing: break;
             }
         }
@@ -174,7 +188,7 @@ namespace PSC2013.ES.Library.Simulation.Component
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.Travelling: break;
+                case PopulationData.EMindset.DayOff: break;
                 case PopulationData.EMindset.Vacationing: break;
             }
         }
@@ -188,7 +202,7 @@ namespace PSC2013.ES.Library.Simulation.Component
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.Travelling: break;
+                case PopulationData.EMindset.DayOff: break;
                 case PopulationData.EMindset.Vacationing: break;
             }
         }
@@ -202,7 +216,7 @@ namespace PSC2013.ES.Library.Simulation.Component
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.Travelling: break;
+                case PopulationData.EMindset.DayOff: break;
                 case PopulationData.EMindset.Vacationing: break;
             }
         }
@@ -216,7 +230,7 @@ namespace PSC2013.ES.Library.Simulation.Component
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.Travelling: break;
+                case PopulationData.EMindset.DayOff: break;
                 case PopulationData.EMindset.Vacationing: break;
             }
         }
