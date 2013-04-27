@@ -47,13 +47,13 @@ namespace PSC2013.ES.Library.Simulation
             _time = DateTime.Now;
 
 #if DEBUG
-            foreach (var item in Population)
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    item.AddHuman(Human.Create(EGender.Female, 60, 7331));
-                }
-            }
+            //foreach (var item in Population)
+            //{
+            //    for (int i = 0; i < 8; i++)
+            //    {
+            //        item.AddHuman(Human.Create(EGender.Female, 60, 7331));
+            //    }
+            //}
 #endif
         }
 
@@ -76,7 +76,7 @@ namespace PSC2013.ES.Library.Simulation
             Console.WriteLine("Generating Matrix...");
 #endif
             // TODO | dj | should be changed back to .GenerateMatrix...
-            MatrixGenerator.GenerateDummyMatrix(Population, deps, img.Width, img.Height);
+            MatrixGenerator.GenerateMatrix(Population, deps, img.Width, img.Height);
         }
 
         public void Tick()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace PSC2013.ES.Library
 {
@@ -102,11 +103,39 @@ namespace PSC2013.ES.Library
         /// </summary>
         /// <param name="array">The array of PopulationCells to be converted.</param>
         /// <param name="width">The width of the matrix.</param>
-        /// <returns></returns>
+        /// <returns>2D-Matrix of the PopulationCell-Array.</returns>
         public static int[,] To2DIntArray(this PopulationData.PopulationCell[] array, int width)
         {
             int height = array.Length / width;
             return array.To2DIntArray(width, height);
+        }
+
+        /// <summary>
+        /// Flattens the coordinates of the given
+        /// point onto a 1D-index.
+        /// </summary>
+        /// <param name="point">The point to be flattend.</param>
+        /// <param name="width">The width of the environmental area.</param>
+        /// <returns>The 1D-index corresponding to the point.</returns>
+        public static int Flatten(this Point point, int width)
+        {
+            return point.X + (point.Y * width);
+        }
+
+        /// <summary>
+        /// Calculates the absolute distance between
+        /// the two points.
+        /// Might be inexact because of int-cast.
+        /// </summary>
+        /// <param name="currentPoint">The current point.</param>
+        /// <param name="origin">The other point.</param>
+        /// <returns>The hypotenuse.</returns>
+        public static int Distance(this Point currentPoint, Point origin)
+        {
+            int cathetus1 = Math.Abs(currentPoint.X - origin.X);
+            int cathetus2 = Math.Abs(currentPoint.Y - origin.Y);
+
+            return (int)Math.Sqrt(cathetus1 * cathetus1 + cathetus2 * cathetus2);
         }
     }
 }
