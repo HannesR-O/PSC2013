@@ -5,7 +5,7 @@ namespace PSC2013.ES.Library.Snapshot
     /// <summary>
     /// A snapshot of a Human, containing only important data. Can only be created from given values and is immutable.
     /// </summary>
-    public struct HumanSnapshot
+    public class HumanSnapshot
     {
         // Need to use public readonly fields, since auto-properties cannot get initialized in struct-constructors
         public readonly EGender Gender;

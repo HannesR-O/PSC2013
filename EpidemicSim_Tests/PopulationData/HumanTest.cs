@@ -67,7 +67,7 @@ namespace PSC2013.ES.Tests.PopulationData
                 new Assert.ThrowsDelegateWithReturn(() => Human.Create(EGender.Female, 0, HOMECELL)));
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                new Assert.ThrowsDelegateWithReturn(() => Human.Create(EGender.Female, 111, HOMECELL)));
+                new Assert.ThrowsDelegateWithReturn(() => Human.Create(EGender.Female, 128, HOMECELL)));
         }
 
         [Fact]
@@ -131,13 +131,11 @@ namespace PSC2013.ES.Tests.PopulationData
             for (int i = 0; i < 49; i++)
                 human.DoAgeTick();
 
-            Assert.Equal(EAge.Senior, human.GetAge());       // age should be 110 now 
-            Assert.False(human.IsDead());            // => human is still alive
+            Assert.Equal(EAge.Senior, human.GetAge());       // age should be 110 now
 
             human.DoAgeTick();
 
             Assert.Equal(EAge.Senior, human.GetAge());       // age should be 111 now
-            Assert.True(human.IsDead());             // => human dies from overageing, but GetAge() still is valid
         }
 
         [Fact]
@@ -154,7 +152,7 @@ namespace PSC2013.ES.Tests.PopulationData
             Assert.True(h1.IsDead());
             Assert.True(h2.IsDead());
 
-            var human = Human.Create(EGender.Female, r.Next(110), r.Next());
+            var human = Human.Create(EGender.Female, r.Next(1, 110), r.Next());
 
             Assert.False(human.IsDead());
 

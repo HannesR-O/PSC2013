@@ -4,17 +4,17 @@ namespace PSC2013.ES.Library.PopulationData
 {
     public struct Human
     {
-        private const byte MASK_GENDER  = 0x80;               // 1000 0000
-        private const byte MASK_AGE     = 0x7F;               // 0111 1111
+        private const byte MASK_GENDER      = 0x80;            // 1000 0000
+        private const byte MASK_AGE         = 0x7F;            // 0111 1111
 
-        private const byte MASK_INFECTED = 0x80;              // 1000 0000
-        private const byte MASK_SPREADING = 0x40;             // 0100 0000
-        private const byte MASK_DISEASED = 0x20;              // 0010 0000
-        private const byte MASK_DEATH = 0x10;                 // 0001 0000
-        private const byte MASK_TRAVELLING = 0x08;            // 0000 1000
+        private const byte MASK_INFECTED    = 0x80;            // 1000 0000
+        private const byte MASK_SPREADING   = 0x40;            // 0100 0000
+        private const byte MASK_DISEASED    = 0x20;            // 0010 0000
+        private const byte MASK_DEATH       = 0x10;            // 0001 0000
+        private const byte MASK_TRAVELLING  = 0x08;            // 0000 1000
 
-        private const byte MASK_PROFESSION = 0xF0;            // 1111 0000
-        private const byte MASK_MINDSET = 0x0F;               // 0000 1111
+        private const byte MASK_PROFESSION  = 0xF0;            // 1111 0000
+        private const byte MASK_MINDSET     = 0x0F;            // 0000 1111
 
         /// <summary>
         /// HomeCell of the Human
@@ -128,8 +128,8 @@ namespace PSC2013.ES.Library.PopulationData
 
         private void SetAge(int age)
         {
-            if (age < 1 || age > 110)
-                throw new ArgumentOutOfRangeException("Age to set has to be in range of 1-110!", "age");
+            if (age < 1 || age > 127)
+                throw new ArgumentOutOfRangeException("age", "Age to set has to be in range of 1-127!");
 
             _data0 = (byte)((_data0 & ~MASK_AGE) + age);
         }
@@ -237,17 +237,11 @@ namespace PSC2013.ES.Library.PopulationData
         }
 
         /// <summary>
-        /// Performes an age-tick on the human. Increases its age in years and decides whether the Human dies from ageing.
+        /// Performes an age-tick on the human and increases his age by 1 year
         /// </summary>
-        /// <returns>True if the ageing process was completed sucessfully (the Human is still alive)
-        /// False if the Human died in the process (age > 110)</returns>
-        public bool DoAgeTick()
+        public void DoAgeTick()
         {
-            int currentAge = GetAgeInYears();
-            if (currentAge > 109)
-                return KillHuman();
-            SetAge(currentAge + 1);
-            return true;
+            SetAge(GetAgeInYears() + 1);
         }
 
         public bool KillHuman()

@@ -35,6 +35,16 @@ namespace PSC2013.ES.Library
         }
 
         /// <summary>
+        /// Simplifies the copying of one Array to another
+        /// </summary>
+        /// <param name="array">Source array</param>
+        /// <param name="otherArray">Destination array</param>
+        public static void CopyToOtherArray(this Array array, Array otherArray)
+        {
+            array.CopyTo(otherArray, 0);
+        }
+
+        /// <summary>
         /// Generates an 2-Dimensional array out
         /// of the given PopulationCells with only
         /// the sum of (living) humans in them.

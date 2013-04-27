@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace PSC2013.ES.Library.PopulationData
 {
@@ -22,23 +23,18 @@ namespace PSC2013.ES.Library.PopulationData
         {
             for (int i = 0; i < Humans.Length; i++)
             {
-                if (Humans[i].IsDead())
-                {
-                    Humans[i] = human;
-                    return;
-                }
+                if (!Humans[i].IsDead()) continue;
+
+                Humans[i] = human;
+                return;
             }
 
            	int length = (Humans.Length <= 1) ? DEFAULT_ARRAY_LENGTH : (int)(Humans.Length * 1.5f);
-            Human[] newArray = new Human[length];
+            var newArray = new Human[length];
 
-            int n = 0;
-            foreach (Human toCopy in Humans)
-            {
-                newArray[n++] = toCopy;
-            }
+            Humans.CopyToOtherArray(newArray);
+            newArray[Humans.Length+1] = human;
 
-            newArray[++n] = human;
             Humans = newArray;
         }
 

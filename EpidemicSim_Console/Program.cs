@@ -1,4 +1,5 @@
-﻿using PSC2013.ES.Library;
+﻿using System.Threading;
+using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Simulation;
@@ -19,16 +20,19 @@ namespace PSC2013.ES.Cmd
 
             //TestSnapshot();
 
-            TestCalculations();
+            //TestCalculations();
 
-            Console.WriteLine("Finished!");
+            TestAgeingComponent();
+
             Console.ReadKey();
 #endif
         }
 
         private static void TestEpidemicSimulator()
         {
-            var sim = EpidemicSimulator.Create(new DebugSimulationComponent());
+            var sim = EpidemicSimulator.Create(new Disease(), 
+                "../../../EpidemicSim_InputDataParsers/germany.dep", 
+                new DebugSimulationComponent());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
@@ -132,6 +136,31 @@ namespace PSC2013.ES.Cmd
             //stream.Dispose();
             sw.Stop();
             Console.WriteLine("Overall only-operation-time: " + sw.Elapsed);
+        }
+
+        public static void TestAgeingComponent()
+        {
+            var disease = new Disease
+            {
+                Name = "Test_Disease",
+                IncubationPeriod = 238475,
+                IdleTime = 123415,
+                SpreadingTime = 123123,
+                Transferability = 901237,
+                MortalityRate = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
+                HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
+                ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
+            };
+            var sim = EpidemicSimulator.Create(disease, 
+                "../../../EpidemicSim_InputDataParsers/germany.dep", 
+                new DebugSimulationComponent(), 
+                new AgeingSimulationComponent(8544, 110));
+            sim.SimulationStarted += OnSimStartEvent;
+            sim.TickFinished += OnTickfinishedEvent;
+            sim.SimulationEnded += OnSimEndedEvent;
+            sim.StartSimulation(Environment.CurrentDirectory);
+            //Thread.Sleep(10000);
+            //sim.StopSimulation();
         }
     }
 }

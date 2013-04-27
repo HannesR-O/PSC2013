@@ -54,10 +54,9 @@ namespace PSC2013.ES.Library.Snapshot
                 }
             }
             HumanSnapshot[] deadPeople = new HumanSnapshot[simData.Deaths.Length];
-            foreach (Tuple<Human, int, bool> t in simData.Deaths)
+            foreach (HumanSnapshot ha in simData.Deaths)
             {
-                Human temp = t.Item1;
-                HumanSnapshot ha = new HumanSnapshot(temp.GetGender(), temp.GetAgeInYears(), temp.HomeCell, t.Item2, t.Item3);
+
             }
 
             Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, cells, deadPeople);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Snapshot;
 using System.IO;
@@ -17,7 +18,7 @@ namespace PSC2013.ES.Library
         private const string ERROR_MESSAGE_SIMULATION_RUNNING = "A Simulation is already running!";
         private const string ERROR_MESSAGE_NO_SIMULATION_RUNNING = "No Simulation running!";
 
-        private const int SIMULATION_DEFAULT_START = 0x0;
+        private const int SIMULATION_DEFAULT_START = 0x1;
         private const int SIMULATION_DEFAULT_LIMIT = 0x0;
 
         // Data
@@ -49,9 +50,9 @@ namespace PSC2013.ES.Library
         public event EventHandler<SimulationEventArgs> TickFinished;
         //TODO: |f| do we also want StageFinished ?
 
-        private EpidemicSimulator()
+        private EpidemicSimulator(Disease disease)
         {
-            _simData = new SimulationData();
+            _simData = new SimulationData {CurrentDisease = disease};
 
             _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
 
@@ -62,29 +63,17 @@ namespace PSC2013.ES.Library
         /// <summary>
         /// Creates a new EpidemicSimulator with the given ISimulationComponents
         /// </summary>
+        /// <param name="dataFilePath"></param>
         /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
         /// <returns>The created instance of EpidemicSimulator</returns>
-        public static EpidemicSimulator Create(params ISimulationComponent[] components)
+        public static EpidemicSimulator Create(Disease disease, string dataFilePath, params ISimulationComponent[] components)
         {
-            var sim = new EpidemicSimulator();
+            var sim = new EpidemicSimulator(disease);
 
             foreach (ISimulationComponent component in components)
             {
                 sim.AddSimulationComponent(component);
             }
-
-            return sim;
-        }
-
-        /// <summary>
-        /// Creates a new EpidemicSimulator with the given ISimulationComponents
-        /// </summary>
-        /// <param name="dataFilePath"></param>
-        /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
-        /// <returns>The created instance of EpidemicSimulator</returns>
-        public static EpidemicSimulator Create(string dataFilePath, params ISimulationComponent[] components)
-        {
-            var sim = Create(components);
 
             sim.LoadSimulationBaseFromFile(dataFilePath);
 
@@ -95,7 +84,7 @@ namespace PSC2013.ES.Library
         /// Loads a .dep containing population information into the EpidemicSimulator's SimulationData
         /// </summary>
         /// <param name="dataFilePath">Path of the .deb file to read</param>
-        public void LoadSimulationBaseFromFile(string dataFilePath)
+        private void LoadSimulationBaseFromFile(string dataFilePath)
         {
             _simData.InitializeFromFile(dataFilePath);
         }
@@ -123,11 +112,11 @@ namespace PSC2013.ES.Library
                 return;
             }
             if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation &&
-                    _before.Contains(component))
+                    !_before.Contains(component))
                     _before.Add(component);
             
             if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation &&
-                    _after.Contains(component))
+                    !_after.Contains(component))
                     _after.Add(component);
         }
 
@@ -162,9 +151,9 @@ namespace PSC2013.ES.Library
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
+            //_snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
 
-            // Actual Simulation
+            // Actual Simulation is performed in another Thread to enable stopping
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
         }
 
@@ -196,10 +185,9 @@ namespace PSC2013.ES.Library
                     comp.PerformSimulationStage(_simData);
                 }
 
-                _snapshotMgr.TakeSnapshot(_simData);
+                //_snapshotMgr.TakeSnapshot(_simData);
                 long round = Interlocked.Increment(ref _simulationRound);
-                if (round != SIMULATION_DEFAULT_LIMIT)
-                    _simulationLock = round <= _simulationLimit;
+                _simulationLock = round != _simulationLimit;
 
                 OnTickFinished(new SimulationEventArgs() { SimulationRunning = true, SimulationRound = round });
             }
