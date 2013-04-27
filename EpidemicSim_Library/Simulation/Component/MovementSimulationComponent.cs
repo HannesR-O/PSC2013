@@ -70,6 +70,9 @@ namespace PSC2013.ES.Library.Simulation.Component
             //Set selected Human to status "travelling"
             data.Population[currentcell].Humans[human].SetTravelling(true);
 
+            //Set Travelling Counter
+            //data.Population[currentcell].Humans[human].SetTravellingCounter();
+
             //Add the selected Human in the Destinationcell
             data.Population[destinationcell].AddHuman(data.Population[currentcell].Humans[human]);
             //TODO |f| Add Fields for age/gender-groups to Populationcell!!!
@@ -170,7 +173,13 @@ namespace PSC2013.ES.Library.Simulation.Component
 
             switch (data.Population[cell].Humans[human].GetMindset())
             {
-                case PopulationData.EMindset.Working: break;
+                //Working Mindset -> Student going to University this day
+                //Assert : Student is at Home at 0 o'clock; It isn't suturday or sunday
+                case PopulationData.EMindset.Working: 
+                    
+                    
+                    
+                    break;
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
