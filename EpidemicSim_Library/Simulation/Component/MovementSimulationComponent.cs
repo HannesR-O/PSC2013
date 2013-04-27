@@ -44,7 +44,7 @@ namespace PSC2013.ES.Library.Simulation.Component
                     {
                         //chance every day to go out 1-3 hours
                         //if ill -> go to hospital
-                        //if healthy wander around aimlessly in departement
+                        //if healthy wander around aimlessly in departement (short range)
                     }
                     //Handle Movement for Mindsets which are dependent on the profession od the selected human
                     else
@@ -102,28 +102,45 @@ namespace PSC2013.ES.Library.Simulation.Component
                         {
                             return; //Pupil should stay in shool
                         }
-                        //pupil can still be in school from 10-14
+                        //pupil has chance that school ends
                         else if (data.CurrentHour < 14)
                         {
-                            randomHolder = random.Next(5);
+                            if (data.Population[cell].Humans[human].HomeCell != cell)
+                            {
+                                //calculate chance and return pupil home
+                            }
+                            else
+                                return;
+                            
                         }
-                        //pupil has chance to visit friends from 14-18
-                        else if (data.CurrentHour < 18)
+                        else if (data.CurrentHour == 14)
                         {
-                            randomHolder = random.Next();
+                            if (data.Population[cell].Humans[human].HomeCell != cell)
+                            {
+                                //return pupil home
+                            }
+                            else
+                                return;
                         }
-                        
+                        else if (data.CurrentHour == 15)
+                        {
+                            //chance to visit friend
+                        }
+                        //Return pupil home if he isn't already
                         else if (data.CurrentHour == 18)
                         {
-
+                            if (data.Population[cell].Humans[human].HomeCell != cell)
+                            {
+                                //return pupil
+                            }
+                            else
+                                return;
                         }
                         //in the evening pupil should be at home
                         else
                         {
                             return;
                         }
-                    
-
                     
                     break;
 
