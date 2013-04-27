@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PSC2013.ES.Library.Simulation.Component
+﻿namespace PSC2013.ES.Library.Simulation.Component
 {
     public class MindsetSimulationComponent : ISimulationComponent
     {
         public void PerformSimulationStage(SimulationData data)
-        {
-           
+        {       
             //Update Mindsets every Day
             //TODO |f| add Events to SimulationData to trigger events new Day/Month/Year? vs Using Simulators events?
 

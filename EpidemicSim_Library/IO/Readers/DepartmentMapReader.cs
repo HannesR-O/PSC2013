@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PSC2013.ES.Library.AreaData;
 
 namespace PSC2013.ES.Library.IO.Readers
@@ -39,7 +36,7 @@ namespace PSC2013.ES.Library.IO.Readers
         /// <returns>The DepartmentInfo-Array.</returns>
         public DepartmentInfo[] ReadFile()
         {
-            List<DepartmentInfo> depInfList = new List<DepartmentInfo>();
+            var depInfList = new List<DepartmentInfo>();
 
             ZipArchive archive = ZipFile.OpenRead(Path);
             Stream stream = archive.GetEntry("map").Open();
@@ -64,7 +61,6 @@ namespace PSC2013.ES.Library.IO.Readers
                     depInfList.Add(depInf);
                 }
             }
-
             return depInfList.ToArray();
         }
 
@@ -75,12 +71,10 @@ namespace PSC2013.ES.Library.IO.Readers
         public Image ReadImage()
         {
             ZipArchive archive = ZipFile.OpenRead(Path);
-            Stream stream = archive.GetEntry("image").Open();
-
-            Image img = Image.FromStream(stream);
-            stream.Close();
-
-            return img;
+            using (var stream = archive.GetEntry("image").Open())
+            {
+                return Image.FromStream(stream);
+            }
         }
     }
 }

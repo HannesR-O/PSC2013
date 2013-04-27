@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library.Snapshot
@@ -27,7 +24,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
         /// </summary>
-        /// <param name="param">The Population to be Snaped</param>
+        /// <param name="infos">The Population to be snapshotted</param>
         private CellSnapshot(int[] infos)
         {
             CountMaleBaby = infos[0];
@@ -48,7 +45,6 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         /// <param name="input">Input Counts</param>
         /// <param name="position">Position of the cell</param>
-        /// <param name="deaths">An array containing the dead people as strings</param>
         /// <returns></returns>
         public static CellSnapshot InitializeFromRuntime(PopulationCell input, int position)
         {
@@ -71,16 +67,15 @@ namespace PSC2013.ES.Library.Snapshot
         /// Creates an new CellSnapshot from Information parsed from an file
         /// </summary>
         /// <param name="counts">input counts</param>
-        /// <param name="dead"></param>
         /// <returns>An array containing the dead people as strings</returns>
         public static CellSnapshot FromFile(int[] counts)
         {
             return new CellSnapshot(counts);
         }
 
-        public byte[] getBytes()
+        public byte[] GetBytes()
         {
-            byte[] output = new byte[36];
+            var output = new byte[36];
             Array.Copy(BitConverter.GetBytes(CountMaleBaby), 0, output, 0, 4);
             Array.Copy(BitConverter.GetBytes(CountMaleChild), 0, output, 4, 4);
             Array.Copy(BitConverter.GetBytes(CountMaleAdult), 0, output, 8, 4);

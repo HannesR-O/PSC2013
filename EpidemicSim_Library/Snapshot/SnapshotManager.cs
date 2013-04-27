@@ -23,7 +23,8 @@ namespace PSC2013.ES.Library.Snapshot
         private SnapshotWriter _writer;
 
         public SnapshotManager()
-        {            
+        {
+
         }
 
         public void Initialize(string destination, Disease disease)

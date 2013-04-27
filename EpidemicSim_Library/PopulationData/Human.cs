@@ -52,7 +52,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>The newly created Human struct</returns>
         public static Human Create(EGender gender, int age, int homeCell)
         {
-            Human human = new Human(homeCell);
+            var human = new Human(homeCell);
 
             human.SetGender(gender);
             human.SetAge(age);
@@ -66,14 +66,14 @@ namespace PSC2013.ES.Library.PopulationData
             if (obj == null || !(obj is Human))
                 return false;
 
-            Human other = (Human)obj;
+            var other = (Human)obj;
             return (this.HomeCell == other.HomeCell) && (this._data0 == other._data0) && (this._data1 == other._data1) &&
                 (this._data2 == other._data2) && (this._counterInfect == other._counterInfect) && (this._counterSpreading == other._counterSpreading);
         }
 
         public override int GetHashCode()
         {
-            return (int)(_data0 + _data1);
+            return (_data0 + _data1);
         }
 
         public override string ToString()
@@ -104,7 +104,7 @@ namespace PSC2013.ES.Library.PopulationData
         {
             int value = GetAgeInYears();
 
-            EAge age = EAge.Baby;
+            var age = EAge.Baby;
 
             if (value <= 6)
                 age = EAge.Baby;
@@ -130,7 +130,7 @@ namespace PSC2013.ES.Library.PopulationData
         private void SetAge(int age)
         {
             if (age < 1 || age > 110)
-                throw new ArgumentOutOfRangeException("Age has to be in 1-110", "age");
+                throw new ArgumentOutOfRangeException("Age to set has to be in range of 1-110!", "age");
 
             _data0 = (byte)((_data0 & ~MASK_AGE) + age);
         }
@@ -183,7 +183,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>True if the Human is dead, false if not</returns>
         public bool IsDead()
         {
-            return !((_data1 & MASK_DEATH) == 16);
+            return ((_data1 & MASK_DEATH) == 0);
         }
 
         private void SetDeath(bool death)
@@ -264,7 +264,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>The Base64 representation</returns>
         public string ToBase64()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.Append(HomeCell.ToBase64());
             sb.Append(',');
