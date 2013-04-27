@@ -20,9 +20,9 @@
             }
         }
 
-        public ESimulationStage GetSimulationStages()
+        public ESimulationStage SimulationStages
         {
-            return ESimulationStage.BeforeInfectedCalculation;
+            get { return ESimulationStage.BeforeInfectedCalculation; }
         }
     }
 }

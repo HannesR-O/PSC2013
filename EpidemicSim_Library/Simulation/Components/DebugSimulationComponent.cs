@@ -11,9 +11,9 @@ namespace PSC2013.ES.Library.Simulation.Components
 #endif
         }
 
-        ESimulationStage ISimulationComponent.GetSimulationStages()
+        ESimulationStage ISimulationComponent.SimulationStages
         {
-            return ESimulationStage.InfectedCalculation;
+            get { return ESimulationStage.InfectedCalculation; }
         }
     }
 }

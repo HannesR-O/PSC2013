@@ -110,7 +110,7 @@ namespace PSC2013.ES.Library
             if (_simulationLock)
                 throw new SimulationException("Could not add a new ISimulationComponent. " + ERROR_MESSAGE_SIMULATION_RUNNING);
 
-            ESimulationStage stages = component.GetSimulationStages();
+            ESimulationStage stages = component.SimulationStages;
             if ((stages & ESimulationStage.InfectedCalculation) == ESimulationStage.InfectedCalculation)
             {
                 if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation ||
