@@ -185,6 +185,7 @@ namespace PSC2013.ES.Library
                     comp.PerformSimulationStage(_simData);
                 }
 
+                _simData.Tick();
                 //_snapshotMgr.TakeSnapshot(_simData);
                 long round = Interlocked.Increment(ref _simulationRound);
                 _simulationLock = round != _simulationLimit;
@@ -203,7 +204,7 @@ namespace PSC2013.ES.Library
         protected virtual void OnSimulationStarted(SimulationEventArgs e)
         {
 #if DEBUG
-            Console.WriteLine("Simulation started!");
+            Console.WriteLine("ES: Simulation started!");
 #endif
             SimulationStarted.Raise(this, e);
         }
@@ -211,7 +212,7 @@ namespace PSC2013.ES.Library
         protected virtual void OnSimulationEnded(SimulationEventArgs e)
         {
 #if DEBUG
-            Console.WriteLine("Simulation ended!");
+            Console.WriteLine("ES: Simulation ended!");
 #endif
             SimulationEnded.Raise(this, e);
         }
@@ -219,7 +220,7 @@ namespace PSC2013.ES.Library
         protected virtual void OnTickFinished(SimulationEventArgs e)
         {
 #if DEBUG
-            Console.WriteLine("Finished Tick: " + _simulationRound);
+            Console.WriteLine("ES: Finished Tick: " + _simulationRound + "!");
 #endif
             TickFinished.Raise(this, e);
         }
