@@ -24,6 +24,8 @@ namespace PSC2013.ES.Cmd
 
             TestAgeingComponent();
 
+            //TestMovementComponent();
+
             Console.ReadKey();
 #endif
         }
@@ -154,14 +156,29 @@ namespace PSC2013.ES.Cmd
             var sim = EpidemicSimulator.Create(disease, 
                 "../../../EpidemicSim_InputDataParsers/germany.dep", 
                 new DebugSimulationComponent(), 
-                new AgeingSimulationComponent(8544, 110),
-                new MovementSimulationComponent());
+                new AgeingSimulationComponent(8544, 110));
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
             sim.StartSimulation(Environment.CurrentDirectory);
             //Thread.Sleep(10000);
             //sim.StopSimulation();
+        }
+
+        public static void TestMovementComponent()
+        {
+            //too slow at the moment
+            SimulationData data = new SimulationData();
+            MovementSimulationComponent movecmp = new MovementSimulationComponent();
+            data.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
+
+            for (int i = 0; i < 48; ++i)
+            {
+                movecmp.PerformSimulationStage(data);
+                data.Tick();
+            }
+
+
         }
     }
 }
