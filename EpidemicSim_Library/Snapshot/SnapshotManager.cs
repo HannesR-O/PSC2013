@@ -22,11 +22,11 @@ namespace PSC2013.ES.Library.Snapshot
         private event EventHandler TookSnapshot;
         private SnapshotWriter _writer;
 
-        public SnapshotManager()
-        {
-
-        }
-
+        /// <summary>
+        /// Initializes the logging of a new Simulation
+        /// </summary>
+        /// <param name="destination">Where to save the data</param>
+        /// <param name="disease">The Disease used in the Simulation</param>
         public void Initialize(string destination, Disease disease)
         {
             _simInfo = SimulationInfo.InitializeFromRuntime(DateTime.Now, disease.Name, disease);
@@ -38,7 +38,7 @@ namespace PSC2013.ES.Library.Snapshot
         }
 
         /// <summary>
-        /// Takes a Snapshot of the current state
+        /// Takes a Snapshot of the current state and starts to write all Snapshots that are left
         /// </summary>
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
@@ -53,20 +53,13 @@ namespace PSC2013.ES.Library.Snapshot
                     ++pos;
                 }
             }
-            HumanSnapshot[] deadPeople = new HumanSnapshot[simData.Deaths.Length];
-            foreach (HumanSnapshot ha in simData.Deaths)
-            {
-
-            }
-
-            Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, cells, deadPeople);
-
+            Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);
         }
 
         /// <summary>
-        /// Finishes writing the Snapshot Queue
+        /// Finishes writing the Snapshot Queue und compresses the folder
         /// </summary>
         public void Finish()
         {
@@ -74,6 +67,7 @@ namespace PSC2013.ES.Library.Snapshot
                 TookSnapshot(this, null);
             ZipFile.CreateFromDirectory(_target, _target + ".sim");
             Directory.Delete(_target, true);
+            Console.WriteLine("Finished logging of Simulation @ " + DateTime.Now.ToString());
         }
 
         /// <summary>
@@ -84,7 +78,7 @@ namespace PSC2013.ES.Library.Snapshot
             private IBinaryWriter _writer;
 
             /// <summary>
-            /// Creates a new Writer
+            /// Creates a new Writer abd creates an directory at the above given destination
             /// </summary>
             public SnapshotWriter()
             {
@@ -116,6 +110,7 @@ namespace PSC2013.ES.Library.Snapshot
                 {
                     Snapshot temp = _snapshots.Dequeue();
                     _writer.WriteFile(temp, _target + temp.Head, true);
+                    Console.WriteLine("Finished writting \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                 }
             }
         }
