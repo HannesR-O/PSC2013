@@ -21,6 +21,8 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             for (int i = 0; i < data.Population.Length; ++i)
             {
+                if (data.Population[i] == null)
+                    continue;
                 for (int j = 0; j < data.Population[i].Humans.Length; ++j)
                 {
                     //Stationary Mindset implies the human chosen won't move this day regardless of profession
@@ -34,6 +36,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (data.Population[i].Humans[j].IsTravelling())
                     {
                         //reduce counter, if counter == 0 remove flag travelling else continue
+                        data.Population[i].Humans[j].SetTravelling(false);
                     }
                     //Staying Home doesn't vary no matter what profession the human is having.
                     else if (data.Population[i].Humans[j].GetMindset() == PopulationData.EMindset.HomeStaying)
