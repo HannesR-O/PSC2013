@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System.Collections.Generic;
 using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.PopulationData;
@@ -20,9 +21,9 @@ namespace PSC2013.ES.Cmd
 
             //TestSnapshot();
 
-            //TestCalculations();
+            TestCalculations();
 
-            TestAgeingComponent();
+            //TestAgeingComponent();
 
             //TestMovementComponent();
 
@@ -78,7 +79,7 @@ namespace PSC2013.ES.Cmd
         {
             var simData = new SimulationData();
             Console.WriteLine("Current size in MB: " + Process.GetCurrentProcess().PrivateMemorySize64 / (1024 * 1024));
-            Console.WriteLine("Total Humancount in 1000: " + simData.Population.Length * 8 / 1000);
+            Console.WriteLine("Total Humancount in 1000: " + simData.Population.Keys.Count * 8 / 1000);
         }
 
         public static void TestCalculations()
@@ -90,49 +91,41 @@ namespace PSC2013.ES.Cmd
             sw.Start();
             Console.WriteLine("Starting cell-run.");
 
-            int i = 0;
             //System.IO.StreamWriter stream = new System.IO.StreamWriter(
             //    Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/test.txt");
-            foreach (PopulationCell cell in simData.Population)
+            Parallel.ForEach(simData.Population, new ParallelOptions() { MaxDegreeOfParallelism = 4 },
+                (pair) =>
             {
-                Console.Write("Cell#{0,9}", i++);
+                PopulationCell cell = pair.Value;
 
                 //if (i % 2814 == 0)
                 //    stream.Write(Environment.NewLine);
 
-                if (cell != null)
-                {
-                    //var watch = new Stopwatch();
-                    //Console.WriteLine("Testing non-parallel..");
-                    //watch.Start();
+                //var watch = new Stopwatch();
+                //Console.WriteLine("Testing non-parallel..");
+                //watch.Start();
 
-                    foreach (Human hu in cell.Humans)
+                foreach (Human hu in cell.Humans)
+                {
+                    int value = hu.GetAgeInYears() % 4;
+                }
+
+                //watch.Stop();
+                //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
+                //watch.Reset();
+                //Console.WriteLine("Testing parallel..");
+                //watch.Start();
+
+                Parallel.ForEach(cell.Humans, (human) =>
                     {
-                        int value = hu.GetAgeInYears() % 4;
-                    }
+                        int value = human.GetAgeInYears() % 4;
+                    });
 
-                    //watch.Stop();
-                    //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                    //watch.Reset();
-                    //Console.WriteLine("Testing parallel..");
-                    //watch.Start();
-
-                    Parallel.ForEach(cell.Humans, (human) =>
-                        {
-                            int value = human.GetAgeInYears() % 4;
-                        });
-
-                    //watch.Stop();
-                    //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                    Console.WriteLine(" - done");
-                    //stream.Write("8");
-                }
-                else
-                {
-                    Console.WriteLine(" - abort : NULL");
-                    //stream.Write("-");
-                }
-            }
+                //watch.Stop();
+                //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
+                Console.WriteLine("Cell# {0,9} - done - People: {1}", pair.Key, cell.ToString());
+                //stream.Write("8");
+            });
             //stream.Flush();
             //stream.Close();
             //stream.Dispose();

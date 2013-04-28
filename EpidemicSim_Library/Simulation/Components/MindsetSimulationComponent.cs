@@ -10,7 +10,7 @@
             if (data.CurrentHour == 0)
             {
 
-                for (int i = 0; i < data.Population.Length; ++i)
+                foreach (int i in data.Population.Keys)
                 {
                     for (int j = 0; j < data.Population[i].Humans.Length; ++j)
                     {

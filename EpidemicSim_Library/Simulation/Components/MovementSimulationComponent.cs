@@ -19,7 +19,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public void PerformSimulationStage(SimulationData data)
         {
-            for (int i = 0; i < data.Population.Length; ++i)
+            foreach (int i in data.Population.Keys)
             {
                 if (data.Population[i] == null)
                     continue;

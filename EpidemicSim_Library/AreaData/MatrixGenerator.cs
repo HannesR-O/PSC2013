@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace PSC2013.ES.Library.AreaData
         /// For parameters see GenerateMatrix.
         /// </summary>
         public static void GenerateDummyMatrix(
-            PopulationCell[] populationArray,
+            Dictionary<int, PopulationCell> populationArray,
             IEnumerable<DepartmentInfo> rawData,
             int width, int height)
         {
@@ -104,18 +105,18 @@ namespace PSC2013.ES.Library.AreaData
         /// <param name="width">width of the populationArray (used for offsets)</param>
         /// <param name="height">height of the populationArray (used for offsets)</param>
         /// <returns>The input-populationCell-array (modified).</returns>
-        public static PopulationCell[] GenerateMatrix(
-            PopulationCell[] populationArray,
+        public static ConcurrentDictionary<int, PopulationCell> GenerateMatrix(
+            ConcurrentDictionary<int, PopulationCell> populationArray,
             IEnumerable<DepartmentInfo> rawData,
             int width, int height)
         {
             WIDTH = width;
             HEIGHT = height;
 
-            if (populationArray.Length != WIDTH * HEIGHT)
-                throw new ArgumentException(
-                    "The argument has to be an array if PopulationCell with a length of '" + WIDTH * HEIGHT + "'.",
-                    "populationArray");
+            //if (populationArray.Count != WIDTH * HEIGHT)
+            //    throw new ArgumentException(
+            //        "The argument has to be an array if PopulationCell with a length of '" + WIDTH * HEIGHT + "'.",
+            //        "populationArray");
 
             // the parallel call.
             int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
@@ -127,7 +128,8 @@ namespace PSC2013.ES.Library.AreaData
                     Console.WriteLine("Started " + item.Name);
 #endif
                     var res = PopulateDepartment(item);         // populate the department.
-                    lock (populationArray) {                    // store the new info in the original array.
+                    //lock (populationArray)                      // store the new info in the original array.
+                    {
                         foreach (var tpl in res)
                             populationArray[tpl.Item1] = tpl.Item2;
                     }
@@ -157,7 +159,7 @@ namespace PSC2013.ES.Library.AreaData
                 point => point.Distance(origin)) + 1;
 
             int[] factors = new int[maximumDistance];                       // array of factor for each distance.
-            factors[0] = 225;                                               // start factor.
+            factors[0] = 175;                                               // start factor.
             for (int i = 1; i < maximumDistance; i++)                       // creating every factor for each distance.
             {
                 int previousFactor = factors[i - 1];

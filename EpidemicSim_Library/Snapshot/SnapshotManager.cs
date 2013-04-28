@@ -43,9 +43,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
-            CellSnapshot[] cells = new CellSnapshot[simData.Population.Length]; //TODO |t|How many do we really need? Only the populated ones...
+            CellSnapshot[] cells = new CellSnapshot[simData.Population.Keys.Count]; //TODO |t|How many do we really need? Only the populated ones...
             int pos = 0;
-            foreach (PopulationCell cell in simData.Population)
+            foreach (PopulationCell cell in simData.Population.Values)
             {
                 if (!(cell == null))
                 {

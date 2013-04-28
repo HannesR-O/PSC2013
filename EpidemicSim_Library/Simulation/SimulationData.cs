@@ -7,6 +7,7 @@ using System;
 using PSC2013.ES.Library.IO.Readers;
 using System.Drawing;
 using PSC2013.ES.Library.Snapshot;
+using System.Collections.Concurrent;
 
 namespace PSC2013.ES.Library.Simulation
 {
@@ -17,7 +18,7 @@ namespace PSC2013.ES.Library.Simulation
         private DateTime _time;
 
         //PopulationData
-        public PopulationCell[] Population { get; private set; }
+        public ConcurrentDictionary<int, PopulationCell> Population { get; private set; }
 
         //Dead Humans
         public HumanSnapshot[] Deaths { get; private set; } // Human, DeathCell, CauseOfDeath ( 0 = natural, 1 = disease) //TODO |t| Maybe not the best solution..
@@ -44,7 +45,7 @@ namespace PSC2013.ES.Library.Simulation
 
         public SimulationData()
         {
-            Population = new PopulationCell[10808574];
+            Population = new ConcurrentDictionary<int, PopulationCell>();
             Deaths = new HumanSnapshot[0];
             DeathCount = 0;
 
@@ -84,7 +85,7 @@ namespace PSC2013.ES.Library.Simulation
             Console.WriteLine("Generating Matrix...");
 #endif
             // TODO | dj | should be changed back to .GenerateMatrix...
-            MatrixGenerator.GenerateDummyMatrix(Population, deps, img.Width, img.Height);
+            MatrixGenerator.GenerateMatrix(Population, deps, img.Width, img.Height);
         }
 
         public void AddDeadPeople(IList<HumanSnapshot> deadPeople)

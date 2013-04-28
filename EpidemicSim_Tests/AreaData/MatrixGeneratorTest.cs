@@ -52,7 +52,7 @@ namespace PSC2013.ES.Tests.AreaData
         {
             StartUp();
 
-            MatrixGenerator.GenerateMatrix(_populationCells, _departments, WIDTH, HEIGHT);
+            //MatrixGenerator.GenerateMatrix(_populationCells, _departments, WIDTH, HEIGHT);
             
             int actualCount = 0;
             foreach (PopulationCell item in _populationCells)
