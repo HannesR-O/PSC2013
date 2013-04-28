@@ -79,12 +79,17 @@ namespace PSC2013.ES.Library.Simulation.Components
             //Decrement Humancount!
         }
 
+        private void MoveHumanHome(SimulationData data, int currentcell, int human)
+        {
+            MoveHuman(data, currentcell, human, data.Population[currentcell].Humans[human].HomeCell);
+        }
+
         private void MovePupil(SimulationData data , int cell, int human)
         {
             switch(data.Population[cell].Humans[human].GetMindset())
             {
                 //Working Mindset -> Pupil going to school this day
-                //Assert : Pupil is at Home at 0 o'clock; It isn't suturday or sunday
+                //Assert : Pupil is at Home at 0 o'clock
                 case PopulationData.EMindset.Working:
 
                         //Pupil is at Home in the Morning
@@ -107,9 +112,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                             if (data.Population[cell].Humans[human].HomeCell != cell)
                             {
                                 if ((randomHolder = random.Next(3)) == 3)
-                                {
-                                    MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
-                                }
+                                    MoveHumanHome(data, cell, human);
                                 else
                                     return;
 
@@ -122,9 +125,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                         else if (data.CurrentHour == 14)
                         {
                             if (data.Population[cell].Humans[human].HomeCell != cell)
-                            {
-                                MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
-                            }
+                                MoveHumanHome(data, cell, human);
                             else
                                 return;
                         }
@@ -141,9 +142,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                         else if (data.CurrentHour == 18)
                         {
                             if (data.Population[cell].Humans[human].HomeCell != cell)
-                            {
-                                MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
-                            }
+                                MoveHumanHome(data, cell, human);
                             else
                                 return;
                         }
@@ -170,9 +169,33 @@ namespace PSC2013.ES.Library.Simulation.Components
             switch (data.Population[cell].Humans[human].GetMindset())
             {
                 //Working Mindset -> Student going to University this day
-                //Assert : Student is at Home at 0 o'clock; It isn't suturday or sunday
-                case PopulationData.EMindset.Working: 
-                    
+                //Assert : Student is at Home at 0 o'clock; It isn't suturday or sunday; University traveltime <= 1h
+                case PopulationData.EMindset.Working:
+                    //Student can have lectures during day including breaks
+                    if (data.CurrentHour > 8 && data.CurrentHour < 18)
+                    {
+                        if (data.Population[cell].Humans[human].HomeCell == cell)
+                        {
+                            //Chance to go/return to University dependent on hour
+
+
+                        }
+                        else
+                        {
+                            //chance to go home dependent on hour
+
+                        }
+                    }
+                    //No lectures after 18 o'clock
+                    else if(data.CurrentHour == 18)
+                    {
+                        MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
+                    }
+                    //in the morning/evening student is at home 
+                    else 
+                    {
+                        return;
+                    }
                     
                     
                     break;
@@ -186,13 +209,31 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         private void MovePlumber(SimulationData data, int cell, int human)
         {
-
+            //Working Mindset -> Plumber going to different households each hour
+            //Assert : Plumber is at Home at 0 o'clock; 
             switch (data.Population[cell].Humans[human].GetMindset())
             {
-                case PopulationData.EMindset.Working: break;
-                case PopulationData.EMindset.HomeStaying: break;
-                case PopulationData.EMindset.Shopping: break;
-                case PopulationData.EMindset.Stationary: break;
+                case PopulationData.EMindset.Working:
+
+                    if (data.CurrentHour > 7 && data.CurrentHour < 18)
+                    {
+                        //Move to another cell in <= 1h reach
+                    }
+                    //return home at 18 o'clock
+                    else if (data.CurrentHour == 18)
+                    {
+                        if (data.Population[cell].Humans[human].HomeCell != cell)
+                            MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
+                        else
+                            return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    
+                    
+                    break;
                 case PopulationData.EMindset.DayOff: break;
                 case PopulationData.EMindset.Vacationing: break;
             }
@@ -203,7 +244,25 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             switch(data.Population[cell].Humans[human].GetMindset())
             {
-                case PopulationData.EMindset.Working: break;
+                //Working Mindset -> Deskjobber has 9 to 5 job
+                //Assert : Deskjobber is at Home at 0 o'clock;
+                case PopulationData.EMindset.Working:
+                    //Go to work
+                    if (data.CurrentHour == 9)
+                    {
+                        //MoveHuman(data, cell, human, workplace);
+                    }
+                    //Go home
+                    else if (data.CurrentHour == 18)
+                    {
+                        MoveHuman(data, cell, human, data.Population[cell].Humans[human].HomeCell);
+                    }
+                    //In the morning and evening stay at home
+                    else
+                    {
+                        return;
+                    }
+                    break;
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
@@ -214,10 +273,32 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         private void MoveHousewife(SimulationData data, int cell, int human)
         {
-
+            
             switch (data.Population[cell].Humans[human].GetMindset())
             {
-                case PopulationData.EMindset.Working: break;
+                //Working Mindset -> Housewife doesn't go to work is either at home in the city or by friends
+                //Assert : Housewife is at Home at 0 o'clock;
+                case PopulationData.EMindset.Working:
+                    //Run around aimlessly^^
+                    if (data.CurrentHour > 6 && data.CurrentHour < 20)
+                    {
+                        //chance to go shopping/visit friends/work at home dependent on hour?
+
+                    }
+                    //return home at 20 o'clock
+                    else if (data.CurrentHour == 20)
+                    {
+                        if (data.Population[cell].Humans[human].HomeCell != cell)
+                            MoveHumanHome(data, cell, human);
+                        else
+                            return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    
+                    break;
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
@@ -231,7 +312,58 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             switch (data.Population[cell].Humans[human].GetMindset())
             {
-                case PopulationData.EMindset.Working: break;
+                //Working Mindset -> Travelling Salesman travels through Germany, changes location each day,
+                //                   returns home on friday
+                case PopulationData.EMindset.Working:
+                    //Returns home on friday
+                    if (data.CurrentDay == DayOfWeek.Friday)
+                    {
+                        //if hometravelltime == arrives on 17-20 o'clock -> go home else stay where you are
+                    }
+                    //on every other day travel through germany
+                    else
+                    {
+                        if (data.CurrentHour == 4)
+                        {
+                            //travel to distant point
+                        }
+                        else
+                            return;
+                    }
+                    
+                    break;
+                case PopulationData.EMindset.HomeStaying: break;
+                case PopulationData.EMindset.Shopping: break;
+                case PopulationData.EMindset.Stationary: break;
+                case PopulationData.EMindset.DayOff: break;
+                case PopulationData.EMindset.Vacationing: break;
+            }
+        }
+
+        private void MoveCommuter(SimulationData data, int cell, int human)
+        {
+            switch (data.Population[cell].Humans[human].GetMindset())
+            {
+                //Working Mindset -> Commuter goes to work in a city that is 0,5-2 hours away from home
+                //Assert : Commuter is at Home at 0 o'clock;
+                case PopulationData.EMindset.Working:
+                    //travel to distant workplace
+                    if (data.CurrentHour == 6)
+                    {
+                        
+                    }
+                    //return home
+                    else if(data.CurrentHour == 17)
+                    {
+
+                    }
+                    //Stay home in the morning and evening
+                    else 
+                    {
+                        return;
+                    }
+
+                    break;
                 case PopulationData.EMindset.HomeStaying: break;
                 case PopulationData.EMindset.Shopping: break;
                 case PopulationData.EMindset.Stationary: break;
