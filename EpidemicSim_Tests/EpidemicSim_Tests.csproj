@@ -57,6 +57,7 @@
     <Compile Include="PopulationData\HumanTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExampleTest.cs" />
+    <Compile Include="Snapshot\CellSnapshotTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

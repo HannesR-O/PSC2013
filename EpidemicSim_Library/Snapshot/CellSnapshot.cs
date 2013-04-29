@@ -50,27 +50,22 @@ namespace PSC2013.ES.Library.Snapshot
         {
             int[] temp = new int[9];
 
-            temp[0] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Baby);
-            temp[1] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Child);
-            temp[2] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Adult);
-            temp[3] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Senior);
-            temp[4] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Baby);
-            temp[5] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Child);
-            temp[6] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Adult);
-            temp[7] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Senior);
-            temp[8] = position; 
+            temp[0] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Baby && (x.IsDead() == false));
+            temp[1] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Child && (x.IsDead() == false));
+            temp[2] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Adult && (x.IsDead() == false));
+            temp[3] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Senior && (x.IsDead() == false));
+            temp[4] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Baby && (x.IsDead() == false));
+            temp[5] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Child && (x.IsDead() == false));
+            temp[6] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Adult && (x.IsDead() == false));
+            temp[7] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Senior && (x.IsDead() == false));
+            temp[8] = position;
 
             return new CellSnapshot(temp);
         }
 
-        /// <summary>
-        /// Creates an new CellSnapshot from Information parsed from an file
-        /// </summary>
-        /// <param name="counts">input counts</param>
-        /// <returns>An array containing the dead people as strings</returns>
-        public static CellSnapshot FromFile(int[] counts)
+        public static CellSnapshot InitializeFromFile(byte[] bytes)
         {
-            return new CellSnapshot(counts);
+            throw new NotImplementedException();
         }
 
         public byte[] GetBytes()
@@ -86,11 +81,6 @@ namespace PSC2013.ES.Library.Snapshot
             Array.Copy(BitConverter.GetBytes(CountFemaleSenior), 0, output, 28, 4);
             Array.Copy(BitConverter.GetBytes(Position), 0, output, 32, 4);
             return output;
-        }
-
-        public static CellSnapshot InitializeFromFile(byte[] bytes)
-        {
-            throw new NotImplementedException();
         }
     }
 }

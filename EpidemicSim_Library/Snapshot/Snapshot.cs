@@ -36,7 +36,7 @@ namespace PSC2013.ES.Library.Snapshot
             }
             Array.Copy(BitConverter.GetBytes(deathCount), 0, output, cellCount * 36 + 13, 4); // Writing count of deaths, necessary for reading again
             int offset = cellCount * 36 + 17;
-            for (int  j = 0; j < deathCount; ++j)
+            for (int j = 0; j < deathCount; ++j)
             {
                 Array.Copy(_deaths[j].getBytes(), 0, output, (17 * j) + offset, 17);
             }
@@ -45,14 +45,14 @@ namespace PSC2013.ES.Library.Snapshot
 
         public static Snapshot IntitializeFromRuntime(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
         {
-            return new Snapshot(tick, cells, deaths);    
+            return new Snapshot(tick, cells, deaths);
         }
 
         public static void InitializeFromFile(byte[] bytes)
         {
-            
+
             // BitConvert.toInt32 (byte[] , startindex) => problem solved i thinks
             throw new NotImplementedException();
         }
     }
-} 
+}

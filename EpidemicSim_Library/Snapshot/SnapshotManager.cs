@@ -15,7 +15,7 @@ namespace PSC2013.ES.Library.Snapshot
         private string defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // ...
 
         private static SimulationInfo _simInfo;
-        private static string _target;       
+        private static string _target;
         private static long _tick;
         private static Queue<Snapshot> _snapshots;
 
