@@ -30,7 +30,7 @@ namespace PSC2013.ES.Tests.Snapshot
         }
 
         [Fact]
-        public void InitializeFromRuntimeTest()
+        public void CellSnapInitializeFromRuntimeTest()
         {
             Start();
             CellSnapshot cell = CellSnapshot.InitializeFromRuntime(_infosRuntime, 15654);
@@ -47,7 +47,7 @@ namespace PSC2013.ES.Tests.Snapshot
         }
 
         [Fact]
-        public void InitializeFromFileTest()
+        public void CellSnapInitializeFromFileTest()
         {
             byte[] bytes = new byte[36];
             Array.Copy(BitConverter.GetBytes(12), 0, bytes, 0, 4);
@@ -72,7 +72,7 @@ namespace PSC2013.ES.Tests.Snapshot
         }
 
         [Fact]
-        public void GetBytesTest()
+        public void CellSnapGetBytesTest()
         {
             Start();
             CellSnapshot cell = CellSnapshot.InitializeFromRuntime(_infosRuntime, 15654);
