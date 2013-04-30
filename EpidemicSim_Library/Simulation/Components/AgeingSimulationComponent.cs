@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Snapshot;
 
@@ -37,18 +34,9 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             // One year passed
 #if DEBUG
-            //Console.WriteLine("Year has passed!");
+            Console.WriteLine("Year has passed!");
 #endif
             var deadPeople = new List<HumanSnapshot>();
-            //Parallel.For<List<HumanSnapshot>>(0, data.Population.Count(), () => new List<HumanSnapshot>(), (i, loop, tmpResult) =>
-            //{
-            //    if (data.Population[i] == null) return tmpResult;
-
-            //    tmpResult.AddRange(HandleSinglePopulationCell(data.Population[i], i));
-            //    return tmpResult;
-            //},
-            //deadPeople.AddRange
-            //);
 
             for (int i = 0; i < data.Population.Count(); i++)
             {
@@ -67,27 +55,13 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             var deadPeople = new List<HumanSnapshot>();
 
-            //Parallel.ForEach<Human, List<HumanSnapshot>>(cell.Humans.Where(human => !human.IsDead()),
-            //    () => new List<HumanSnapshot>(),
-            //    (human, loop, tmpResult) =>
-            //    {
-            //        human.DoAgeTick();
-
-            //        if (human.GetAgeInYears() <= _ageLimit) return tmpResult;
-
-            //        // Human dies from over ageing
-            //        tmpResult.Add(new HumanSnapshot(human.GetGender(), human.GetAgeInYears(), human.HomeCell, cellID, false));
-            //        return tmpResult;
-            //    },
-            //    deadPeople.AddRange
-            //    );
-
             foreach (var human in cell.Humans.Where(human => !human.IsDead()))
             {
                 human.DoAgeTick();
 
                 if (human.GetAgeInYears() <= _ageLimit) continue;
 
+                // Human dies from over ageing                              //TODO: |f| Add percentage rates for dieing at high ages
                 deadPeople.Add(new HumanSnapshot(human.GetGender(), human.GetAgeInYears(), human.HomeCell, cellID, false));
             }
 
