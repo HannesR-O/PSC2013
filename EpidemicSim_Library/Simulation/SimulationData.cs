@@ -12,6 +12,7 @@ namespace PSC2013.ES.Library.Simulation
 {
     public class SimulationData
     {
+        private const int ARRAY_DEATHS_DEFAULT_SIZE = 0x8; 
         private const float ARRAY_DEATHS_EXPAND_FACTOR = 1.5f;
 
         private DateTime _time;
@@ -89,18 +90,18 @@ namespace PSC2013.ES.Library.Simulation
 
         public void AddDeadPeople(IList<HumanSnapshot> deadPeople)
         {
-            if (DeathCount + deadPeople.Count > Deaths.Length)
+            while (DeathCount + deadPeople.Count > Deaths.Length)
                 ExpandDeathArray();
 
             foreach (HumanSnapshot deadOne in deadPeople)
             {
-                Deaths[++DeathCount] = deadOne;
+                Deaths[DeathCount++] = deadOne;
             }
         }
 
         private void ExpandDeathArray()
         {
-            var newArray = new HumanSnapshot[(int) (Deaths.Length*ARRAY_DEATHS_EXPAND_FACTOR)];
+            var newArray = new HumanSnapshot[(int) (Deaths.Length <= 1 ? ARRAY_DEATHS_DEFAULT_SIZE : Deaths.Length*ARRAY_DEATHS_EXPAND_FACTOR)];
             Deaths.CopyToOtherArray(newArray);
             Deaths = newArray;
         }

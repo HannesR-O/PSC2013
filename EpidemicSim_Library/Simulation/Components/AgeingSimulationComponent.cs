@@ -40,29 +40,26 @@ namespace PSC2013.ES.Library.Simulation.Components
             //Console.WriteLine("Year has passed!");
 #endif
             var deadPeople = new List<HumanSnapshot>();
-            Parallel.For<List<HumanSnapshot>>(0, data.Population.Count(), () => new List<HumanSnapshot>(), (i, loop, tmpResult) =>
-            {
-                if (data.Population[i] == null) return tmpResult;
-
-                tmpResult.AddRange(HandleSinglePopulationCell(data.Population[i], i));
-                return tmpResult;
-            },
-            deadPeople.AddRange
-            );
-            
-            data.AddDeadPeople(deadPeople);
-
-            //for (int i = 0; i < data.Population.Count(); i++)
+            //Parallel.For<List<HumanSnapshot>>(0, data.Population.Count(), () => new List<HumanSnapshot>(), (i, loop, tmpResult) =>
             //{
-            //    if (data.Population[i] == null) continue;
+            //    if (data.Population[i] == null) return tmpResult;
 
-            //    var tmpResult = HandleSinglePopulationCell(data.Population[i], i);
+            //    tmpResult.AddRange(HandleSinglePopulationCell(data.Population[i], i));
+            //    return tmpResult;
+            //},
+            //deadPeople.AddRange
+            //);
 
-            //    lock (data.Population)
-            //        data.AddDeadPeople(tmpResult);
-            //}
+            for (int i = 0; i < data.Population.Count(); i++)
+            {
+                if (data.Population[i] == null) continue;
+
+                deadPeople.AddRange(HandleSinglePopulationCell(data.Population[i], i));
+            }
+
+            data.AddDeadPeople(deadPeople);
 #if DEBUG
-            //Console.WriteLine("Total dead people: " + data.DeathCount);
+            Console.WriteLine("Total dead people: " + data.DeathCount);
 #endif
         }
 
@@ -70,21 +67,29 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             var deadPeople = new List<HumanSnapshot>();
 
-            Parallel.ForEach<Human, List<HumanSnapshot>>(cell.Humans,
-                () => new List<HumanSnapshot>(),
-                (human, loop, tmpResult) =>
-                {
-                    if (human.IsDead()) return tmpResult;
-                    human.DoAgeTick();
-                    
-                    if (human.GetAgeInYears() <= _ageLimit) return tmpResult;
+            //Parallel.ForEach<Human, List<HumanSnapshot>>(cell.Humans.Where(human => !human.IsDead()),
+            //    () => new List<HumanSnapshot>(),
+            //    (human, loop, tmpResult) =>
+            //    {
+            //        human.DoAgeTick();
 
-                    // Human dies from over ageing
-                    tmpResult.Add(new HumanSnapshot(human.GetGender(), human.GetAgeInYears(), human.HomeCell, cellID, false));
-                    return tmpResult;
-                },
-                deadPeople.AddRange
-                );
+            //        if (human.GetAgeInYears() <= _ageLimit) return tmpResult;
+
+            //        // Human dies from over ageing
+            //        tmpResult.Add(new HumanSnapshot(human.GetGender(), human.GetAgeInYears(), human.HomeCell, cellID, false));
+            //        return tmpResult;
+            //    },
+            //    deadPeople.AddRange
+            //    );
+
+            foreach (var human in cell.Humans.Where(human => !human.IsDead()))
+            {
+                human.DoAgeTick();
+
+                if (human.GetAgeInYears() <= _ageLimit) continue;
+
+                deadPeople.Add(new HumanSnapshot(human.GetGender(), human.GetAgeInYears(), human.HomeCell, cellID, false));
+            }
 
             return deadPeople;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.Simulation;
@@ -12,6 +13,10 @@ namespace PSC2013.ES.Library
 {
     public class EpidemicSimulator
     {
+#if DEBUG
+        private Stopwatch _watch = new Stopwatch();
+#endif
+
         // Constants
         private const string ERROR_STARTING_SIMULATION = "Could not start Simulation. ";
         private const string ERROR_STOPPING_SIMULATION = "Could not stop Simulation. ";
@@ -172,6 +177,10 @@ namespace PSC2013.ES.Library
         {
             while (_simulationLock)
             {
+#if DEBUG
+                _watch.Reset();
+                _watch.Start();
+#endif
                 foreach (ISimulationComponent comp in _before)
                 {
                     comp.PerformSimulationStage(_simData);
@@ -190,6 +199,10 @@ namespace PSC2013.ES.Library
                 long round = Interlocked.Increment(ref _simulationRound);
                 _simulationLock = round != _simulationLimit;
 
+#if DEBUG
+                _watch.Stop();
+                Console.WriteLine("Tick took " + _watch.ElapsedMilliseconds + "ms!");
+#endif
                 OnTickFinished(new SimulationEventArgs() { SimulationRunning = true, SimulationRound = round });
             }
         }
