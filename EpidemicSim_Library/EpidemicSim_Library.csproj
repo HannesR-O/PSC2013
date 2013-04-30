@@ -50,7 +50,7 @@
     <Compile Include="IO\Writers\AsyncBinaryWriter.cs" />
     <Compile Include="Simulation\Components\AgeingSimulationComponent.cs" />
     <Compile Include="Simulation\Components\DebugSimulationComponent.cs" />
-    <Compile Include="Simulation\Components\ESimulationStage.cs" />
+    <Compile Include="Simulation\Components\InfectionCalculatorComponent.cs" />
     <Compile Include="Simulation\Components\ISimulationComponent.cs" />
     <Compile Include="Simulation\Components\MindsetSimulationComponent.cs" />
     <Compile Include="Simulation\Components\MovementSimulationComponent.cs" />
@@ -77,7 +77,6 @@
     <Compile Include="PopulationData\EProfession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulation\SimulationData.cs" />
-    <Compile Include="Simulation\Simulator.cs" />
     <Compile Include="Simulation\ETimeConstants.cs" />
     <Compile Include="Snapshot\SnapshotManager.cs" />
   </ItemGroup>

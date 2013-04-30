@@ -1,8 +1,8 @@
-﻿using System;
+﻿using PSC2013.ES.Library.PopulationData;
+using PSC2013.ES.Library.Snapshot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using PSC2013.ES.Library.PopulationData;
-using PSC2013.ES.Library.Snapshot;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {

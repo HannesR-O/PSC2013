@@ -1,4 +1,6 @@
-﻿namespace PSC2013.ES.Library.Simulation.Components
+﻿using System;
+
+namespace PSC2013.ES.Library.Simulation.Components
 {
     public interface ISimulationComponent
     {
@@ -13,5 +15,16 @@
         /// gets executed.
         /// </summary>
         ESimulationStage SimulationStages { get; }
+    }
+
+    /// <summary>
+    /// Enum to determine when the ISimulationComponent should exeute. [Flags] to allow multiple stages
+    /// </summary>
+    [Flags]
+    public enum ESimulationStage
+    {
+        BeforeInfectedCalculation = 1,
+        InfectedCalculation = 2,
+        AfterInfectedCalculation = 4
     }
 }

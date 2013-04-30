@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using PSC2013.ES.Library.AreaData;
+﻿using PSC2013.ES.Library.AreaData;
 using PSC2013.ES.Library.Diseases;
-using PSC2013.ES.Library.PopulationData;
-using System;
 using PSC2013.ES.Library.IO.Readers;
-using System.Drawing;
+using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Snapshot;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 
 namespace PSC2013.ES.Library.Simulation
 {
