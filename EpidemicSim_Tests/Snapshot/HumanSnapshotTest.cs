@@ -40,7 +40,11 @@ namespace PSC2013.ES.Tests.Snapshot
             Array.Copy(BitConverter.GetBytes(6565), 0, comp, 12, 4);
             Array.Copy(BitConverter.GetBytes(false), 0, comp, 16, 1);
 
-            Assert.Equal(comp, human.getBytes());
+            byte[] humanb = human.getBytes();
+            for (int i = 0; i < humanb.Length; ++i)
+            {
+                Assert.Equal(comp[i], humanb[i]);
+            }
         }
     }
 }

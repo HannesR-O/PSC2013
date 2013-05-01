@@ -50,7 +50,6 @@ namespace PSC2013.ES.Library.Snapshot
 
         public static void InitializeFromFile(byte[] bytes)
         {
-
             // BitConvert.toInt32 (byte[] , startindex) => problem solved i thinks
             throw new NotImplementedException();
         }
