@@ -156,8 +156,8 @@ namespace PSC2013.ES.Cmd
             var sim = EpidemicSimulator.Create(disease, 
                 "../../../EpidemicSim_InputDataParsers/germany.dep", 
                 new DebugSimulationComponent(), 
-                new AgeingSimulationComponent(1, 110),
-                new MovementSimulationComponent());
+                new AgeingSimulationComponent(8544, 110)/*,
+                new MovementSimulationComponent()*/);
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;

@@ -48,6 +48,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             data.AddDeadPeople(deadPeople);
 #if DEBUG
+            Console.WriteLine("Dead people this Iteration: " + deadPeople.Count);
             Console.WriteLine("Total dead people: " + data.DeathCount);
 #endif
         }
@@ -56,13 +57,14 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             var deadPeople = new List<HumanSnapshot>();
 
-            foreach (var human in cell.Humans.Where(human => !human.IsDead()))
+            for (int i = 0; i < cell.Humans.Length; i++)
             {
-                human.DoAgeTick();
+                cell.Humans[i].DoAgeTick();
 
+                var human = cell.Humans[i];
                 if (human.GetAgeInYears() <= AgeLimit) continue;
 
-                // Human dies from over ageing                              //TODO: |f| Add percentage rates for dieing at high ages
+                // Human dies from over ageing                  //TODO: |f| Add percentage rates for dieing at high ages and kill human properly
                 deadPeople.Add(new HumanSnapshot(human.GetGender(), human.GetAgeInYears(), human.HomeCell, cellID, false));
             }
 
