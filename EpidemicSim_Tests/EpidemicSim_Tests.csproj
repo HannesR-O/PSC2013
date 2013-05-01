@@ -62,6 +62,7 @@
     <Compile Include="Simulation\Components\AgeingSimulationComponentTest.cs" />
     <Compile Include="Simulation\Components\InfectionCalculatorComponentTest.cs" />
     <Compile Include="Snapshot\CellSnapshotTest.cs" />
+    <Compile Include="Snapshot\HumanSnapshotTest.cs" />
     <Compile Include="Snapshot\SimulationInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
