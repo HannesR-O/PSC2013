@@ -20,9 +20,9 @@ namespace PSC2013.ES.Cmd
 
             //TestSnapshot();
 
-            //TestCalculations();
+            TestCalculations();
 
-            TestAgeingComponent();
+            //TestAgeingComponent();
 
             //TestMovementComponent();
 
@@ -32,8 +32,8 @@ namespace PSC2013.ES.Cmd
 
         private static void TestEpidemicSimulator()
         {
-            var sim = EpidemicSimulator.Create(new Disease(), 
-                "../../../EpidemicSim_InputDataParsers/germany.dep", 
+            var sim = EpidemicSimulator.Create(new Disease(),
+                "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new DebugSimulationComponent());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
@@ -65,9 +65,9 @@ namespace PSC2013.ES.Cmd
                     IdleTime = 123415,
                     SpreadingTime = 123123,
                     Transferability = 901237,
-                    MortalityRate = new FactorContainer(new[] {1, 2, 14, 151, 11515, 123, 123, 120}),
-                    HealingFactor = new FactorContainer(new[] {1, 2, 14, 151, 11515, 123, 123, 120}),
-                    ResistanceFactor = new FactorContainer(new[] {1, 2, 14, 151, 11515, 123, 123, 120})
+                    MortalityRate = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
+                    HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
+                    ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
                 };
             var mgr = new SnapshotManager();
             mgr.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), disease);
@@ -90,12 +90,12 @@ namespace PSC2013.ES.Cmd
             sw.Start();
             Console.WriteLine("Starting cell-run.");
 
-            int i = 0;
+            //int i = 0;
             //System.IO.StreamWriter stream = new System.IO.StreamWriter(
             //    Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/test.txt");
-            foreach (PopulationCell cell in simData.Population)
+            foreach (PopulationCell cell in simData.Population.NotNullIterator())
             {
-                Console.Write("Cell#{0,9}", i++);
+                //Console.Write("Cell#{0,9}", i++);
 
                 //if (i % 2814 == 0)
                 //    stream.Write(Environment.NewLine);
@@ -124,7 +124,7 @@ namespace PSC2013.ES.Cmd
 
                     //watch.Stop();
                     //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                    Console.WriteLine(" - done");
+                    Console.WriteLine(" - done - {0}", cell.ToString());
                     //stream.Write("8");
                 }
                 else
@@ -153,9 +153,9 @@ namespace PSC2013.ES.Cmd
                 HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
                 ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
             };
-            var sim = EpidemicSimulator.Create(disease, 
-                "../../../EpidemicSim_InputDataParsers/germany.dep", 
-                new DebugSimulationComponent(), 
+            var sim = EpidemicSimulator.Create(disease,
+                "../../../EpidemicSim_InputDataParsers/germany.dep",
+                new DebugSimulationComponent(),
                 new AgeingSimulationComponent(8544, 110)/*,
                 new MovementSimulationComponent()*/);
             sim.SimulationStarted += OnSimStartEvent;

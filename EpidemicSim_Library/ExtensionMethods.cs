@@ -104,5 +104,17 @@ namespace PSC2013.ES.Library
 
             return (int)Math.Sqrt(cathetus1 * cathetus1 + cathetus2 * cathetus2);
         }
+
+        /// <summary>
+        /// Iterator over the non-null elements
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <returns></returns>
+        public static System.Collections.Generic.IEnumerable<T> NotNullIterator<T>(this T[] cells)
+        {
+            foreach (var item in cells)
+                if (item != null)
+                    yield return item;
+        }
     }
 }

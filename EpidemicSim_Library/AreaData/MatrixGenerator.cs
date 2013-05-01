@@ -157,7 +157,7 @@ namespace PSC2013.ES.Library.AreaData
                 point => point.Distance(origin)) + 1;
 
             int[] factors = new int[maximumDistance];                       // array of factor for each distance.
-            factors[0] = 225;                                               // start factor.
+            factors[0] = 175;                                               // start factor.
             for (int i = 1; i < maximumDistance; i++)                       // creating every factor for each distance.
             {
                 int previousFactor = factors[i - 1];
