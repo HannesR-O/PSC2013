@@ -10,7 +10,8 @@ namespace PSC2013.ES.Library.Simulation.Components
     {
         // Assumes 365 x 24 hour days
         private const int HOURS_PER_YEAR = 8544;
-        private readonly int _ticksPerYear, _ageLimit;
+        public int TicksPerYear { get; private set; }
+        public int AgeLimit { get; private set; }
 
         private int _counter;
 
@@ -21,14 +22,14 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// <param name="ageLimit">A value specifying at what age Humans should day of aging</param>
         public AgeingSimulationComponent(int hoursPerTick, int ageLimit)
         {
-            _ticksPerYear = HOURS_PER_YEAR / hoursPerTick;        //TODO: |f| not the most accurate but should be enough for our purposes
-            _ageLimit = ageLimit;
+            TicksPerYear = HOURS_PER_YEAR / hoursPerTick;        //TODO: |f| not the most accurate but should be enough for our purposes
+            AgeLimit = ageLimit;
             _counter = 0;
         }
 
         public void PerformSimulationStage(SimulationData data)
         {
-            _counter = ++_counter % _ticksPerYear;
+            _counter = ++_counter % TicksPerYear;
 
             if (_counter != 0) return;
 
@@ -59,7 +60,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 human.DoAgeTick();
 
-                if (human.GetAgeInYears() <= _ageLimit) continue;
+                if (human.GetAgeInYears() <= AgeLimit) continue;
 
                 // Human dies from over ageing                              //TODO: |f| Add percentage rates for dieing at high ages
                 deadPeople.Add(new HumanSnapshot(human.GetGender(), human.GetAgeInYears(), human.HomeCell, cellID, false));

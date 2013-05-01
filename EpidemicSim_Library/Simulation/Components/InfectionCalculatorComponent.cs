@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class InfectionCalculatorComponent
+    public class InfectionCalculatorComponent : ISimulationComponent
     {
+        public void PerformSimulationStage(SimulationData data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ESimulationStage SimulationStages { get { return ESimulationStage.InfectedCalculation; } }
     }
 }

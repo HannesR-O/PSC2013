@@ -59,6 +59,8 @@
     <Compile Include="IO\Readers\DepartmentMapReaderTest.cs" />
     <Compile Include="PopulationData\HumanTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simulation\Components\AgeingSimulationComponentTest.cs" />
+    <Compile Include="Simulation\Components\InfectionCalculatorComponentTest.cs" />
     <Compile Include="Snapshot\CellSnapshotTest.cs" />
     <Compile Include="Snapshot\SimulationInfoTest.cs" />
   </ItemGroup>
@@ -69,7 +71,6 @@
     <Folder Include="Diseases\" />
     <Folder Include="IO\Files\" />
     <Folder Include="IO\Writers\" />
-    <Folder Include="Simulation\Components\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EpidemicSim_Library\EpidemicSim_Library.csproj">
