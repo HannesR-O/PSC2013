@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Drawing;
-using System.Threading.Tasks;
 using PSC2013.ES.Library.AreaData;
 using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library;
