@@ -20,9 +20,9 @@ namespace PSC2013.ES.Cmd
 
             //TestSnapshot();
 
-            TestCalculations();
+            //TestCalculations();
 
-            //TestAgeingComponent();
+            TestAgeingComponent();
 
             //TestMovementComponent();
 
@@ -149,15 +149,15 @@ namespace PSC2013.ES.Cmd
                 IdleTime = 123415,
                 SpreadingTime = 123123,
                 Transferability = 901237,
-                MortalityRate = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
-                HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
-                ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
+                MortalityRate = new FactorContainer(1, 2, 14, 151, 11515, 123, 123, 120),
+                HealingFactor = new FactorContainer(1, 2, 14, 151, 11515, 123, 123, 120),
+                ResistanceFactor = new FactorContainer(1, 2, 14, 151, 11515, 123, 123, 120)
             };
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new DebugSimulationComponent(),
-                new AgeingSimulationComponent(8544, 110)/*,
-                new MovementSimulationComponent()*/);
+                new AgeingSimulationComponent(8544, 110),
+                new MovementSimulationComponent());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;

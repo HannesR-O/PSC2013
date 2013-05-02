@@ -115,6 +115,9 @@ namespace PSC2013.ES.Library
             foreach (var item in cells)
                 if (item != null)
                     yield return item;
+            // ??
+            // 10 min with foreach
+            // 12 min with parallel.foreach
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PSC2013.ES.Library.Snapshot;
-using Xunit;
+﻿using Xunit;
 
 namespace PSC2013.ES.Tests.Snapshot
 {
