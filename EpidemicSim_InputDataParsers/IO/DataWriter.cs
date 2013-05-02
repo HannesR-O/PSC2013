@@ -68,6 +68,7 @@ namespace PSC2013.ES.InputDataParsers.IO
                 writer.Flush();
             }
 
+            tpl.Item1.Close();
             tpl.Item2.Dispose();
 
 #if DEBUG
