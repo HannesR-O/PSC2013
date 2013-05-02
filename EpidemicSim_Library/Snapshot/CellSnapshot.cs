@@ -30,6 +30,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// Creates an new Cellsnapshot, private becaus it's static
         /// </summary>
         /// <param name="infos">The Population to be snapshotted</param>
+        /// <param name="position">The position of the Cell</param>
         private CellSnapshot(ushort[] infos, int position)
         {
             CountMaleBaby = infos[0];
@@ -53,7 +54,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         /// <param name="input">Input Counts</param>
         /// <param name="position">Position of the cell</param>
-        /// <returns></returns>
+        /// <returns>A new CellSnapshot</returns>
         public static CellSnapshot InitializeFromRuntime(PopulationCell input, int position)
         {
             ushort[] temp = new ushort[10];
@@ -73,11 +74,20 @@ namespace PSC2013.ES.Library.Snapshot
             return new CellSnapshot(temp, position);
         }
 
+        /// <summary>
+        /// Initializes a new Cellsnapshot from an byte[] read from a file
+        /// </summary>
+        /// <param name="bytes">The read byte[]</param>
+        /// <returns>A new CellSnapshot</returns>
         public static CellSnapshot InitializeFromFile(byte[] bytes)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Returns the Snapshots informations in an byte[]
+        /// </summary>
+        /// <returns>Cellsnapshots Infos as byte[]</returns>
         public byte[] GetBytes()
         {
             byte[] output = new byte[LENGTH];

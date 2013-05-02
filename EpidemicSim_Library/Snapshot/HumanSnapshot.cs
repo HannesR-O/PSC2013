@@ -17,7 +17,7 @@ namespace PSC2013.ES.Library.Snapshot
         public readonly bool Cause; // 0 = Natural, 1 = Disease
 
         /// <summary>
-        /// ...
+        /// A Snapshot of a dead Human
         /// </summary>
         /// <param name="gender">The gender</param>
         /// <param name="age">The age</param>
@@ -36,6 +36,10 @@ namespace PSC2013.ES.Library.Snapshot
             Cause = cause;
         }
 
+        /// <summary>
+        /// Returns the Dead Humans informations in an byte[]
+        /// </summary>
+        /// <returns>Dead Humans Infos as byte[]</returns>
         public byte[] getBytes()
         {
             byte[] output = new byte[LENGTH];

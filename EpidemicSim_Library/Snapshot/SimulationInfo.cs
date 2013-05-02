@@ -19,16 +19,31 @@ namespace PSC2013.ES.Library.Snapshot
             Disease = disease;
         }
 
+        /// <summary>
+        /// Initializes a new SimulationInfo from Runtime
+        /// </summary>
+        /// <param name="name">The Simulations Name</param>
+        /// <param name="disease">The used Disease</param>
+        /// <returns></returns>
         public static SimulationInfo InitializeFromRuntime(string name, Disease disease)
         {
             return new SimulationInfo(name, disease);
         }
 
+        /// <summary>
+        /// Initializes a new SimulationInfo from a file
+        /// </summary>
+        /// <param name="bytes">the byte[] from a file</param>
+        /// <returns>A new SimulationInfo</returns>
         public static SimulationInfo InitializeFromFile(byte[] bytes)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Returns the Simulations information in an byte[]
+        /// </summary>
+        /// <returns>Simulations Infos as byte[]</returns>
         public byte[] GetBytes()
         {
             byte[] t = System.Text.Encoding.UTF8.GetBytes(Disease.Name);

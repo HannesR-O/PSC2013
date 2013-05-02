@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Snapshot
 {
+    /// <summary>
+    /// Used to persist Simulation-Snapshots
+    /// </summary>
     public class SnapshotManager
     {
         private string defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // ...
@@ -63,13 +66,12 @@ namespace PSC2013.ES.Library.Snapshot
 
         /// <summary>
         /// Finishes writing the Snapshot Queue und compresses the folder
+        /// DEPRECATED
         /// </summary>
         public void Finish()
         {
             foreach (Snapshot s in _snapshots)
-                TookSnapshot(this, null);
-            ZipFile.CreateFromDirectory(_target, _target + ".sim");
-            Directory.Delete(_target, true);
+                TookSnapshot(this, null);            
             Console.WriteLine("Finished logging of Simulation @ " + DateTime.Now.ToString());
         }
 
@@ -83,7 +85,7 @@ namespace PSC2013.ES.Library.Snapshot
             private Task _task;
 
             /// <summary>
-            /// Creates a new Writer abd creates an directory at the above given destination
+            /// Creates a new Writer abd creates an archive at the above given destination
             /// </summary>
             public SnapshotWriter()
             {
@@ -113,7 +115,7 @@ namespace PSC2013.ES.Library.Snapshot
 
             /// <summary>
             /// Writes the next snapshots in the queue, until there
-            /// are none left. Returns false, if there is none
+            /// are none left.
             /// </summary>
             private void WriteAllSnapshots()
             {
