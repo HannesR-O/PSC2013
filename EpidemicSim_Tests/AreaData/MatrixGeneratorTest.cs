@@ -27,7 +27,7 @@ namespace PSC2013.ES.Tests.AreaData
             depInfo.Name = "TestDep";
             Random rand = new Random();
             for (int i = 0; i < 8; i++)
-                depInfo.Population[i] = rand.Next(100, 10000);
+                depInfo.Population[i] = rand.Next(10, 500);
 
             depInfo.Coordinates = new Point[(WIDTH * HEIGHT)];
 

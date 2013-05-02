@@ -157,11 +157,12 @@ namespace PSC2013.ES.Library.AreaData
                 point => point.Distance(origin)) + 1;
 
             int[] factors = new int[maximumDistance];                       // array of factor for each distance.
-            factors[0] = 175;                                               // start factor.
+            factors[0] = 225;                                               // start factor.
             for (int i = 1; i < maximumDistance; i++)                       // creating every factor for each distance.
             {
                 int previousFactor = factors[i - 1];
-                int random = RANDOM.Next(previousFactor / 3) - 10;
+                int minus = (int)(previousFactor / 3f / 6);
+                int random = RANDOM.Next(previousFactor / 3) - minus;
                 random = (int)(random * (1 - i / (float)maximumDistance));
                 if (previousFactor - random <= 0) random = 5;
                 factors[i] = previousFactor - random;
