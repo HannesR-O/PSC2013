@@ -143,7 +143,7 @@ namespace PSC2013.ES.Library.PopulationData
             return ((_data1 & MASK_INFECTED) == 128);
         }
 
-        private void SetInfected(bool infected)
+        public void SetInfected(bool infected)
         {
             _data1 = (byte)((_data1 & ~MASK_INFECTED) + (infected ? 128 : 0));
         }
@@ -157,7 +157,7 @@ namespace PSC2013.ES.Library.PopulationData
             return ((_data1 & MASK_SPREADING) == 64);
         }
 
-        private void SetSpreading(bool spreading)
+        public void SetSpreading(bool spreading)
         {
             _data1 = (byte)((_data1 & ~MASK_SPREADING) + (spreading ? 64 : 0));
         }
@@ -171,7 +171,7 @@ namespace PSC2013.ES.Library.PopulationData
             return ((_data1 & MASK_DISEASED) == 32);
         }
 
-        private void SetDiseased(bool diseased)
+        public void SetDiseased(bool diseased)
         {
             _data1 = (byte)((_data1 & ~MASK_DISEASED) + (diseased ? 32 : 0));
         }
@@ -247,7 +247,7 @@ namespace PSC2013.ES.Library.PopulationData
         public bool KillHuman()
         {
             SetDeath(true);
-            //TODO T |Anything else? Always return False?
+            // Still unnecessary
             return false;
         }
     }

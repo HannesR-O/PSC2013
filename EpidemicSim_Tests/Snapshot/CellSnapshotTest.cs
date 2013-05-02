@@ -8,29 +8,51 @@ namespace PSC2013.ES.Tests.Snapshot
     public class CellSnapshotTest
     {
         private PopulationCell _infosRuntime;
+        private byte[] _infosBytes;
 
-        public void Start()
+        private void InitCell()
         {
             _infosRuntime = new PopulationCell();
             for (int i = 0; i < 12; ++i)
             {
-                _infosRuntime.AddHuman(Human.Create(EGender.Male, 2, 15651));
+                Human human = Human.Create(EGender.Female, 6, 15651);
+                human.SetDiseased(true);
+                Human human2 = Human.Create(EGender.Male, 2, 15651);
+                human.SetInfected(true);
+                _infosRuntime.AddHuman(human);
+                _infosRuntime.AddHuman(human2);
                 _infosRuntime.AddHuman(Human.Create(EGender.Male, 7, 18516));
                 _infosRuntime.AddHuman(Human.Create(EGender.Male, 26, 3541));
                 _infosRuntime.AddHuman(Human.Create(EGender.Male, 84, 8479));
-                _infosRuntime.AddHuman(Human.Create(EGender.Female, 6, 15651));
+                
                 _infosRuntime.AddHuman(Human.Create(EGender.Female, 14, 18516));
                 _infosRuntime.AddHuman(Human.Create(EGender.Female, 34, 3541));
                 _infosRuntime.AddHuman(Human.Create(EGender.Female, 96, 8479));
             }
         }
 
+        private void InitBytes()
+        {
+            _infosBytes = new byte[24];
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 0, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 2, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 4, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 6, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 8, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 10, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 12, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 14, 2);
+            Array.Copy(BitConverter.GetBytes(15654), 0, _infosBytes, 16, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 20, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 22, 2);
+
+        }
+
         [Fact]
         public void CellSnapInitializeFromRuntimeTest()
         {
-            Start();
+            InitCell();
             CellSnapshot cell = CellSnapshot.InitializeFromRuntime(_infosRuntime, 15654);
-
             Assert.Equal(cell.CountMaleBaby, 12);
             Assert.Equal(cell.CountMaleChild, 12);
             Assert.Equal(cell.CountMaleAdult, 12);
@@ -40,22 +62,15 @@ namespace PSC2013.ES.Tests.Snapshot
             Assert.Equal(cell.CountFemaleAdult, 12);
             Assert.Equal(cell.CountFemaleSenior, 12);
             Assert.Equal(cell.Position, 15654);
+            Assert.Equal(cell.Diseased, 12);
+            Assert.Equal(cell.Infected, 12);
         }
 
         [Fact]
         public void CellSnapInitializeFromFileTest()
         {
-            byte[] bytes = new byte[36];
-            Array.Copy(BitConverter.GetBytes(12), 0, bytes, 0, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, bytes, 4, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, bytes, 8, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, bytes, 12, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, bytes, 16, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, bytes, 20, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, bytes, 24, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, bytes, 28, 4);
-            Array.Copy(BitConverter.GetBytes(15654), 0, bytes, 32, 4);
-            CellSnapshot cell = CellSnapshot.InitializeFromFile(bytes);
+            InitBytes();
+            CellSnapshot cell = CellSnapshot.InitializeFromFile(_infosBytes);
             Assert.Equal(cell.CountMaleBaby, 12);
             Assert.Equal(cell.CountMaleChild, 12);
             Assert.Equal(cell.CountMaleAdult, 12);
@@ -65,27 +80,26 @@ namespace PSC2013.ES.Tests.Snapshot
             Assert.Equal(cell.CountFemaleAdult, 12);
             Assert.Equal(cell.CountFemaleSenior, 12);
             Assert.Equal(cell.Position, 15654);
+            Assert.Equal(cell.Diseased, 12);
+            Assert.Equal(cell.Infected, 12);
         }
 
         [Fact]
         public void CellSnapGetBytesTest()
         {
-            Start();
+            InitCell();
+            InitBytes();
             CellSnapshot cell = CellSnapshot.InitializeFromRuntime(_infosRuntime, 15654);
 
-            byte[] bytes = cell.GetBytes();
-            byte[] control = new byte[36];
-            Array.Copy(BitConverter.GetBytes(12), 0, control, 0, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, control, 4, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, control, 8, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, control, 12, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, control, 16, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, control, 20, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, control, 24, 4);
-            Array.Copy(BitConverter.GetBytes(12), 0, control, 28, 4);
-            Array.Copy(BitConverter.GetBytes(15654), 0, control, 32, 4);
+            byte[] test = cell.GetBytes();
 
-            Assert.Equal(bytes, control);
+            Assert.Equal(test.Length, CellSnapshot.LENGTH);
+            for (int i = 0; i < test.Length; ++i)
+            {
+                Assert.Equal(test[i], _infosBytes[i]);
+            }
         }
+
+        
     }
 }

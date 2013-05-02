@@ -9,7 +9,7 @@ namespace PSC2013.ES.Library.Snapshot
     /// </summary>
     public class HumanSnapshot
     {
-        public const byte BYTEARRAYSIZE = 12;
+        public const byte LENGTH = 12;
 
         // Need to use public readonly fields, since auto-properties cannot get initialized in struct-constructors
         public readonly int HomeCell, DeathCell;
@@ -38,7 +38,7 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] getBytes()
         {
-            byte[] output = new byte[BYTEARRAYSIZE];
+            byte[] output = new byte[LENGTH];
 
             Array.Copy(BitConverter.GetBytes(Gender), 0, output, 0, 1);
             Array.Copy(BitConverter.GetBytes(Age), 0, output, 1, 1);

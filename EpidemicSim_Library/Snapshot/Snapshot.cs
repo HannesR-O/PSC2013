@@ -6,7 +6,7 @@ namespace PSC2013.ES.Library.Snapshot
 {
     public class Snapshot : IBinaryFile
     {
-        private const byte HEADERSIZE = 17; // Header 1, Tick 8, countCells = 4, countDeaths = 4; => 17
+        private const byte CONSTLENGTH = 17; // Header 1, Tick 8, countCells = 4, countDeaths = 4; => 17
 
         private const byte HEADER = 0x2;
         public DateTime Stamp { get; private set; }
@@ -27,13 +27,12 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] GetBytes()
         {
-            //Offsets!
             int cellCount = _cells.Count(x => x != null);
             int deathCount = _deaths.Count(x => x != null);
 
-            byte[] output = new byte[HEADERSIZE +
-                (cellCount * CellSnapshot.BYTEARRAYSIZE) +
-                (deathCount * HumanSnapshot.BYTEARRAYSIZE)];
+            byte[] output = new byte[CONSTLENGTH +
+                (cellCount * CellSnapshot.LENGTH) +
+                (deathCount * HumanSnapshot.LENGTH)];
 
             output[0] = HEADER; //Writing Header in 0
 
@@ -42,18 +41,18 @@ namespace PSC2013.ES.Library.Snapshot
             
             for (int i = 0; i < cellCount; ++i)
                 Array.Copy(_cells[i].GetBytes(), 0, output,
-                    (i * CellSnapshot.BYTEARRAYSIZE) + HEADERSIZE,
-                    CellSnapshot.BYTEARRAYSIZE); // Writing the Cellsnapshots
+                    (i * CellSnapshot.LENGTH) + CONSTLENGTH,
+                    CellSnapshot.LENGTH); // Writing the Cellsnapshots
             
             Array.Copy(BitConverter.GetBytes(deathCount), 0, output,
-                cellCount * CellSnapshot.BYTEARRAYSIZE + HEADERSIZE,
+                cellCount * CellSnapshot.LENGTH + CONSTLENGTH,
                 4); // Writing count of deaths, necessary for reading again
             
-            int offset = cellCount * CellSnapshot.BYTEARRAYSIZE + HEADERSIZE;
+            int offset = cellCount * CellSnapshot.LENGTH + CONSTLENGTH;
             for (int j = 0; j < deathCount; ++j)
                 Array.Copy(_deaths[j].getBytes(), 0, output,
-                    (j * HumanSnapshot.BYTEARRAYSIZE) + offset,
-                    HumanSnapshot.BYTEARRAYSIZE);
+                    (j * HumanSnapshot.LENGTH) + offset,
+                    HumanSnapshot.LENGTH);
             
             return output;
         }

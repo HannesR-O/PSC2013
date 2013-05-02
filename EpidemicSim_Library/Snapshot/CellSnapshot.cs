@@ -9,7 +9,7 @@ namespace PSC2013.ES.Library.Snapshot
     /// </summary>
     public class CellSnapshot
     {
-        public const byte BYTEARRAYSIZE = 24; 
+        public const byte LENGTH = 24; 
 
         public int Position { get; private set; } // Position in Array (If 1-dimensional)    
 
@@ -80,7 +80,7 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] GetBytes()
         {
-            byte[] output = new byte[BYTEARRAYSIZE];
+            byte[] output = new byte[LENGTH];
 
             Array.Copy(BitConverter.GetBytes(CountMaleBaby), 0, output, 0, 2);
             Array.Copy(BitConverter.GetBytes(CountMaleChild), 0, output, 2, 2);
