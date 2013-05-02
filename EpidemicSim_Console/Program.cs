@@ -161,7 +161,7 @@ namespace PSC2013.ES.Cmd
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
-            sim.StartSimulation(Environment.CurrentDirectory);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             //Thread.Sleep(10000);
             //sim.StopSimulation();
         }

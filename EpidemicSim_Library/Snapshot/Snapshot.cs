@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Linq;
 using PSC2013.ES.Library.IO.Files;
 
 namespace PSC2013.ES.Library.Snapshot
 {
     public class Snapshot : IBinaryFile
     {
+        private const byte HEADERSIZE = 17; // Header 1, Tick 8, countCells = 4, countDeaths = 4; => 17
+
         private const byte HEADER = 0x2;
         public DateTime Stamp { get; private set; }
         public long Tick { get; private set; }
@@ -15,7 +18,8 @@ namespace PSC2013.ES.Library.Snapshot
         private Snapshot(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
         {
             Stamp = DateTime.Now;
-            Head = Tick + "_-_[" + Stamp.Hour + "-" + Stamp.Minute + "]";
+            Tick = tick;
+            Head = Tick + "_[" + Stamp.Hour + "-" + Stamp.Minute + "]";
 
             _cells = cells;
             _deaths = deaths;
@@ -23,24 +27,34 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] GetBytes()
         {
-            // TODO | dj/T | adjust offsets and extract constants...
             //Offsets!
-            int cellCount = _cells.Length;
-            int deathCount = _deaths.Length;
-            byte[] output = new byte[17 + (cellCount * 36) + deathCount * 17]; // Header 1, Tick 8, countCells = 4, countDeaths = 4; => 17
+            int cellCount = _cells.Count(x => x != null);
+            int deathCount = _deaths.Count(x => x != null);
+
+            byte[] output = new byte[HEADERSIZE +
+                (cellCount * CellSnapshot.BYTEARRAYSIZE) +
+                (deathCount * HumanSnapshot.BYTEARRAYSIZE)];
+
             output[0] = HEADER; //Writing Header in 0
+
             Array.Copy(BitConverter.GetBytes(Tick), 0, output, 1, 8); // Writing the tick in 1-8
             Array.Copy(BitConverter.GetBytes(cellCount), 0, output, 9, 4); // Writing Count of Cells, necessary for reading (offset) in 9 - 12
+            
             for (int i = 0; i < cellCount; ++i)
-            {
-                Array.Copy(_cells[i].GetBytes(), 0, output, (i * 36) + 13, 36); // Writing the Cellsnapshots
-            }
-            Array.Copy(BitConverter.GetBytes(deathCount), 0, output, cellCount * 36 + 13, 4); // Writing count of deaths, necessary for reading again
-            int offset = cellCount * 36 + 17;
+                Array.Copy(_cells[i].GetBytes(), 0, output,
+                    (i * CellSnapshot.BYTEARRAYSIZE) + HEADERSIZE,
+                    CellSnapshot.BYTEARRAYSIZE); // Writing the Cellsnapshots
+            
+            Array.Copy(BitConverter.GetBytes(deathCount), 0, output,
+                cellCount * CellSnapshot.BYTEARRAYSIZE + HEADERSIZE,
+                4); // Writing count of deaths, necessary for reading again
+            
+            int offset = cellCount * CellSnapshot.BYTEARRAYSIZE + HEADERSIZE;
             for (int j = 0; j < deathCount; ++j)
-            {
-                Array.Copy(_deaths[j].getBytes(), 0, output, (17 * j) + offset, 17);
-            }
+                Array.Copy(_deaths[j].getBytes(), 0, output,
+                    (j * HumanSnapshot.BYTEARRAYSIZE) + offset,
+                    HumanSnapshot.BYTEARRAYSIZE);
+            
             return output;
         }
 

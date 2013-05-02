@@ -156,7 +156,7 @@ namespace PSC2013.ES.Library
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            //_snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
+            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
 
             // Actual Simulation is performed in another Thread to enable stopping
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
@@ -195,7 +195,7 @@ namespace PSC2013.ES.Library
                 }
 
                 _simData.Tick();
-                //_snapshotMgr.TakeSnapshot(_simData);
+                _snapshotMgr.TakeSnapshot(_simData);
                 long round = Interlocked.Increment(ref _simulationRound);
                 _simulationLock = round != _simulationLimit;
 
@@ -210,7 +210,7 @@ namespace PSC2013.ES.Library
         private void PerformSimulationStop()
         {
             long rounds = Interlocked.Read(ref _simulationRound);
-            //_snapshotMgr.Finish();
+            _snapshotMgr.Finish();
             OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
         }
 

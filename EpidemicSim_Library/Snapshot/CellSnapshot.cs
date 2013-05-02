@@ -9,6 +9,8 @@ namespace PSC2013.ES.Library.Snapshot
     /// </summary>
     public class CellSnapshot
     {
+        public const byte BYTEARRAYSIZE = 24; 
+
         public int Position { get; private set; } // Position in Array (If 1-dimensional)    
 
         public ushort Infected { get; private set; } // Count of infected humans in this cell
@@ -78,19 +80,19 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] GetBytes()
         {
-            byte[] output = new byte[40];
+            byte[] output = new byte[BYTEARRAYSIZE];
 
-            Array.Copy(BitConverter.GetBytes(CountMaleBaby), 0, output, 0, 4);
-            Array.Copy(BitConverter.GetBytes(CountMaleChild), 0, output, 4, 4);
-            Array.Copy(BitConverter.GetBytes(CountMaleAdult), 0, output, 8, 4);
-            Array.Copy(BitConverter.GetBytes(CountMaleSenior), 0, output, 12, 4);
-            Array.Copy(BitConverter.GetBytes(CountFemaleBaby), 0, output, 16, 4);
-            Array.Copy(BitConverter.GetBytes(CountFemaleChild), 0, output, 20, 4);
-            Array.Copy(BitConverter.GetBytes(CountFemaleAdult), 0, output, 24, 4);
-            Array.Copy(BitConverter.GetBytes(CountFemaleSenior), 0, output, 28, 4);
-            Array.Copy(BitConverter.GetBytes(Position), 0, output, 32, 4);
-            Array.Copy(BitConverter.GetBytes(Infected), 0, output, 36, 2);
-            Array.Copy(BitConverter.GetBytes(Diseased), 0, output, 38, 2);
+            Array.Copy(BitConverter.GetBytes(CountMaleBaby), 0, output, 0, 2);
+            Array.Copy(BitConverter.GetBytes(CountMaleChild), 0, output, 2, 2);
+            Array.Copy(BitConverter.GetBytes(CountMaleAdult), 0, output, 4, 2);
+            Array.Copy(BitConverter.GetBytes(CountMaleSenior), 0, output, 6, 2);
+            Array.Copy(BitConverter.GetBytes(CountFemaleBaby), 0, output, 8, 2);
+            Array.Copy(BitConverter.GetBytes(CountFemaleChild), 0, output, 10, 2);
+            Array.Copy(BitConverter.GetBytes(CountFemaleAdult), 0, output, 12, 2);
+            Array.Copy(BitConverter.GetBytes(CountFemaleSenior), 0, output, 14, 2);
+            Array.Copy(BitConverter.GetBytes(Position), 0, output, 16, 4);
+            Array.Copy(BitConverter.GetBytes(Infected), 0, output, 20, 2);
+            Array.Copy(BitConverter.GetBytes(Diseased), 0, output, 22, 2);
 
             return output;
         }

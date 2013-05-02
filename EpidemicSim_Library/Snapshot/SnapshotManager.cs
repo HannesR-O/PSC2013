@@ -45,13 +45,14 @@ namespace PSC2013.ES.Library.Snapshot
         {
             CellSnapshot[] cells = new CellSnapshot[simData.Population.Length]; //TODO |t|How many do we really need? Only the populated ones...
             int pos = 0;
+            int i = 0;
             foreach (PopulationCell cell in simData.Population)
             {
-                if (!(cell == null))
+                if (cell != null)
                 {
-                    cells[pos] = CellSnapshot.InitializeFromRuntime(cell, pos);
-                    ++pos;
+                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
                 }
+                ++pos;
             }
             Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
             _snapshots.Enqueue(snap);
@@ -109,8 +110,8 @@ namespace PSC2013.ES.Library.Snapshot
                 while (_snapshots.Count > 0)
                 {
                     Snapshot temp = _snapshots.Dequeue();
-                    _writer.WriteFile(temp, _target + temp.Head, true);
-                    Console.WriteLine("Finished writting \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
+                    _writer.WriteFile(temp, _target + "/" + temp.Head, true);
+                    Console.WriteLine("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                 }
             }
         }
