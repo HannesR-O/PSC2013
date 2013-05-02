@@ -59,6 +59,8 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             for (int i = 0; i < cell.Humans.Length; i++)
             {
+                if (cell.Humans[i].IsDead()) continue;
+
                 cell.Humans[i].DoAgeTick();
 
                 var human = cell.Humans[i];
@@ -67,6 +69,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                 // Human dies from over ageing                  //TODO: |f| Add percentage rates for dieing at high ages and kill human properly
                 deadPeople.Add(new HumanSnapshot(human.GetGender(), (byte)human.GetAgeInYears(), human.GetProfession(),
                     human.HomeCell, cellID, false));
+                cell.Humans[i].KillHuman();
             }
 
             return deadPeople;
