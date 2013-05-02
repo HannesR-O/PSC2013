@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
 
 
 namespace PSC2013.ES.Library.Snapshot
@@ -57,6 +58,7 @@ namespace PSC2013.ES.Library.Snapshot
             Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);
+            _tick++;
         }
 
         /// <summary>
@@ -78,6 +80,8 @@ namespace PSC2013.ES.Library.Snapshot
         {
             private IBinaryWriter _writer;
 
+            private Task _task;
+
             /// <summary>
             /// Creates a new Writer abd creates an directory at the above given destination
             /// </summary>
@@ -98,7 +102,8 @@ namespace PSC2013.ES.Library.Snapshot
             /// <param name="e">Params fo the event</param>
             public void Recieve(object sender, EventArgs e)
             {
-                WriteAllSnapshots();
+                if (_task == null)
+                    _task = Task.Run(() => WriteAllSnapshots());
             }
 
             /// <summary>
@@ -109,10 +114,14 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 while (_snapshots.Count > 0)
                 {
-                    Snapshot temp = _snapshots.Dequeue();
-                    _writer.WriteFile(temp, _target + "/" + temp.Head, true);
-                    Console.WriteLine("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
+                    lock (_snapshots)
+                    {
+                        Snapshot temp = _snapshots.Dequeue();
+                        _writer.WriteFile(temp, _target + "/" + temp.Head, true);
+                        Console.WriteLine("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
+                    }
                 }
+                _task = null;
             }
         }
     }

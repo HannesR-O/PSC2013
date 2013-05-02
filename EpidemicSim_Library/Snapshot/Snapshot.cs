@@ -19,7 +19,7 @@ namespace PSC2013.ES.Library.Snapshot
         {
             Stamp = DateTime.Now;
             Tick = tick;
-            Head = Tick + "_[" + Stamp.Hour + "-" + Stamp.Minute + "]";
+            Head = Tick + "_[" + Stamp.ToString("HH-mm-ss") + "]";
 
             _cells = cells;
             _deaths = deaths;
