@@ -21,6 +21,8 @@ namespace PSC2013.ES.Tests.Snapshot
             Assert.Equal(human2.Gender, (byte)EGender.Male);
             Assert.Equal(human.Age, 26);
             Assert.Equal(human2.Age, 2);
+            Assert.Equal(human.Profession, (byte)EProfession.Plumber);
+            Assert.Equal(human2.Profession, (byte)EProfession.Unemployed);
             Assert.Equal(human.HomeCell, 1561);
             Assert.Equal(human2.HomeCell, 8468);
             Assert.Equal(human.DeathCell, 6565);
@@ -34,14 +36,16 @@ namespace PSC2013.ES.Tests.Snapshot
         {
             HumanSnapshot human = new HumanSnapshot(EGender.Female, (byte)26, EProfession.Housewife, 1561, 6565, false);
 
-            byte[] comp = new byte[17];
-            Array.Copy(BitConverter.GetBytes((int)Library.PopulationData.EGender.Female), 0, comp, 0, 4);
-            Array.Copy(BitConverter.GetBytes(26), 0, comp, 4, 4);
-            Array.Copy(BitConverter.GetBytes(1561), 0, comp, 8, 4);
-            Array.Copy(BitConverter.GetBytes(6565), 0, comp, 12, 4);
-            Array.Copy(BitConverter.GetBytes(false), 0, comp, 16, 1);
+            byte[] comp = new byte[12];
+            Array.Copy(BitConverter.GetBytes((int)Library.PopulationData.EGender.Female), 0, comp, 0, 1);
+            Array.Copy(BitConverter.GetBytes(26), 0, comp, 1, 1);
+            Array.Copy(BitConverter.GetBytes((byte)EProfession.Housewife), 0, comp, 2, 1);
+            Array.Copy(BitConverter.GetBytes(1561), 0, comp, 3, 4);
+            Array.Copy(BitConverter.GetBytes(6565), 0, comp, 7, 4);
+            Array.Copy(BitConverter.GetBytes(false), 0, comp, 11, 1);
 
             byte[] humanb = human.getBytes();
+            Assert.Equal(humanb.Length, HumanSnapshot.BYTEARRAYSIZE);
             for (int i = 0; i < humanb.Length; ++i)
             {
                 Assert.Equal(comp[i], humanb[i]);
