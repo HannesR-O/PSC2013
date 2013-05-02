@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\Readers\DepartmentMapReader.cs" />
-    <Compile Include="IO\Writers\AsyncBinaryWriter.cs" />
+    <Compile Include="IO\Writers\ArchiveBinaryWriter.cs" />
     <Compile Include="Simulation\Components\AgeingSimulationComponent.cs" />
     <Compile Include="Simulation\Components\DebugSimulationComponent.cs" />
     <Compile Include="Simulation\Components\InfectionCalculatorComponent.cs" />

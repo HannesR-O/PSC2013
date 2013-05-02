@@ -8,8 +8,9 @@ namespace PSC2013.ES.Library.IO.Writers
         /// Writes a given IBinaryFile to the given path
         /// </summary>
         /// <param name="file">The IBinaryFile to write</param>
-        /// <param name="filePath">The path to write the IBinaryFile to</param>
+        /// <param name="archivePath">The archive to write the IBinaryFile into</param>
+        /// <param name="filename">The File name to be added</param>
         /// <param name="overwrite">Flag to decide whether an existing file should be overwritten</param>        
-        void WriteFile(IBinaryFile file, string filePath, bool overwrite);
+        void WriteIntoArchive(IBinaryFile file, string archivePath, string filename, bool overwrite);
     }
 }

@@ -87,12 +87,17 @@ namespace PSC2013.ES.Library.Snapshot
             /// </summary>
             public SnapshotWriter()
             {
-                _writer = new AsyncBinaryWriter();
+                _writer = new ArchiveBinaryWriter();
 
                 if (!Directory.Exists(_target))
+                {                    
                     Directory.CreateDirectory(_target);
+                    ZipFile.CreateFromDirectory(_target, _target + ".sim", CompressionLevel.Optimal, false);
+                    Directory.Delete(_target, true);
+                    _target = _target + ".sim";
+                }                    
 
-                _writer.WriteFile(_simInfo, _target + "/header", true);
+                _writer.WriteIntoArchive(_simInfo, _target, "header", true);
             }
 
             /// <summary>
@@ -117,7 +122,7 @@ namespace PSC2013.ES.Library.Snapshot
                     lock (_snapshots)
                     {
                         Snapshot temp = _snapshots.Dequeue();
-                        _writer.WriteFile(temp, _target + "/" + temp.Head, true);
+                        _writer.WriteIntoArchive(temp, _target, temp.Head, true);
                         Console.WriteLine("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                     }
                 }
