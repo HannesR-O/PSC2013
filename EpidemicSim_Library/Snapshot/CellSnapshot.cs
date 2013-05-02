@@ -11,21 +11,24 @@ namespace PSC2013.ES.Library.Snapshot
     {
         public int Position { get; private set; } // Position in Array (If 1-dimensional)    
 
-        public int CountMaleBaby { get; private set; } // Males Baby
-        public int CountMaleChild { get; private set; } // Males Child
-        public int CountMaleAdult { get; private set; } // Males Adult
-        public int CountMaleSenior { get; private set; } // Males Senior
+        public ushort Infected { get; private set; } // Count of infected humans in this cell
+        public ushort Diseased { get; private set; } // Count of diseased humans in this cell
 
-        public int CountFemaleBaby { get; private set; } // Females Baby
-        public int CountFemaleChild { get; private set; } // Females Child
-        public int CountFemaleAdult { get; private set; } // Females Adult
-        public int CountFemaleSenior { get; private set; } // Females Senior      
+        public ushort CountMaleBaby { get; private set; } // Males Baby
+        public ushort CountMaleChild { get; private set; } // Males Child
+        public ushort CountMaleAdult { get; private set; } // Males Adult
+        public ushort CountMaleSenior { get; private set; } // Males Senior
+
+        public ushort CountFemaleBaby { get; private set; } // Females Baby
+        public ushort CountFemaleChild { get; private set; } // Females Child
+        public ushort CountFemaleAdult { get; private set; } // Females Adult
+        public ushort CountFemaleSenior { get; private set; } // Females Senior      
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
         /// </summary>
         /// <param name="infos">The Population to be snapshotted</param>
-        private CellSnapshot(int[] infos)
+        private CellSnapshot(ushort[] infos, int position)
         {
             CountMaleBaby = infos[0];
             CountMaleChild = infos[1];
@@ -37,7 +40,10 @@ namespace PSC2013.ES.Library.Snapshot
             CountFemaleAdult = infos[6];
             CountFemaleSenior = infos[7];
 
-            Position = infos[8];
+            Infected = infos[8];
+            Diseased = infos[9];
+
+            Position = position;
         }
 
         /// <summary>
@@ -48,19 +54,21 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns></returns>
         public static CellSnapshot InitializeFromRuntime(PopulationCell input, int position)
         {
-            int[] temp = new int[9];
+            ushort[] temp = new ushort[10];
 
-            temp[0] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Baby && (x.IsDead() == false));
-            temp[1] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Child && (x.IsDead() == false));
-            temp[2] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Adult && (x.IsDead() == false));
-            temp[3] = input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Senior && (x.IsDead() == false));
-            temp[4] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Baby && (x.IsDead() == false));
-            temp[5] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Child && (x.IsDead() == false));
-            temp[6] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Adult && (x.IsDead() == false));
-            temp[7] = input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Senior && (x.IsDead() == false));
-            temp[8] = position;
+            temp[0] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Baby && (x.IsDead() == false));
+            temp[1] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Child && (x.IsDead() == false));
+            temp[2] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Adult && (x.IsDead() == false));
+            temp[3] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Senior && (x.IsDead() == false));
+            temp[4] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Baby && (x.IsDead() == false));
+            temp[5] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Child && (x.IsDead() == false));
+            temp[6] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Adult && (x.IsDead() == false));
+            temp[7] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Senior && (x.IsDead() == false));
 
-            return new CellSnapshot(temp);
+            temp[8] = (ushort)input.Humans.Count(x => x.IsInfected());
+            temp[9] = (ushort)input.Humans.Count(x => x.IsDiseased());
+
+            return new CellSnapshot(temp, position);
         }
 
         public static CellSnapshot InitializeFromFile(byte[] bytes)
@@ -70,7 +78,8 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] GetBytes()
         {
-            var output = new byte[36];
+            byte[] output = new byte[40];
+
             Array.Copy(BitConverter.GetBytes(CountMaleBaby), 0, output, 0, 4);
             Array.Copy(BitConverter.GetBytes(CountMaleChild), 0, output, 4, 4);
             Array.Copy(BitConverter.GetBytes(CountMaleAdult), 0, output, 8, 4);
@@ -80,6 +89,9 @@ namespace PSC2013.ES.Library.Snapshot
             Array.Copy(BitConverter.GetBytes(CountFemaleAdult), 0, output, 24, 4);
             Array.Copy(BitConverter.GetBytes(CountFemaleSenior), 0, output, 28, 4);
             Array.Copy(BitConverter.GetBytes(Position), 0, output, 32, 4);
+            Array.Copy(BitConverter.GetBytes(Infected), 0, output, 36, 2);
+            Array.Copy(BitConverter.GetBytes(Diseased), 0, output, 38, 2);
+
             return output;
         }
     }

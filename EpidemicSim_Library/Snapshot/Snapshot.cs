@@ -23,6 +23,7 @@ namespace PSC2013.ES.Library.Snapshot
 
         public byte[] GetBytes()
         {
+            // TODO | dj/T | adjust offsets and extract constants...
             //Offsets!
             int cellCount = _cells.Length;
             int deathCount = _deaths.Length;

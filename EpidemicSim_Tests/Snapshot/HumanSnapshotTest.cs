@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.Snapshot;
+using PSC2013.ES.Library.PopulationData;
 using Xunit;
 
 namespace PSC2013.ES.Tests.Snapshot
@@ -13,11 +14,11 @@ namespace PSC2013.ES.Tests.Snapshot
         [Fact]
         public void HumanSnapshotConstructorTest()
         {
-            HumanSnapshot human = new HumanSnapshot(Library.PopulationData.EGender.Female, 26, 1561, 6565, false);
-            HumanSnapshot human2 = new HumanSnapshot(Library.PopulationData.EGender.Male, 2, 8468, 2135, true);
+            HumanSnapshot human = new HumanSnapshot(EGender.Female, (byte)26, EProfession.Plumber, 1561, 6565, false);
+            HumanSnapshot human2 = new HumanSnapshot(EGender.Male, (byte)2, EProfession.Unemployed, 8468, 2135, true);
 
-            Assert.Equal(human.Gender, Library.PopulationData.EGender.Female);
-            Assert.Equal(human2.Gender, Library.PopulationData.EGender.Male);
+            Assert.Equal(human.Gender, (byte)EGender.Female);
+            Assert.Equal(human2.Gender, (byte)EGender.Male);
             Assert.Equal(human.Age, 26);
             Assert.Equal(human2.Age, 2);
             Assert.Equal(human.HomeCell, 1561);
@@ -31,7 +32,7 @@ namespace PSC2013.ES.Tests.Snapshot
         [Fact]
         public void HumanSnapshotGetBytesTest()
         {
-            HumanSnapshot human = new HumanSnapshot(Library.PopulationData.EGender.Female, 26, 1561, 6565, false);
+            HumanSnapshot human = new HumanSnapshot(EGender.Female, (byte)26, EProfession.Housewife, 1561, 6565, false);
 
             byte[] comp = new byte[17];
             Array.Copy(BitConverter.GetBytes((int)Library.PopulationData.EGender.Female), 0, comp, 0, 4);
