@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 
@@ -13,7 +14,7 @@ namespace PSC2013.ES.Library
         /// <param name="eventHandler">EventHandler of the event to raise</param>
         /// <param name="sender">Sender of the event to raise</param>
         /// <param name="e">EventArgs of the event to raise</param>
-        public static void Raise<T>(this EventHandler<T> eventHandler, Object sender, T e) where T : EventArgs
+        internal static void Raise<T>(this EventHandler<T> eventHandler, Object sender, T e) where T : EventArgs
         {
             if (eventHandler != null)
             {
@@ -39,7 +40,7 @@ namespace PSC2013.ES.Library
         /// </summary>
         /// <param name="array">Source array</param>
         /// <param name="otherArray">Destination array</param>
-        public static void CopyToOtherArray(this Array array, Array otherArray)
+        internal static void CopyToOtherArray(this Array array, Array otherArray)
         {
             array.CopyTo(otherArray, 0);
         }
@@ -84,7 +85,7 @@ namespace PSC2013.ES.Library
         /// <param name="point">The point to be flattend.</param>
         /// <param name="width">The width of the environmental area.</param>
         /// <returns>The 1D-index corresponding to the point.</returns>
-        public static int Flatten(this Point point, int width)
+        internal static int Flatten(this Point point, int width)
         {
             return point.X + (point.Y * width);
         }
@@ -97,7 +98,7 @@ namespace PSC2013.ES.Library
         /// <param name="currentPoint">The current point.</param>
         /// <param name="origin">The other point.</param>
         /// <returns>The hypotenuse.</returns>
-        public static int Distance(this Point currentPoint, Point origin)
+        internal static int Distance(this Point currentPoint, Point origin)
         {
             int cathetus1 = Math.Abs(currentPoint.X - origin.X);
             int cathetus2 = Math.Abs(currentPoint.Y - origin.Y);
@@ -110,11 +111,9 @@ namespace PSC2013.ES.Library
         /// </summary>
         /// <param name="cells"></param>
         /// <returns></returns>
-        public static System.Collections.Generic.IEnumerable<T> NotNullIterator<T>(this T[] cells)
+        public static IEnumerable<T> NotNullIterator<T>(this T[] cells) where T : class
         {
-            foreach (var item in cells)
-                if (item != null)
-                    yield return item;
+            return cells.Where(item => item != null);
             // ??
             // 10 min with foreach
             // 12 min with parallel.foreach
