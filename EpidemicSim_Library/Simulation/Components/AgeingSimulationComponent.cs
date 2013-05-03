@@ -67,7 +67,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                 if (human.GetAgeInYears() <= AgeLimit) continue;
 
                 // Human dies from over ageing                  //TODO: |f| Add percentage rates for dieing at high ages and kill human properly
-                deadPeople.Add(new HumanSnapshot(human.GetGender(), (byte)human.GetAgeInYears(), human.GetProfession(),
+                deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human.GetGender(), (byte)human.GetAgeInYears(), (byte)human.GetProfession(),
                     human.HomeCell, cellID, false));
                 cell.Humans[i].KillHuman();
             }

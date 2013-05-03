@@ -85,8 +85,9 @@ namespace PSC2013.ES.Library.Snapshot
                 restMaleBaby, restMaleChild, restMaleAdult, restMaleSenior, 
                 restFemaleBaby, restFemaleChild, restFemaleAdult, restFemaleSenior });
 
-            // TODO |t| Name, still to bound it...
-            return new SimulationInfo("test", disease);
+            string name = BitConverter.ToString(bytes, 113);
+            disease.Name = name;
+            return new SimulationInfo(name, disease);
         }
 
         /// <summary>

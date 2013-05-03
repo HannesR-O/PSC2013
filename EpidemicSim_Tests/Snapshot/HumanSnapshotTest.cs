@@ -12,10 +12,10 @@ namespace PSC2013.ES.Tests.Snapshot
     public class HumanSnapshotTest
     {
         [Fact]
-        public void HumanSnapshotConstructorTest()
+        public void HumanSnapshotInitializeFromRuntimeTest()
         {
-            HumanSnapshot human = new HumanSnapshot(EGender.Female, (byte)26, EProfession.Plumber, 1561, 6565, false);
-            HumanSnapshot human2 = new HumanSnapshot(EGender.Male, (byte)2, EProfession.Unemployed, 8468, 2135, true);
+            HumanSnapshot human = HumanSnapshot.InitializeFromRuntime((byte)EGender.Female, (byte)26, (byte)EProfession.Plumber, 1561, 6565, false);
+            HumanSnapshot human2 = HumanSnapshot.InitializeFromRuntime((byte)EGender.Male, (byte)2, (byte)EProfession.Unemployed, 8468, 2135, true);
 
             Assert.Equal(human.Gender, (byte)EGender.Female);
             Assert.Equal(human2.Gender, (byte)EGender.Male);
@@ -34,7 +34,7 @@ namespace PSC2013.ES.Tests.Snapshot
         [Fact]
         public void HumanSnapshotGetBytesTest()
         {
-            HumanSnapshot human = new HumanSnapshot(EGender.Female, (byte)26, EProfession.Housewife, 1561, 6565, false);
+            HumanSnapshot human = HumanSnapshot.InitializeFromRuntime((byte)EGender.Female, (byte)26, (byte)EProfession.Housewife, 1561, 6565, false);
 
             byte[] comp = new byte[12];
             Array.Copy(BitConverter.GetBytes((int)Library.PopulationData.EGender.Female), 0, comp, 0, 1);
