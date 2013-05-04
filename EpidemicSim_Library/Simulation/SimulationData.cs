@@ -54,16 +54,6 @@ namespace PSC2013.ES.Library.Simulation
             //Population.Initialize<PopulationCell>();
 
             _time = DateTime.Now;
-
-#if DEBUG
-            //foreach (var item in Population)
-            //{
-            //    for (int i = 0; i < 8; i++)
-            //    {
-            //        item.AddHuman(Human.Create(EGender.Female, 60, 7331));
-            //    }
-            //}
-#endif
         }
 
         /// <summary>
