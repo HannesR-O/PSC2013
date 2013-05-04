@@ -7,7 +7,7 @@ namespace PSC2013.ES.Library.Snapshot
     /// <summary>
     /// A Snapshot, taken during one tick of the simulation
     /// </summary>
-    public class Snapshot : IBinaryFile
+    public class TickSnapshot : IBinaryFile
     {
         private const byte CONSTLENGTH = 17; // Header 1, Tick 8, countCells = 4, countDeaths = 4; => 17
 
@@ -25,7 +25,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// them later; only incremented</param>
         /// <param name="cells">The Cells during the tick</param>
         /// <param name="deaths">The dead humans since the last tick</param>
-        private Snapshot(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
+        private TickSnapshot(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
         {
             Stamp = DateTime.Now;
             Tick = tick;
@@ -42,9 +42,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name ="cells">Cells to be saved</param>
         /// <param name ="deaths">Dead Humans</param>
         /// <returns></returns>
-        public static Snapshot IntitializeFromRuntime(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
+        public static TickSnapshot IntitializeFromRuntime(long tick, CellSnapshot[] cells, HumanSnapshot[] deaths)
         {
-            return new Snapshot(tick, cells, deaths);
+            return new TickSnapshot(tick, cells, deaths);
         }
 
         /// <summary>

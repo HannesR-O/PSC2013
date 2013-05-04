@@ -21,7 +21,7 @@ namespace PSC2013.ES.Library.Snapshot
         private static SimulationInfo _simInfo;
         private static string _target;
         private static long _tick;
-        private static Queue<Snapshot> _snapshots;
+        private static Queue<TickSnapshot> _snapshots;
 
         private event EventHandler TookSnapshot;
         private SnapshotWriter _writer;
@@ -35,7 +35,7 @@ namespace PSC2013.ES.Library.Snapshot
         {
             _simInfo = SimulationInfo.InitializeFromRuntime(disease.Name, disease);
             _target = Path.Combine(destination, disease.Name);
-            _snapshots = new Queue<Snapshot>();
+            _snapshots = new Queue<TickSnapshot>();
             _tick = 1;
             _writer = new SnapshotWriter();
             TookSnapshot += _writer.Recieve;
@@ -58,7 +58,7 @@ namespace PSC2013.ES.Library.Snapshot
                 }
                 ++pos;
             }
-            Snapshot snap = Snapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
+            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);
             _tick++;
@@ -70,7 +70,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         public void Finish()
         {
-            foreach (Snapshot s in _snapshots)
+            foreach (TickSnapshot s in _snapshots)
                 TookSnapshot(this, null);            
             Console.WriteLine("Finished logging of Simulation @ " + DateTime.Now.ToString());
         }
@@ -123,7 +123,7 @@ namespace PSC2013.ES.Library.Snapshot
                 {
                     lock (_snapshots)
                     {
-                        Snapshot temp = _snapshots.Dequeue();
+                        TickSnapshot temp = _snapshots.Dequeue();
                         _writer.WriteIntoArchive(temp, _target, temp.Head, true);
                         Console.WriteLine("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                     }
