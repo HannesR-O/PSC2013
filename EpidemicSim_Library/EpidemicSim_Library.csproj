@@ -63,7 +63,7 @@
     <Compile Include="AreaData\MatrixGenerator.cs" />
     <Compile Include="Snapshot\HumanSnapshot.cs" />
     <Compile Include="Snapshot\SimulationInfo.cs" />
-    <Compile Include="Snapshot\Snapshot.cs" />
+    <Compile Include="Snapshot\TickSnapshot.cs" />
     <Compile Include="Diseases\Disease.cs" />
     <Compile Include="Diseases\FactorContainer.cs" />
     <Compile Include="IO\Files\IBinaryFile.cs" />
@@ -80,8 +80,12 @@
     <Compile Include="Simulation\SimulationData.cs" />
     <Compile Include="Simulation\ETimeConstants.cs" />
     <Compile Include="Snapshot\SnapshotManager.cs" />
+    <Compile Include="Statistics\Pictures\MapCreator.cs" />
+    <Compile Include="Statistics\StatisticsManager.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Statistics\Diagrams\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
