@@ -379,5 +379,10 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             get { return ESimulationStage.BeforeInfectedCalculation; }
         }
+
+        public bool Equals(ISimulationComponent other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

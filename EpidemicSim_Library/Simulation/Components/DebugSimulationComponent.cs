@@ -15,5 +15,10 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             get { return ESimulationStage.InfectedCalculation; }
         }
+
+        public bool Equals(ISimulationComponent other)
+        {
+            return (other as DebugSimulationComponent) != null;
+        }
     }
 }

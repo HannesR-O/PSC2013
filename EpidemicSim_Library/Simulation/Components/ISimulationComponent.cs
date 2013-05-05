@@ -2,7 +2,7 @@
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public interface ISimulationComponent
+    public interface ISimulationComponent : IEquatable<ISimulationComponent>
     {
         /// <summary>
         /// The main operation which gets called by EpidemicSimulator during each tick.

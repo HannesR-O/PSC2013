@@ -76,5 +76,13 @@ namespace PSC2013.ES.Library.Simulation.Components
         }
 
         public ESimulationStage SimulationStages { get { return ESimulationStage.AfterInfectedCalculation; } }
+
+        public bool Equals(ISimulationComponent other)
+        {
+            var otherComponent = other as AgeingSimulationComponent;
+            if (otherComponent == null)
+                return false;
+            return this.TicksPerYear == otherComponent.TicksPerYear && this.AgeLimit == otherComponent.AgeLimit;
+        }
     }
 }

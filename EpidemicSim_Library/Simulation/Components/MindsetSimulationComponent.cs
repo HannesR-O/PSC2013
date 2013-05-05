@@ -1,4 +1,6 @@
-﻿namespace PSC2013.ES.Library.Simulation.Components
+﻿using System;
+
+namespace PSC2013.ES.Library.Simulation.Components
 {
     public class MindsetSimulationComponent : ISimulationComponent
     {
@@ -23,6 +25,11 @@
         public ESimulationStage SimulationStages
         {
             get { return ESimulationStage.BeforeInfectedCalculation; }
+        }
+
+        public bool Equals(ISimulationComponent other)
+        {
+            throw new NotImplementedException();
         }
     }
 }

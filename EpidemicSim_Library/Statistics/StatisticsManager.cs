@@ -46,7 +46,7 @@ namespace PSC2013.ES.Library.Statistics
 
         public void CreateGraphics(TickSnapshot snapshot)
         {
-            _creator.getMaleMap(snapshot, ColorPalette.RED);
+            _creator.GetMaleMap(snapshot, ColorPalette.RED);
         }
     }
 }

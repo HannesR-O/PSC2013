@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.IO;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Snapshot;
 using System.IO;
@@ -35,10 +36,13 @@ namespace PSC2013.ES.Library
 
         // ISimulationComponents
         private ISimulationComponent _infectionSimulator;
-        private List<ISimulationComponent> _before, _after;
+        private IList<ISimulationComponent> _before, _after;
 
-        // Misc
-        private volatile bool _simulationLock = false;
+        // ISimulationOutputTargets
+        private IList<IOutputTarget> _outputTargets; 
+
+        // Misc.
+        private volatile bool _simulationLock;
         private long _simulationRound = SIMULATION_DEFAULT_START;
         private long _simulationLimit = SIMULATION_DEFAULT_LIMIT;
 
@@ -123,6 +127,17 @@ namespace PSC2013.ES.Library
             if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation &&
                     !_after.Contains(component))
                     _after.Add(component);
+        }
+
+        public void AddOutputTarget(IOutputTarget target)
+        {
+            if (_simulationLock)
+                throw new SimulationException("Could not add a new IOutputTarget. " + ERROR_MESSAGE_SIMULATION_RUNNING);
+
+            if (_outputTargets == null)
+                _outputTargets = new List<IOutputTarget>();
+            if (_outputTargets.Contains(target))
+                _outputTargets.Add(target);
         }
 
         /// <summary>

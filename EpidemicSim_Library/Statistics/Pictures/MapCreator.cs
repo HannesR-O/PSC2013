@@ -1,5 +1,4 @@
 ﻿using PSC2013.ES.Library.Snapshot;
-using PSC2013.ES.Library;
 using System.Drawing;
 
 
@@ -16,7 +15,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             _target = path;
         }
 
-        public void getMaleMap(TickSnapshot snapshot, Color[] palette)
+        public void GetMaleMap(TickSnapshot snapshot, Color[] palette)
         {
             Bitmap map = new Bitmap(X, Y);
 
@@ -28,6 +27,5 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             map.Save(_target + "/malemap.bmp", System.Drawing.Imaging.ImageFormat.Png);
         }
-
     }
 }
