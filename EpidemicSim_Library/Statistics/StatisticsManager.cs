@@ -41,7 +41,6 @@ namespace PSC2013.ES.Library.Statistics
             byte[] b = mem2.ToArray();
 
             TickSnapshot t = TickSnapshot.InitializeFromFile(b);
-            Console.Write(t.Tick);
             Console.ReadKey();
         }
 

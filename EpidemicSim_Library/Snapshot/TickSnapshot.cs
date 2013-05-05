@@ -60,19 +60,35 @@ namespace PSC2013.ES.Library.Snapshot
             CellSnapshot[] cells = new CellSnapshot[cellCount];
             for (int i = 0; i < cellCount; ++i)
             {
-                byte[] temp = bytes.Skip(CONSTLENGTH + i * CellSnapshot.LENGTH).Take(CellSnapshot.LENGTH).ToArray();
+                byte[] temp = new byte[CellSnapshot.LENGTH];
+                Array.Copy(bytes, CONSTLENGTH + i * CellSnapshot.LENGTH, temp, 0, CellSnapshot.LENGTH);
                 cells[i] = CellSnapshot.InitializeFromFile(temp);
+#if DEBUG
+                if (i % 1000 == 0)
+                    Console.WriteLine("Parsed " + i + " Snaps");
+#endif
             }
+#if DEBUG
+            Console.WriteLine("Done!");
+#endif
 
             int offset = CONSTLENGTH + cellCount * CellSnapshot.LENGTH;            
             int deathCount = BitConverter.ToInt32(bytes, offset);
 
             HumanSnapshot[] deaths = new HumanSnapshot[deathCount];
-            for (int i = 0; i < deathCount; ++i)
+            for (int i = 0; i < 100; ++i)//deathCount; ++i)
             {
-                byte[] temp = bytes.Skip((CONSTLENGTH + cellCount * CellSnapshot.LENGTH) + i * HumanSnapshot.LENGTH).Take(HumanSnapshot.LENGTH).ToArray();
+                byte[] temp = new byte[HumanSnapshot.LENGTH];
+                Array.Copy(bytes, (CONSTLENGTH + cellCount * CellSnapshot.LENGTH) + i * HumanSnapshot.LENGTH, temp, 0, HumanSnapshot.LENGTH);
                 deaths[i] = HumanSnapshot.InitializeFromFile(temp);
+#if DEBUG
+                if (i % 1000 == 0)
+                    Console.WriteLine("Parsed " + i + " Deaths");
+#endif
             }
+#if DEBUG
+            Console.WriteLine("Done!");
+#endif
 
             return new TickSnapshot(tick, cells, deaths);
         }

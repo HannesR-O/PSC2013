@@ -27,7 +27,7 @@ namespace PSC2013.ES.Cmd
 
             //TestMovementComponent();
 
-            TestStats();
+            TestStats(); // DO NOT TOUCH, WON'T WORK
 
             Console.ReadKey();
 #endif
