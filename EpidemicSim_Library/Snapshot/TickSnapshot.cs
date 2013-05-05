@@ -15,8 +15,8 @@ namespace PSC2013.ES.Library.Snapshot
         public DateTime Stamp { get; private set; }
         public long Tick { get; private set; }
         public String Head { get; private set; }
-        private CellSnapshot[] _cells;
-        private HumanSnapshot[] _deaths;
+        public CellSnapshot[] Cells { get; private set; }
+        public HumanSnapshot[] Deaths { get; private set; }
 
         /// <summary>
         /// Creates a new Snapshot
@@ -31,8 +31,8 @@ namespace PSC2013.ES.Library.Snapshot
             Tick = tick;
             Head = Tick + "_[" + Stamp.ToString("HH-mm-ss") + "]";
 
-            _cells = cells;
-            _deaths = deaths;
+            Cells = cells;
+            Deaths = deaths;
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns>Snapshots Infos as byte[]</returns>
         public byte[] GetBytes()
         {
-            int cellCount = _cells.Count(x => x != null);
-            int deathCount = _deaths.Count(x => x != null);
+            int cellCount = Cells.Count(x => x != null);
+            int deathCount = Deaths.Count(x => x != null);
 
             byte[] output = new byte[CONSTLENGTH +
                 (cellCount * CellSnapshot.LENGTH) +
@@ -96,7 +96,7 @@ namespace PSC2013.ES.Library.Snapshot
             Array.Copy(BitConverter.GetBytes(cellCount), 0, output, 9, 4); // Writing Count of Cells, necessary for reading (offset) in 9 - 12
 
             for (int i = 0; i < cellCount; ++i)
-                Array.Copy(_cells[i].GetBytes(), 0, output,
+                Array.Copy(Cells[i].GetBytes(), 0, output,
                     (i * CellSnapshot.LENGTH) + CONSTLENGTH,
                     CellSnapshot.LENGTH); // Writing the Cellsnapshots
 
@@ -106,7 +106,7 @@ namespace PSC2013.ES.Library.Snapshot
 
             int offset = cellCount * CellSnapshot.LENGTH + CONSTLENGTH;
             for (int j = 0; j < deathCount; ++j)
-                Array.Copy(_deaths[j].getBytes(), 0, output,
+                Array.Copy(Deaths[j].getBytes(), 0, output,
                     (j * HumanSnapshot.LENGTH) + offset,
                     HumanSnapshot.LENGTH);
 

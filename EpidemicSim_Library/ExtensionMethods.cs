@@ -91,6 +91,17 @@ namespace PSC2013.ES.Library
         }
 
         /// <summary>
+        /// DeFlattens a Position to a Point of an 2D Array
+        /// </summary>
+        /// <param name="position">The 1-Dimensional Position</param>
+        /// <param name="width">The 2D Arrays width</param>
+        /// <returns>a Point in the 2D Array</returns>
+        internal static Point DeFlatten(this int position, int width)
+        {
+            return new Point(position % width, (int)position / width);
+        }
+
+        /// <summary>
         /// Calculates the absolute distance between
         /// the two points.
         /// Might be inexact because of int-cast.

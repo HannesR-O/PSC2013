@@ -5,6 +5,7 @@ using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.Snapshot;
+using PSC2013.ES.Library.Statistics;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -22,9 +23,11 @@ namespace PSC2013.ES.Cmd
 
             //TestCalculations();
 
-            TestAgeingComponent();
+            //TestAgeingComponent();
 
             //TestMovementComponent();
+
+            TestStats();
 
             Console.ReadKey();
 #endif
@@ -180,6 +183,12 @@ namespace PSC2013.ES.Cmd
             }
 
 
+        }
+
+        public static void TestStats()
+        {
+            StatisticsManager manager = new StatisticsManager();
+            manager.OpenSimFile("C:\\Users\\Tobi\\Desktop\\Test_Disease.sim");
         }
     }
 }
