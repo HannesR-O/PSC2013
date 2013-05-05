@@ -13,10 +13,10 @@ namespace PSC2013.ES.Library.Snapshot
         public Disease Disease { get; private set; }
         public string Name { get; private set; }
 
-        private SimulationInfo(string name, Disease disease)
+        private SimulationInfo(Disease disease)
         {
-            Name = name;
             Disease = disease;
+            Name = Disease.Name;
         }
 
         /// <summary>
@@ -25,9 +25,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="name">The Simulations Name</param>
         /// <param name="disease">The used Disease</param>
         /// <returns></returns>
-        public static SimulationInfo InitializeFromRuntime(string name, Disease disease)
+        public static SimulationInfo InitializeFromRuntime(Disease disease)
         {
-            return new SimulationInfo(name, disease);
+            return new SimulationInfo(disease);
         }
 
         /// <summary>
@@ -85,9 +85,9 @@ namespace PSC2013.ES.Library.Snapshot
                 restMaleBaby, restMaleChild, restMaleAdult, restMaleSenior, 
                 restFemaleBaby, restFemaleChild, restFemaleAdult, restFemaleSenior });
 
-            string name = BitConverter.ToString(bytes, 113);
+            string name = System.Text.Encoding.UTF8.GetString(bytes, 113, bytes.Length - 113);
             disease.Name = name;
-            return new SimulationInfo(name, disease);
+            return new SimulationInfo(disease);
         }
 
         /// <summary>

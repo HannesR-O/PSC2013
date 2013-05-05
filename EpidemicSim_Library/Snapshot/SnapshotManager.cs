@@ -33,7 +33,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="disease">The Disease used in the Simulation</param>
         public void Initialize(string destination, Disease disease)
         {
-            _simInfo = SimulationInfo.InitializeFromRuntime(disease.Name, disease);
+            _simInfo = SimulationInfo.InitializeFromRuntime(disease);
             _target = Path.Combine(destination, disease.Name);
             _snapshots = new Queue<TickSnapshot>();
             _tick = 1;

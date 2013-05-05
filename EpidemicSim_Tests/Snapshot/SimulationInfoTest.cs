@@ -14,7 +14,7 @@ namespace PSC2013.ES.Tests.Snapshot
         {
             _disease = new Disease
             {
-                Name = "Test_Disease",
+                Name = "Disease",
                 IncubationPeriod = 238475,
                 IdleTime = 123415,
                 SpreadingTime = 123123,
@@ -29,7 +29,7 @@ namespace PSC2013.ES.Tests.Snapshot
         public void SimInfoInitializeFromRuntimeTest()
         {
             Start();
-            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_name, _disease);
+            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease);
 
             Assert.Equal(sim.Disease, _disease);
             Assert.Equal(sim.Name, _name);
@@ -39,9 +39,9 @@ namespace PSC2013.ES.Tests.Snapshot
         public void SimInfoInitializeFromFileTest()
         {
             Start();
-            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_name, _disease);
+            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease);
             byte[] name = System.Text.Encoding.UTF8.GetBytes(_name);
-            byte[] comp = new byte[112 + name.Length];
+            byte[] comp = new byte[113 + name.Length];
             Array.Copy(BitConverter.GetBytes(238475), 0, comp, 1, 4);
             Array.Copy(BitConverter.GetBytes(123415), 0, comp, 5, 4);
             Array.Copy(BitConverter.GetBytes(123123), 0, comp, 9, 4);
@@ -72,14 +72,25 @@ namespace PSC2013.ES.Tests.Snapshot
             Array.Copy(BitConverter.GetBytes(120), 0, comp, 109, 4);
             Array.Copy(name, 0, comp, 113, name.Length);
 
-            Assert.Equal(sim, SimulationInfo.InitializeFromFile(comp));
+            SimulationInfo test = SimulationInfo.InitializeFromFile(comp);
+
+            Assert.Equal(sim.Disease.IdleTime, test.Disease.IdleTime);
+            Assert.Equal(sim.Disease.IncubationPeriod, test.Disease.IncubationPeriod);
+            Assert.Equal(sim.Disease.SpreadingTime, test.Disease.SpreadingTime);
+            Assert.Equal(sim.Disease.Transferability, test.Disease.Transferability);
+
+            Assert.Equal(sim.Disease.MortalityRate, test.Disease.MortalityRate);
+            Assert.Equal(sim.Disease.HealingFactor, test.Disease.HealingFactor);
+            Assert.Equal(sim.Disease.ResistanceFactor, test.Disease.ResistanceFactor);
+            Assert.Equal(sim.Disease.Name, test.Disease.Name);
+            Assert.Equal(sim.Name, test.Name);
         }
 
         [Fact]
         public void SimInfoGetBytesTest()
         {
             Start();
-            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_name, _disease);
+            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease);
 
             byte[] testing = sim.GetBytes();
             byte[] name = System.Text.Encoding.UTF8.GetBytes(_disease.Name);

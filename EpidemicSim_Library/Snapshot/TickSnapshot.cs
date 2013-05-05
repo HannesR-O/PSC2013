@@ -52,10 +52,29 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         /// <param name="bytes">the byte[] from a file</param>
         /// <returns>A new Snapshot</returns>
-        public static void InitializeFromFile(byte[] bytes)
+        public static TickSnapshot InitializeFromFile(byte[] bytes)
         {
-            // BitConvert.toInt32 (byte[] , startindex) => problem solved i thinks
-            throw new NotImplementedException();
+            long tick = BitConverter.ToInt64(bytes, 1);
+            int cellCount = BitConverter.ToInt32(bytes, 9);
+
+            CellSnapshot[] cells = new CellSnapshot[cellCount];
+            for (int i = 0; i < cellCount; ++i)
+            {
+                byte[] temp = bytes.Skip(CONSTLENGTH + i * CellSnapshot.LENGTH).Take(CellSnapshot.LENGTH).ToArray();
+                cells[i] = CellSnapshot.InitializeFromFile(temp);
+            }
+
+            int offset = CONSTLENGTH + cellCount * CellSnapshot.LENGTH;            
+            int deathCount = BitConverter.ToInt32(bytes, offset);
+
+            HumanSnapshot[] deaths = new HumanSnapshot[deathCount];
+            for (int i = 0; i < deathCount; ++i)
+            {
+                byte[] temp = bytes.Skip((CONSTLENGTH + cellCount * CellSnapshot.LENGTH) + i * HumanSnapshot.LENGTH).Take(HumanSnapshot.LENGTH).ToArray();
+                deaths[i] = HumanSnapshot.InitializeFromFile(temp);
+            }
+
+            return new TickSnapshot(tick, cells, deaths);
         }
 
         /// <summary>

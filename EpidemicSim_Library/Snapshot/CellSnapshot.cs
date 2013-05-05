@@ -81,7 +81,20 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns>A new CellSnapshot</returns>
         public static CellSnapshot InitializeFromFile(byte[] bytes)
         {
-            throw new NotImplementedException();
+            ushort[] temp = new ushort[10];
+            temp[0] = BitConverter.ToUInt16(bytes, 0);
+            temp[1] = BitConverter.ToUInt16(bytes, 2);
+            temp[2] = BitConverter.ToUInt16(bytes, 4);
+            temp[3] = BitConverter.ToUInt16(bytes, 6);
+            temp[4] = BitConverter.ToUInt16(bytes, 8);
+            temp[5] = BitConverter.ToUInt16(bytes, 10);
+            temp[6] = BitConverter.ToUInt16(bytes, 12);
+            temp[7] = BitConverter.ToUInt16(bytes, 14);
+            temp[8] = BitConverter.ToUInt16(bytes, 20);
+            temp[9] = BitConverter.ToUInt16(bytes, 22);
+            int position = BitConverter.ToInt32(bytes, 16);
+
+            return new CellSnapshot(temp, position);
         }
 
         /// <summary>
