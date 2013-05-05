@@ -91,7 +91,7 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 _writer = new ArchiveBinaryWriter();
 
-                if (!Directory.Exists(_target))
+                if (!File.Exists(_target + ".sim"))
                 {                    
                     Directory.CreateDirectory(_target);
                     ZipFile.CreateFromDirectory(_target, _target + ".sim", CompressionLevel.Optimal, false);
