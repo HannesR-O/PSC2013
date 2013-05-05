@@ -16,6 +16,16 @@ namespace PSC2013.ES.Library.Simulation.Components
             get { return ESimulationStage.InfectedCalculation; }
         }
 
+        public override int GetHashCode()
+        {
+            return "DEBUG SIMULATION TICK".GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as ISimulationComponent);
+        }
+
         public bool Equals(ISimulationComponent other)
         {
             return (other as DebugSimulationComponent) != null;

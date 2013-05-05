@@ -10,20 +10,20 @@ namespace PSC2013.ES.Library.Simulation.Components
     {
         // Assumes 365 x 24 hour days
         private const int HOURS_PER_YEAR = 8544;
-        public int TicksPerYear { get; private set; }
-        public int AgeLimit { get; private set; }
+        public int AgeLimit { get; private set; }public int TicksPerYear { get; private set; }
+        
 
         private int _counter;
 
         /// <summary>
         /// Creates a new AgeingSimulationComponent and sets the "hour-value" of one tick.
         /// </summary>
-        /// <param name="hoursPerTick">A value specifying how many hours pass in one SimulationTick</param>
         /// <param name="ageLimit">A value specifying at what age Humans should day of aging</param>
-        public AgeingSimulationComponent(int hoursPerTick, int ageLimit)
+        /// <param name="hoursPerTick"A value specifying how many hours pass in one simulation tick</param>
+        public AgeingSimulationComponent(int ageLimit, int hoursPerTick)
         {
-            TicksPerYear = HOURS_PER_YEAR / hoursPerTick;        //TODO: |f| not the most accurate but should be enough for our purposes
             AgeLimit = ageLimit;
+            TicksPerYear = HOURS_PER_YEAR / hoursPerTick;        //TODO: |f| not the most accurate but should be enough for our purposes
             _counter = 0;
         }
 
@@ -77,11 +77,22 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public ESimulationStage SimulationStages { get { return ESimulationStage.AfterInfectedCalculation; } }
 
+        public override int GetHashCode()
+        {
+            return AgeLimit.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as ISimulationComponent);
+        }
+
         public bool Equals(ISimulationComponent other)
         {
             var otherComponent = other as AgeingSimulationComponent;
             if (otherComponent == null)
                 return false;
+
             return this.TicksPerYear == otherComponent.TicksPerYear && this.AgeLimit == otherComponent.AgeLimit;
         }
     }
