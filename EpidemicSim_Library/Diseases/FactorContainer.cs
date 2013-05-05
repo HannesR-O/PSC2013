@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Diseases
 {
@@ -13,6 +9,7 @@ namespace PSC2013.ES.Library.Diseases
     /// </summary>
     public struct FactorContainer
     {
+        //TODO: |f| I don't like public fields.. :S
         public int Male_Baby;
         public int Male_Child;
         public int Male_Adult;
