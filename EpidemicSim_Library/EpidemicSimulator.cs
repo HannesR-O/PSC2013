@@ -15,7 +15,7 @@ namespace PSC2013.ES.Library
     public class EpidemicSimulator
     {
 #if DEBUG
-        private Stopwatch _watch = new Stopwatch();
+        private readonly Stopwatch _watch = new Stopwatch();
 #endif
         #region ### Private ###
         // Constants
@@ -89,7 +89,8 @@ namespace PSC2013.ES.Library
         /// <summary>
         /// Creates a new EpidemicSimulator with the given ISimulationComponents
         /// </summary>
-        /// <param name="dataFilePath"></param>
+        /// <param name="disease">The Disease to simulate</param>
+        /// <param name="dataFilePath">The file's path containing populational data to simulate on</param>
         /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
         /// <returns>The created instance of EpidemicSimulator</returns>
         public static EpidemicSimulator Create(Disease disease, string dataFilePath, params ISimulationComponent[] components)
@@ -213,7 +214,8 @@ namespace PSC2013.ES.Library
         public void StartSimulation(string saveDirectory, long limit)
         {
             if (!CanStartSimulation)
-                throw new SimulationException(ERROR_MESSAGE_STARTING_SIMULATION + "Not all mandatory settings are set up correctly.");
+                throw new SimulationException(ERROR_MESSAGE_STARTING_SIMULATION + 
+                    "Not all mandatory settings are set up correctly. Check Intervalls!");
 
             if (!Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
                 throw new ArgumentException(ERROR_MESSAGE_STARTING_SIMULATION + "Could not create given directory!", "saveDirectory");
