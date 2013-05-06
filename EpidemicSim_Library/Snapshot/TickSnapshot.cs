@@ -9,7 +9,7 @@ namespace PSC2013.ES.Library.Snapshot
     /// </summary>
     public class TickSnapshot : IBinaryFile
     {
-        private const byte CONSTLENGTH = 17; // Header 1, Tick 8, countCells = 4, countDeaths = 4; => 17
+        private const byte CONSTLENGTH = 17; // Header 1, DoTick 8, countCells = 4, countDeaths = 4; => 17
 
         private const byte HEADER = 0x2;
         public DateTime Stamp { get; private set; }
@@ -21,7 +21,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <summary>
         /// Creates a new Snapshot
         /// </summary>
-        /// <param name="tick">The Tick, needed to sort 
+        /// <param name="tick">The DoTick, needed to sort 
         /// them later; only incremented</param>
         /// <param name="cells">The Cells during the tick</param>
         /// <param name="deaths">The dead humans since the last tick</param>
@@ -38,7 +38,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <summary>
         /// Initializes a new Snapshot from Runtime
         /// </summary>
-        /// <param name ="tick">Tick</param>
+        /// <param name ="tick">DoTick</param>
         /// <param name ="cells">Cells to be saved</param>
         /// <param name ="deaths">Dead Humans</param>
         /// <returns></returns>

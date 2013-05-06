@@ -179,7 +179,7 @@ namespace PSC2013.ES.Cmd
             for (int i = 0; i < 48; ++i)
             {
                 movecmp.PerformSimulationStage(data);
-                data.Tick();
+                data.DoTick(1);
             }
 
 

@@ -17,19 +17,27 @@ namespace PSC2013.ES.Library
 #if DEBUG
         private Stopwatch _watch = new Stopwatch();
 #endif
-
+        #region ### Private ###
         // Constants
-        private const string ERROR_STARTING_SIMULATION = "Could not start Simulation. ";
-        private const string ERROR_STOPPING_SIMULATION = "Could not stop Simulation. ";
+        private const string ERROR_MESSAGE_STARTING_SIMULATION = "Could not start Simulation. ";
+        private const string ERROR_MESSAGE_STOPPING_SIMULATION = "Could not stop Simulation. ";
         private const string ERROR_MESSAGE_SIMULATION_RUNNING = "A Simulation is already running!";
         private const string ERROR_MESSAGE_NO_SIMULATION_RUNNING = "No Simulation running!";
 
-        private const int SIMULATION_DEFAULT_START = 0x1;
-        private const int SIMULATION_DEFAULT_LIMIT = 0x0;
+        private const int SIMULATION_DEFAULT_START = 1;
+        private const int SIMULATION_DEFAULT_LIMIT = 0;
 
-        // Data
-        private SimulationData _simData;
+        private const int DEFAULT_SIMULATION_INTERVALL = 1;
+        private const int DEFAULT_SNAPSHOT_INTERVALL = 24;
+
+        // Simulation & Data
         private Task _simulation;
+        private SimulationData _simData;
+
+        // Simulation Settings
+        private int _simulationIntervall = DEFAULT_SIMULATION_INTERVALL;
+        private int _snapshotIntervall = DEFAULT_SNAPSHOT_INTERVALL;
+        private int _ticksPerSnapshot;
 
         // Managers
         private SnapshotManager _snapshotMgr;
@@ -45,11 +53,19 @@ namespace PSC2013.ES.Library
         private volatile bool _simulationLock;
         private long _simulationRound = SIMULATION_DEFAULT_START;
         private long _simulationLimit = SIMULATION_DEFAULT_LIMIT;
+        #endregion
 
+        #region ### Public ###
         // Properties
         public bool CanStartSimulation 
         {
-            get { return !_simulationLock && _infectionSimulator != null && _simData.IsValid; }
+            get 
+            { 
+                return !_simulationLock && 
+                _infectionSimulator != null &&
+                _snapshotIntervall % _simulationIntervall == 0 &&
+                _simData.IsValid; 
+            }
         }
         public bool IsSimulationg { get { return _simulationLock; } }
 
@@ -58,6 +74,7 @@ namespace PSC2013.ES.Library
         public event EventHandler<SimulationEventArgs> SimulationEnded;
         public event EventHandler<SimulationEventArgs> TickFinished;
         //TODO: |f| do we also want StageFinished ?
+        #endregion
 
         private EpidemicSimulator(Disease disease)
         {
@@ -129,6 +146,11 @@ namespace PSC2013.ES.Library
                     _after.Add(component);
         }
 
+        /// <summary>
+        /// Adds a new IOutputTarget to the Epidemic Simulator. Allowing it to write messages to
+        /// this Output during simulation
+        /// </summary>
+        /// <param name="target"></param>
         public void AddOutputTarget(IOutputTarget target)
         {
             if (_simulationLock)
@@ -141,8 +163,40 @@ namespace PSC2013.ES.Library
         }
 
         /// <summary>
-        /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to have an ISimulationComponent
-        /// set for the Infection calculation.
+        /// Sets a new intervall determining how many hours shall be calculated each tick.
+        /// Default is 1 (hour / tick).
+        /// </summary>
+        /// <param name="intervall">The new intervall to use. Must be greater than 1</param>
+        public void SetSimulationIntervall(int intervall)
+        {
+            if (_simulationLock)
+                throw new SimulationException("Could not set a new SimulationIntervall. " + ERROR_MESSAGE_SIMULATION_RUNNING);
+
+            if (intervall < 1)
+                throw new ArgumentOutOfRangeException("intervall", "The given intervall must be greater than 1.");
+
+            _simulationIntervall = intervall;
+        }
+
+        /// <summary>
+        /// Set a new intervall determining how often a Simulation Snapshot is taken (in hours).
+        /// Default is 24 (one each day assuming 1-hour-ticks).
+        /// </summary>
+        /// <param name="intervall">The new intervall to use. Must be a full multiple of SimulationIntervall.</param>
+        public void SetSnapshotIntervall(int intervall)
+        {
+            if (_simulationLock)
+                throw new SimulationException("Could not set a new SimulationIntervall. " + ERROR_MESSAGE_SIMULATION_RUNNING);
+
+            if (intervall < 1)
+                throw new ArgumentOutOfRangeException("intervall", "The given intervall must be greater than 1.");
+
+            _snapshotIntervall = intervall;
+        }
+
+        /// <summary>
+        /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to 
+        /// have an ISimulationComponent set for the Infection calculation.
         /// </summary>
         /// <param name="saveDirectory">The directory to save the snapshots in</param>
         public void StartSimulation(string saveDirectory)
@@ -151,23 +205,24 @@ namespace PSC2013.ES.Library
         }
 
         /// <summary>
-        /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to have an ISimulationComponent
-        /// set for the Infection calculation.
+        /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to 
+        /// have an ISimulationComponent set for the Infection calculation.
         /// </summary>
         /// <param name="saveDirectory">The directory to save the snapshots in</param>
         /// <param name="limit">The limit of simulation rounds to perform</param>
         public void StartSimulation(string saveDirectory, long limit)
         {
             if (!CanStartSimulation)
-                throw new SimulationException(ERROR_STARTING_SIMULATION + "Not all mandatory settings are set up correctly.");
+                throw new SimulationException(ERROR_MESSAGE_STARTING_SIMULATION + "Not all mandatory settings are set up correctly.");
 
             if (!Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
-                throw new ArgumentException(ERROR_STARTING_SIMULATION + "Could not create given directory!", "saveDirectory");
+                throw new ArgumentException(ERROR_MESSAGE_STARTING_SIMULATION + "Could not create given directory!", "saveDirectory");
 
             if (limit < 0)
-                throw new ArgumentException(ERROR_STARTING_SIMULATION + "Simulationround limit must be greater than 0!", "limit");
+                throw new ArgumentException(ERROR_MESSAGE_STARTING_SIMULATION + "Simulationround limit must be greater than 0!", "limit");
 
             _simulationLimit = limit;
+            _ticksPerSnapshot = _snapshotIntervall / _simulationIntervall;
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
@@ -183,7 +238,7 @@ namespace PSC2013.ES.Library
         public void StopSimulation()
         {
             if (!_simulationLock)
-                throw new SimulationException(ERROR_STOPPING_SIMULATION + ERROR_MESSAGE_NO_SIMULATION_RUNNING);
+                throw new SimulationException(ERROR_MESSAGE_STOPPING_SIMULATION + ERROR_MESSAGE_NO_SIMULATION_RUNNING);
 
             _simulationLock = false;
         }
@@ -209,14 +264,15 @@ namespace PSC2013.ES.Library
                     comp.PerformSimulationStage(_simData);
                 }
 
-                _simData.Tick();
-                _snapshotMgr.TakeSnapshot(_simData);
-                long round = Interlocked.Increment(ref _simulationRound);
-                _simulationLock = round != _simulationLimit;
+                _simData.DoTick(_simulationIntervall);
 
+                long round = Interlocked.Increment(ref _simulationRound);
+                if (round % _ticksPerSnapshot == 0)
+                    _snapshotMgr.TakeSnapshot(_simData);
+                _simulationLock = round != _simulationLimit;
 #if DEBUG
                 _watch.Stop();
-                Console.WriteLine("Tick took " + _watch.ElapsedMilliseconds + "ms!");
+                Console.WriteLine("DoTick took " + _watch.ElapsedMilliseconds + "ms!");
 #endif
                 OnTickFinished(new SimulationEventArgs() { SimulationRunning = true, SimulationRound = round });
             }
@@ -248,7 +304,7 @@ namespace PSC2013.ES.Library
         protected virtual void OnTickFinished(SimulationEventArgs e)
         {
 #if DEBUG
-            Console.WriteLine("ES: Finished Tick: " + _simulationRound + "!");
+            Console.WriteLine("ES: Finished DoTick: " + _simulationRound + "!");
 #endif
             TickFinished.Raise(this, e);
         }

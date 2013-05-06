@@ -96,10 +96,16 @@ namespace PSC2013.ES.Library.Simulation
             Deaths = newArray;
         }
 
-        public void Tick()
+        /// <summary>
+        /// Performs a Tick on the SimulationData.
+        /// </summary>
+        /// <param name="hourCount">A value determining how many hours pass in this tick.</param>
+        public void DoTick(int hourCount)
         {
-            //TODO: |f| consider adding tick timspan
-            _time = _time.AddHours(1);
+            if(hourCount < 1)
+                throw new ArgumentOutOfRangeException("hourCount", "The given hourCount must be greater than 1.");
+
+            _time = _time.AddHours(hourCount);
         }
     }
 }
