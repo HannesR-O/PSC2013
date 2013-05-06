@@ -6,6 +6,7 @@ using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics;
+using PSC2013.ES.Library.Statistics.Pictures;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -187,8 +188,19 @@ namespace PSC2013.ES.Cmd
 
         public static void TestStats()
         {
-            StatisticsManager manager = new StatisticsManager();
-            manager.OpenSimFile("C:\\Users\\Tobi\\Desktop\\Test_Disease.sim");
+            StatisticsManager manager = new StatisticsManager(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            Console.WriteLine("PLease enter the name of your .sim file:");
+            string file = Console.ReadLine();
+            manager.OpenSimFile("C:\\Users\\Tobi\\Desktop\\" + file + ".sim"); // Insert your .sim path here...
+            foreach (string s in manager.Entrys)
+            {
+                Console.WriteLine(s);
+            }
+            Console.WriteLine("Please type a File Name:");
+            string name = Console.ReadLine();
+
+            manager.LoadTickSnapshot(name);
+            manager.CreateGraphics(Library.Statistics.Pictures.StatField.FemaleSenior, ColorPalette.RED);
         }
     }
 }
