@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,16 +42,27 @@
             this.reviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSnapshotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSidePanel = new System.Windows.Forms.Panel();
-            this.MainSidePanel_bottom = new System.Windows.Forms.GroupBox();
             this.MainSidePanel_disease = new System.Windows.Forms.GroupBox();
+            this.MainSidePanel_bottom = new System.Windows.Forms.GroupBox();
             this.MainSidePanel_general = new System.Windows.Forms.GroupBox();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MainPanel_pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.lbl_simduration = new System.Windows.Forms.Label();
+            this.numField_simduration = new System.Windows.Forms.NumericUpDown();
+            this.numField_realtimetick = new System.Windows.Forms.NumericUpDown();
+            this.lbl_realtimetick = new System.Windows.Forms.Label();
+            this.numField_snapshotInterval = new System.Windows.Forms.NumericUpDown();
+            this.lbl_snapshotInterval = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.MainMenuStrip.SuspendLayout();
             this.MainSidePanel.SuspendLayout();
+            this.MainSidePanel_general.SuspendLayout();
             this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numField_simduration)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numField_realtimetick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numField_snapshotInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenuStrip
@@ -146,8 +158,8 @@
             // 
             // MainSidePanel
             // 
-            this.MainSidePanel.Controls.Add(this.MainSidePanel_bottom);
             this.MainSidePanel.Controls.Add(this.MainSidePanel_disease);
+            this.MainSidePanel.Controls.Add(this.MainSidePanel_bottom);
             this.MainSidePanel.Controls.Add(this.MainSidePanel_general);
             this.MainSidePanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.MainSidePanel.Location = new System.Drawing.Point(384, 24);
@@ -155,6 +167,16 @@
             this.MainSidePanel.Padding = new System.Windows.Forms.Padding(5);
             this.MainSidePanel.Size = new System.Drawing.Size(250, 538);
             this.MainSidePanel.TabIndex = 1;
+            // 
+            // MainSidePanel_disease
+            // 
+            this.MainSidePanel_disease.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainSidePanel_disease.Location = new System.Drawing.Point(5, 115);
+            this.MainSidePanel_disease.Name = "MainSidePanel_disease";
+            this.MainSidePanel_disease.Size = new System.Drawing.Size(240, 365);
+            this.MainSidePanel_disease.TabIndex = 3;
+            this.MainSidePanel_disease.TabStop = false;
+            this.MainSidePanel_disease.Text = "Disease";
             // 
             // MainSidePanel_bottom
             // 
@@ -165,22 +187,18 @@
             this.MainSidePanel_bottom.TabIndex = 2;
             this.MainSidePanel_bottom.TabStop = false;
             // 
-            // MainSidePanel_disease
-            // 
-            this.MainSidePanel_disease.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainSidePanel_disease.Location = new System.Drawing.Point(5, 155);
-            this.MainSidePanel_disease.Name = "MainSidePanel_disease";
-            this.MainSidePanel_disease.Size = new System.Drawing.Size(240, 378);
-            this.MainSidePanel_disease.TabIndex = 1;
-            this.MainSidePanel_disease.TabStop = false;
-            this.MainSidePanel_disease.Text = "Disease";
-            // 
             // MainSidePanel_general
             // 
+            this.MainSidePanel_general.Controls.Add(this.lbl_snapshotInterval);
+            this.MainSidePanel_general.Controls.Add(this.numField_snapshotInterval);
+            this.MainSidePanel_general.Controls.Add(this.lbl_realtimetick);
+            this.MainSidePanel_general.Controls.Add(this.numField_realtimetick);
+            this.MainSidePanel_general.Controls.Add(this.numField_simduration);
+            this.MainSidePanel_general.Controls.Add(this.lbl_simduration);
             this.MainSidePanel_general.Dock = System.Windows.Forms.DockStyle.Top;
             this.MainSidePanel_general.Location = new System.Drawing.Point(5, 5);
             this.MainSidePanel_general.Name = "MainSidePanel_general";
-            this.MainSidePanel_general.Size = new System.Drawing.Size(240, 150);
+            this.MainSidePanel_general.Size = new System.Drawing.Size(240, 110);
             this.MainSidePanel_general.TabIndex = 0;
             this.MainSidePanel_general.TabStop = false;
             this.MainSidePanel_general.Text = "General";
@@ -214,6 +232,103 @@
             this.openFileDialog.ShowReadOnly = true;
             this.openFileDialog.SupportMultiDottedExtensions = true;
             // 
+            // lbl_simduration
+            // 
+            this.lbl_simduration.AutoSize = true;
+            this.lbl_simduration.Location = new System.Drawing.Point(6, 25);
+            this.lbl_simduration.Name = "lbl_simduration";
+            this.lbl_simduration.Size = new System.Drawing.Size(99, 13);
+            this.lbl_simduration.TabIndex = 0;
+            this.lbl_simduration.Text = "Simulation duration:";
+            // 
+            // numField_simduration
+            // 
+            this.numField_simduration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numField_simduration.Location = new System.Drawing.Point(113, 23);
+            this.numField_simduration.Maximum = new decimal(new int[] {
+            0,
+            -2147483648,
+            0,
+            0});
+            this.numField_simduration.Name = "numField_simduration";
+            this.numField_simduration.Size = new System.Drawing.Size(120, 20);
+            this.numField_simduration.TabIndex = 1;
+            this.numField_simduration.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.numField_simduration, "The overall number of ticks, this simulation shall run.\r\n0 means infinite.");
+            this.numField_simduration.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numField_realtimetick
+            // 
+            this.numField_realtimetick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numField_realtimetick.Location = new System.Drawing.Point(113, 49);
+            this.numField_realtimetick.Maximum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            0});
+            this.numField_realtimetick.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numField_realtimetick.Name = "numField_realtimetick";
+            this.numField_realtimetick.Size = new System.Drawing.Size(120, 20);
+            this.numField_realtimetick.TabIndex = 2;
+            this.numField_realtimetick.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.numField_realtimetick, "The (realtime) duration a tick shall emulate.");
+            this.numField_realtimetick.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lbl_realtimetick
+            // 
+            this.lbl_realtimetick.AutoSize = true;
+            this.lbl_realtimetick.Location = new System.Drawing.Point(6, 51);
+            this.lbl_realtimetick.Name = "lbl_realtimetick";
+            this.lbl_realtimetick.Size = new System.Drawing.Size(88, 13);
+            this.lbl_realtimetick.TabIndex = 3;
+            this.lbl_realtimetick.Text = "Duration per tick:";
+            // 
+            // numField_snapshotInterval
+            // 
+            this.numField_snapshotInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numField_snapshotInterval.Location = new System.Drawing.Point(113, 75);
+            this.numField_snapshotInterval.Maximum = new decimal(new int[] {
+            0,
+            -2147483648,
+            0,
+            0});
+            this.numField_snapshotInterval.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numField_snapshotInterval.Name = "numField_snapshotInterval";
+            this.numField_snapshotInterval.Size = new System.Drawing.Size(120, 20);
+            this.numField_snapshotInterval.TabIndex = 4;
+            this.numField_snapshotInterval.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.numField_snapshotInterval, "The interval of taking a snapshot (in ticks)");
+            this.numField_snapshotInterval.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lbl_snapshotInterval
+            // 
+            this.lbl_snapshotInterval.AutoSize = true;
+            this.lbl_snapshotInterval.Location = new System.Drawing.Point(6, 77);
+            this.lbl_snapshotInterval.Name = "lbl_snapshotInterval";
+            this.lbl_snapshotInterval.Size = new System.Drawing.Size(89, 13);
+            this.lbl_snapshotInterval.TabIndex = 5;
+            this.lbl_snapshotInterval.Text = "Snapshot interval";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,14 +337,20 @@
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.MainSidePanel);
             this.Controls.Add(this.MainMenuStrip);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Epidemic Simulator";
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();
             this.MainSidePanel.ResumeLayout(false);
+            this.MainSidePanel_general.ResumeLayout(false);
+            this.MainSidePanel_general.PerformLayout();
             this.MainPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numField_simduration)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numField_realtimetick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numField_snapshotInterval)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,9 +374,16 @@
         private System.Windows.Forms.Panel MainPanel;
         private System.Windows.Forms.PictureBox MainPanel_pictureBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.GroupBox MainSidePanel_disease;
         private System.Windows.Forms.GroupBox MainSidePanel_general;
         private System.Windows.Forms.GroupBox MainSidePanel_bottom;
+        private System.Windows.Forms.GroupBox MainSidePanel_disease;
+        private System.Windows.Forms.NumericUpDown numField_simduration;
+        private System.Windows.Forms.Label lbl_simduration;
+        private System.Windows.Forms.Label lbl_realtimetick;
+        private System.Windows.Forms.NumericUpDown numField_realtimetick;
+        private System.Windows.Forms.Label lbl_snapshotInterval;
+        private System.Windows.Forms.NumericUpDown numField_snapshotInterval;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
 
