@@ -41,10 +41,14 @@
             this.reviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSnapshotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSidePanel = new System.Windows.Forms.Panel();
+            this.MainSidePanel_bottom = new System.Windows.Forms.GroupBox();
+            this.MainSidePanel_disease = new System.Windows.Forms.GroupBox();
+            this.MainSidePanel_general = new System.Windows.Forms.GroupBox();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MainPanel_pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.MainMenuStrip.SuspendLayout();
+            this.MainSidePanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +61,7 @@
             this.reviewToolStripMenuItem});
             this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip.Name = "MainMenuStrip";
-            this.MainMenuStrip.Size = new System.Drawing.Size(484, 24);
+            this.MainMenuStrip.Size = new System.Drawing.Size(634, 24);
             this.MainMenuStrip.TabIndex = 0;
             // 
             // fileToolStripMenuItem
@@ -78,7 +82,7 @@
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
             this.openFileToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.openFileToolStripMenuItem.Text = "Open .dep...";
-            this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openDepMap_Click);
+            this.openFileToolStripMenuItem.Click += new System.EventHandler(this.OpenDepMap_Click);
             // 
             // importToolStripMenuItem
             // 
@@ -109,6 +113,7 @@
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.Exit_Click);
             // 
             // createToolStripMenuItem
             // 
@@ -123,7 +128,7 @@
             this.createNewSimulationToolStripMenuItem.Name = "createNewSimulationToolStripMenuItem";
             this.createNewSimulationToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.createNewSimulationToolStripMenuItem.Text = "Create new simulation...";
-            this.createNewSimulationToolStripMenuItem.Click += new System.EventHandler(this.openDepMap_Click);
+            this.createNewSimulationToolStripMenuItem.Click += new System.EventHandler(this.OpenDepMap_Click);
             // 
             // reviewToolStripMenuItem
             // 
@@ -141,11 +146,44 @@
             // 
             // MainSidePanel
             // 
+            this.MainSidePanel.Controls.Add(this.MainSidePanel_bottom);
+            this.MainSidePanel.Controls.Add(this.MainSidePanel_disease);
+            this.MainSidePanel.Controls.Add(this.MainSidePanel_general);
             this.MainSidePanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MainSidePanel.Location = new System.Drawing.Point(284, 24);
+            this.MainSidePanel.Location = new System.Drawing.Point(384, 24);
             this.MainSidePanel.Name = "MainSidePanel";
-            this.MainSidePanel.Size = new System.Drawing.Size(200, 438);
+            this.MainSidePanel.Padding = new System.Windows.Forms.Padding(5);
+            this.MainSidePanel.Size = new System.Drawing.Size(250, 538);
             this.MainSidePanel.TabIndex = 1;
+            // 
+            // MainSidePanel_bottom
+            // 
+            this.MainSidePanel_bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.MainSidePanel_bottom.Location = new System.Drawing.Point(5, 480);
+            this.MainSidePanel_bottom.Name = "MainSidePanel_bottom";
+            this.MainSidePanel_bottom.Size = new System.Drawing.Size(240, 53);
+            this.MainSidePanel_bottom.TabIndex = 2;
+            this.MainSidePanel_bottom.TabStop = false;
+            // 
+            // MainSidePanel_disease
+            // 
+            this.MainSidePanel_disease.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainSidePanel_disease.Location = new System.Drawing.Point(5, 155);
+            this.MainSidePanel_disease.Name = "MainSidePanel_disease";
+            this.MainSidePanel_disease.Size = new System.Drawing.Size(240, 378);
+            this.MainSidePanel_disease.TabIndex = 1;
+            this.MainSidePanel_disease.TabStop = false;
+            this.MainSidePanel_disease.Text = "Disease";
+            // 
+            // MainSidePanel_general
+            // 
+            this.MainSidePanel_general.Dock = System.Windows.Forms.DockStyle.Top;
+            this.MainSidePanel_general.Location = new System.Drawing.Point(5, 5);
+            this.MainSidePanel_general.Name = "MainSidePanel_general";
+            this.MainSidePanel_general.Size = new System.Drawing.Size(240, 150);
+            this.MainSidePanel_general.TabIndex = 0;
+            this.MainSidePanel_general.TabStop = false;
+            this.MainSidePanel_general.Text = "General";
             // 
             // MainPanel
             // 
@@ -153,15 +191,18 @@
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel.Location = new System.Drawing.Point(0, 24);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(284, 438);
+            this.MainPanel.Padding = new System.Windows.Forms.Padding(5);
+            this.MainPanel.Size = new System.Drawing.Size(384, 538);
             this.MainPanel.TabIndex = 2;
             // 
             // MainPanel_pictureBox
             // 
+            this.MainPanel_pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MainPanel_pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel_pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.MainPanel_pictureBox.Location = new System.Drawing.Point(5, 5);
             this.MainPanel_pictureBox.Name = "MainPanel_pictureBox";
-            this.MainPanel_pictureBox.Size = new System.Drawing.Size(284, 438);
+            this.MainPanel_pictureBox.Size = new System.Drawing.Size(374, 528);
+            this.MainPanel_pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.MainPanel_pictureBox.TabIndex = 0;
             this.MainPanel_pictureBox.TabStop = false;
             this.MainPanel_pictureBox.WaitOnLoad = true;
@@ -177,7 +218,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 462);
+            this.ClientSize = new System.Drawing.Size(634, 562);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.MainSidePanel);
             this.Controls.Add(this.MainMenuStrip);
@@ -186,6 +227,7 @@
             this.Text = "Epidemic Simulator";
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();
+            this.MainSidePanel.ResumeLayout(false);
             this.MainPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).EndInit();
             this.ResumeLayout(false);
@@ -211,6 +253,9 @@
         private System.Windows.Forms.Panel MainPanel;
         private System.Windows.Forms.PictureBox MainPanel_pictureBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.GroupBox MainSidePanel_disease;
+        private System.Windows.Forms.GroupBox MainSidePanel_general;
+        private System.Windows.Forms.GroupBox MainSidePanel_bottom;
     }
 }
 

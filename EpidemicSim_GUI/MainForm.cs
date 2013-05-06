@@ -29,16 +29,21 @@ namespace PSC2013.ES.GUI
                 string filepath = openFileDialog.FileName;
                 DepartmentMapReader reader = new DepartmentMapReader(filepath);
                 Image img = reader.ReadImage();
-                // TODO | dj | now do something...
+                MainPanel_pictureBox.Image = img;
                 Console.WriteLine("done - " + img);
             }
         }
 
         // == EVENTS ====== \\
 
-        private void openDepMap_Click(object sender, EventArgs e)
+        private void OpenDepMap_Click(object sender, EventArgs e)
         {
             OpenDepMap();
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

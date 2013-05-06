@@ -61,6 +61,8 @@ namespace PSC2013.ES.Library.IO.Readers
                     depInfList.Add(depInf);
                 }
             }
+            stream.Close();
+            archive.Dispose();
             return depInfList.ToArray();
         }
 
@@ -71,10 +73,13 @@ namespace PSC2013.ES.Library.IO.Readers
         public Image ReadImage()
         {
             ZipArchive archive = ZipFile.OpenRead(Path);
+            Image img;
             using (var stream = archive.GetEntry("image").Open())
             {
-                return Image.FromStream(stream);
+                img = Image.FromStream(stream);
             }
+            archive.Dispose();
+            return img;
         }
     }
 }
