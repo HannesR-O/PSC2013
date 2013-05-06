@@ -41,12 +41,14 @@ namespace PSC2013.ES.Library.Statistics
             byte[] b = mem2.ToArray();
 
             TickSnapshot t = TickSnapshot.InitializeFromFile(b);
+            _creator = new MapCreator("C:\\Users\\Tobi\\Desktop");
+            CreateGraphics(t);
             Console.ReadKey();
         }
 
         public void CreateGraphics(TickSnapshot snapshot)
         {
-            _creator.GetMaleMap(snapshot, ColorPalette.RED);
+            _creator.GetMaleAdultMap(snapshot, ColorPalette.RED);
         }
     }
 }
