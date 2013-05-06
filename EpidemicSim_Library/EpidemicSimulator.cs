@@ -32,7 +32,7 @@ namespace PSC2013.ES.Library
 
         // Simulation & Data
         private Task _simulation;
-        private SimulationData _simData;
+        private readonly SimulationData _simData;
 
         // Simulation Settings
         private int _simulationIntervall = DEFAULT_SIMULATION_INTERVALL;
@@ -40,11 +40,11 @@ namespace PSC2013.ES.Library
         private int _ticksPerSnapshot;
 
         // Managers
-        private SnapshotManager _snapshotMgr;
+        private readonly SnapshotManager _snapshotMgr;
 
         // ISimulationComponents
         private ISimulationComponent _infectionSimulator;
-        private IList<ISimulationComponent> _before, _after;
+        private readonly IList<ISimulationComponent> _before, _after;
 
         // ISimulationOutputTargets
         private IList<IOutputTarget> _outputTargets; 
@@ -78,7 +78,7 @@ namespace PSC2013.ES.Library
 
         private EpidemicSimulator(Disease disease)
         {
-            _simData = new SimulationData {CurrentDisease = disease};
+            _simData = new SimulationData { CurrentDisease = disease };
 
             _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
 
