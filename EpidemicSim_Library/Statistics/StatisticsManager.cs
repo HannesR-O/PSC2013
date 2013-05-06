@@ -1,8 +1,10 @@
 ﻿using System;
-using PSC2013.ES.Library.Snapshot;
-using PSC2013.ES.Library.Statistics.Pictures;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
+using PSC2013.ES.Library.Snapshot;
+using PSC2013.ES.Library.Statistics.Pictures;
+using PSC2013.ES.Library.IO.Readers;
 
 namespace PSC2013.ES.Library.Statistics
 {
@@ -12,7 +14,7 @@ namespace PSC2013.ES.Library.Statistics
     public class StatisticsManager
     {
         private SimulationInfo _simInfo;
-        private TickSnapshot[] _snapshots;
+        private TickSnapshot _current;
 
         private MapCreator _creator;
 
@@ -23,32 +25,24 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="path">The path where the file is located</param>
         public void OpenSimFile(string path)
         {
+            _creator = new MapCreator("C:\\Users\\Tobi\\Desktop");
             ZipArchive archive = ZipFile.Open(path, ZipArchiveMode.Read);
 
-            ZipArchiveEntry head = archive.GetEntry("header");
-            var stream = head.Open(); // |t| Please kill it with fire!!
-            var mem = new MemoryStream();
-            stream.CopyTo(mem);
-            byte[] a = mem.ToArray();
+            byte[] file = ArchiveReader.ToByteArray(archive.GetEntry("head"));
 
-            _simInfo = SimulationInfo.InitializeFromFile(a);
-            Console.WriteLine(_simInfo.Disease.Name);
-
-            ZipArchiveEntry snap = archive.GetEntry("2_[21-18-49]");
-            var stream2 = snap.Open(); // |t| Please kill it with fire!!
-            var mem2 = new MemoryStream();
-            stream2.CopyTo(mem2);
-            byte[] b = mem2.ToArray();
-
-            TickSnapshot t = TickSnapshot.InitializeFromFile(b);
-            _creator = new MapCreator("C:\\Users\\Tobi\\Desktop");
-            CreateGraphics(t);
-            Console.ReadKey();
+            _simInfo = SimulationInfo.InitializeFromFile(file);
         }
 
-        public void CreateGraphics(TickSnapshot snapshot)
+        public void LoadTickSnapshot(ZipArchiveEntry entry)
         {
-            _creator.GetMaleAdultMap(snapshot, ColorPalette.RED);
+            byte[] temp = ArchiveReader.ToByteArray(entry);
+
+            TickSnapshot t = TickSnapshot.InitializeFromFile(temp);
+        }
+
+        public void CreateGraphics(StatField field, Color[] colors)
+        {
+            _creator.GetMap(_current, field,  colors);
         }
     }
 }

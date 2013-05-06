@@ -17,12 +17,12 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             _target = path;
         }
 
-        public void GetMaleAdultMap(TickSnapshot snapshot, Color[] palette)
+        public void GetMap(TickSnapshot snapshot, StatField field, Color[] palette)
         {
             Bitmap map = new Bitmap(X, Y);
-            int max = snapshot.Cells.Max(x => x.Values[1]);
+            int max = snapshot.Cells.Max(x => x.Values[(int)field]);
             Console.WriteLine(max);
-            int min = snapshot.Cells.Min(x => x.Values[1]);
+            int min = snapshot.Cells.Min(x => x.Values[(int)field]);
             Console.WriteLine(min);
 
             int[] steps = new int[10];
@@ -39,32 +39,33 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
+                int count = cell.Values[(int)field];
                 Point p = ExtensionMethods.DeFlatten(cell.Position, X);
-                if (cell.Values[1] == 0)
+                if (count == 0)
                     map.SetPixel(p.X, p.Y, Color.Black);
-                else if (cell.Values[1] <= steps[9])
+                else if (count <= steps[9])
                     map.SetPixel(p.X, p.Y, palette[9]);
-                else if (cell.Values[1] <= steps[8])
+                else if (count <= steps[8])
                     map.SetPixel(p.X, p.Y, palette[8]);
-                else if (cell.Values[1] <= steps[7])
+                else if (count <= steps[7])
                     map.SetPixel(p.X, p.Y, palette[7]);
-                else if (cell.Values[1] <= steps[6])
+                else if (count <= steps[6])
                     map.SetPixel(p.X, p.Y, palette[6]);
-                else if (cell.Values[1] <= steps[5])
+                else if (count <= steps[5])
                     map.SetPixel(p.X, p.Y, palette[5]);
-                else if (cell.Values[1] <= steps[4])
+                else if (count <= steps[4])
                     map.SetPixel(p.X, p.Y, palette[4]);
-                else if (cell.Values[1] <= steps[3])
+                else if (count <= steps[3])
                     map.SetPixel(p.X, p.Y, palette[3]);
-                else if (cell.Values[1] <= steps[2])
+                else if (count <= steps[2])
                     map.SetPixel(p.X, p.Y, palette[2]);
-                else if (cell.Values[1] <= steps[1])
+                else if (count <= steps[1])
                     map.SetPixel(p.X, p.Y, palette[1]);
-                else if (cell.Values[1] <= steps[0])
+                else if (count <= steps[0])
                     map.SetPixel(p.X, p.Y, palette[0]);
             }
 
-            map.Save(_target + "/Childmap.bmp", System.Drawing.Imaging.ImageFormat.Png);
+            map.Save(_target + "/map2.png", System.Drawing.Imaging.ImageFormat.Png);
         }
     }
 }

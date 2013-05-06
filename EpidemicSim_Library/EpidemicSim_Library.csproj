@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\IOutputTarget.cs" />
+    <Compile Include="IO\Readers\ArchiveReader.cs" />
     <Compile Include="IO\Readers\DepartmentMapReader.cs" />
     <Compile Include="IO\Writers\ArchiveBinaryWriter.cs" />
     <Compile Include="Simulation\Components\AgeingSimulationComponent.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Snapshot\SnapshotManager.cs" />
     <Compile Include="Statistics\Pictures\ColorPalette.cs" />
     <Compile Include="Statistics\Pictures\MapCreator.cs" />
+    <Compile Include="Statistics\Pictures\StatField.cs" />
     <Compile Include="Statistics\StatisticsManager.cs" />
   </ItemGroup>
   <ItemGroup>

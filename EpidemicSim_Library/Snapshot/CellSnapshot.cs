@@ -15,18 +15,19 @@ namespace PSC2013.ES.Library.Snapshot
 
         public ushort[] Values { get; private set; }
 
-        //public ushort Infected { get; private set; } // Count of infected humans in this cell
-        //public ushort Diseased { get; private set; } // Count of diseased humans in this cell
+        //[0] Males Baby
+        //[1] Males Child
+        //[2] Males Adult
+        //[3] Males Senior
 
-        //public ushort CountMaleBaby { get; private set; } // Males Baby
-        //public ushort CountMaleChild { get; private set; } // Males Child
-        //public ushort CountMaleAdult { get; private set; } // Males Adult
-        //public ushort CountMaleSenior { get; private set; } // Males Senior
+        //[4] Females Baby
+        //[5] Females Child
+        //[6] Females Adult
+        //[7] Females Senior   
 
-        //public ushort CountFemaleBaby { get; private set; } // Females Baby
-        //public ushort CountFemaleChild { get; private set; } // Females Child
-        //public ushort CountFemaleAdult { get; private set; } // Females Adult
-        //public ushort CountFemaleSenior { get; private set; } // Females Senior      
+        //[8] Count of infected humans in this cell
+        //[9] Count of diseased humans in this cell
+   
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
