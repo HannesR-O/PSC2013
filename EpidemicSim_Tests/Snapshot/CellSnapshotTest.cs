@@ -53,17 +53,17 @@ namespace PSC2013.ES.Tests.Snapshot
         {
             InitCell();
             CellSnapshot cell = CellSnapshot.InitializeFromRuntime(_infosRuntime, 15654);
-            Assert.Equal(cell.CountMaleBaby, 12);
-            Assert.Equal(cell.CountMaleChild, 12);
-            Assert.Equal(cell.CountMaleAdult, 12);
-            Assert.Equal(cell.CountMaleSenior, 12);
-            Assert.Equal(cell.CountFemaleBaby, 12);
-            Assert.Equal(cell.CountFemaleChild, 12);
-            Assert.Equal(cell.CountFemaleAdult, 12);
-            Assert.Equal(cell.CountFemaleSenior, 12);
+            Assert.Equal(cell.Values[0], 12);
+            Assert.Equal(cell.Values[1], 12);
+            Assert.Equal(cell.Values[2], 12);
+            Assert.Equal(cell.Values[3], 12);
+            Assert.Equal(cell.Values[4], 12);
+            Assert.Equal(cell.Values[5], 12);
+            Assert.Equal(cell.Values[6], 12);
+            Assert.Equal(cell.Values[7], 12);
             Assert.Equal(cell.Position, 15654);
-            Assert.Equal(cell.Diseased, 12);
-            Assert.Equal(cell.Infected, 12);
+            Assert.Equal(cell.Values[8], 12);
+            Assert.Equal(cell.Values[9], 12);
         }
 
         [Fact]
@@ -71,17 +71,17 @@ namespace PSC2013.ES.Tests.Snapshot
         {
             InitBytes();
             CellSnapshot cell = CellSnapshot.InitializeFromFile(_infosBytes);
-            Assert.Equal(cell.CountMaleBaby, 12);
-            Assert.Equal(cell.CountMaleChild, 12);
-            Assert.Equal(cell.CountMaleAdult, 12);
-            Assert.Equal(cell.CountMaleSenior, 12);
-            Assert.Equal(cell.CountFemaleBaby, 12);
-            Assert.Equal(cell.CountFemaleChild, 12);
-            Assert.Equal(cell.CountFemaleAdult, 12);
-            Assert.Equal(cell.CountFemaleSenior, 12);
+            Assert.Equal(cell.Values[0], 12);
+            Assert.Equal(cell.Values[1], 12);
+            Assert.Equal(cell.Values[2], 12);
+            Assert.Equal(cell.Values[3], 12);
+            Assert.Equal(cell.Values[4], 12);
+            Assert.Equal(cell.Values[5], 12);
+            Assert.Equal(cell.Values[6], 12);
+            Assert.Equal(cell.Values[7], 12);
             Assert.Equal(cell.Position, 15654);
-            Assert.Equal(cell.Diseased, 12);
-            Assert.Equal(cell.Infected, 12);
+            Assert.Equal(cell.Values[8], 12);
+            Assert.Equal(cell.Values[9], 12);
         }
 
         [Fact]

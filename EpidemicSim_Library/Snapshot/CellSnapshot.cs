@@ -13,18 +13,20 @@ namespace PSC2013.ES.Library.Snapshot
 
         public int Position { get; private set; } // Position in Array (If 1-dimensional)    
 
-        public ushort Infected { get; private set; } // Count of infected humans in this cell
-        public ushort Diseased { get; private set; } // Count of diseased humans in this cell
+        public ushort[] Values { get; private set; }
 
-        public ushort CountMaleBaby { get; private set; } // Males Baby
-        public ushort CountMaleChild { get; private set; } // Males Child
-        public ushort CountMaleAdult { get; private set; } // Males Adult
-        public ushort CountMaleSenior { get; private set; } // Males Senior
+        //public ushort Infected { get; private set; } // Count of infected humans in this cell
+        //public ushort Diseased { get; private set; } // Count of diseased humans in this cell
 
-        public ushort CountFemaleBaby { get; private set; } // Females Baby
-        public ushort CountFemaleChild { get; private set; } // Females Child
-        public ushort CountFemaleAdult { get; private set; } // Females Adult
-        public ushort CountFemaleSenior { get; private set; } // Females Senior      
+        //public ushort CountMaleBaby { get; private set; } // Males Baby
+        //public ushort CountMaleChild { get; private set; } // Males Child
+        //public ushort CountMaleAdult { get; private set; } // Males Adult
+        //public ushort CountMaleSenior { get; private set; } // Males Senior
+
+        //public ushort CountFemaleBaby { get; private set; } // Females Baby
+        //public ushort CountFemaleChild { get; private set; } // Females Child
+        //public ushort CountFemaleAdult { get; private set; } // Females Adult
+        //public ushort CountFemaleSenior { get; private set; } // Females Senior      
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
@@ -33,18 +35,19 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="position">The position of the Cell</param>
         private CellSnapshot(ushort[] infos, int position)
         {
-            CountMaleBaby = infos[0];
-            CountMaleChild = infos[1];
-            CountMaleAdult = infos[2];
-            CountMaleSenior = infos[3];
+            Values = new ushort[10];
+            Values[0] = infos[0];
+            Values[1] = infos[1];
+            Values[2] = infos[2];
+            Values[3] = infos[3];
 
-            CountFemaleBaby = infos[4];
-            CountFemaleChild = infos[5];
-            CountFemaleAdult = infos[6];
-            CountFemaleSenior = infos[7];
+            Values[4] = infos[4];
+            Values[5] = infos[5];
+            Values[6] = infos[6];
+            Values[7] = infos[7];
 
-            Infected = infos[8];
-            Diseased = infos[9];
+            Values[8] = infos[8];
+            Values[9] = infos[9];
 
             Position = position;
         }
@@ -105,17 +108,17 @@ namespace PSC2013.ES.Library.Snapshot
         {
             byte[] output = new byte[LENGTH];
 
-            Array.Copy(BitConverter.GetBytes(CountMaleBaby), 0, output, 0, 2);
-            Array.Copy(BitConverter.GetBytes(CountMaleChild), 0, output, 2, 2);
-            Array.Copy(BitConverter.GetBytes(CountMaleAdult), 0, output, 4, 2);
-            Array.Copy(BitConverter.GetBytes(CountMaleSenior), 0, output, 6, 2);
-            Array.Copy(BitConverter.GetBytes(CountFemaleBaby), 0, output, 8, 2);
-            Array.Copy(BitConverter.GetBytes(CountFemaleChild), 0, output, 10, 2);
-            Array.Copy(BitConverter.GetBytes(CountFemaleAdult), 0, output, 12, 2);
-            Array.Copy(BitConverter.GetBytes(CountFemaleSenior), 0, output, 14, 2);
+            Array.Copy(BitConverter.GetBytes(Values[0]), 0, output, 0, 2);
+            Array.Copy(BitConverter.GetBytes(Values[1]), 0, output, 2, 2);
+            Array.Copy(BitConverter.GetBytes(Values[2]), 0, output, 4, 2);
+            Array.Copy(BitConverter.GetBytes(Values[3]), 0, output, 6, 2);
+            Array.Copy(BitConverter.GetBytes(Values[4]), 0, output, 8, 2);
+            Array.Copy(BitConverter.GetBytes(Values[5]), 0, output, 10, 2);
+            Array.Copy(BitConverter.GetBytes(Values[6]), 0, output, 12, 2);
+            Array.Copy(BitConverter.GetBytes(Values[7]), 0, output, 14, 2);
             Array.Copy(BitConverter.GetBytes(Position), 0, output, 16, 4);
-            Array.Copy(BitConverter.GetBytes(Infected), 0, output, 20, 2);
-            Array.Copy(BitConverter.GetBytes(Diseased), 0, output, 22, 2);
+            Array.Copy(BitConverter.GetBytes(Values[8]), 0, output, 20, 2);
+            Array.Copy(BitConverter.GetBytes(Values[9]), 0, output, 22, 2);
 
             return output;
         }
