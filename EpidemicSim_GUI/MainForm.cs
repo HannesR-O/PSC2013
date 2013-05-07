@@ -45,5 +45,15 @@ namespace PSC2013.ES.GUI
         {
             this.Dispose();
         }
+
+        private void btn_mortality_Click(object sender, EventArgs e)
+        {
+            var dialog = new FactorContainerForm("Mortality-Rate");
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Console.WriteLine("YEP");
+            }
+        }
     }
 }

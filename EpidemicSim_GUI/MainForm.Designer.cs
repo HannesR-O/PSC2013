@@ -39,6 +39,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewSimulationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.importDiseaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportDiseaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSnapshotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSidePanel = new System.Windows.Forms.Panel();
@@ -74,9 +77,6 @@
             this.MainPanel_pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.importDiseaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportDiseaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
             this.MainSidePanel.SuspendLayout();
             this.MainSidePanel_disease.SuspendLayout();
@@ -174,6 +174,23 @@
             this.createNewSimulationToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.createNewSimulationToolStripMenuItem.Text = "Create new simulation...";
             this.createNewSimulationToolStripMenuItem.Click += new System.EventHandler(this.OpenDepMap_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(198, 6);
+            // 
+            // importDiseaseToolStripMenuItem
+            // 
+            this.importDiseaseToolStripMenuItem.Name = "importDiseaseToolStripMenuItem";
+            this.importDiseaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.importDiseaseToolStripMenuItem.Text = "Import disease...";
+            // 
+            // exportDiseaseToolStripMenuItem
+            // 
+            this.exportDiseaseToolStripMenuItem.Name = "exportDiseaseToolStripMenuItem";
+            this.exportDiseaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.exportDiseaseToolStripMenuItem.Text = "Export disease...";
             // 
             // reviewToolStripMenuItem
             // 
@@ -311,6 +328,7 @@
             this.btn_mortality.Text = "Set data...";
             this.toolTip.SetToolTip(this.btn_mortality, "Specify the rate of mortality for each age- and gender-group.");
             this.btn_mortality.UseVisualStyleBackColor = true;
+            this.btn_mortality.Click += new System.EventHandler(this.btn_mortality_Click);
             // 
             // lbl_transferability
             // 
@@ -587,23 +605,6 @@
             this.openFileDialog.RestoreDirectory = true;
             this.openFileDialog.ShowReadOnly = true;
             this.openFileDialog.SupportMultiDottedExtensions = true;
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(198, 6);
-            // 
-            // importDiseaseToolStripMenuItem
-            // 
-            this.importDiseaseToolStripMenuItem.Name = "importDiseaseToolStripMenuItem";
-            this.importDiseaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.importDiseaseToolStripMenuItem.Text = "Import disease...";
-            // 
-            // exportDiseaseToolStripMenuItem
-            // 
-            this.exportDiseaseToolStripMenuItem.Name = "exportDiseaseToolStripMenuItem";
-            this.exportDiseaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.exportDiseaseToolStripMenuItem.Text = "Export disease...";
             // 
             // MainForm
             // 
