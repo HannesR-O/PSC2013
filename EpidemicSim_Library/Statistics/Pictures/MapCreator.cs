@@ -27,7 +27,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="snapshot">The Snapshot to be mapped</param>
         /// <param name="field">The Field to be visualised</param>
         /// <param name="palette">The Color Palette to be used</param>
-        public void GetMap(TickSnapshot snapshot, StatField field, Color[] palette)
+        public void GetMap(TickSnapshot snapshot, EStatField field, Color[] palette)
         {
             Bitmap map = new Bitmap(X, Y);
             int max = snapshot.Cells.Max(x => x.Values[(int)field]);

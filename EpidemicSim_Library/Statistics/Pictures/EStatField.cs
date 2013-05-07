@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Statistics.Pictures
 {
-    public enum StatField : int
+    /// <summary>
+    /// Enmum for classifing which field should be selected
+    /// </summary>
+    public enum EStatField : int
     {
         MaleBaby = 0, 
         MaleChild = 1, 

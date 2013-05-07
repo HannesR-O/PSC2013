@@ -62,7 +62,7 @@ namespace PSC2013.ES.Library.Statistics
             _currentSnapshot = TickSnapshot.InitializeFromFile(temp);
         }
 
-        public void CreateGraphics(StatField field, Color[] colors)
+        public void CreateGraphics(EStatField field, Color[] colors)
         {
             if (_currentArchive != null)
             {

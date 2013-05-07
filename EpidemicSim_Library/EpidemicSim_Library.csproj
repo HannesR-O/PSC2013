@@ -83,7 +83,7 @@
     <Compile Include="Snapshot\SnapshotManager.cs" />
     <Compile Include="Statistics\Pictures\ColorPalette.cs" />
     <Compile Include="Statistics\Pictures\MapCreator.cs" />
-    <Compile Include="Statistics\Pictures\StatField.cs" />
+    <Compile Include="Statistics\Pictures\EStatField.cs" />
     <Compile Include="Statistics\StatisticsManager.cs" />
   </ItemGroup>
   <ItemGroup>
