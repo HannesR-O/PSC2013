@@ -72,7 +72,7 @@ namespace PSC2013.ES.Library.Diseases
             if (data.Length != 8)
                 throw new ArgumentException(
                     "The argument has to be an Integer-Array of length '8'",
-                    "args");
+                    "data");
 
             _data = new int[8];
 

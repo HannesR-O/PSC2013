@@ -77,6 +77,7 @@
             this.MainPanel_pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.MainPanel_grpBox = new System.Windows.Forms.GroupBox();
             this.MainMenuStrip.SuspendLayout();
             this.MainSidePanel.SuspendLayout();
             this.MainSidePanel_disease.SuspendLayout();
@@ -91,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numField_simduration)).BeginInit();
             this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).BeginInit();
+            this.MainPanel_grpBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenuStrip
@@ -287,6 +289,7 @@
             this.btn_resistance.Text = "Set data...";
             this.toolTip.SetToolTip(this.btn_resistance, "Specify the rate of resistance for each age- and gender-group.");
             this.btn_resistance.UseVisualStyleBackColor = true;
+            this.btn_resistance.Click += new System.EventHandler(this.btn_resistance_Click);
             // 
             // lbl_healing
             // 
@@ -308,6 +311,7 @@
             this.btn_healing.Text = "Set data...";
             this.toolTip.SetToolTip(this.btn_healing, "Specify the rate of healing for each age- and gender-group.");
             this.btn_healing.UseVisualStyleBackColor = true;
+            this.btn_healing.Click += new System.EventHandler(this.btn_healing_Click);
             // 
             // lbl_mortality
             // 
@@ -355,6 +359,7 @@
             this.numField_transferability.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.numField_transferability, "The percentage of the disease infecting someone.\r\n(e.g.: per air will be a greate" +
         "r value than per direct contact.)");
+            this.numField_transferability.ValueChanged += new System.EventHandler(this.numField_Int_ValueChanged);
             // 
             // lbl_spreading
             // 
@@ -381,6 +386,7 @@
             this.numField_spreading.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.numField_spreading, "The hours the subject spreads the disease.\r\nThis effect will start when the idle-" +
         "time is over.");
+            this.numField_spreading.ValueChanged += new System.EventHandler(this.numField_Int_ValueChanged);
             // 
             // lbl_idle
             // 
@@ -406,6 +412,7 @@
             this.numField_idle.TabIndex = 7;
             this.numField_idle.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.numField_idle, "The hours the incubation lasts.");
+            this.numField_idle.ValueChanged += new System.EventHandler(this.numField_Int_ValueChanged);
             // 
             // lbl_incubationperiod
             // 
@@ -430,6 +437,7 @@
             this.numField_incubationperiod.TabIndex = 5;
             this.numField_incubationperiod.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.numField_incubationperiod, "The hours the incubation lasts.");
+            this.numField_incubationperiod.ValueChanged += new System.EventHandler(this.numField_Int_ValueChanged);
             // 
             // txBox_name
             // 
@@ -438,6 +446,7 @@
             this.txBox_name.Size = new System.Drawing.Size(120, 20);
             this.txBox_name.TabIndex = 1;
             this.toolTip.SetToolTip(this.txBox_name, "The disease\'s name.");
+            this.txBox_name.TextChanged += new System.EventHandler(this.txBox_name_TextChanged);
             // 
             // lbl_name
             // 
@@ -468,6 +477,7 @@
             this.btn_start_sim.Text = "Start simulation...";
             this.toolTip.SetToolTip(this.btn_start_sim, "Start the simulation.\r\nThis might consume time, RAM, CPU and memory-capacities.");
             this.btn_start_sim.UseVisualStyleBackColor = true;
+            this.btn_start_sim.Click += new System.EventHandler(this.btn_start_sim_Click);
             // 
             // MainSidePanel_general
             // 
@@ -552,6 +562,7 @@
             0,
             0,
             0});
+            this.numField_realtimetick.ValueChanged += new System.EventHandler(this.numField_Int_ValueChanged);
             // 
             // numField_simduration
             // 
@@ -567,6 +578,7 @@
             this.numField_simduration.TabIndex = 1;
             this.numField_simduration.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.numField_simduration, "The overall number of ticks, this simulation shall run.\r\n0 means infinite.");
+            this.numField_simduration.ValueChanged += new System.EventHandler(this.numField_long_ValueChanged);
             // 
             // lbl_simduration
             // 
@@ -579,7 +591,7 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.Controls.Add(this.MainPanel_pictureBox);
+            this.MainPanel.Controls.Add(this.MainPanel_grpBox);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel.Location = new System.Drawing.Point(0, 24);
             this.MainPanel.Name = "MainPanel";
@@ -589,11 +601,10 @@
             // 
             // MainPanel_pictureBox
             // 
-            this.MainPanel_pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MainPanel_pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel_pictureBox.Location = new System.Drawing.Point(5, 5);
+            this.MainPanel_pictureBox.Location = new System.Drawing.Point(3, 16);
             this.MainPanel_pictureBox.Name = "MainPanel_pictureBox";
-            this.MainPanel_pictureBox.Size = new System.Drawing.Size(374, 528);
+            this.MainPanel_pictureBox.Size = new System.Drawing.Size(368, 509);
             this.MainPanel_pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.MainPanel_pictureBox.TabIndex = 0;
             this.MainPanel_pictureBox.TabStop = false;
@@ -605,6 +616,17 @@
             this.openFileDialog.RestoreDirectory = true;
             this.openFileDialog.ShowReadOnly = true;
             this.openFileDialog.SupportMultiDottedExtensions = true;
+            // 
+            // MainPanel_grpBox
+            // 
+            this.MainPanel_grpBox.Controls.Add(this.MainPanel_pictureBox);
+            this.MainPanel_grpBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPanel_grpBox.Location = new System.Drawing.Point(5, 5);
+            this.MainPanel_grpBox.Name = "MainPanel_grpBox";
+            this.MainPanel_grpBox.Size = new System.Drawing.Size(374, 528);
+            this.MainPanel_grpBox.TabIndex = 1;
+            this.MainPanel_grpBox.TabStop = false;
+            this.MainPanel_grpBox.Text = "Map";
             // 
             // MainForm
             // 
@@ -635,6 +657,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numField_simduration)).EndInit();
             this.MainPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).EndInit();
+            this.MainPanel_grpBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -690,6 +713,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem importDiseaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportDiseaseToolStripMenuItem;
+        private System.Windows.Forms.GroupBox MainPanel_grpBox;
     }
 }
 
