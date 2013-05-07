@@ -76,7 +76,7 @@ namespace PSC2013.ES.Library.Snapshot
             int deathCount = BitConverter.ToInt32(bytes, offset);
 
             HumanSnapshot[] deaths = new HumanSnapshot[deathCount];
-            for (int i = 0; i < 100; ++i)//deathCount; ++i)
+            for (int i = 0; i < deathCount; ++i) //100; ++i)
             {
                 byte[] temp = new byte[HumanSnapshot.LENGTH];
                 Array.Copy(bytes, (CONSTLENGTH + cellCount * CellSnapshot.LENGTH) + i * HumanSnapshot.LENGTH, temp, 0, HumanSnapshot.LENGTH);
@@ -104,6 +104,7 @@ namespace PSC2013.ES.Library.Snapshot
 
             byte[] output = new byte[CONSTLENGTH +
                 (cellCount * CellSnapshot.LENGTH) +
+                4 +
                 (deathCount * HumanSnapshot.LENGTH)];
 
             output[0] = HEADER; //Writing Header in 0

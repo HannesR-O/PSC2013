@@ -18,8 +18,8 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// <summary>
         /// Creates a new AgeingSimulationComponent and sets the "hour-value" of one tick.
         /// </summary>
-        /// <param name="ageLimit">A value specifying at what age Humans should day of aging</param>
-        /// <param name="hoursPerTick"A value specifying how many hours pass in one simulation tick</param>
+        /// <param name="ageLimit">A value specifying at what age Humans should die of aging</param>
+        /// <param name="hoursPerTick">A value specifying how many hours pass in one simulation tick</param>
         public AgeingSimulationComponent(int ageLimit, int hoursPerTick)
         {
             AgeLimit = ageLimit;

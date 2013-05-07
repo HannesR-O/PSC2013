@@ -162,6 +162,7 @@ namespace PSC2013.ES.Cmd
                 new DebugSimulationComponent(),
                 new AgeingSimulationComponent(110, 8544),
                 new MovementSimulationComponent());
+            //sim.SetSnapshotIntervall(1);
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
@@ -189,9 +190,10 @@ namespace PSC2013.ES.Cmd
         public static void TestStats()
         {
             StatisticsManager manager = new StatisticsManager(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            Console.WriteLine("PLease enter the name of your .sim file:");
+            Console.WriteLine("Please enter the name of your .sim file:");
             string file = Console.ReadLine();
-            manager.OpenSimFile("C:\\Users\\Tobi\\Desktop\\" + file + ".sim"); // Insert your .sim path here...
+            manager.OpenSimFile(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
+                + file + ".sim"); // Insert your .sim path here...
             foreach (string s in manager.Entrys)
             {
                 Console.WriteLine(s);
