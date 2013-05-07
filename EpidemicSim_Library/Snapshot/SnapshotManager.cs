@@ -58,7 +58,17 @@ namespace PSC2013.ES.Library.Snapshot
                 }
                 ++pos;
             }
-            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
+            HumanSnapshot[] deaths = new HumanSnapshot[simData.DeathCount];
+            int j = 0;
+            foreach (HumanSnapshot human in simData.Deaths)
+            {
+                if (human.Age > 0)
+                {
+                    deaths[j] = human;
+                    ++j;
+                }
+            }
+            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, deaths);
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);
             _tick++;

@@ -75,8 +75,8 @@ namespace PSC2013.ES.Library.Snapshot
             int offset = CONSTLENGTH + cellCount * CellSnapshot.LENGTH;            
             int deathCount = BitConverter.ToInt32(bytes, offset); //Here's where the Shit goes done... Negative Count, but i have no idea why
 
-           // HumanSnapshot[] deaths = new HumanSnapshot[deathCount]; // And here is the Overflow...
-            HumanSnapshot[] deaths = new HumanSnapshot[2000];
+            HumanSnapshot[] deaths = new HumanSnapshot[deathCount]; // And here is the Overflow...
+            //HumanSnapshot[] deaths = new HumanSnapshot[2000];
             for (int i = 0; i < deathCount; ++i)
             {
                 byte[] temp = new byte[HumanSnapshot.LENGTH];
