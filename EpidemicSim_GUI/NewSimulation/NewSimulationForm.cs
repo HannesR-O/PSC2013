@@ -9,55 +9,52 @@ using System.Windows.Forms;
 using PSC2013.ES.Library.IO.Readers;
 using PSC2013.ES.Library.Diseases;
 
-namespace PSC2013.ES.GUI
+namespace PSC2013.ES.GUI.NewSimulation
 {
-    public partial class MainForm : Form
+    public partial class NewSimulationForm : Form
     {
-        private const string DEFAULT_DEP_EXTENSIONS = "Department-Files (*.dep)|*.dep|All files (*.*)|*.*";
         private const string NUMFIELD_NOT_IN_RANGE_EXCEPTION = "The given value is invalid. It must be in range of {0} and {1}.";
 
-        private Disease _disease;
+        private Form _owner;
+
         private long _snapshotInterval;
         private long _simDuration;
         private int _realtimeTick;
 
-        public MainForm()
+        private Disease _disease;
+        private string _depFilePath;
+        private DepartmentMapReader _departmentReader;
+
+        private NewSimulationForm()
         {
             InitializeComponent();
+            MainSidePanel.Visible = false;
+        }
 
+        public NewSimulationForm(Form owner, string filepath) : this()
+        {
+            _owner = owner;
+
+            _depFilePath = filepath;
             _disease = new Disease();
+            _departmentReader = new DepartmentMapReader(_depFilePath);
+
+            OpenDepMap();
         }
 
         private void OpenDepMap()
         {
-            openFileDialog.Filter = DEFAULT_DEP_EXTENSIONS;
-            openFileDialog.Title = "Select .dep-file.";
-            DialogResult dr = openFileDialog.ShowDialog();
-            if (dr == DialogResult.OK)
-            {
-                string filepath = openFileDialog.FileName;
-                DepartmentMapReader reader = new DepartmentMapReader(filepath);
-                Image img = reader.ReadImage();
-                MainPanel_pictureBox.Image = img;
-                Console.WriteLine("done - " + img);
-            }
-        }
-
-        private void StartSimulation()
-        {
-            // TODO | dj | now delegate to start simulation
+            Image img = _departmentReader.ReadImage();
+            MainPanel_pictureBox.Image = img;
+            MainSidePanel.Visible = true;
         }
 
         // == EVENTS ====== \\
 
-        private void OpenDepMap_Click(object sender, EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            OpenDepMap();
-        }
-
-        private void Exit_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
+            _owner.Show();
+            base.OnClosing(e);
         }
 
         private void btn_mortality_Click(object sender, EventArgs e)
@@ -129,9 +126,9 @@ namespace PSC2013.ES.GUI
             _disease.Name = txBox_name.Text;
         }
 
-        private void btn_start_sim_Click(object sender, EventArgs e)
+        private void btn_next_Click(object sender, EventArgs e)
         {
-            StartSimulation();
+
         }
     }
 }

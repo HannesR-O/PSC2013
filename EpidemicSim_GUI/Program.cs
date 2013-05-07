@@ -15,7 +15,7 @@ namespace PSC2013.ES.GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new StartWindow());
         }
     }
 }

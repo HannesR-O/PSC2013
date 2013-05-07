@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSC2013.ES.Library.Diseases;
 
-namespace PSC2013.ES.GUI
+namespace PSC2013.ES.GUI.NewSimulation
 {
     public partial class FactorContainerForm : Form
     {

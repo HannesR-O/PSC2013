@@ -1,4 +1,4 @@
-﻿namespace PSC2013.ES.GUI
+﻿namespace PSC2013.ES.GUI.NewSimulation
 {
     partial class FactorContainerForm
     {

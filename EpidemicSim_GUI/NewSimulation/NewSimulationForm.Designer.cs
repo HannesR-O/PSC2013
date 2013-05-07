@@ -1,6 +1,6 @@
-﻿namespace PSC2013.ES.GUI
+﻿namespace PSC2013.ES.GUI.NewSimulation
 {
-    partial class MainForm
+    partial class NewSimulationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,21 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.closeOpenedDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createNewSimulationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.importDiseaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportDiseaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openSnapshotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSidePanel = new System.Windows.Forms.Panel();
             this.MainSidePanel_disease = new System.Windows.Forms.GroupBox();
             this.btn_disease_export = new System.Windows.Forms.Button();
@@ -65,7 +50,7 @@
             this.txBox_name = new System.Windows.Forms.TextBox();
             this.lbl_name = new System.Windows.Forms.Label();
             this.MainSidePanel_bottom = new System.Windows.Forms.GroupBox();
-            this.btn_start_sim = new System.Windows.Forms.Button();
+            this.btn_next = new System.Windows.Forms.Button();
             this.MainSidePanel_general = new System.Windows.Forms.GroupBox();
             this.lbl_snapshotInterval = new System.Windows.Forms.Label();
             this.numField_snapshotInterval = new System.Windows.Forms.NumericUpDown();
@@ -74,11 +59,9 @@
             this.numField_simduration = new System.Windows.Forms.NumericUpDown();
             this.lbl_simduration = new System.Windows.Forms.Label();
             this.MainPanel = new System.Windows.Forms.Panel();
-            this.MainPanel_pictureBox = new System.Windows.Forms.PictureBox();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.MainPanel_grpBox = new System.Windows.Forms.GroupBox();
-            this.MainMenuStrip.SuspendLayout();
+            this.MainPanel_pictureBox = new System.Windows.Forms.PictureBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.MainSidePanel.SuspendLayout();
             this.MainSidePanel_disease.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numField_transferability)).BeginInit();
@@ -91,122 +74,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numField_realtimetick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numField_simduration)).BeginInit();
             this.MainPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).BeginInit();
             this.MainPanel_grpBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // MainMenuStrip
-            // 
-            this.MainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.createToolStripMenuItem,
-            this.reviewToolStripMenuItem});
-            this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
-            this.MainMenuStrip.Name = "MainMenuStrip";
-            this.MainMenuStrip.Size = new System.Drawing.Size(634, 24);
-            this.MainMenuStrip.TabIndex = 0;
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openFileToolStripMenuItem,
-            this.importToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.closeOpenedDataToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // openFileToolStripMenuItem
-            // 
-            this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.openFileToolStripMenuItem.Text = "Open .dep...";
-            this.openFileToolStripMenuItem.Click += new System.EventHandler(this.OpenDepMap_Click);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.importToolStripMenuItem.Text = "Open .sim...";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
-            // 
-            // closeOpenedDataToolStripMenuItem
-            // 
-            this.closeOpenedDataToolStripMenuItem.Name = "closeOpenedDataToolStripMenuItem";
-            this.closeOpenedDataToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.closeOpenedDataToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.closeOpenedDataToolStripMenuItem.Text = "Close opened data";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(214, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.Exit_Click);
-            // 
-            // createToolStripMenuItem
-            // 
-            this.createToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createNewSimulationToolStripMenuItem,
-            this.toolStripSeparator3,
-            this.importDiseaseToolStripMenuItem,
-            this.exportDiseaseToolStripMenuItem});
-            this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.createToolStripMenuItem.Text = "Create";
-            // 
-            // createNewSimulationToolStripMenuItem
-            // 
-            this.createNewSimulationToolStripMenuItem.Name = "createNewSimulationToolStripMenuItem";
-            this.createNewSimulationToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.createNewSimulationToolStripMenuItem.Text = "Create new simulation...";
-            this.createNewSimulationToolStripMenuItem.Click += new System.EventHandler(this.OpenDepMap_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(198, 6);
-            // 
-            // importDiseaseToolStripMenuItem
-            // 
-            this.importDiseaseToolStripMenuItem.Name = "importDiseaseToolStripMenuItem";
-            this.importDiseaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.importDiseaseToolStripMenuItem.Text = "Import disease...";
-            // 
-            // exportDiseaseToolStripMenuItem
-            // 
-            this.exportDiseaseToolStripMenuItem.Name = "exportDiseaseToolStripMenuItem";
-            this.exportDiseaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.exportDiseaseToolStripMenuItem.Text = "Export disease...";
-            // 
-            // reviewToolStripMenuItem
-            // 
-            this.reviewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openSnapshotsToolStripMenuItem});
-            this.reviewToolStripMenuItem.Name = "reviewToolStripMenuItem";
-            this.reviewToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
-            this.reviewToolStripMenuItem.Text = "Review";
-            // 
-            // openSnapshotsToolStripMenuItem
-            // 
-            this.openSnapshotsToolStripMenuItem.Name = "openSnapshotsToolStripMenuItem";
-            this.openSnapshotsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.openSnapshotsToolStripMenuItem.Text = "Open snapshots...";
             // 
             // MainSidePanel
             // 
@@ -214,10 +84,10 @@
             this.MainSidePanel.Controls.Add(this.MainSidePanel_bottom);
             this.MainSidePanel.Controls.Add(this.MainSidePanel_general);
             this.MainSidePanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MainSidePanel.Location = new System.Drawing.Point(384, 24);
+            this.MainSidePanel.Location = new System.Drawing.Point(384, 0);
             this.MainSidePanel.Name = "MainSidePanel";
             this.MainSidePanel.Padding = new System.Windows.Forms.Padding(5);
-            this.MainSidePanel.Size = new System.Drawing.Size(250, 538);
+            this.MainSidePanel.Size = new System.Drawing.Size(250, 562);
             this.MainSidePanel.TabIndex = 1;
             // 
             // MainSidePanel_disease
@@ -243,7 +113,7 @@
             this.MainSidePanel_disease.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainSidePanel_disease.Location = new System.Drawing.Point(5, 115);
             this.MainSidePanel_disease.Name = "MainSidePanel_disease";
-            this.MainSidePanel_disease.Size = new System.Drawing.Size(240, 368);
+            this.MainSidePanel_disease.Size = new System.Drawing.Size(240, 392);
             this.MainSidePanel_disease.TabIndex = 3;
             this.MainSidePanel_disease.TabStop = false;
             this.MainSidePanel_disease.Text = "Disease";
@@ -251,7 +121,7 @@
             // btn_disease_export
             // 
             this.btn_disease_export.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_disease_export.Location = new System.Drawing.Point(131, 339);
+            this.btn_disease_export.Location = new System.Drawing.Point(131, 363);
             this.btn_disease_export.Name = "btn_disease_export";
             this.btn_disease_export.Size = new System.Drawing.Size(102, 23);
             this.btn_disease_export.TabIndex = 19;
@@ -262,7 +132,7 @@
             // btn_disease_import
             // 
             this.btn_disease_import.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_disease_import.Location = new System.Drawing.Point(9, 339);
+            this.btn_disease_import.Location = new System.Drawing.Point(9, 363);
             this.btn_disease_import.Name = "btn_disease_import";
             this.btn_disease_import.Size = new System.Drawing.Size(102, 23);
             this.btn_disease_import.TabIndex = 0;
@@ -459,25 +329,25 @@
             // 
             // MainSidePanel_bottom
             // 
-            this.MainSidePanel_bottom.Controls.Add(this.btn_start_sim);
+            this.MainSidePanel_bottom.Controls.Add(this.btn_next);
             this.MainSidePanel_bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MainSidePanel_bottom.Location = new System.Drawing.Point(5, 483);
+            this.MainSidePanel_bottom.Location = new System.Drawing.Point(5, 507);
             this.MainSidePanel_bottom.Name = "MainSidePanel_bottom";
             this.MainSidePanel_bottom.Size = new System.Drawing.Size(240, 50);
             this.MainSidePanel_bottom.TabIndex = 2;
             this.MainSidePanel_bottom.TabStop = false;
             // 
-            // btn_start_sim
+            // btn_next
             // 
-            this.btn_start_sim.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_start_sim.Location = new System.Drawing.Point(9, 16);
-            this.btn_start_sim.Name = "btn_start_sim";
-            this.btn_start_sim.Size = new System.Drawing.Size(224, 25);
-            this.btn_start_sim.TabIndex = 0;
-            this.btn_start_sim.Text = "Start simulation...";
-            this.toolTip.SetToolTip(this.btn_start_sim, "Start the simulation.\r\nThis might consume time, RAM, CPU and memory-capacities.");
-            this.btn_start_sim.UseVisualStyleBackColor = true;
-            this.btn_start_sim.Click += new System.EventHandler(this.btn_start_sim_Click);
+            this.btn_next.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_next.Location = new System.Drawing.Point(9, 16);
+            this.btn_next.Name = "btn_next";
+            this.btn_next.Size = new System.Drawing.Size(224, 25);
+            this.btn_next.TabIndex = 0;
+            this.btn_next.Text = "Next >";
+            this.toolTip.SetToolTip(this.btn_next, "Start the simulation.\r\nThis might consume time, RAM, CPU and memory-capacities.");
+            this.btn_next.UseVisualStyleBackColor = true;
+            this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
             // 
             // MainSidePanel_general
             // 
@@ -522,7 +392,7 @@
             this.numField_snapshotInterval.Size = new System.Drawing.Size(120, 20);
             this.numField_snapshotInterval.TabIndex = 4;
             this.numField_snapshotInterval.ThousandsSeparator = true;
-            this.toolTip.SetToolTip(this.numField_snapshotInterval, "The interval of taking a snapshot (in ticks)");
+            this.toolTip.SetToolTip(this.numField_snapshotInterval, "The interval of taking a snapshot (in hours)");
             this.numField_snapshotInterval.Value = new decimal(new int[] {
             24,
             0,
@@ -593,29 +463,11 @@
             // 
             this.MainPanel.Controls.Add(this.MainPanel_grpBox);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel.Location = new System.Drawing.Point(0, 24);
+            this.MainPanel.Location = new System.Drawing.Point(0, 0);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.MainPanel.Size = new System.Drawing.Size(384, 538);
+            this.MainPanel.Size = new System.Drawing.Size(384, 562);
             this.MainPanel.TabIndex = 2;
-            // 
-            // MainPanel_pictureBox
-            // 
-            this.MainPanel_pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel_pictureBox.Location = new System.Drawing.Point(3, 16);
-            this.MainPanel_pictureBox.Name = "MainPanel_pictureBox";
-            this.MainPanel_pictureBox.Size = new System.Drawing.Size(368, 509);
-            this.MainPanel_pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.MainPanel_pictureBox.TabIndex = 0;
-            this.MainPanel_pictureBox.TabStop = false;
-            this.MainPanel_pictureBox.WaitOnLoad = true;
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.ReadOnlyChecked = true;
-            this.openFileDialog.RestoreDirectory = true;
-            this.openFileDialog.ShowReadOnly = true;
-            this.openFileDialog.SupportMultiDottedExtensions = true;
             // 
             // MainPanel_grpBox
             // 
@@ -623,10 +475,21 @@
             this.MainPanel_grpBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel_grpBox.Location = new System.Drawing.Point(5, 5);
             this.MainPanel_grpBox.Name = "MainPanel_grpBox";
-            this.MainPanel_grpBox.Size = new System.Drawing.Size(374, 528);
+            this.MainPanel_grpBox.Size = new System.Drawing.Size(374, 552);
             this.MainPanel_grpBox.TabIndex = 1;
             this.MainPanel_grpBox.TabStop = false;
             this.MainPanel_grpBox.Text = "Map";
+            // 
+            // MainPanel_pictureBox
+            // 
+            this.MainPanel_pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPanel_pictureBox.Location = new System.Drawing.Point(3, 16);
+            this.MainPanel_pictureBox.Name = "MainPanel_pictureBox";
+            this.MainPanel_pictureBox.Size = new System.Drawing.Size(368, 533);
+            this.MainPanel_pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.MainPanel_pictureBox.TabIndex = 0;
+            this.MainPanel_pictureBox.TabStop = false;
+            this.MainPanel_pictureBox.WaitOnLoad = true;
             // 
             // MainForm
             // 
@@ -635,13 +498,10 @@
             this.ClientSize = new System.Drawing.Size(634, 562);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.MainSidePanel);
-            this.Controls.Add(this.MainMenuStrip);
             this.MinimumSize = new System.Drawing.Size(600, 500);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Epidemic Simulator";
-            this.MainMenuStrip.ResumeLayout(false);
-            this.MainMenuStrip.PerformLayout();
             this.MainSidePanel.ResumeLayout(false);
             this.MainSidePanel_disease.ResumeLayout(false);
             this.MainSidePanel_disease.PerformLayout();
@@ -656,31 +516,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.numField_realtimetick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numField_simduration)).EndInit();
             this.MainPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).EndInit();
             this.MainPanel_grpBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MainPanel_pictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip MainMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem closeOpenedDataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem createNewSimulationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reviewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openSnapshotsToolStripMenuItem;
         private System.Windows.Forms.Panel MainSidePanel;
         private System.Windows.Forms.Panel MainPanel;
         private System.Windows.Forms.PictureBox MainPanel_pictureBox;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.GroupBox MainSidePanel_general;
         private System.Windows.Forms.GroupBox MainSidePanel_bottom;
         private System.Windows.Forms.GroupBox MainSidePanel_disease;
@@ -709,10 +555,7 @@
         private System.Windows.Forms.Button btn_healing;
         private System.Windows.Forms.Button btn_disease_import;
         private System.Windows.Forms.Button btn_disease_export;
-        private System.Windows.Forms.Button btn_start_sim;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem importDiseaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportDiseaseToolStripMenuItem;
+        private System.Windows.Forms.Button btn_next;
         private System.Windows.Forms.GroupBox MainPanel_grpBox;
     }
 }
