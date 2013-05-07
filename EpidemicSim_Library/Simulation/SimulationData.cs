@@ -19,6 +19,7 @@ namespace PSC2013.ES.Library.Simulation
 
         //PopulationData
         public PopulationCell[] Population { get; private set; }
+        public Human[] Humans { get; private set;}
 
         //Dead Humans
         public HumanSnapshot[] Deaths { get; private set; } // Human, DeathCell, CauseOfDeath ( 0 = natural, 1 = disease) //TODO |t| Maybe not the best solution..

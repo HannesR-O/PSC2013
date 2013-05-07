@@ -63,17 +63,18 @@ namespace PSC2013.ES.Library.Snapshot
         {
             ushort[] temp = new ushort[10];
 
-            temp[0] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Baby && (x.IsDead() == false));
-            temp[1] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Child && (x.IsDead() == false));
-            temp[2] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Adult && (x.IsDead() == false));
-            temp[3] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Male && x.GetAge() == EAge.Senior && (x.IsDead() == false));
-            temp[4] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Baby && (x.IsDead() == false));
-            temp[5] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Child && (x.IsDead() == false));
-            temp[6] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Adult && (x.IsDead() == false));
-            temp[7] = (ushort)input.Humans.Count(x => x.GetGender() == EGender.Female && x.GetAge() == EAge.Senior && (x.IsDead() == false));
+            temp[0] = input.MaleBabies;
+            temp[1] = input.MaleChildren;
+            temp[2] = input.MaleAdults;
+            temp[3] = input.MaleSeniors;
 
-            temp[8] = (ushort)input.Humans.Count(x => x.IsInfected());
-            temp[9] = (ushort)input.Humans.Count(x => x.IsDiseased());
+            temp[4] = input.FemaleBabies;
+            temp[5] = input.FemaleChildren;
+            temp[6] = input.FemaleAdults;
+            temp[7] = input.FemaleSeniors;
+
+            temp[8] = input.Infected;
+            temp[9] = input.Diseased;
 
             return new CellSnapshot(temp, position);
         }

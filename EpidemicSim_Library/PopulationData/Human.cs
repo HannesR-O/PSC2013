@@ -250,5 +250,7 @@ namespace PSC2013.ES.Library.PopulationData
             // Still unnecessary
             return false;
         }
+
+        public int CurrentCell { get; set; }
     }
 }
