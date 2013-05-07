@@ -47,12 +47,13 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
-            CellSnapshot[] cells = new CellSnapshot[simData.Population.Length];
+            CellSnapshot[] cells = new CellSnapshot[simData.Cells.Length]; //TODO |t|How many do we really need? Only the populated ones...
             int pos = 0;
             int i = 0;
-            foreach (PopulationCell cell in simData.Population)
+            foreach (PopulationCell cell in simData.Cells)
             {
-                if (cell != null)
+                //TODO |h| maybe another "== null" - check than checking if probability > 0
+                if (cell.Probability > 0)
                 {
                     cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
                 }

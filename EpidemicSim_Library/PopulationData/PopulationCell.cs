@@ -2,7 +2,7 @@
 
 namespace PSC2013.ES.Library.PopulationData
 {
-    public class PopulationCell
+    public struct PopulationCell
     {
         public int RefDepartment { get; set; }
 
@@ -19,5 +19,12 @@ namespace PSC2013.ES.Library.PopulationData
         public ushort FemaleChildren;
         public ushort FemaleAdults;
         public ushort FemaleSeniors;
+
+        public int Probability;
+
+        internal void CalculateProbability()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

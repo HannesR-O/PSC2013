@@ -18,7 +18,7 @@ namespace PSC2013.ES.Library.Simulation
         private DateTime _time;
 
         //PopulationData
-        public PopulationCell[] Population { get; private set; }
+        public PopulationCell[] Cells { get; private set; }
         public Human[] Humans { get; private set;}
 
         //Dead Humans
@@ -41,12 +41,13 @@ namespace PSC2013.ES.Library.Simulation
         //TODO: |f| add relevant checks
         public bool IsValid
         {
-            get { return CurrentDisease != null && Population != null; }
+            get { return CurrentDisease != null && Cells != null; }
         }
 
         public SimulationData()
         {
-            Population = new PopulationCell[10808574];
+            Cells = new PopulationCell[10808574];
+            Humans = new Human[80000000];
             Deaths = new HumanSnapshot[0];
             DeathCount = 0;
 
@@ -76,7 +77,7 @@ namespace PSC2013.ES.Library.Simulation
             Console.WriteLine("Generating Matrix...");
 #endif
             // TODO | dj | should be changed back to .GenerateMatrix...
-            MatrixGenerator.GenerateDummyMatrix(Population, deps, img.Width, img.Height);
+            MatrixGenerator.GenerateDummyMatrix(Cells, deps, img.Width, img.Height);
         }
 
         public void AddDeadPeople(IList<HumanSnapshot> deadPeople)
