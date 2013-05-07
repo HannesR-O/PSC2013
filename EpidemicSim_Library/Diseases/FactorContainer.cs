@@ -9,42 +9,74 @@ namespace PSC2013.ES.Library.Diseases
     /// </summary>
     public struct FactorContainer
     {
-        //TODO: |f| I don't like public fields.. :S
-        public int Male_Baby;
-        public int Male_Child;
-        public int Male_Adult;
-        public int Male_Senior;
+        /// <summary>
+        /// Factor for male babies.
+        /// </summary>
+        public int Male_Baby { get { return _data[0]; } }
+        /// <summary>
+        /// Factor for male children.
+        /// </summary>
+        public int Male_Child { get { return _data[1]; } }
+        /// <summary>
+        /// Factor for male adults.
+        /// </summary>
+        public int Male_Adult { get { return _data[2]; } }
+        /// <summary>
+        /// Factor for male seniors.
+        /// </summary>
+        public int Male_Senior { get { return _data[3]; } }
 
-        public int Female_Baby;
-        public int Female_Child;
-        public int Female_Adult;
-        public int Female_Senior;
+        /// <summary>
+        /// Factor for female babies.
+        /// </summary>
+        public int Female_Baby { get { return _data[4]; } }
+        /// <summary>
+        /// Factor for female children.
+        /// </summary>
+        public int Female_Child { get { return _data[5]; } }
+        /// <summary>
+        /// Factor for female adults.
+        /// </summary>
+        public int Female_Adult { get { return _data[6]; } }
+        /// <summary>
+        /// Factor for female seniors.
+        /// </summary>
+        public int Female_Senior { get { return _data[7]; } }
+
+        /// <summary>
+        /// Factors as array. Order as told in constructor.
+        /// </summary>
+        public int[] Data
+        {
+            get
+            {
+                int[] returnArray = new int[8];
+                _data.CopyToOtherArray(returnArray);
+                return returnArray;
+            }
+        }
+
+        private int[] _data;
 
         /// <summary>
         /// A new FactorContainer
         /// </summary>
-        /// <param name="args">Arguments in following order: 
+        /// <param name="data">The data in following order: 
         /// Males: 
         /// Baby, Child, Adult, Senior | 
         /// Females: 
         /// Baby, Child, Adult, Senior
         /// </param>
-        public FactorContainer(params int[] args)
+        public FactorContainer(int[] data)
         {
-            if (args.Length != 8)
+            if (data.Length != 8)
                 throw new ArgumentException(
                     "The argument has to be an Integer-Array of length '8'",
                     "args");
 
-            Male_Baby = args[0];
-            Male_Child = args[1];
-            Male_Adult = args[2];
-            Male_Senior = args[3];
+            _data = new int[8];
 
-            Female_Baby = args[4];
-            Female_Child = args[5];
-            Female_Adult = args[6];
-            Female_Senior = args[7];
+            data.CopyToOtherArray(_data);
         }
     }
 }

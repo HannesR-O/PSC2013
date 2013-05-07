@@ -153,9 +153,9 @@ namespace PSC2013.ES.Cmd
                 IdleTime = 123415,
                 SpreadingTime = 123123,
                 Transferability = 901237,
-                MortalityRate = new FactorContainer(1, 2, 14, 151, 11515, 123, 123, 120),
-                HealingFactor = new FactorContainer(1, 2, 14, 151, 11515, 123, 123, 120),
-                ResistanceFactor = new FactorContainer(1, 2, 14, 151, 11515, 123, 123, 120)
+                MortalityRate = new FactorContainer(new []{1, 2, 14, 151, 11515, 123, 123, 120}),
+                HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
+                ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
             };
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
