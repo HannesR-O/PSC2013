@@ -28,7 +28,7 @@ namespace PSC2013.ES.Cmd
 
             //TestMovementComponent();
 
-            TestStats(); // DO NOT TOUCH, WON'T WORK
+            TestStats();
 
             Console.ReadKey();
 #endif
@@ -162,7 +162,7 @@ namespace PSC2013.ES.Cmd
                 new DebugSimulationComponent(),
                 new AgeingSimulationComponent(110, 8544),
                 new MovementSimulationComponent());
-            //sim.SetSnapshotIntervall(1);
+            sim.SetSnapshotIntervall(1);
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
@@ -202,7 +202,7 @@ namespace PSC2013.ES.Cmd
             string name = Console.ReadLine();
 
             manager.LoadTickSnapshot(name);
-            manager.CreateGraphics(Library.Statistics.Pictures.EStatField.FemaleSenior, ColorPalette.RED);
+            manager.CreateGraphics(Library.Statistics.Pictures.EStatField.FemaleBaby, ColorPalette.RED);
         }
     }
 }
