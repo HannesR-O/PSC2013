@@ -85,65 +85,6 @@ namespace PSC2013.ES.Cmd
             Console.WriteLine("Total Humancount in 1000: " + simData.Population.Length * 8 / 1000);
         }
 
-        public static void TestCalculations()
-        {
-            var simData = new SimulationData();
-            simData.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
-
-            var sw = new Stopwatch();
-            sw.Start();
-            Console.WriteLine("Starting cell-run.");
-
-            //int i = 0;
-            //System.IO.StreamWriter stream = new System.IO.StreamWriter(
-            //    Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/test.txt");
-            foreach (PopulationCell cell in simData.Population.NotNullIterator())
-            {
-                //Console.Write("Cell#{0,9}", i++);
-
-                //if (i % 2814 == 0)
-                //    stream.Write(Environment.NewLine);
-
-                if (cell != null)
-                {
-                    //var watch = new Stopwatch();
-                    //Console.WriteLine("Testing non-parallel..");
-                    //watch.Start();
-
-                    foreach (Human hu in cell.Humans)
-                    {
-                        int value = hu.GetAgeInYears() % 4;
-                    }
-
-                    //watch.Stop();
-                    //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                    //watch.Reset();
-                    //Console.WriteLine("Testing parallel..");
-                    //watch.Start();
-
-                    Parallel.ForEach(cell.Humans, (human) =>
-                        {
-                            int value = human.GetAgeInYears() % 4;
-                        });
-
-                    //watch.Stop();
-                    //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                    Console.WriteLine(" - done - {0}", cell.ToString());
-                    //stream.Write("8");
-                }
-                else
-                {
-                    Console.WriteLine(" - abort : NULL");
-                    //stream.Write("-");
-                }
-            }
-            //stream.Flush();
-            //stream.Close();
-            //stream.Dispose();
-            sw.Stop();
-            Console.WriteLine("Overall only-operation-time: " + sw.Elapsed);
-        }
-
         public static void TestAgeingComponent()
         {
             var disease = new Disease

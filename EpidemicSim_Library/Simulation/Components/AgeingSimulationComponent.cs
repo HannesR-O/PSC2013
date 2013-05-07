@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class AgeingSimulationComponent : ISimulationComponent
+    public unsafe class AgeingSimulationComponent : ISimulationComponent
     {
         // Assumes 365 x 24 hour days
         private const int HOURS_PER_YEAR = 8544;
@@ -39,11 +39,22 @@ namespace PSC2013.ES.Library.Simulation.Components
 #endif
             var deadPeople = new List<HumanSnapshot>();
 
-            for (int i = 0; i < data.Population.Count(); i++)
+            fixed (Human* humanptr = data.Humans)
             {
-                if (data.Population[i] == null) continue;
+                for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
+                {
+                    if (ptr->IsDead())
+                        continue;
 
-                deadPeople.AddRange(HandleSinglePopulationCell(data.Population[i], i));
+                    ptr->DoAgeTick();
+
+                    if (!(ptr->GetAgeInYears() <= AgeLimit))
+                    {
+                        deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)ptr->GetGender(), (byte)ptr->GetAgeInYears(), (byte)ptr->GetProfession(),
+                                                    ptr->HomeCell, ptr->CurrentCell, false));
+                        ptr->KillHuman();
+                    }
+                }
             }
 
             data.AddDeadPeople(deadPeople);
@@ -51,28 +62,6 @@ namespace PSC2013.ES.Library.Simulation.Components
             Console.WriteLine("Dead people this Iteration: " + deadPeople.Count);
             Console.WriteLine("Total dead people: " + data.DeathCount);
 #endif
-        }
-
-        private IEnumerable<HumanSnapshot> HandleSinglePopulationCell(PopulationCell cell, int cellID)
-        {
-            var deadPeople = new List<HumanSnapshot>();
-
-            for (int i = 0; i < cell.Humans.Length; i++)
-            {
-                if (cell.Humans[i].IsDead()) continue;
-
-                cell.Humans[i].DoAgeTick();
-
-                var human = cell.Humans[i];
-                if (human.GetAgeInYears() <= AgeLimit) continue;
-
-                // Human dies from over ageing                  //TODO: |f| Add percentage rates for dieing at high ages and kill human properly
-                deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human.GetGender(), (byte)human.GetAgeInYears(), (byte)human.GetProfession(),
-                    human.HomeCell, cellID, false));
-                cell.Humans[i].KillHuman();
-            }
-
-            return deadPeople;
         }
 
         public ESimulationStage SimulationStages { get { return ESimulationStage.AfterInfectedCalculation; } }

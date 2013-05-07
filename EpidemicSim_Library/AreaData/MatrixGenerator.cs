@@ -77,7 +77,7 @@ namespace PSC2013.ES.Library.AreaData
                     {
                         int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
                         Human thisHuman = Human.Create(gender, thisAge, point.Flatten(WIDTH));
-                        cell.AddHuman(thisHuman);
+                        //cell.AddHuman(thisHuman);
                     }
                 }
 
@@ -193,7 +193,7 @@ namespace PSC2013.ES.Library.AreaData
                         int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
                         Human thisHuman = Human.Create(
                             gender, thisAge, currentPoint.Flatten(WIDTH));
-                        currentCell.AddHuman(thisHuman);                    // add the human to its cell.
+                        //currentCell.AddHuman(thisHuman);                    // add the human to its cell.
 
                         depInfo.Population[i]--;                            // 'removes' the human out of the population.
                     }
