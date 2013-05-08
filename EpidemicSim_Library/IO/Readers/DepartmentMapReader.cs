@@ -18,7 +18,7 @@ namespace PSC2013.ES.Library.IO.Readers
         /// Called when the ReadFile-method analyzed a new line
         /// or is finished.
         /// </summary>
-        public event EventHandler IterationPassed;
+        public event EventHandler<ContinuationEventArgs> IterationPassed;
 
         /// <summary>
         /// Instanciates a new reader with the
@@ -65,12 +65,12 @@ namespace PSC2013.ES.Library.IO.Readers
                     }
 
                     depInfList.Add(depInf);
-                    IterationPassed(this, new ContinuationEventArgs() { Continuing = true });
+                    IterationPassed.Raise(this, new ContinuationEventArgs() { Continuing = true });
                 }
             }
             stream.Close();
             archive.Dispose();
-            IterationPassed(this, new ContinuationEventArgs() { Finished = true });
+            IterationPassed.Raise(this, new ContinuationEventArgs() { Finished = true });
 
             return depInfList.ToArray();
         }
