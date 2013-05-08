@@ -47,7 +47,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
-            CellSnapshot[] cells = new CellSnapshot[simData.Population.Length]; //TODO |t|How many do we really need? Only the populated ones...
+            CellSnapshot[] cells = new CellSnapshot[simData.Population.Length];
             int pos = 0;
             int i = 0;
             foreach (PopulationCell cell in simData.Population)
@@ -58,18 +58,9 @@ namespace PSC2013.ES.Library.Snapshot
                 }
                 ++pos;
             }
-            //HumanSnapshot[] deaths = new HumanSnapshot[simData.DeathCount];
-            //int j = 0;
-            //foreach (HumanSnapshot human in simData.Deaths)
-            //{
-            //    if (human.Age > 0)
-            //    {
-            //        deaths[j] = human;
-            //        ++j;
-            //    }
-            //}
-            //TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, deaths);
+
             TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
+
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);
             _tick++;
@@ -79,6 +70,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// Finishes writing the Snapshot Queue und compresses the folder
         /// DEPRECATED
         /// </summary>
+        [Obsolete]
         public void Finish()
         {
             TookSnapshot(this, null);            
@@ -95,7 +87,7 @@ namespace PSC2013.ES.Library.Snapshot
             private Task _task;
 
             /// <summary>
-            /// Creates a new Writer abd creates an archive at the above given destination
+            /// Creates a new Writer and creates an archive at the above given destination
             /// </summary>
             public SnapshotWriter()
             {
@@ -109,7 +101,7 @@ namespace PSC2013.ES.Library.Snapshot
                     _target = _target + ".sim";
                 }
                 else
-                    throw new ArgumentException("Path or .sim File at Path exists!");
+                    throw new ArgumentException("Path or .sim File at Path exists!"); //TODO Please Catch me...
 
                 _writer.WriteIntoArchive(_simInfo, _target, "header", true);
             }

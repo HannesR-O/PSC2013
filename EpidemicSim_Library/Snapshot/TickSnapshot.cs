@@ -64,7 +64,7 @@ namespace PSC2013.ES.Library.Snapshot
                 Array.Copy(bytes, CONSTLENGTH + i * CellSnapshot.LENGTH, temp, 0, CellSnapshot.LENGTH);
                 cells[i] = CellSnapshot.InitializeFromFile(temp);
 #if DEBUG
-                if (i % 1000 == 0)
+                if (i % 1000000 == 0)
                     Console.WriteLine("Parsed " + i + " Snaps");
 #endif
             }
@@ -73,16 +73,17 @@ namespace PSC2013.ES.Library.Snapshot
 #endif
 
             int offset = 13 + cellCount * CellSnapshot.LENGTH;            
+
             int deathCount = BitConverter.ToInt32(bytes, offset);
             HumanSnapshot[] deaths = new HumanSnapshot[deathCount];
-            //HumanSnapshot[] deaths = new HumanSnapshot[2000];
+
             for (int i = 0; i < deathCount; ++i)
             {
                 byte[] temp = new byte[HumanSnapshot.LENGTH];
                 Array.Copy(bytes, CONSTLENGTH + (cellCount * CellSnapshot.LENGTH) + i * HumanSnapshot.LENGTH, temp, 0, HumanSnapshot.LENGTH);
                 deaths[i] = HumanSnapshot.InitializeFromFile(temp);
 #if DEBUG
-                if (i % 1000 == 0)
+                if (i % 10 == 0)
                     Console.WriteLine("Parsed " + i + " Deaths");
 #endif
             }
@@ -101,11 +102,10 @@ namespace PSC2013.ES.Library.Snapshot
         {
             int cellCount = Cells.Count(x => x != null);
             int deathCount = Deaths.Count(x => x != null && x.Age > 0);
-            Console.WriteLine(deathCount + " Deathcount");
 
             byte[] output = new byte[CONSTLENGTH +
                 (cellCount * CellSnapshot.LENGTH) +
-                4 +
+                4 + // How did you get here, Mr. Anderson?
                 (deathCount * HumanSnapshot.LENGTH)];
 
             output[0] = HEADER; //Writing Header in 0

@@ -75,7 +75,7 @@ namespace PSC2013.ES.Cmd
                 };
             var mgr = new SnapshotManager();
             mgr.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), disease);
-            mgr.Finish();
+            //mgr.Finish();
         }
 
         public static void TestMemory()
