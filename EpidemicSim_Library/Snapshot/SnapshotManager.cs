@@ -58,17 +58,18 @@ namespace PSC2013.ES.Library.Snapshot
                 }
                 ++pos;
             }
-            HumanSnapshot[] deaths = new HumanSnapshot[simData.DeathCount];
-            int j = 0;
-            foreach (HumanSnapshot human in simData.Deaths)
-            {
-                if (human.Age > 0)
-                {
-                    deaths[j] = human;
-                    ++j;
-                }
-            }
-            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, deaths);
+            //HumanSnapshot[] deaths = new HumanSnapshot[simData.DeathCount];
+            //int j = 0;
+            //foreach (HumanSnapshot human in simData.Deaths)
+            //{
+            //    if (human.Age > 0)
+            //    {
+            //        deaths[j] = human;
+            //        ++j;
+            //    }
+            //}
+            //TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, deaths);
+            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);
             _tick++;
@@ -80,8 +81,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         public void Finish()
         {
-            foreach (TickSnapshot s in _snapshots)
-                TookSnapshot(this, null);            
+            TookSnapshot(this, null);            
             Console.WriteLine("Finished logging of Simulation @ " + DateTime.Now.ToString());
         }
 
@@ -101,13 +101,15 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 _writer = new ArchiveBinaryWriter();
 
-                if (!File.Exists(_target + ".sim"))
-                {                    
+                if (!File.Exists(_target + ".sim") && !Directory.Exists(_target))
+                {
                     Directory.CreateDirectory(_target);
                     ZipFile.CreateFromDirectory(_target, _target + ".sim", CompressionLevel.Optimal, false);
                     Directory.Delete(_target, true);
                     _target = _target + ".sim";
-                }                    
+                }
+                else
+                    throw new ArgumentException("Path or .sim File at Path exists!");
 
                 _writer.WriteIntoArchive(_simInfo, _target, "header", true);
             }

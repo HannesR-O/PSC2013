@@ -24,11 +24,11 @@ namespace PSC2013.ES.Cmd
 
             //TestCalculations();
 
-            TestAgeingComponent();
+            //TestAgeingComponent();
 
             //TestMovementComponent();
 
-            //TestStats();
+            TestStats();
 
             Console.ReadKey();
 #endif

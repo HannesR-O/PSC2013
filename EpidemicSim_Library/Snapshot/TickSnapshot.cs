@@ -72,15 +72,14 @@ namespace PSC2013.ES.Library.Snapshot
             Console.WriteLine("Done!");
 #endif
 
-            int offset = CONSTLENGTH + cellCount * CellSnapshot.LENGTH;            
-            int deathCount = BitConverter.ToInt32(bytes, offset); //Here's where the Shit goes done... Negative Count, but i have no idea why
-
-            HumanSnapshot[] deaths = new HumanSnapshot[deathCount]; // And here is the Overflow...
+            int offset = 13 + cellCount * CellSnapshot.LENGTH;            
+            int deathCount = BitConverter.ToInt32(bytes, offset);
+            HumanSnapshot[] deaths = new HumanSnapshot[deathCount];
             //HumanSnapshot[] deaths = new HumanSnapshot[2000];
             for (int i = 0; i < deathCount; ++i)
             {
                 byte[] temp = new byte[HumanSnapshot.LENGTH];
-                Array.Copy(bytes, (CONSTLENGTH + cellCount * CellSnapshot.LENGTH) + i * HumanSnapshot.LENGTH, temp, 0, HumanSnapshot.LENGTH);
+                Array.Copy(bytes, CONSTLENGTH + (cellCount * CellSnapshot.LENGTH) + i * HumanSnapshot.LENGTH, temp, 0, HumanSnapshot.LENGTH);
                 deaths[i] = HumanSnapshot.InitializeFromFile(temp);
 #if DEBUG
                 if (i % 1000 == 0)
@@ -101,7 +100,8 @@ namespace PSC2013.ES.Library.Snapshot
         public byte[] GetBytes()
         {
             int cellCount = Cells.Count(x => x != null);
-            int deathCount = Deaths.Count(x => x != null);
+            int deathCount = Deaths.Count(x => x != null && x.Age > 0);
+            Console.WriteLine(deathCount + " Deathcount");
 
             byte[] output = new byte[CONSTLENGTH +
                 (cellCount * CellSnapshot.LENGTH) +
@@ -119,7 +119,7 @@ namespace PSC2013.ES.Library.Snapshot
                     CellSnapshot.LENGTH); // Writing the Cellsnapshots
 
             Array.Copy(BitConverter.GetBytes(deathCount), 0, output,
-                cellCount * CellSnapshot.LENGTH + CONSTLENGTH,
+                cellCount * CellSnapshot.LENGTH + CONSTLENGTH - 4,
                 4); // Writing count of deaths, necessary for reading again
 
             int offset = cellCount * CellSnapshot.LENGTH + CONSTLENGTH;
