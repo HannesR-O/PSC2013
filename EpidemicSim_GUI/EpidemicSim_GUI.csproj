@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewSimulation\DiseaseLocationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NewSimulation\DiseaseLocationPanel.Designer.cs">
+      <DependentUpon>DiseaseLocationPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewSimulation\FactorContainerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     <Compile Include="StartWindow.Designer.cs">
       <DependentUpon>StartWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="NewSimulation\DiseaseLocationPanel.resx">
+      <DependentUpon>DiseaseLocationPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewSimulation\FactorContainerForm.resx">
       <DependentUpon>FactorContainerForm.cs</DependentUpon>
     </EmbeddedResource>

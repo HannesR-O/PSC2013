@@ -15,6 +15,12 @@ namespace PSC2013.ES.Library.IO.Readers
         public string Path { get; private set; }
 
         /// <summary>
+        /// Called when the ReadFile-method analyzed a new line
+        /// or is finished.
+        /// </summary>
+        public event EventHandler IterationPassed;
+
+        /// <summary>
         /// Instanciates a new reader with the
         /// path of the file, used for following
         /// methods/operations.
@@ -59,10 +65,13 @@ namespace PSC2013.ES.Library.IO.Readers
                     }
 
                     depInfList.Add(depInf);
+                    IterationPassed(this, new ContinuationEventArgs() { Continuing = true });
                 }
             }
             stream.Close();
             archive.Dispose();
+            IterationPassed(this, new ContinuationEventArgs() { Finished = true });
+
             return depInfList.ToArray();
         }
 

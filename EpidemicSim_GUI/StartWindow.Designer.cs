@@ -58,6 +58,7 @@
             this.btn_review.Text = "Review Simulation";
             this.toolTip.SetToolTip(this.btn_review, "Choose a Simulation-file (.sim)  to review and analyze it.");
             this.btn_review.UseVisualStyleBackColor = true;
+            this.btn_review.Click += new System.EventHandler(this.btn_review_Click);
             // 
             // openFileDialog
             // 

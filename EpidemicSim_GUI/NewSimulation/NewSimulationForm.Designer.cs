@@ -62,6 +62,7 @@
             this.MainPanel_grpBox = new System.Windows.Forms.GroupBox();
             this.MainPanel_pictureBox = new System.Windows.Forms.PictureBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btn_back = new System.Windows.Forms.Button();
             this.MainSidePanel.SuspendLayout();
             this.MainSidePanel_disease.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numField_transferability)).BeginInit();
@@ -329,6 +330,7 @@
             // 
             // MainSidePanel_bottom
             // 
+            this.MainSidePanel_bottom.Controls.Add(this.btn_back);
             this.MainSidePanel_bottom.Controls.Add(this.btn_next);
             this.MainSidePanel_bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MainSidePanel_bottom.Location = new System.Drawing.Point(5, 507);
@@ -340,12 +342,12 @@
             // btn_next
             // 
             this.btn_next.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_next.Location = new System.Drawing.Point(9, 16);
+            this.btn_next.Location = new System.Drawing.Point(131, 16);
             this.btn_next.Name = "btn_next";
-            this.btn_next.Size = new System.Drawing.Size(224, 25);
+            this.btn_next.Size = new System.Drawing.Size(102, 25);
             this.btn_next.TabIndex = 0;
             this.btn_next.Text = "Next >";
-            this.toolTip.SetToolTip(this.btn_next, "Start the simulation.\r\nThis might consume time, RAM, CPU and memory-capacities.");
+            this.toolTip.SetToolTip(this.btn_next, "Continue to the next step.");
             this.btn_next.UseVisualStyleBackColor = true;
             this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
             // 
@@ -491,7 +493,19 @@
             this.MainPanel_pictureBox.TabStop = false;
             this.MainPanel_pictureBox.WaitOnLoad = true;
             // 
-            // MainForm
+            // btn_back
+            // 
+            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_back.Location = new System.Drawing.Point(9, 16);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(102, 25);
+            this.btn_back.TabIndex = 1;
+            this.btn_back.Text = "< Back";
+            this.toolTip.SetToolTip(this.btn_back, "Get back to the previous window.");
+            this.btn_back.UseVisualStyleBackColor = true;
+            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
+            // 
+            // NewSimulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -499,7 +513,7 @@
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.MainSidePanel);
             this.MinimumSize = new System.Drawing.Size(600, 500);
-            this.Name = "MainForm";
+            this.Name = "NewSimulationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Epidemic Simulator";
             this.MainSidePanel.ResumeLayout(false);
@@ -557,6 +571,7 @@
         private System.Windows.Forms.Button btn_disease_export;
         private System.Windows.Forms.Button btn_next;
         private System.Windows.Forms.GroupBox MainPanel_grpBox;
+        private System.Windows.Forms.Button btn_back;
     }
 }
 

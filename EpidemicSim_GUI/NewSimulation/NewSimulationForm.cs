@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using PSC2013.ES.Library.IO.Readers;
 using PSC2013.ES.Library.Diseases;
+using System.Threading.Tasks;
+using PSC2013.ES.Library.AreaData;
 
 namespace PSC2013.ES.GUI.NewSimulation
 {
@@ -28,7 +30,6 @@ namespace PSC2013.ES.GUI.NewSimulation
         private NewSimulationForm()
         {
             InitializeComponent();
-            MainSidePanel.Visible = false;
         }
 
         public NewSimulationForm(Form owner, string filepath) : this()
@@ -46,7 +47,6 @@ namespace PSC2013.ES.GUI.NewSimulation
         {
             Image img = _departmentReader.ReadImage();
             MainPanel_pictureBox.Image = img;
-            MainSidePanel.Visible = true;
         }
 
         // == EVENTS ====== \\
@@ -128,7 +128,43 @@ namespace PSC2013.ES.GUI.NewSimulation
 
         private void btn_next_Click(object sender, EventArgs e)
         {
+            this.MainSidePanel.Visible = false;
+            var dlp = new DiseaseLocationPanel();
+            dlp.Dock = DockStyle.Right;
+            this.Controls.Add(dlp);
+            _departmentReader.IterationPassed += (s, arg) =>
+            {
+                var evArg = arg as ContinuationEventArgs;
+                if (evArg != null)
+                    if (evArg.Finished)
+                        dlp.ProgressBar.Invoke(new ProgressBarDelegate(FinishProgressBar), dlp.ProgressBar);
+            };
 
+            // TODO | dj | not nice... this should not be allowed to get those information?!
+            Task.Factory.StartNew(() => { return _departmentReader.ReadFile(); })                       // reading file
+                .ContinueWith((information) => dlp.ListBoxDepartments.Invoke(                           // continuing with
+                    new ListBoxDelegate(FinishListBox), dlp.ListBoxDepartments, information.Result));   // adding result to list
+
+            // TODO | dj | continue.
+        }
+
+        private delegate void ProgressBarDelegate(ProgressBar pb);
+        private delegate void ListBoxDelegate(ListBox lb, DepartmentInfo[] info);
+
+        private void FinishProgressBar(ProgressBar progressBar)
+        {
+            progressBar.Style = ProgressBarStyle.Continuous;
+            progressBar.Value = 100;
+        }
+
+        private void FinishListBox(ListBox lb, DepartmentInfo[] info)
+        {
+            lb.Items.AddRange(info.Select(x => x.Name).ToArray());
+        }
+
+        private void btn_back_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

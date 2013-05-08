@@ -48,6 +48,7 @@
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\IOutputTarget.cs" />
     <Compile Include="IO\Readers\ArchiveReader.cs" />
+    <Compile Include="IO\Readers\ContinuationEventArgs.cs" />
     <Compile Include="IO\Readers\DepartmentMapReader.cs" />
     <Compile Include="IO\Writers\ArchiveBinaryWriter.cs" />
     <Compile Include="Simulation\Components\AgeingSimulationComponent.cs" />

@@ -15,6 +15,8 @@ namespace PSC2013.ES.GUI
     {
         private const string DEFAULT_EXTENSIONS_DEP = "Department-Files (*.dep)|*.dep|All files (*.*)|*.*";
         private const string FILEDIALOG_TITLE_DEP = "Select Department-file (.dep).";
+        private const string DEFAULT_EXTENSIONS_SIM = "Simulation-Files (*.sim)|*.sim|All files (*.*)|*.*";
+        private const string FILEDIALOG_TITLE_SIM = "Select Simulation-file (.sim).";
 
         public StartWindow()
         {
@@ -30,6 +32,20 @@ namespace PSC2013.ES.GUI
             {
                 string filepath = openFileDialog.FileName;
                 new NewSimulationForm(this, filepath).Show();
+                this.Hide();
+            }
+        }
+
+        private void btn_review_Click(object sender, EventArgs e)
+        {
+            openFileDialog.Filter = DEFAULT_EXTENSIONS_SIM;
+            openFileDialog.Title = FILEDIALOG_TITLE_SIM;
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string filepath = openFileDialog.FileName;
+                // TODO | dj | call simulationReviewWindow from here.
+                Console.WriteLine("Open the window... Constructor has to get <this>!");
                 this.Hide();
             }
         }
