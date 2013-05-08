@@ -80,5 +80,24 @@ namespace PSC2013.ES.Library.Statistics
                 throw new ApplicationException("No File loaded");
             }
         }
+
+        public void CreateDeathGraphics(Color[] colors)
+        {
+            if (_currentArchive != null)
+            {
+                if (_currentSnapshot != null)
+                {
+                    _creator.GetDeathMap(_currentSnapshot, colors);
+                }
+                else
+                {
+                    throw new ApplicationException("No Snapshot is opened!");
+                }
+            }
+            else
+            {
+                throw new ApplicationException("No File loaded");
+            }
+        }
     }
 }

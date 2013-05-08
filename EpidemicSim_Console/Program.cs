@@ -202,7 +202,7 @@ namespace PSC2013.ES.Cmd
             string name = Console.ReadLine();
 
             manager.LoadTickSnapshot(name);
-            manager.CreateGraphics(Library.Statistics.Pictures.EStatField.FemaleBaby, ColorPalette.RED);
+            manager.CreateDeathGraphics(ColorPalette.RED);
         }
     }
 }

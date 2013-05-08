@@ -8,7 +8,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 {
     public class MapCreator
     {
-        private int X = 2814;
+        private int X = 2814; //TODO Read From SimInfoFile
         private int Y = 3841;
         private string _target;
 
@@ -55,38 +55,32 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 if (count == 0)
                     map.SetPixel(p.X, p.Y, Color.Black);
 
-                else if (count <= steps[9])
-                    map.SetPixel(p.X, p.Y, palette[9]);
+                for (int i = 9; i >= 0; --i)
+                {
+                    map.SetPixel(p.X, p.Y, palette[i]);
+                }
 
-                else if (count <= steps[8])
-                    map.SetPixel(p.X, p.Y, palette[8]);
+            }
+            map.Save(_target + "/map" + snapshot.Tick + ".png", System.Drawing.Imaging.ImageFormat.Png);
+        }
 
-                else if (count <= steps[7])
-                    map.SetPixel(p.X, p.Y, palette[7]);
+        public void GetDeathMap(TickSnapshot snapshot, Color[] palette)
+        {
+            Bitmap map = new Bitmap(X, Y);
 
-                else if (count <= steps[6])
-                    map.SetPixel(p.X, p.Y, palette[6]);
-
-                else if (count <= steps[5])
-                    map.SetPixel(p.X, p.Y, palette[5]);
-
-                else if (count <= steps[4])
-                    map.SetPixel(p.X, p.Y, palette[4]);
-
-                else if (count <= steps[3])
-                    map.SetPixel(p.X, p.Y, palette[3]);
-
-                else if (count <= steps[2])
-                    map.SetPixel(p.X, p.Y, palette[2]);
-
-                else if (count <= steps[1])
-                    map.SetPixel(p.X, p.Y, palette[1]);
-
-                else if (count <= steps[0])
-                    map.SetPixel(p.X, p.Y, palette[0]);
+            foreach (CellSnapshot cell in snapshot.Cells)
+            {
+                Point p = ExtensionMethods.DeFlatten(cell.Position, X);
+                map.SetPixel(p.X, p.Y, Color.Black);
+            }
+            foreach (HumanSnapshot snap in snapshot.Deaths)
+            {
+                Point p = ExtensionMethods.DeFlatten(snap.DeathCell, X);
+                map.SetPixel(p.X, p.Y, palette[0]);
             }
 
-            map.Save(_target + "/map.png", System.Drawing.Imaging.ImageFormat.Png);
+            map.Save(_target + "/deathmap" + snapshot.Tick + ".png", System.Drawing.Imaging.ImageFormat.Png);
         }
+
     }
 }
