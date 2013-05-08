@@ -26,9 +26,9 @@ namespace PSC2013.ES.Cmd
 
             //TestAgeingComponent();
 
-            //TestMovementComponent();
+            TestMovementComponent();
 
-            TestStats();
+            //TestStats();
 
             Console.ReadKey();
 #endif
@@ -160,9 +160,9 @@ namespace PSC2013.ES.Cmd
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new DebugSimulationComponent(),
-                new AgeingSimulationComponent(110, 8544),
+                new AgeingSimulationComponent(110, 1),
                 new MovementSimulationComponent());
-            sim.SetSnapshotIntervall(1);
+            sim.SetSnapshotIntervall(2);
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
