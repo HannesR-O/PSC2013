@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Drawing;
+using System.Threading;
 using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.PopulationData;
@@ -192,17 +193,22 @@ namespace PSC2013.ES.Cmd
             StatisticsManager manager = new StatisticsManager(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             Console.WriteLine("Please enter the name of your .sim file:");
             string file = Console.ReadLine();
+            if (file.EndsWith(".sim")) file = file.Remove(file.Length - 4);
             manager.OpenSimFile(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
                 + file + ".sim"); // Insert your .sim path here...
             foreach (string s in manager.Entrys)
             {
                 Console.WriteLine(s);
             }
-            Console.WriteLine("Please type a File Name:");
+            Console.WriteLine("Please type a filename:");
             string name = Console.ReadLine();
 
             manager.LoadTickSnapshot(name);
-            manager.CreateGraphics(EStatField.FemaleAdult, ColorPalette.BLUE);
+            Console.WriteLine("Please type a color scheme (RED, BLUE):");
+            string palette = Console.ReadLine();
+            Color[] pal = palette == "BLUE" ? ColorPalette.BLUE : ColorPalette.RED;
+
+            manager.CreateGraphics(EStatField.FemaleAdult, pal);
         }
     }
 }

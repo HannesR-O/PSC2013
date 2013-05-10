@@ -1,4 +1,5 @@
-﻿using PSC2013.ES.Library.Snapshot;
+﻿using System.Drawing.Imaging;
+using PSC2013.ES.Library.Snapshot;
 using System.Drawing;
 using System.Linq;
 using System;
@@ -77,7 +78,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
 
             }
-            map.Save(_target + "/map" + snapshot.Tick + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            map.Save(_target + "/map" + snapshot.Tick + ".png", ImageFormat.Png);
         }
 
         public void GetDeathMap(TickSnapshot snapshot, Color[] palette)
