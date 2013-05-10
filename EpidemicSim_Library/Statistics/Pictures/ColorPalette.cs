@@ -24,5 +24,26 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                                  Color.FromArgb(255, 225, 0), 
                                  Color.FromArgb(255, 230, 0), 
                                  Color.FromArgb(255, 235, 0)};
+
+        public static Color[] BLUE = {Color.FromArgb(0, 0, 255), 
+                                 Color.FromArgb(0, 15, 255), 
+                                 Color.FromArgb(0, 30, 255), 
+                                 Color.FromArgb(0, 45, 255), 
+                                 Color.FromArgb(0, 60, 255),
+                                 Color.FromArgb(0, 75, 255), 
+                                 Color.FromArgb(0, 90, 255), 
+                                 Color.FromArgb(0, 105, 255), 
+                                 Color.FromArgb(0, 120, 255), 
+                                 Color.FromArgb(0, 135, 255),
+                                 Color.FromArgb(0, 150, 255), 
+                                 Color.FromArgb(0, 165, 255), 
+                                 Color.FromArgb(0, 180, 255), 
+                                 Color.FromArgb(0, 195, 255), 
+                                 Color.FromArgb(0, 210, 255),
+                                 Color.FromArgb(0, 215, 255), 
+                                 Color.FromArgb(0, 220, 255), 
+                                 Color.FromArgb(0, 225, 255), 
+                                 Color.FromArgb(0, 230, 255), 
+                                 Color.FromArgb(0, 235, 255)};
     }
 }
