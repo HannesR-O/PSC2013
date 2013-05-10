@@ -35,29 +35,45 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             int min = snapshot.Cells.Min(x => x.Values[(int)field]);
             Console.WriteLine(min);
 
-            int[] steps = new int[10];
+            int[] steps = new int[20];
             steps[0] = max;
-            steps[1] = (int)(max * 0.9f);
-            steps[2] = (int)(max * 0.8f);
-            steps[3] = (int)(max * 0.7f);
-            steps[4] = (int)(max * 0.6f);
-            steps[5] = (int)(max * 0.5f);
-            steps[6] = (int)(max * 0.4f);
-            steps[7] = (int)(max * 0.3f);
-            steps[8] = (int)(max * 0.2f);
-            steps[9] = (int)(max * 0.1f);
+            steps[1] = (int)(max * 0.95f);
+            steps[2] = (int)(max * 0.90f);
+            steps[3] = (int)(max * 0.85f);
+            steps[4] = (int)(max * 0.8f);
+            steps[5] = (int)(max * 0.75f);
+            steps[6] = (int)(max * 0.7f);
+            steps[7] = (int)(max * 0.65f);
+            steps[8] = (int)(max * 0.6f);
+            steps[9] = (int)(max * 0.55f);
+            steps[10] = (int)(max * 0.5f);
+            steps[11] = (int)(max * 0.45f);
+            steps[12] = (int)(max * 0.4f);
+            steps[13] = (int)(max * 0.35f);
+            steps[14] = (int)(max * 0.3f);
+            steps[15] = (int)(max * 0.25f);
+            steps[16] = (int)(max * 0.2f);
+            steps[17] = (int)(max * 0.15f);
+            steps[18] = (int)(max * 0.1f);
+            steps[19] = (int)(max * 0.05f);
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
-                int count = cell.Values[(int)field];
-                Point p = ExtensionMethods.DeFlatten(cell.Position, X);
+                int count = cell.Values[(int)field]; 
+                Point p = cell.Position.DeFlatten(X);
 
                 if (count == 0)
                     map.SetPixel(p.X, p.Y, Color.Black);
-
-                for (int i = 9; i >= 0; --i)
+                else
                 {
-                    map.SetPixel(p.X, p.Y, palette[i]);
+                    for (int i = 19; i >= 0; --i)
+                    {
+                        if (steps[i] >= count)
+                        {
+                            map.SetPixel(p.X, p.Y, palette[i]);
+                            break;
+                        }
+                    }
                 }
 
             }
@@ -70,7 +86,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
-                Point p = ExtensionMethods.DeFlatten(cell.Position, X);
+                Point p = cell.Position.DeFlatten(X);
                 map.SetPixel(p.X, p.Y, Color.Black);
             }
             foreach (HumanSnapshot snap in snapshot.Deaths)

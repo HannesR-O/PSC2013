@@ -26,9 +26,9 @@ namespace PSC2013.ES.Cmd
 
             //TestAgeingComponent();
 
-            TestMovementComponent();
+            //TestMovementComponent();
 
-            //TestStats();
+            TestStats();
 
             Console.ReadKey();
 #endif
@@ -202,7 +202,7 @@ namespace PSC2013.ES.Cmd
             string name = Console.ReadLine();
 
             manager.LoadTickSnapshot(name);
-            manager.CreateDeathGraphics(ColorPalette.RED);
+            manager.CreateGraphics(EStatField.FemaleAdult, ColorPalette.RED);
         }
     }
 }
