@@ -85,30 +85,44 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
 
             }
-            map.Save(_target + "/map" + snapshot.Tick + ".png", ImageFormat.Png);
+            map.Save(_target + "/map_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
         }
 
         private void ExtendendMap(TickSnapshot snapshot, EStatField field, Color[] palette)
         {
             Bitmap map = new Bitmap(X, Y);
             Dictionary<int, long> Values = new Dictionary<int,long>();
+
+            int s, i, j;
+            switch (field)
+            {
+                case EStatField.AllMale:
+                    s =i = 0;
+                    j = 4;
+                    break;
+                case EStatField.AllFemale:
+                    s = i = 4;
+                    j = 8;
+                    break;
+                case EStatField.AllHumans:
+                    s = i = 0;
+                    j = 8;
+                    break;
+                default:
+                    s = i = j = 0;
+                    break;
+            }
+
             foreach (CellSnapshot cell in snapshot.Cells)
             {
-                switch (field)
+                long temp = 0;
+                
+                for (; i < j; ++i)
                 {
-                    case EStatField.AllMale:
-                        long tempm = 0;
-                        for (int i = 0; i < 4; ++i)
-                            tempm += cell.Values[i];
-                        Values.Add(cell.Position, tempm);
-                        break;
-                    case EStatField.AllFemale:
-                        long tempf = 0;
-                        for (int i = 4; i < 8; ++i)
-                            tempf += cell.Values[i];
-                        Values.Add(cell.Position, tempf);
-                        break;
+                      temp += cell.Values[i];                  
                 }
+                Values.Add(cell.Position, temp);
+                i = s;
             }
 
             long max = Values.Values.Max();
@@ -145,17 +159,17 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                     map.SetPixel(p.X, p.Y, Color.Black);
                 else
                 {
-                    for (int i = 19; i >= 0; --i)
+                    for (int index = 19; index >= 0; --index)
                     {
-                        if (steps[i] >= count)
+                        if (steps[index] >= count)
                         {
-                            map.SetPixel(p.X, p.Y, palette[i]);
+                            map.SetPixel(p.X, p.Y, palette[index]);
                             break;
                         }
                     }
                 }
             }
-            map.Save(_target + "/mapFull" + snapshot.Tick + ".png", ImageFormat.Png);
+            map.Save(_target + "/map_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
         }
 
         /// <summary>

@@ -22,6 +22,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         Infected = 8,
         Diseased = 9,
         AllMale = 10,
-        AllFemale = 11
+        AllFemale = 11,
+        AllHumans = 12
     }
 }
