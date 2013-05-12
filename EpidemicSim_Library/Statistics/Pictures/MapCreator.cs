@@ -3,6 +3,7 @@ using PSC2013.ES.Library.Snapshot;
 using System.Drawing;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 
 namespace PSC2013.ES.Library.Statistics.Pictures
@@ -30,11 +31,17 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="palette">The Color Palette to be used</param>
         public void GetMap(TickSnapshot snapshot, EStatField field, Color[] palette)
         {
+            if ((int)field < 10)
+                StandardMap(snapshot, field, palette);
+            else
+                ExtendendMap(snapshot, field, palette);
+        }
+
+        private void StandardMap(TickSnapshot snapshot, EStatField field, Color[] palette)
+        {
             Bitmap map = new Bitmap(X, Y);
             int max = snapshot.Cells.Max(x => x.Values[(int)field]);
-            Console.WriteLine(max);
             int min = snapshot.Cells.Min(x => x.Values[(int)field]);
-            Console.WriteLine(min);
 
             int[] steps = new int[20];
             steps[0] = max;
@@ -60,7 +67,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
-                int count = cell.Values[(int)field]; 
+                int count = cell.Values[(int)field];
                 Point p = cell.Position.DeFlatten(X);
 
                 if (count == 0)
@@ -81,6 +88,81 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             map.Save(_target + "/map" + snapshot.Tick + ".png", ImageFormat.Png);
         }
 
+        private void ExtendendMap(TickSnapshot snapshot, EStatField field, Color[] palette)
+        {
+            Bitmap map = new Bitmap(X, Y);
+            Dictionary<int, long> Values = new Dictionary<int,long>();
+            foreach (CellSnapshot cell in snapshot.Cells)
+            {
+                switch (field)
+                {
+                    case EStatField.AllMale:
+                        long tempm = 0;
+                        for (int i = 0; i < 4; ++i)
+                            tempm += cell.Values[i];
+                        Values.Add(cell.Position, tempm);
+                        break;
+                    case EStatField.AllFemale:
+                        long tempf = 0;
+                        for (int i = 4; i < 8; ++i)
+                            tempf += cell.Values[i];
+                        Values.Add(cell.Position, tempf);
+                        break;
+                }
+            }
+
+            long max = Values.Values.Max();
+            long min = Values.Values.Min();
+
+            long[] steps = new long[20];
+            steps[0] = max;
+            steps[1] = (long)(max * 0.95f);
+            steps[2] = (long)(max * 0.90f);
+            steps[3] = (long)(max * 0.85f);
+            steps[4] = (long)(max * 0.8f);
+            steps[5] = (long)(max * 0.75f);
+            steps[6] = (long)(max * 0.7f);
+            steps[7] = (long)(max * 0.65f);
+            steps[8] = (long)(max * 0.6f);
+            steps[9] = (long)(max * 0.55f);
+            steps[10] = (long)(max * 0.5f);
+            steps[11] = (long)(max * 0.45f);
+            steps[12] = (long)(max * 0.4f);
+            steps[13] = (long)(max * 0.35f);
+            steps[14] = (long)(max * 0.3f);
+            steps[15] = (long)(max * 0.25f);
+            steps[16] = (long)(max * 0.2f);
+            steps[17] = (long)(max * 0.15f);
+            steps[18] = (long)(max * 0.1f);
+            steps[19] = (long)(max * 0.05f);
+
+            foreach (int pos in Values.Keys)
+            {
+                long count = Values[pos];
+                Point p = pos.DeFlatten(X);
+
+                if (count == 0)
+                    map.SetPixel(p.X, p.Y, Color.Black);
+                else
+                {
+                    for (int i = 19; i >= 0; --i)
+                    {
+                        if (steps[i] >= count)
+                        {
+                            map.SetPixel(p.X, p.Y, palette[i]);
+                            break;
+                        }
+                    }
+                }
+            }
+            map.Save(_target + "/mapFull" + snapshot.Tick + ".png", ImageFormat.Png);
+        }
+
+        /// <summary>
+        /// Creates an Map, showing where People died in this Tick.
+        /// </summary>
+        /// <param name="snapshot"></param>
+        /// <param name="palette"></param>
         public void GetDeathMap(TickSnapshot snapshot, Color[] palette)
         {
             Bitmap map = new Bitmap(X, Y);

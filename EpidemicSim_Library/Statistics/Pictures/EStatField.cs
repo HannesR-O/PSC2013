@@ -20,6 +20,8 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         FemaleAdult = 6,
         FemaleSenior = 7,
         Infected = 8,
-        Diseased = 9
+        Diseased = 9,
+        AllMale = 10,
+        AllFemale = 11
     }
 }
