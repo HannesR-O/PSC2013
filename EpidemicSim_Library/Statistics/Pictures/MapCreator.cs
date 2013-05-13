@@ -29,15 +29,15 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="snapshot">The Snapshot to be mapped</param>
         /// <param name="field">The Field to be visualised</param>
         /// <param name="palette">The Color Palette to be used</param>
-        public void GetMap(TickSnapshot snapshot, EStatField field, Color[] palette)
+        public void GetMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
         {
             if ((int)field < 10)
-                StandardMap(snapshot, field, palette);
+                StandardMap(snapshot, field, palette, namePrefix);
             else
-                ExtendendMap(snapshot, field, palette);
+                ExtendendMap(snapshot, field, palette, namePrefix);
         }
 
-        private void StandardMap(TickSnapshot snapshot, EStatField field, Color[] palette)
+        private void StandardMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
         {
             Bitmap map = new Bitmap(X, Y);
             int max = snapshot.Cells.Max(x => x.Values[(int)field]);
@@ -85,10 +85,10 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
 
             }
-            map.Save(_target + "/map_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
+            map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
         }
 
-        private void ExtendendMap(TickSnapshot snapshot, EStatField field, Color[] palette)
+        private void ExtendendMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
         {
             Bitmap map = new Bitmap(X, Y);
             Dictionary<int, long> Values = new Dictionary<int,long>();
@@ -169,7 +169,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                     }
                 }
             }
-            map.Save(_target + "/map_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
+            map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
         }
 
         /// <summary>
