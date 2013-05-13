@@ -12,7 +12,7 @@ using PSC2013.ES.Library.Simulation.Components;
 
 namespace PSC2013.ES.Library
 {
-    public class EpidemicSimulator
+    public sealed class EpidemicSimulator
     {
 #if DEBUG
         private readonly Stopwatch _watch = new Stopwatch();
@@ -286,7 +286,7 @@ namespace PSC2013.ES.Library
             OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
         }
 
-        protected virtual void OnSimulationStarted(SimulationEventArgs e)
+        private void OnSimulationStarted(SimulationEventArgs e)
         {
 #if DEBUG
             Console.WriteLine("ES: Simulation started!");
@@ -294,7 +294,7 @@ namespace PSC2013.ES.Library
             SimulationStarted.Raise(this, e);
         }
 
-        protected virtual void OnSimulationEnded(SimulationEventArgs e)
+        private void OnSimulationEnded(SimulationEventArgs e)
         {
 #if DEBUG
             Console.WriteLine("ES: Simulation ended!");
@@ -302,7 +302,7 @@ namespace PSC2013.ES.Library
             SimulationEnded.Raise(this, e);
         }
 
-        protected virtual void OnTickFinished(SimulationEventArgs e)
+        private void OnTickFinished(SimulationEventArgs e)
         {
 #if DEBUG
             Console.WriteLine("ES: Finished DoTick: " + _simulationRound + "!");
