@@ -2,6 +2,7 @@
 using System.Threading;
 using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.IO;
 using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
@@ -25,11 +26,11 @@ namespace PSC2013.ES.Cmd
 
             //TestCalculations();
 
-            //TestAgeingComponent();
+            TestSimulation();
 
             //TestMovementComponent();
 
-            TestStats();
+            //TestStats();
 
             Console.ReadKey();
 #endif
@@ -86,7 +87,7 @@ namespace PSC2013.ES.Cmd
             Console.WriteLine("Total Humancount in 1000: " + simData.Cells.Length * 8 / 1000);
         }
 
-        public static void TestAgeingComponent()
+        public static void TestSimulation()
         {
             var disease = new Disease
             {
@@ -95,7 +96,7 @@ namespace PSC2013.ES.Cmd
                 IdleTime = 123415,
                 SpreadingTime = 123123,
                 Transferability = 901237,
-                MortalityRate = new FactorContainer(new []{1, 2, 14, 151, 11515, 123, 123, 120}),
+                MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
                 HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
                 ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
             };
@@ -105,6 +106,7 @@ namespace PSC2013.ES.Cmd
                 new AgeingSimulationComponent(110, 1),
                 new MovementSimulationComponent());
             sim.SetSnapshotIntervall(2);
+            sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;

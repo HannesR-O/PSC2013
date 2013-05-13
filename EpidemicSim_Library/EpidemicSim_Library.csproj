@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\ConsoleOutputTarget.cs" />
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\IOutputTarget.cs" />
     <Compile Include="IO\Readers\ArchiveReader.cs" />

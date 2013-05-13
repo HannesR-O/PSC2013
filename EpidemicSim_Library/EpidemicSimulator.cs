@@ -24,7 +24,7 @@ namespace PSC2013.ES.Library
         private const string ERROR_MESSAGE_SIMULATION_RUNNING = "A Simulation is already running!";
         private const string ERROR_MESSAGE_NO_SIMULATION_RUNNING = "No Simulation running!";
 
-        private const int SIMULATION_DEFAULT_START = 1;
+        private const int SIMULATION_DEFAULT_START = 0;
         private const int SIMULATION_DEFAULT_LIMIT = 0;
 
         private const int DEFAULT_SIMULATION_INTERVALL = 1;
@@ -51,8 +51,10 @@ namespace PSC2013.ES.Library
 
         // Misc.
         private volatile bool _simulationLock;
+        private volatile bool _writeToOutputs = true;
         private long _simulationRound = SIMULATION_DEFAULT_START;
         private long _simulationLimit = SIMULATION_DEFAULT_LIMIT;
+
         #endregion
 
         #region ### Public ###
@@ -68,6 +70,7 @@ namespace PSC2013.ES.Library
             }
         }
         public bool IsSimulationg { get { return _simulationLock; } }
+        public bool WriteToOutputs { get { return _writeToOutputs; } set { _writeToOutputs = value; } }
 
         // Events
         public event EventHandler<SimulationEventArgs> SimulationStarted;
@@ -80,10 +83,12 @@ namespace PSC2013.ES.Library
         {
             _simData = new SimulationData { CurrentDisease = disease };
 
-            _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
+            //_snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
 
             _before = new List<ISimulationComponent>();
             _after = new List<ISimulationComponent>();
+
+            _outputTargets = new List<IOutputTarget>();
         }
 
         /// <summary>
@@ -147,6 +152,22 @@ namespace PSC2013.ES.Library
                     _after.Add(component);
         }
 
+        public void RemoveSimulationComponent(ISimulationComponent component)
+        {
+            var stages = component.SimulationStages;
+            if((stages & ESimulationStage.InfectedCalculation) == ESimulationStage.InfectedCalculation)
+                throw new SimulationException("Cannot remove Infection Simulation component! \n " +
+                                              "If you want to set a new one, use AddSimulationComponent!");
+
+            if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation &&
+                _before.Contains(component))
+                _before.Remove(component);
+
+            if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation &&
+                _after.Contains(component))
+                _after.Remove(component);
+        }
+
         /// <summary>
         /// Adds a new IOutputTarget to the Epidemic Simulator. Allowing it to write messages to
         /// this Output during simulation
@@ -157,9 +178,7 @@ namespace PSC2013.ES.Library
             if (_simulationLock)
                 throw new SimulationException("Could not add a new IOutputTarget. " + ERROR_MESSAGE_SIMULATION_RUNNING);
 
-            if (_outputTargets == null)
-                _outputTargets = new List<IOutputTarget>();
-            if (_outputTargets.Contains(target))
+            if (!_outputTargets.Contains(target))
                 _outputTargets.Add(target);
         }
 
@@ -228,7 +247,7 @@ namespace PSC2013.ES.Library
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
+            //_snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
 
             // Actual Simulation is performed in another Thread to enable stopping
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
@@ -270,11 +289,11 @@ namespace PSC2013.ES.Library
 
                 long round = Interlocked.Increment(ref _simulationRound);
                 if (round % _ticksPerSnapshot == 0)
-                    _snapshotMgr.TakeSnapshot(_simData);
+                    //_snapshotMgr.TakeSnapshot(_simData);
                 _simulationLock = round != _simulationLimit;
 #if DEBUG
                 _watch.Stop();
-                Console.WriteLine("DoTick took " + _watch.ElapsedMilliseconds + "ms!");
+                WriteMessage("Tick took " + _watch.ElapsedMilliseconds + "ms!");
 #endif
                 OnTickFinished(new SimulationEventArgs() { SimulationRunning = true, SimulationRound = round });
             }
@@ -286,27 +305,28 @@ namespace PSC2013.ES.Library
             OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
         }
 
+        private void WriteMessage(string message)
+        {
+            foreach(var target in _outputTargets)
+                target.WriteToOutput(message);
+        }
+
         private void OnSimulationStarted(SimulationEventArgs e)
         {
-#if DEBUG
-            Console.WriteLine("ES: Simulation started!");
-#endif
+            WriteMessage("ES: Simulation started!");
+
             SimulationStarted.Raise(this, e);
         }
-
         private void OnSimulationEnded(SimulationEventArgs e)
         {
-#if DEBUG
-            Console.WriteLine("ES: Simulation ended!");
-#endif
+            WriteMessage("ES: Simulation ended!");
+
             SimulationEnded.Raise(this, e);
         }
-
         private void OnTickFinished(SimulationEventArgs e)
         {
-#if DEBUG
-            Console.WriteLine("ES: Finished DoTick: " + _simulationRound + "!");
-#endif
+            WriteMessage("ES: Finished DoTick: " + _simulationRound + "!");
+
             TickFinished.Raise(this, e);
         }
     }
