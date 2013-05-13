@@ -149,7 +149,7 @@ namespace PSC2013.ES.Cmd
             string palette = Console.ReadLine();
             Color[] pal = palette == "BLUE" ? ColorPalette.BLUE : ColorPalette.RED;
 
-            manager.CreateGraphics(EStatField.AllHumans, pal, "pic");
+            manager.CreateGraphics(EStatField.FemaleChild, pal, "pic");
         }
     }
 }

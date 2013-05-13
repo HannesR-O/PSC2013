@@ -29,41 +29,20 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="snapshot">The Snapshot to be mapped</param>
         /// <param name="field">The Field to be visualised</param>
         /// <param name="palette">The Color Palette to be used</param>
-        public void GetMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
+        public Dictionary<String, Color> GetMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
         {
             if ((int)field < 10)
-                StandardMap(snapshot, field, palette, namePrefix);
+                return StandardMap(snapshot, field, palette, namePrefix);
             else
-                ExtendendMap(snapshot, field, palette, namePrefix);
+                return ExtendendMap(snapshot, field, palette, namePrefix);
         }
 
-        private void StandardMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
+        private Dictionary<String, Color> StandardMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
         {
             Bitmap map = new Bitmap(X, Y);
             int max = snapshot.Cells.Max(x => x.Values[(int)field]);
-            int min = snapshot.Cells.Min(x => x.Values[(int)field]);
 
-            int[] steps = new int[20];
-            steps[0] = max;
-            steps[1] = (int)(max * 0.95f);
-            steps[2] = (int)(max * 0.90f);
-            steps[3] = (int)(max * 0.85f);
-            steps[4] = (int)(max * 0.8f);
-            steps[5] = (int)(max * 0.75f);
-            steps[6] = (int)(max * 0.7f);
-            steps[7] = (int)(max * 0.65f);
-            steps[8] = (int)(max * 0.6f);
-            steps[9] = (int)(max * 0.55f);
-            steps[10] = (int)(max * 0.5f);
-            steps[11] = (int)(max * 0.45f);
-            steps[12] = (int)(max * 0.4f);
-            steps[13] = (int)(max * 0.35f);
-            steps[14] = (int)(max * 0.3f);
-            steps[15] = (int)(max * 0.25f);
-            steps[16] = (int)(max * 0.2f);
-            steps[17] = (int)(max * 0.15f);
-            steps[18] = (int)(max * 0.1f);
-            steps[19] = (int)(max * 0.05f);
+            int[] steps = GenerateSteps(max, 0.05f);
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
@@ -86,15 +65,18 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             }
             map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
+
+            return GenerateLegend(steps, palette);
         }
 
-        private void ExtendendMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
+
+        private Dictionary<String, Color> ExtendendMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
         {
             Bitmap map = new Bitmap(X, Y);
-            Dictionary<int, long> Values = new Dictionary<int,long>();
+            Dictionary<int, int> Values = new Dictionary<int,int>();
 
-            int s, i, j;
-            switch (field)
+            int s, i, j; // Index for each cell to count
+            switch (field) // Switch over which category we want to paint
             {
                 case EStatField.AllMale:
                     s =i = 0;
@@ -113,9 +95,9 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                     break;
             }
 
-            foreach (CellSnapshot cell in snapshot.Cells)
+            foreach (CellSnapshot cell in snapshot.Cells) // Counting for each Cell
             {
-                long temp = 0;
+                int temp = 0;
                 
                 for (; i < j; ++i)
                 {
@@ -125,34 +107,13 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 i = s;
             }
 
-            long max = Values.Values.Max();
-            long min = Values.Values.Min();
+            int max = Values.Values.Max();
 
-            long[] steps = new long[20];
-            steps[0] = max;
-            steps[1] = (long)(max * 0.95f);
-            steps[2] = (long)(max * 0.90f);
-            steps[3] = (long)(max * 0.85f);
-            steps[4] = (long)(max * 0.8f);
-            steps[5] = (long)(max * 0.75f);
-            steps[6] = (long)(max * 0.7f);
-            steps[7] = (long)(max * 0.65f);
-            steps[8] = (long)(max * 0.6f);
-            steps[9] = (long)(max * 0.55f);
-            steps[10] = (long)(max * 0.5f);
-            steps[11] = (long)(max * 0.45f);
-            steps[12] = (long)(max * 0.4f);
-            steps[13] = (long)(max * 0.35f);
-            steps[14] = (long)(max * 0.3f);
-            steps[15] = (long)(max * 0.25f);
-            steps[16] = (long)(max * 0.2f);
-            steps[17] = (long)(max * 0.15f);
-            steps[18] = (long)(max * 0.1f);
-            steps[19] = (long)(max * 0.05f);
+            int[] steps = GenerateSteps(max, 0.05f);
 
             foreach (int pos in Values.Keys)
             {
-                long count = Values[pos];
+                int count = Values[pos];
                 Point p = pos.DeFlatten(X);
 
                 if (count == 0)
@@ -170,6 +131,8 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
             }
             map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
+
+            return GenerateLegend(steps, palette);
         }
 
         /// <summary>
@@ -195,5 +158,53 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             map.Save(_target + "/deathmap" + snapshot.Tick + ".png", System.Drawing.Imaging.ImageFormat.Png);
         }
 
+        /// <summary>
+        /// Generates an Array of Steps from an given Value down to somewhere near 0
+        /// </summary>
+        /// <param name="max">The Max Value</param>
+        /// <returns></returns>
+        private static int[] GenerateSteps(int max, float step)
+        {
+            int[] steps = new int[20];
+            steps[0] = max;
+
+            float temp = 1.0f;
+
+            for (int i = 1; i < 20; ++i)
+            {
+                temp -= step;
+                steps[i] = (int)(max * temp);
+            }
+
+            return steps;
+        }
+
+        /// <summary>
+        /// Creates an Dictionary consisting of the Ranges and the used Colors.
+        /// </summary>
+        /// <param name="steps">The Steps</param>
+        /// <param name="palette">The Color Palette</param>
+        /// <returns>Dictionary of Range and Color</returns>
+        private static Dictionary<string, Color> GenerateLegend(int[] steps, Color[] palette)
+        {
+            if (steps.Length != palette.Length)
+                throw new ArgumentException("Both Arrays have to be same Length");
+
+            if (!(steps.Length > 1 && palette.Length > 1))
+                throw new ArgumentException("Steps or Palette need to have at least 2 Values each");
+            
+            Dictionary<string, Color> legend = new Dictionary<string, Color>();
+
+            legend.Add(steps[0] + " - " + steps[1], palette[0]); // This one has always to be there
+
+            for (int i = 1; i < steps.Length - 2; ++i)
+            {
+                legend.Add(steps[i] + " - " + steps[i + 1], palette[i]);
+            }
+
+            legend.Add(steps[steps.Length - 1] + " - 1", palette[palette.Length - 1]); // Always the last one
+
+            return legend;
+        }
     }
 }
