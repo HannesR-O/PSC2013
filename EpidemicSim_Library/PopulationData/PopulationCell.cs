@@ -1,14 +1,24 @@
-﻿using System.Linq;
-
-namespace PSC2013.ES.Library.PopulationData
+﻿namespace PSC2013.ES.Library.PopulationData
 {
     public class PopulationCell
     {
         public int RefDepartment { get; set; }
 
-        public ushort Infected { get; set; }
-        public ushort Diseased { get; set; }
-        public ushort Spreading { get; set; }
+        public ushort Infected
+        {
+            get { return _data[8]; }
+            set { _data[8] = value; }
+        }
+        public ushort Diseased 
+        {
+            get { return _data[9]; }
+            set { _data[9] = value; }
+        }
+        public ushort Spreading
+        {
+            get { return _data[10]; }
+            set { _data[10] = value; }
+        }
 
         public ushort MaleBabies
         {
@@ -71,7 +81,7 @@ namespace PSC2013.ES.Library.PopulationData
 
         public PopulationCell()
         {
-            _data = new ushort[8];
+            _data = new ushort[11];
         }
     }
 }

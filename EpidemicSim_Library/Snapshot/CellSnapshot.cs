@@ -61,22 +61,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns>A new CellSnapshot</returns>
         public static CellSnapshot InitializeFromRuntime(PopulationCell input, int position)
         {
-            ushort[] temp = new ushort[10];
-
-            temp[0] = input.MaleBabies;
-            temp[1] = input.MaleChildren;
-            temp[2] = input.MaleAdults;
-            temp[3] = input.MaleSeniors;
-
-            temp[4] = input.FemaleBabies;
-            temp[5] = input.FemaleChildren;
-            temp[6] = input.FemaleAdults;
-            temp[7] = input.FemaleSeniors;
-
-            temp[8] = input.Infected;
-            temp[9] = input.Diseased;
-
-            return new CellSnapshot(temp, position);
+            return new CellSnapshot(input.Data, position);
         }
 
         /// <summary>

@@ -283,7 +283,6 @@ namespace PSC2013.ES.Library
         private void PerformSimulationStop()
         {
             long rounds = Interlocked.Read(ref _simulationRound);
-            _snapshotMgr.Finish();
             OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
         }
 

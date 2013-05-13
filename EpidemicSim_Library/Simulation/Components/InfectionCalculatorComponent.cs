@@ -8,12 +8,9 @@ namespace PSC2013.ES.Library.Simulation.Components
         public void PerformSimulationStage(SimulationData data)
         {
             //Let each Cell calculate what chance there is for an individual Human to get infected
-            fixed (PopulationCell* cellptr = data.Cells)
+            foreach (var cell in data.Cells)
             {
-                for (PopulationCell* ptr = cellptr; ptr < cellptr + data.Cells.Length; ++ptr)
-                {
-                    ptr->CalculateProbability();
-                }
+                //TODO: |f % h| Calculate Probability or sth similar for each cell
             }
 
             //Let Humans get Infected by chance/ do their DiseaseTick
