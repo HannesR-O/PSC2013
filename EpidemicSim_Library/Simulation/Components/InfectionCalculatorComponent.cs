@@ -10,7 +10,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             //Let each Cell calculate what chance there is for an individual Human to get infected
             foreach (var cell in data.Cells)
             {
-                //TODO: |f % h| Calculate Probability or sth similar for each cell
+                //TODO: |f & h| Calculate Probability or sth similar for each cell
             }
 
             //Let Humans get Infected by chance/ do their DiseaseTick
