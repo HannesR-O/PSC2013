@@ -20,17 +20,42 @@ namespace PSC2013.ES.Cmd
         static void Main(string[] args)
         {
 #if DEBUG
-            //TestEpidemicSimulator();
+            Console.WriteLine("Welcome to the Epidemic-Simulator-Test-Console.");
+            Console.WriteLine("Please select one of the following methods to call:");
+            
+            string[] methodnames = new string[] { "TestSimulation",
+                "TestStats", "TestMovementComponent", "TestEpidemicSimulator",
+                "TestMemory", "TestSnapshot"};
+            for (int i = 0; i < methodnames.Length; i++)
+                Console.WriteLine("{0} - {1}", i, methodnames[i]);
 
-            //TestSnapshot();
+            int input = int.Parse(Console.ReadLine());
 
-            //TestCalculations();
-
-            TestSimulation();
-
-            //TestMovementComponent();
-
-            //TestStats();
+            Console.Clear();
+            switch (input)
+            {
+                case 0:
+                    TestSimulation();
+                    break;
+                case 1:
+                    TestStats();
+                    break;
+                case 2:
+                    TestMovementComponent();
+                    break;
+                case 3:
+                    TestEpidemicSimulator();
+                    break;
+                case 4:
+                    TestMemory();
+                    break;
+                case 5:
+                    TestSnapshot();
+                    break;
+                default:
+                    Console.WriteLine("wrong input");
+                    break;
+            }
 
             Console.ReadKey();
 #endif
@@ -139,12 +164,21 @@ namespace PSC2013.ES.Cmd
             if (file.EndsWith(".sim")) file = file.Remove(file.Length - 4);
             manager.OpenSimFile(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
                 + file + ".sim"); // Insert your .sim path here...
-            foreach (string s in manager.Entrys)
+            var entries = manager.Entrys;
+            foreach (string s in entries)
             {
                 Console.WriteLine(s);
             }
             Console.WriteLine("Please type a filename:");
             string name = Console.ReadLine();
+
+            if (!entries.Contains(name))
+                foreach (string entry in entries)
+                    if (entry.StartsWith(name))
+                    {
+                        name = entry;
+                        break;
+                    }
 
             manager.LoadTickSnapshot(name);
             Console.WriteLine("Please type a color scheme (RED, BLUE):");

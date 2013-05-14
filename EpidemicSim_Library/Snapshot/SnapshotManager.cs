@@ -51,9 +51,10 @@ namespace PSC2013.ES.Library.Snapshot
                                                                             // | dj | possible solution O(n): simData.Cells.Count(x => x != null);
             int pos = 0;
             int i = 0;
-            foreach (PopulationCell cell in simData.Cells.NotNullIterator())
+            foreach (PopulationCell cell in simData.Cells)
             {
-                cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
+                if (cell != null)
+                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
                 ++pos;
             }
 

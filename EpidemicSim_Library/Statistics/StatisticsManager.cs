@@ -14,7 +14,7 @@ namespace PSC2013.ES.Library.Statistics
     /// </summary>
     public class StatisticsManager
     {
-        public ArrayList Entrys { get; private set; }
+        public ArrayList Entrys { get; private set; } // TODO | dj | why no type???!!!
 
         private SimulationInfo _simInfo;
         private ZipArchive _currentArchive;
