@@ -89,6 +89,33 @@ namespace PSC2013.ES.Library.AreaData
                     {
                         int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
                         humanArray[humanCounter++] = Human.Create(gender, thisAge, point.Flatten(WIDTH));
+                        switch (i) // TODO | dj | i would like to be able to get the cell's original data-array
+                        {
+                            case 0:
+                                cell.MaleBabies++;
+                                break;
+                            case 1:
+                                cell.MaleChildren++;
+                                break;
+                            case 2:
+                                cell.MaleAdults++;
+                                break;
+                            case 3:
+                                cell.MaleSeniors++;
+                                break;
+                            case 4:
+                                cell.FemaleBabies++;
+                                break;
+                            case 5:
+                                cell.FemaleChildren++;
+                                break;
+                            case 6:
+                                cell.FemaleAdults++;
+                                break;
+                            case 7:
+                                cell.FemaleSeniors++;
+                                break;
+                        }
                     }
                 }
 

@@ -41,7 +41,7 @@ namespace PSC2013.ES.Library.PopulationData
             _data2 = 0;
             _counterInfect = 1;
             _counterSpreading = 2;
-            CurrentCell = 0;
+            CurrentCell = homeCell;
         }
 
         /// <summary>
