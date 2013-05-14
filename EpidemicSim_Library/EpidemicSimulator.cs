@@ -325,7 +325,7 @@ namespace PSC2013.ES.Library
         }
         private void OnTickFinished(SimulationEventArgs e)
         {
-            WriteMessage("ES: Finished DoTick: " + _simulationRound + "!");
+            WriteMessage("ES: Finished Tick #" + _simulationRound + "!");
 
             TickFinished.Raise(this, e);
         }
