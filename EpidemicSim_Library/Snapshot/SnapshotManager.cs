@@ -47,13 +47,13 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
-            CellSnapshot[] cells = new CellSnapshot[simData.Cells.Length]; //TODO |t|How many do we really need? Only the populated ones...
+            CellSnapshot[] cells = new CellSnapshot[simData.Cells.Length];  //TODO |t|How many do we really need? Only the populated ones...
+                                                                            // | dj | possible solution O(n): simData.Cells.Count(x => x != null);
             int pos = 0;
             int i = 0;
             foreach (PopulationCell cell in simData.Cells.NotNullIterator())
             {
-                //TODO |h| maybe another "== null" - check than checking if probability > 0
-                if (cell.Probability > 0)
+                if (cell.Probability > 0) // TODO | dj | wtf? what is this? If i get correct, then this will cause to nearly nothing been shown at the beginning...
                 {
                     cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
                 }
@@ -71,6 +71,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// Finishes writing the Snapshot Queue und compresses the folder
         /// DEPRECATED
         /// </summary>
+        // TODO | dj | should be deleted, if deprecated!!!
         [Obsolete]
         public void Finish()
         {
@@ -126,6 +127,19 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 while (_snapshots.Count > 0)
                 {
+                    // TODO | dj | maybe we should copy the queue?
+                    // because IF the IO is a/the bottleneck then locking
+                    // the queue would cause the manager itself being blocked
+                    // and not being able to enqueue a new snapshot until
+                    // the IO is finished.
+                    /* other possibility for this:
+                     * TickSnapshot tmp;
+                     * lock(_snapshots) { tmp = _snapshots.Dequeue(); }
+                     * if (tmp != null)
+                     * {
+                     *      // ...the writing stuff here.
+                     * }
+                     */
                     lock (_snapshots)
                     {
                         TickSnapshot temp = _snapshots.Dequeue();

@@ -80,9 +80,15 @@ namespace PSC2013.ES.Library.Snapshot
             temp[5] = BitConverter.ToUInt16(bytes, 10);
             temp[6] = BitConverter.ToUInt16(bytes, 12);
             temp[7] = BitConverter.ToUInt16(bytes, 14);
-            temp[8] = BitConverter.ToUInt16(bytes, 20);
-            temp[9] = BitConverter.ToUInt16(bytes, 22);
-            int position = BitConverter.ToInt32(bytes, 16);
+            temp[8] = BitConverter.ToUInt16(bytes, 20);         // should be 16
+            temp[9] = BitConverter.ToUInt16(bytes, 22);         // should be 18
+            int position = BitConverter.ToInt32(bytes, 16);     // should be 20
+
+            /* | dj | hint:
+             * for (int i = 0; i <= 9; i++)
+             *      temp[i] = BitConverter.ToUInt16(bytes, i * 2);
+             * int position = BitConverter.ToInt32(bytes, tmp.Length * 2);
+             */
 
             return new CellSnapshot(temp, position);
         }
@@ -106,6 +112,8 @@ namespace PSC2013.ES.Library.Snapshot
             Array.Copy(BitConverter.GetBytes(Position), 0, output, 16, 4);
             Array.Copy(BitConverter.GetBytes(Values[8]), 0, output, 20, 2);
             Array.Copy(BitConverter.GetBytes(Values[9]), 0, output, 22, 2);
+
+            // | dj | hint: similar to .InitializeFormRuntime...
 
             return output;
         }
