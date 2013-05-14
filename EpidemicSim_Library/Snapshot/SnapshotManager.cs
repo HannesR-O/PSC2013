@@ -53,10 +53,7 @@ namespace PSC2013.ES.Library.Snapshot
             int i = 0;
             foreach (PopulationCell cell in simData.Cells.NotNullIterator())
             {
-                if (cell.Probability > 0) // TODO | dj | wtf? what is this? If i get correct, then this will cause to nearly nothing been shown at the beginning...
-                {
-                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
-                }
+                cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
                 ++pos;
             }
 

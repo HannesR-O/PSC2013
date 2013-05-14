@@ -66,7 +66,7 @@
         {
             get
             {
-                ushort[] returnArray = new ushort[8];
+                ushort[] returnArray = new ushort[11];
                 _data.CopyToOtherArray(returnArray);
                 return returnArray;
             }
