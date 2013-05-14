@@ -50,7 +50,7 @@ namespace PSC2013.ES.Library.Snapshot
             CellSnapshot[] cells = new CellSnapshot[simData.Cells.Length]; //TODO |t|How many do we really need? Only the populated ones...
             int pos = 0;
             int i = 0;
-            foreach (PopulationCell cell in simData.Cells)
+            foreach (PopulationCell cell in simData.Cells.NotNullIterator())
             {
                 //TODO |h| maybe another "== null" - check than checking if probability > 0
                 if (cell.Probability > 0)

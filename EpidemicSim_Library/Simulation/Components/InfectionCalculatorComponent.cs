@@ -8,7 +8,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         public void PerformSimulationStage(SimulationData data)
         {
             //Let each Cell calculate what chance there is for an individual Human to get infected
-            foreach (var cell in data.Cells)
+            foreach (var cell in data.Cells.NotNullIterator())
             {
                 //TODO: |f & h| Calculate Probability or sth similar for each cell
             }

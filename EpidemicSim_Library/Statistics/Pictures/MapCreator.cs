@@ -10,7 +10,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 {
     public class MapCreator
     {
-        private int X = 2814; //TODO Read From SimInfoFile
+        private int X = 2814; //TODO | T | Read From SimInfoFile / | dj | possible now. has just to be inserted :P
         private int Y = 3841;
         private string _target;
 

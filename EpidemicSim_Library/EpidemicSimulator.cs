@@ -83,7 +83,7 @@ namespace PSC2013.ES.Library
         {
             _simData = new SimulationData { CurrentDisease = disease };
 
-            //_snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
+            _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
 
             _before = new List<ISimulationComponent>();
             _after = new List<ISimulationComponent>();
@@ -247,7 +247,7 @@ namespace PSC2013.ES.Library
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            //_snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
+            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
 
             // Actual Simulation is performed in another Thread to enable stopping
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
@@ -289,7 +289,7 @@ namespace PSC2013.ES.Library
 
                 long round = Interlocked.Increment(ref _simulationRound);
                 if (round % _ticksPerSnapshot == 0)
-                    //_snapshotMgr.TakeSnapshot(_simData);
+                    _snapshotMgr.TakeSnapshot(_simData);
                 _simulationLock = round != _simulationLimit;
 #if DEBUG
                 _watch.Stop();

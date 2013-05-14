@@ -23,6 +23,7 @@ namespace PSC2013.ES.Library.AreaData
         /// </summary>
         public static void GenerateDummyMatrix(
             PopulationCell[] populationArray,
+            Human[] humanArray,
             IEnumerable<DepartmentInfo> rawData,
             int width, int height)
         {
@@ -38,11 +39,20 @@ namespace PSC2013.ES.Library.AreaData
 #if DEBUG
                     Console.WriteLine("Started " + item.Name);
 #endif
-                    var res = DummyPopulate(item);
+                    Human[] humans;
+                    var res = DummyPopulate(item, out humans);
                     lock (populationArray)
                     {
                         foreach (var tpl in res)
                             populationArray[tpl.Item1] = tpl.Item2;
+                    }
+                    lock (humanArray)
+                    {
+                        for (int i = Array.FindIndex(humanArray, x => x.IsDead()), j = 0;
+                            j < humans.Length; i++, j++)
+                        {
+                            humanArray[i] = humans[j];
+                        }
                     }
 
                     res = null;
@@ -52,13 +62,15 @@ namespace PSC2013.ES.Library.AreaData
                 });
         }
 
-        private static Tuple<int, PopulationCell>[] DummyPopulate(DepartmentInfo depInfo)
+        private static Tuple<int, PopulationCell>[] DummyPopulate(DepartmentInfo depInfo, out Human[] humanArray)
         {
             int areaSize = depInfo.Coordinates.Length;
 
             Tuple<int, PopulationCell>[] tmpArray = new Tuple<int, PopulationCell>[areaSize];
             int tmpCounter = 0;
-
+            humanArray = new Human[depInfo.GetTotal()];
+            int humanCounter = 0;
+            
             int[] popsPerPoint = depInfo.Population.Select(x => x / areaSize).ToArray();
 
             foreach (Point point in depInfo.Coordinates)
@@ -76,8 +88,7 @@ namespace PSC2013.ES.Library.AreaData
                     for (int n = 0; n < popsPerPoint[i]; n++)
                     {
                         int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
-                        Human thisHuman = Human.Create(gender, thisAge, point.Flatten(WIDTH));
-                        //cell.AddHuman(thisHuman);
+                        humanArray[humanCounter++] = Human.Create(gender, thisAge, point.Flatten(WIDTH));
                     }
                 }
 
@@ -105,6 +116,7 @@ namespace PSC2013.ES.Library.AreaData
         /// <returns>The input-populationCell-array (modified).</returns>
         public static PopulationCell[] GenerateMatrix(
             PopulationCell[] populationArray,
+            // TODO | dj | continue...
             IEnumerable<DepartmentInfo> rawData,
             int width, int height)
         {
