@@ -11,6 +11,13 @@ namespace PSC2013.ES.Library.Simulation.Components
         void PerformSimulationStage(SimulationData data);
 
         /// <summary>
+        /// Set a new simulation intervall for the component which represents the amount of hours passing 
+        /// in a single tick
+        /// </summary>
+        /// <param name="intervall"></param>
+        void SetSimulationIntervall(int intervall);
+
+        /// <summary>
         /// The ISimulationComponent's simulation stage(s) to determine when PerformSimulationStage()
         /// gets executed.
         /// </summary>

@@ -186,7 +186,7 @@ namespace PSC2013.ES.Library
         /// Sets a new intervall determining how many hours shall be calculated each tick.
         /// Default is 1 (hour / tick).
         /// </summary>
-        /// <param name="intervall">The new intervall to use. Must be greater than 1</param>
+        /// <param name="intervall">The new intervall to use. Must be greater than 0</param>
         public void SetSimulationIntervall(int intervall)
         {
             if (_simulationLock)
@@ -196,6 +196,19 @@ namespace PSC2013.ES.Library
                 throw new ArgumentOutOfRangeException("intervall", "The given intervall must be greater than 1.");
 
             _simulationIntervall = intervall;
+
+            UpdateComponentsIntervalls();
+        }
+
+        private void UpdateComponentsIntervalls()
+        {
+            foreach (var component in _before)
+                component.SetSimulationIntervall(_simulationIntervall);
+
+            _infectionSimulator.SetSimulationIntervall(_simulationIntervall);
+
+            foreach (var component in _after)
+                component.SetSimulationIntervall(_simulationIntervall);
         }
 
         /// <summary>

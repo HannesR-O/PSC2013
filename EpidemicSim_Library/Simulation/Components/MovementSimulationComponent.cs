@@ -9,13 +9,14 @@ namespace PSC2013.ES.Library.Simulation.Components
     /// </summary>
     public unsafe class MovementSimulationComponent : ISimulationComponent
     {
-        private Random random;
-        private int randomHolder; //tmp-variable to hold Random.Next() results
-        private Human* ptr;
+        private readonly Random _random;
+        private int _randomHolder, _simulationIntervall;         //1. tmp-variable to hold Random.Next() results
+        private Human* _ptr;
 
         public MovementSimulationComponent()
         {
-            random = new Random();
+            _random = new Random();
+            _simulationIntervall = 1;
         }
 
 
@@ -24,23 +25,23 @@ namespace PSC2013.ES.Library.Simulation.Components
             fixed (Human* humanptr = data.Humans)
             {
 
-                for (ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
+                for (_ptr = humanptr; _ptr < humanptr + data.Humans.Length; ++_ptr)
                 {
                     //Stationary Mindset implies the human chosen won't move this day regardless of profession
                     //If the human is dead he won't move....
-                    if (ptr->IsDead() ||
-                        ptr->GetMindset() == PopulationData.EMindset.Stationary)
+                    if (_ptr->IsDead() ||
+                        _ptr->GetMindset() == PopulationData.EMindset.Stationary)
                     {
                         continue;
                     }
                     //Travelling implies ignoring the Mindset until the human reached its Destination
-                    else if (ptr->IsTravelling())
+                    else if (_ptr->IsTravelling())
                     {
                         //reduce counter, if counter == 0 remove flag travelling else continue
-                        ptr->SetTravelling(false);
+                        _ptr->SetTravelling(false);
                     }
                     //Staying Home doesn't vary no matter what profession the human is having.
-                    else if (ptr->GetMindset() == PopulationData.EMindset.HomeStaying)
+                    else if (_ptr->GetMindset() == PopulationData.EMindset.HomeStaying)
                     {
                         //chance every day to go out 1-3 hours
                         //if ill -> go to hospital
@@ -49,13 +50,18 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Handle Movement for Mindsets which are dependent on the profession od the selected human
                     else
                     {
-                        switch (ptr->GetProfession())
+                        switch (_ptr->GetProfession())
                         {
                             case PopulationData.EProfession.Pupil: MovePupil(data); break;
                         }
                     }
                 }
             }
+        }
+
+        public void SetSimulationIntervall(int intervall)
+        {
+            _simulationIntervall = intervall;           //TODO: |f| make use of this ;) & add range checks?
         }
 
         /// <summary>
@@ -68,32 +74,32 @@ namespace PSC2013.ES.Library.Simulation.Components
         private void MoveHuman(SimulationData data, int destinationcell)
         {
             //Set selected Human to status "travelling"
-            ptr->SetTravelling(true);
-            if (ptr->IsInfected())
-                --data.Cells[ptr->CurrentCell].Infected;
-            else if (ptr->IsSpreading())
-                --data.Cells[ptr->CurrentCell].Spreading;
-            else if (ptr->IsDiseased())
-                --data.Cells[ptr->CurrentCell].Diseased;
+            _ptr->SetTravelling(true);
+            if (_ptr->IsInfected())
+                --data.Cells[_ptr->CurrentCell].Infected;
+            else if (_ptr->IsSpreading())
+                --data.Cells[_ptr->CurrentCell].Spreading;
+            else if (_ptr->IsDiseased())
+                --data.Cells[_ptr->CurrentCell].Diseased;
 
-            if (ptr->GetGender() == EGender.Male)
+            if (_ptr->GetGender() == EGender.Male)
             {
-                switch (ptr->GetAge())
+                switch (_ptr->GetAge())
                 {
-                    case EAge.Baby: --data.Cells[ptr->CurrentCell].MaleBabies; break;
-                    case EAge.Child: --data.Cells[ptr->CurrentCell].MaleChildren; break;
-                    case EAge.Adult: --data.Cells[ptr->CurrentCell].MaleAdults; break;
-                    case EAge.Senior: --data.Cells[ptr->CurrentCell].MaleSeniors; break;
+                    case EAge.Baby: --data.Cells[_ptr->CurrentCell].MaleBabies; break;
+                    case EAge.Child: --data.Cells[_ptr->CurrentCell].MaleChildren; break;
+                    case EAge.Adult: --data.Cells[_ptr->CurrentCell].MaleAdults; break;
+                    case EAge.Senior: --data.Cells[_ptr->CurrentCell].MaleSeniors; break;
                 }
             }
             else
             {
-                switch (ptr->GetAge())
+                switch (_ptr->GetAge())
                 {
-                    case EAge.Baby: --data.Cells[ptr->CurrentCell].FemaleBabies; break;
-                    case EAge.Child: --data.Cells[ptr->CurrentCell].FemaleChildren; break;
-                    case EAge.Adult: --data.Cells[ptr->CurrentCell].FemaleAdults; break;
-                    case EAge.Senior: --data.Cells[ptr->CurrentCell].FemaleSeniors; break;
+                    case EAge.Baby: --data.Cells[_ptr->CurrentCell].FemaleBabies; break;
+                    case EAge.Child: --data.Cells[_ptr->CurrentCell].FemaleChildren; break;
+                    case EAge.Adult: --data.Cells[_ptr->CurrentCell].FemaleAdults; break;
+                    case EAge.Senior: --data.Cells[_ptr->CurrentCell].FemaleSeniors; break;
                 }
             }
 
@@ -103,18 +109,18 @@ namespace PSC2013.ES.Library.Simulation.Components
 
 
             //Add the selected Human in the Destinationcell
-            ptr->CurrentCell = destinationcell;
+            _ptr->CurrentCell = destinationcell;
    
         }
 
         private void MoveHumanHome()
         {
-            ptr->CurrentCell = ptr->HomeCell;
+            _ptr->CurrentCell = _ptr->HomeCell;
         }
 
         private void MovePupil(SimulationData data)
         {
-            switch (ptr->GetMindset())
+            switch (_ptr->GetMindset())
             {
                 //Working Mindset -> Pupil going to school this day
                 //Assert : Pupil is at Home at 0 o'clock
@@ -137,9 +143,9 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //pupil has chance that school ends
                     else if (data.CurrentHour < 14)
                     {
-                        if (ptr->HomeCell != ptr->CurrentCell)
+                        if (_ptr->HomeCell != _ptr->CurrentCell)
                         {
-                            if ((randomHolder = random.Next(3)) == 3)
+                            if ((_randomHolder = _random.Next(3)) == 3)
                                 MoveHumanHome();
                             else
                                 return;
@@ -152,14 +158,14 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //School ends definately
                     else if (data.CurrentHour == 14)
                     {
-                        if (ptr->HomeCell != ptr->CurrentCell)
+                        if (_ptr->HomeCell != _ptr->CurrentCell)
                             MoveHumanHome();
                         else
                             return;
                     }
                     else if (data.CurrentHour == 15)
                     {
-                        if (random.Next(1) == 1)
+                        if (_random.Next(1) == 1)
                         {
                             //MoveHuman(data, cell, human, friend);
                         }
@@ -169,7 +175,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Return pupil home if he isn't already
                     else if (data.CurrentHour == 18)
                     {
-                        if (ptr->HomeCell != ptr->CurrentCell)
+                        if (_ptr->HomeCell != _ptr->CurrentCell)
                             MoveHumanHome();
                         else
                             return;
@@ -194,7 +200,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         private void MoveStudent(SimulationData data)
         {
 
-            switch (ptr->GetMindset())
+            switch (_ptr->GetMindset())
             {
                 //Working Mindset -> Student going to University this day
                 //Assert : Student is at Home at 0 o'clock; It isn't suturday or sunday; University traveltime <= 1h
@@ -202,7 +208,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Student can have lectures during day including breaks
                     if (data.CurrentHour > 8 && data.CurrentHour < 18)
                     {
-                        if ((ptr->HomeCell == ptr->CurrentCell))
+                        if ((_ptr->HomeCell == _ptr->CurrentCell))
                         {
                             //Chance to go/return to University dependent on hour
 
@@ -239,7 +245,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             //Working Mindset -> Plumber going to different households each hour
             //Assert : Plumber is at Home at 0 o'clock; 
-            switch (ptr->GetMindset())
+            switch (_ptr->GetMindset())
             {
                 case PopulationData.EMindset.Working:
 
@@ -250,7 +256,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //return home at 18 o'clock
                     else if (data.CurrentHour == 18)
                     {
-                        if (ptr->HomeCell != ptr->CurrentCell)
+                        if (_ptr->HomeCell != _ptr->CurrentCell)
                             MoveHumanHome();
                         else
                             return;
@@ -270,7 +276,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         private void MoveDeskJobber(SimulationData data)
         {
 
-            switch (ptr->GetMindset())
+            switch (_ptr->GetMindset())
             {
                 //Working Mindset -> Deskjobber has 9 to 5 job
                 //Assert : Deskjobber is at Home at 0 o'clock;
@@ -302,7 +308,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         private void MoveHousewife(SimulationData data, int cell, int human)
         {
 
-            switch (ptr->GetMindset())
+            switch (_ptr->GetMindset())
             {
                 //Working Mindset -> Housewife doesn't go to work is either at home in the city or by friends
                 //Assert : Housewife is at Home at 0 o'clock;
@@ -316,7 +322,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //return home at 20 o'clock
                     else if (data.CurrentHour == 20)
                     {
-                        if (ptr->HomeCell != ptr->CurrentCell)
+                        if (_ptr->HomeCell != _ptr->CurrentCell)
                             MoveHumanHome();
                         else
                             return;
@@ -338,7 +344,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         private void MoveTravellingSalesman(SimulationData data)
         {
 
-            switch (ptr->GetMindset())
+            switch (_ptr->GetMindset())
             {
                 //Working Mindset -> Travelling Salesman travels through Germany, changes location each day,
                 //                   returns home on friday
@@ -370,7 +376,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         private void MoveCommuter(SimulationData data, int cell, int human)
         {
-            switch (ptr->GetMindset())
+            switch (_ptr->GetMindset())
             {
                 //Working Mindset -> Commuter goes to work in a city that is 0,5-2 hours away from home
                 //Assert : Commuter is at Home at 0 o'clock;

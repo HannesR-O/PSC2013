@@ -5,6 +5,13 @@ namespace PSC2013.ES.Library.Simulation.Components
 {
     public unsafe class InfectionCalculatorComponent : ISimulationComponent
     {
+        private int _simulationIntervall;
+
+        public InfectionCalculatorComponent()
+        {
+            _simulationIntervall = 1;
+        }
+
         public void PerformSimulationStage(SimulationData data)
         {
             //Let each Cell calculate what chance there is for an individual Human to get infected
@@ -29,6 +36,11 @@ namespace PSC2013.ES.Library.Simulation.Components
                     }
                 }
             }
+        }
+
+        public void SetSimulationIntervall(int intervall)
+        {
+            _simulationIntervall = intervall;           //TODO: |f| make use of this ;) & add range checks?
         }
 
         public ESimulationStage SimulationStages { get { return ESimulationStage.InfectedCalculation; } }

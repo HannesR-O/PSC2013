@@ -1,9 +1,7 @@
 ﻿using System.Drawing;
-using System.Threading;
 using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.IO;
-using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.Snapshot;
@@ -11,7 +9,6 @@ using PSC2013.ES.Library.Statistics;
 using PSC2013.ES.Library.Statistics.Pictures;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace PSC2013.ES.Cmd
 {
@@ -23,7 +20,7 @@ namespace PSC2013.ES.Cmd
             Console.WriteLine("Welcome to the Epidemic-Simulator-Test-Console.");
             Console.WriteLine("Please select one of the following methods to call:");
             
-            string[] methodnames = new string[] { "TestSimulation",
+            string[] methodnames = { "TestSimulation",
                 "TestStats", "TestMovementComponent", "TestEpidemicSimulator",
                 "TestMemory", "TestSnapshot"};
             for (int i = 0; i < methodnames.Length; i++)
@@ -127,23 +124,22 @@ namespace PSC2013.ES.Cmd
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new DebugSimulationComponent(),
-                new AgeingSimulationComponent(110, 1),
+                new AgeingSimulationComponent(110),
                 new MovementSimulationComponent());
-            sim.SetSnapshotIntervall(2);
+            sim.SetSimulationIntervall(4272);
+            sim.SetSnapshotIntervall(8544);
             sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
             sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            //Thread.Sleep(10000);
-            //sim.StopSimulation();
         }
 
         public static void TestMovementComponent()
         {
             //too slow at the moment
-            SimulationData data = new SimulationData();
-            MovementSimulationComponent movecmp = new MovementSimulationComponent();
+            var data = new SimulationData();
+            var movecmp = new MovementSimulationComponent();
             data.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
 
             for (int i = 0; i < 48; ++i)
@@ -157,7 +153,7 @@ namespace PSC2013.ES.Cmd
 
         public static void TestStats()
         {
-            StatisticsManager manager = new StatisticsManager();
+            var manager = new StatisticsManager();
             Console.WriteLine("Please enter the name of your .sim file:");
             string file = Console.ReadLine();
             if (file.EndsWith(".sim")) file = file.Remove(file.Length - 4);

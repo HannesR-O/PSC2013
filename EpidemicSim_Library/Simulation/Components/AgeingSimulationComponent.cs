@@ -10,7 +10,8 @@ namespace PSC2013.ES.Library.Simulation.Components
     {
         // Assumes 365 x 24 hour days
         private const int HOURS_PER_YEAR = 8544;
-        public int AgeLimit { get; private set; }public int TicksPerYear { get; private set; }
+        public int AgeLimit { get; private set; }
+        public int TicksPerYear { get; private set; }
         
 
         private int _counter;
@@ -19,11 +20,10 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// Creates a new AgeingSimulationComponent and sets the "hour-value" of one tick.
         /// </summary>
         /// <param name="ageLimit">A value specifying at what age Humans should die of aging</param>
-        /// <param name="hoursPerTick">A value specifying how many hours pass in one simulation tick</param>
-        public AgeingSimulationComponent(int ageLimit, int hoursPerTick)
+        public AgeingSimulationComponent(int ageLimit)
         {
             AgeLimit = ageLimit;
-            TicksPerYear = HOURS_PER_YEAR / hoursPerTick;        //TODO: |f| not the most accurate but should be enough for our purposes
+            TicksPerYear = HOURS_PER_YEAR;        
             _counter = 0;
         }
 
@@ -78,6 +78,11 @@ namespace PSC2013.ES.Library.Simulation.Components
             Console.WriteLine("Dead people this Iteration: " + deadPeople.Count);
             Console.WriteLine("Total dead people: " + data.DeathCount);
 #endif
+        }
+
+        public void SetSimulationIntervall(int intervall)
+        {
+            TicksPerYear = HOURS_PER_YEAR / intervall;           //TODO: |f| add range checks?
         }
 
         public ESimulationStage SimulationStages { get { return ESimulationStage.AfterInfectedCalculation; } }
