@@ -10,17 +10,24 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 {
     public class MapCreator
     {
-        private int X = 2814; //TODO | T | Read From SimInfoFile / | dj | possible now. has just to be inserted :P
-        private int Y = 3841;
+        private int X = 2814; // Now default
+        private int Y = 3841; // Here as well...
         private string _target;
 
         /// <summary>
         /// Initializes a new Mapcreator
         /// </summary>
         /// <param name="path">Where the Maps shall be saved</param>
-        public MapCreator(string path)
+        /// <param name="x">Map Size X</param>
+        /// <param name="y">Map Size Y</param>
+        public MapCreator(string path, int x, int y)
         {
             _target = path;
+            if (y > 0 && y > 0)
+            {
+                X = x;
+                Y = y;
+            }
         }
 
         /// <summary>

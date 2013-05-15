@@ -101,8 +101,7 @@ namespace PSC2013.ES.Cmd
                     ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
                 };
             var mgr = new SnapshotManager();
-            mgr.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), disease);
-            //mgr.Finish();
+            mgr.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), disease, 0, 0); // Uses Default MapSize
         }
 
         public static void TestMemory()
@@ -158,19 +157,21 @@ namespace PSC2013.ES.Cmd
 
         public static void TestStats()
         {
-            StatisticsManager manager = new StatisticsManager(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            StatisticsManager manager = new StatisticsManager();
             Console.WriteLine("Please enter the name of your .sim file:");
             string file = Console.ReadLine();
             if (file.EndsWith(".sim")) file = file.Remove(file.Length - 4);
-            manager.OpenSimFile(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
-                + file + ".sim"); // Insert your .sim path here...
+            manager.OpenSimFile(
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
+                + file + ".sim", 
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             var entries = manager.Entrys;
             foreach (string s in entries)
             {
                 Console.WriteLine(s);
             }
             Console.WriteLine("Please type a filename:");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine();            
 
             if (!entries.Contains(name))
                 foreach (string entry in entries)
@@ -180,12 +181,16 @@ namespace PSC2013.ES.Cmd
                         break;
                     }
 
-            manager.LoadTickSnapshot(name);
             Console.WriteLine("Please type a color scheme (RED, BLUE):");
             string palette = Console.ReadLine();
             Color[] pal = palette == "BLUE" ? ColorPalette.BLUE : ColorPalette.RED;
 
-            manager.CreateGraphics(EStatField.AllHumans, pal, "pic");
+            manager.LoadTickSnapshot(name);
+
+            Console.WriteLine("Please insert desired File-Prefix:");
+            string prefix = Console.ReadLine();
+
+            manager.CreateGraphics(EStatField.AllMale, pal, prefix);
 
             Console.WriteLine("Finished!");
         }

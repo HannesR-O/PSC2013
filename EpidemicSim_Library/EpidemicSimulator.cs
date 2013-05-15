@@ -247,7 +247,7 @@ namespace PSC2013.ES.Library
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
+            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease, _simData.ImageWidth, _simData.ImageHeight); //TODO: |f| Get correct values.
 
             // Actual Simulation is performed in another Thread to enable stopping
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());

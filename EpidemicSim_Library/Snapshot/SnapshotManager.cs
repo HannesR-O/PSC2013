@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
+using System.Linq;
 
 
 namespace PSC2013.ES.Library.Snapshot
@@ -31,12 +32,15 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         /// <param name="destination">Where to save the data</param>
         /// <param name="disease">The Disease used in the Simulation</param>
-        public void Initialize(string destination, Disease disease)
+        public void Initialize(string destination, Disease disease, int mapX, int mapY)
         {
-            _simInfo = SimulationInfo.InitializeFromRuntime(disease);
+            _simInfo = SimulationInfo.InitializeFromRuntime(disease, mapX, mapY);
+
             _target = Path.Combine(destination, disease.Name);
             _snapshots = new Queue<TickSnapshot>();
+
             _tick = 1;
+
             _writer = new SnapshotWriter();
             TookSnapshot += _writer.Recieve;
         }
@@ -47,8 +51,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
-            CellSnapshot[] cells = new CellSnapshot[simData.Cells.Length];  //TODO |t|How many do we really need? Only the populated ones...
-                                                                            // | dj | possible solution O(n): simData.Cells.Count(x => x != null);
+            int cellCount = simData.Cells.Count(x => x != null);
+            CellSnapshot[] cells = new CellSnapshot[cellCount];
+
             int pos = 0;
             int i = 0;
             foreach (PopulationCell cell in simData.Cells)
@@ -64,19 +69,7 @@ namespace PSC2013.ES.Library.Snapshot
             TookSnapshot(this, null);
             _tick++;
         }
-
-        /// <summary>
-        /// Finishes writing the Snapshot Queue und compresses the folder
-        /// DEPRECATED
-        /// </summary>
-        // TODO | dj | should be deleted, if deprecated!!!
-        [Obsolete]
-        public void Finish()
-        {
-            TookSnapshot(this, null);            
-            Console.WriteLine("Finished logging of Simulation @ " + DateTime.Now.ToString());
-        }
-
+        
         /// <summary>
         /// Nested class for writing the snapshots
         /// </summary>
