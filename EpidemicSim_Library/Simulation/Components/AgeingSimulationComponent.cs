@@ -41,19 +41,35 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             fixed (Human* humanptr = data.Humans)
             {
-                for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
+                for (Human* human = humanptr; human < humanptr + data.Humans.Length; ++human)
                 {
-                    if (ptr->IsDead())
+                    if (human->IsDead())
                         continue;
 
-                    ptr->DoAgeTick();
+                    human->DoAgeTick();
 
-                    if (!(ptr->GetAgeInYears() <= AgeLimit))
+                    if (human->GetAgeInYears() <= AgeLimit) continue;
+
+                    deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human->GetGender(), (byte)human->GetAgeInYears(), (byte)human->GetProfession(),
+                                                                       human->HomeCell, human->CurrentCell, false));
+                    human->KillHuman();
+                    var index = (int)human->GetGender();
+                    index = index == 128 ? 0 : 4;
+                    switch (human->GetAge())
                     {
-                        deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)ptr->GetGender(), (byte)ptr->GetAgeInYears(), (byte)ptr->GetProfession(),
-                                                    ptr->HomeCell, ptr->CurrentCell, false));
-                        ptr->KillHuman();
+                        case EAge.Baby:
+                            break;
+                        case EAge.Child:
+                            index++;
+                            break;
+                        case EAge.Adult:
+                            index += 2;
+                            break;
+                        case EAge.Senior:
+                            index += 3;
+                            break;
                     }
+                    data.Cells[human->CurrentCell].Data[index]--;
                 }
             }
 
