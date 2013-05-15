@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.PopulationData;
 
@@ -30,36 +32,44 @@ namespace PSC2013.ES.Library.AreaData
             WIDTH = width;
             HEIGHT = height;
 
+            Combiner comb = new Combiner(populationArray, humanArray);
+
             int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
             degree = Math.Max(1, degree);                       // but minimum of 1
             //degree = -1;
             Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
                 (item) =>
                 {
-#if DEBUG
-                    Console.WriteLine("Started " + item.Name);
-#endif
+//#if DEBUG
+//                    Console.WriteLine("Started " + item.Name);
+//#endif
                     Human[] humans;
                     var res = DummyPopulate(item, out humans);
-                    lock (populationArray)
-                    {
-                        foreach (var tpl in res)
-                            populationArray[tpl.Item1] = tpl.Item2;
-                    }
-                    lock (humanArray)
-                    {
-                        for (int i = Array.FindIndex(humanArray, x => x.IsDead()), j = 0;
-                            j < humans.Length; i++, j++)
-                        {
-                            humanArray[i] = humans[j];
-                        }
-                    }
+                    comb.Enqueue(res, humans);
+                    //lock (populationArray)
+                    //{
+                    //    foreach (var tpl in res)
+                    //        populationArray[tpl.Item1] = tpl.Item2;
+                    //}
+                    //lock (humanArray)
+                    //{
+                    //    for (int i = Array.FindIndex(humanArray, x => x.IsDead()), j = 0;
+                    //        j < humans.Length; i++, j++)
+                    //    {
+                    //        humanArray[i] = humans[j];
+                    //    }
+                    //}
 
                     res = null;
-#if DEBUG
-                    Console.WriteLine(" -- Finished " + item.Name);
-#endif
+//#if DEBUG
+//                    Console.WriteLine(" -- Finished " + item.Name);
+//#endif
                 });
+#if DEBUG
+            Console.WriteLine("Waiting for transferring data...");
+#endif
+            comb.Wait();
+            comb.Dispose();
         }
 
         private static Tuple<int, PopulationCell>[] DummyPopulate(DepartmentInfo depInfo, out Human[] humanArray)
@@ -89,33 +99,7 @@ namespace PSC2013.ES.Library.AreaData
                     {
                         int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
                         humanArray[humanCounter++] = Human.Create(gender, thisAge, point.Flatten(WIDTH));
-                        switch (i) // TODO | dj | i would like to be able to get the cell's original data-array
-                        {
-                            case 0:
-                                cell.MaleBabies++;
-                                break;
-                            case 1:
-                                cell.MaleChildren++;
-                                break;
-                            case 2:
-                                cell.MaleAdults++;
-                                break;
-                            case 3:
-                                cell.MaleSeniors++;
-                                break;
-                            case 4:
-                                cell.FemaleBabies++;
-                                break;
-                            case 5:
-                                cell.FemaleChildren++;
-                                break;
-                            case 6:
-                                cell.FemaleAdults++;
-                                break;
-                            case 7:
-                                cell.FemaleSeniors++;
-                                break;
-                        }
+                        cell.Data[i]++;
                     }
                 }
 
@@ -304,6 +288,100 @@ namespace PSC2013.ES.Library.AreaData
             if (!coords.Any(p => p.Equals(initialPoint)))
                 initialPoint = coords[0];
             return initialPoint;
+        }
+    }
+
+    class Combiner
+    {
+        private ConcurrentQueue<Tuple<int, PopulationCell>[]> _queueCells;
+        private ConcurrentQueue<Human[]> _queueHumans;
+        private Task _taskCells;
+        private Task _taskHumans;
+        private Human[] _humans;
+        private PopulationCell[] _cells;
+
+        private int _humanPoint;
+
+        public Combiner(PopulationCell[] cellArray, Human[] humanArray)
+        {
+            _cells = cellArray;
+            _humans = humanArray;
+            _humanPoint = 0;
+            _queueCells = new ConcurrentQueue<Tuple<int, PopulationCell>[]>();
+            _queueHumans = new ConcurrentQueue<Human[]>();
+        }
+
+        public void Enqueue(Tuple<int, PopulationCell>[] cells, Human[] humans)
+        {
+            _queueCells.Enqueue(cells);
+            _queueHumans.Enqueue(humans);
+
+            if (_taskCells == null || _taskCells.Status != TaskStatus.Running)
+                _taskCells = Task.Run(() => AddCells());
+            if (_taskHumans == null || _taskHumans.Status != TaskStatus.Running)
+                _taskHumans = Task.Run(() => AddHumans());
+        }
+
+        public void Wait()
+        {
+            Task[] tasks = new Task[2];
+            int i = 0;
+            if (_taskCells != null && _taskCells.Status == TaskStatus.Running)
+                tasks[i++] = _taskCells;
+            if (_taskHumans != null && _taskHumans.Status == TaskStatus.Running)
+                tasks[i++] = _taskHumans;
+            Task[] taskArr = new Task[tasks.Count(x => x != null)];
+            for (int j = 0; j < taskArr.Length; ++j)
+                taskArr[j] = tasks[j];
+            Task.WaitAll(taskArr);
+        }
+
+        public void Dispose()
+        {
+            if (_taskCells != null)
+                _taskCells.Dispose();
+            if (_taskHumans != null)
+                _taskHumans.Dispose();
+            _taskCells = null;
+            _taskHumans = null;
+        }
+
+        private void AddCells()
+        {
+            while (!_queueCells.IsEmpty)
+            {
+                Tuple<int, PopulationCell>[] tpls;
+                if (_queueCells.TryDequeue(out tpls))
+                {
+                    foreach (var tpl in tpls)
+                        _cells[tpl.Item1] = tpl.Item2;
+                }
+            }
+        }
+
+        private unsafe void AddHumans()
+        {
+            while (!_queueHumans.IsEmpty)
+            {
+                Human[] humans;
+                if (_queueHumans.TryDequeue(out humans))
+                {
+                    int i = _humanPoint;
+                    //Interlocked.Add(ref _humanPoint, humans.Length);
+                    _humanPoint += humans.Length;
+                    fixed (Human* humanPtr = _humans)
+                    {
+                        fixed (Human* miniHumanPtr = humans)
+                        {
+                            for (Human* human = humanPtr + i, miniHuman = miniHumanPtr;
+                                miniHuman < miniHumanPtr + humans.Length; ++human, ++miniHuman)
+                            {
+                                *human = *miniHuman;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
