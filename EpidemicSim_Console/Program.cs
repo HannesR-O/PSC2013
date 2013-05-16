@@ -186,7 +186,7 @@ namespace PSC2013.ES.Cmd
             Console.WriteLine("Please insert desired File-Prefix:");
             string prefix = Console.ReadLine();
 
-            manager.CreateGraphics(EStatField.AllMale, pal, prefix);
+            manager.CreateGraphics(EStatField.AllHumans, pal, prefix);
 
             Console.WriteLine("Finished!");
         }
