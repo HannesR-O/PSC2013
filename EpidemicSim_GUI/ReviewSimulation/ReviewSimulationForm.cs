@@ -17,17 +17,12 @@ namespace PSC2013.ES.GUI.ReviewSimulation
     {
         private string _simPath;
         private StatisticsManager _manager;
-        private Dictionary<string, Color[]> _colors;
 
         private ReviewSimulationForm()
         {
             InitializeComponent();
-            _colors = new Dictionary<string, Color[]>();
-            _colors.Add("Red", ColorPalette.RED);
-            _colors.Add("Blue", ColorPalette.BLUE);
-
-            foreach (string key in _colors.Keys)
-                cmbBox_palette.Items.Add(key);
+            cmbBox_palette.Items.AddRange(Enum.GetNames(typeof(EColorPalette)));
+            cmbBox_palette.SelectedIndex = 0;
         }
 
         public ReviewSimulationForm(string filepath) : this()
@@ -53,14 +48,29 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            var palette = _colors[(string)cmbBox_palette.SelectedItem];
+            EColorPalette palette = (EColorPalette)Enum.Parse(typeof(EColorPalette),
+                (string)cmbBox_palette.SelectedItem, true);
             foreach (string entry in lstBox_entries.SelectedItems)
             {
                 _manager.LoadTickSnapshot(entry);
                 _manager.CreateGraphics(
-                    EStatField.MaleBaby, // TODO | dj | dynamic!
+                    EStatField.AllHumans, // TODO | dj | dynamic!
                     palette,
                     txtBox_prefix.Text);
+            }
+        }
+
+        private void btn_back_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void txtBox_targetDirectory_Click(object sender, EventArgs e)
+        {
+            DialogResult res = folderBrowseDialog.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtBox_targetDirectory.Text = folderBrowseDialog.SelectedPath;
             }
         }
     }

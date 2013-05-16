@@ -31,18 +31,19 @@
             this.components = new System.ComponentModel.Container();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MainPanel_grpBox_main = new System.Windows.Forms.GroupBox();
-            this.MainPanel_grpBox_bottom = new System.Windows.Forms.GroupBox();
-            this.btn_back = new System.Windows.Forms.Button();
-            this.btn_start = new System.Windows.Forms.Button();
-            this.lbl_targetDirectory = new System.Windows.Forms.Label();
-            this.txtBox_targetDirectory = new System.Windows.Forms.TextBox();
+            this.lbl_entries = new System.Windows.Forms.Label();
+            this.lstBox_entries = new System.Windows.Forms.ListBox();
+            this.cmbBox_palette = new System.Windows.Forms.ComboBox();
+            this.lbl_palette = new System.Windows.Forms.Label();
             this.txtBox_prefix = new System.Windows.Forms.TextBox();
             this.lbl_prefix = new System.Windows.Forms.Label();
+            this.txtBox_targetDirectory = new System.Windows.Forms.TextBox();
+            this.lbl_targetDirectory = new System.Windows.Forms.Label();
+            this.MainPanel_grpBox_bottom = new System.Windows.Forms.GroupBox();
+            this.btn_start = new System.Windows.Forms.Button();
+            this.btn_back = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.lbl_palette = new System.Windows.Forms.Label();
-            this.cmbBox_palette = new System.Windows.Forms.ComboBox();
-            this.lstBox_entries = new System.Windows.Forms.ListBox();
-            this.lbl_entries = new System.Windows.Forms.Label();
+            this.folderBrowseDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MainPanel.SuspendLayout();
             this.MainPanel_grpBox_main.SuspendLayout();
             this.MainPanel_grpBox_bottom.SuspendLayout();
@@ -77,53 +78,43 @@
             this.MainPanel_grpBox_main.TabStop = false;
             this.MainPanel_grpBox_main.Text = "Settings";
             // 
-            // MainPanel_grpBox_bottom
+            // lbl_entries
             // 
-            this.MainPanel_grpBox_bottom.Controls.Add(this.btn_start);
-            this.MainPanel_grpBox_bottom.Controls.Add(this.btn_back);
-            this.MainPanel_grpBox_bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MainPanel_grpBox_bottom.Location = new System.Drawing.Point(3, 209);
-            this.MainPanel_grpBox_bottom.Name = "MainPanel_grpBox_bottom";
-            this.MainPanel_grpBox_bottom.Size = new System.Drawing.Size(278, 50);
-            this.MainPanel_grpBox_bottom.TabIndex = 0;
-            this.MainPanel_grpBox_bottom.TabStop = false;
+            this.lbl_entries.AutoSize = true;
+            this.lbl_entries.Location = new System.Drawing.Point(10, 105);
+            this.lbl_entries.Name = "lbl_entries";
+            this.lbl_entries.Size = new System.Drawing.Size(42, 13);
+            this.lbl_entries.TabIndex = 7;
+            this.lbl_entries.Text = "Entries:";
             // 
-            // btn_back
+            // lstBox_entries
             // 
-            this.btn_back.Location = new System.Drawing.Point(9, 16);
-            this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(102, 25);
-            this.btn_back.TabIndex = 0;
-            this.btn_back.Text = "< Back";
-            this.btn_back.UseVisualStyleBackColor = true;
+            this.lstBox_entries.FormattingEnabled = true;
+            this.lstBox_entries.IntegralHeight = false;
+            this.lstBox_entries.Location = new System.Drawing.Point(101, 105);
+            this.lstBox_entries.Name = "lstBox_entries";
+            this.lstBox_entries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstBox_entries.Size = new System.Drawing.Size(168, 95);
+            this.lstBox_entries.TabIndex = 6;
             // 
-            // btn_start
+            // cmbBox_palette
             // 
-            this.btn_start.Location = new System.Drawing.Point(167, 16);
-            this.btn_start.Name = "btn_start";
-            this.btn_start.Size = new System.Drawing.Size(102, 25);
-            this.btn_start.TabIndex = 1;
-            this.btn_start.Text = "Start";
-            this.btn_start.UseVisualStyleBackColor = true;
-            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
+            this.cmbBox_palette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBox_palette.FormattingEnabled = true;
+            this.cmbBox_palette.Location = new System.Drawing.Point(101, 74);
+            this.cmbBox_palette.Name = "cmbBox_palette";
+            this.cmbBox_palette.Size = new System.Drawing.Size(168, 21);
+            this.cmbBox_palette.TabIndex = 5;
+            this.toolTip.SetToolTip(this.cmbBox_palette, "Color-palette used for the graphics.");
             // 
-            // lbl_targetDirectory
+            // lbl_palette
             // 
-            this.lbl_targetDirectory.AutoSize = true;
-            this.lbl_targetDirectory.Location = new System.Drawing.Point(9, 25);
-            this.lbl_targetDirectory.Name = "lbl_targetDirectory";
-            this.lbl_targetDirectory.Size = new System.Drawing.Size(86, 13);
-            this.lbl_targetDirectory.TabIndex = 0;
-            this.lbl_targetDirectory.Text = "Target Directory:";
-            // 
-            // txtBox_targetDirectory
-            // 
-            this.txtBox_targetDirectory.Location = new System.Drawing.Point(101, 22);
-            this.txtBox_targetDirectory.Name = "txtBox_targetDirectory";
-            this.txtBox_targetDirectory.Size = new System.Drawing.Size(168, 20);
-            this.txtBox_targetDirectory.TabIndex = 1;
-            this.toolTip.SetToolTip(this.txtBox_targetDirectory, "Directory where the generated images will be saved.");
-            this.txtBox_targetDirectory.TextChanged += new System.EventHandler(this.txtBox_targetDirectory_TextChanged);
+            this.lbl_palette.AutoSize = true;
+            this.lbl_palette.Location = new System.Drawing.Point(9, 77);
+            this.lbl_palette.Name = "lbl_palette";
+            this.lbl_palette.Size = new System.Drawing.Size(70, 13);
+            this.lbl_palette.TabIndex = 4;
+            this.lbl_palette.Text = "Color Palette:";
             // 
             // txtBox_prefix
             // 
@@ -142,43 +133,59 @@
             this.lbl_prefix.TabIndex = 2;
             this.lbl_prefix.Text = "Prefix:";
             // 
-            // lbl_palette
+            // txtBox_targetDirectory
             // 
-            this.lbl_palette.AutoSize = true;
-            this.lbl_palette.Location = new System.Drawing.Point(9, 77);
-            this.lbl_palette.Name = "lbl_palette";
-            this.lbl_palette.Size = new System.Drawing.Size(70, 13);
-            this.lbl_palette.TabIndex = 4;
-            this.lbl_palette.Text = "Color Palette:";
+            this.txtBox_targetDirectory.Location = new System.Drawing.Point(101, 22);
+            this.txtBox_targetDirectory.Name = "txtBox_targetDirectory";
+            this.txtBox_targetDirectory.Size = new System.Drawing.Size(168, 20);
+            this.txtBox_targetDirectory.TabIndex = 1;
+            this.toolTip.SetToolTip(this.txtBox_targetDirectory, "Directory where the generated images will be saved.");
+            this.txtBox_targetDirectory.Click += new System.EventHandler(this.txtBox_targetDirectory_Click);
+            this.txtBox_targetDirectory.TextChanged += new System.EventHandler(this.txtBox_targetDirectory_TextChanged);
             // 
-            // cmbBox_palette
+            // lbl_targetDirectory
             // 
-            this.cmbBox_palette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBox_palette.FormattingEnabled = true;
-            this.cmbBox_palette.Location = new System.Drawing.Point(101, 74);
-            this.cmbBox_palette.Name = "cmbBox_palette";
-            this.cmbBox_palette.Size = new System.Drawing.Size(168, 21);
-            this.cmbBox_palette.TabIndex = 5;
-            this.toolTip.SetToolTip(this.cmbBox_palette, "Color-palette used for the graphics.");
+            this.lbl_targetDirectory.AutoSize = true;
+            this.lbl_targetDirectory.Location = new System.Drawing.Point(9, 25);
+            this.lbl_targetDirectory.Name = "lbl_targetDirectory";
+            this.lbl_targetDirectory.Size = new System.Drawing.Size(86, 13);
+            this.lbl_targetDirectory.TabIndex = 0;
+            this.lbl_targetDirectory.Text = "Target Directory:";
             // 
-            // lstBox_entries
+            // MainPanel_grpBox_bottom
             // 
-            this.lstBox_entries.FormattingEnabled = true;
-            this.lstBox_entries.IntegralHeight = false;
-            this.lstBox_entries.Location = new System.Drawing.Point(101, 105);
-            this.lstBox_entries.Name = "lstBox_entries";
-            this.lstBox_entries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstBox_entries.Size = new System.Drawing.Size(168, 95);
-            this.lstBox_entries.TabIndex = 6;
+            this.MainPanel_grpBox_bottom.Controls.Add(this.btn_start);
+            this.MainPanel_grpBox_bottom.Controls.Add(this.btn_back);
+            this.MainPanel_grpBox_bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.MainPanel_grpBox_bottom.Location = new System.Drawing.Point(3, 209);
+            this.MainPanel_grpBox_bottom.Name = "MainPanel_grpBox_bottom";
+            this.MainPanel_grpBox_bottom.Size = new System.Drawing.Size(278, 50);
+            this.MainPanel_grpBox_bottom.TabIndex = 0;
+            this.MainPanel_grpBox_bottom.TabStop = false;
             // 
-            // lbl_entries
+            // btn_start
             // 
-            this.lbl_entries.AutoSize = true;
-            this.lbl_entries.Location = new System.Drawing.Point(10, 105);
-            this.lbl_entries.Name = "lbl_entries";
-            this.lbl_entries.Size = new System.Drawing.Size(42, 13);
-            this.lbl_entries.TabIndex = 7;
-            this.lbl_entries.Text = "Entries:";
+            this.btn_start.Location = new System.Drawing.Point(167, 16);
+            this.btn_start.Name = "btn_start";
+            this.btn_start.Size = new System.Drawing.Size(102, 25);
+            this.btn_start.TabIndex = 1;
+            this.btn_start.Text = "Start";
+            this.btn_start.UseVisualStyleBackColor = true;
+            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
+            // 
+            // btn_back
+            // 
+            this.btn_back.Location = new System.Drawing.Point(9, 16);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(102, 25);
+            this.btn_back.TabIndex = 0;
+            this.btn_back.Text = "< Back";
+            this.btn_back.UseVisualStyleBackColor = true;
+            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
+            // 
+            // folderBrowseDialog
+            // 
+            this.folderBrowseDialog.Description = "Select directory where to save the images.";
             // 
             // ReviewSimulationForm
             // 
@@ -213,6 +220,7 @@
         private System.Windows.Forms.ComboBox cmbBox_palette;
         private System.Windows.Forms.Label lbl_entries;
         private System.Windows.Forms.ListBox lstBox_entries;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowseDialog;
 
     }
 }
