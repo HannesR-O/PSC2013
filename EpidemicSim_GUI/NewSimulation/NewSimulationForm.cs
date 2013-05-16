@@ -17,6 +17,9 @@ namespace PSC2013.ES.GUI.NewSimulation
     {
         private const string NUMFIELD_NOT_IN_RANGE_EXCEPTION = "The given value is invalid. It must be in range of {0} and {1}.";
 
+        private delegate void ProgressBarDelegate(ProgressBar pb);
+        private delegate void ListBoxDelegate(ListBox lb, DepartmentInfo[] info);
+
         private Form _owner;
 
         private long _snapshotInterval;
@@ -134,10 +137,10 @@ namespace PSC2013.ES.GUI.NewSimulation
             this.Controls.Add(dlp);
             _departmentReader.IterationPassed += (s, arg) =>
             {
-                var evArg = arg as ContinuationEventArgs;
-                if (evArg != null)
-                    if (evArg.Finished)
-                        dlp.ProgressBar.Invoke(new ProgressBarDelegate(FinishProgressBar), dlp.ProgressBar);
+                if (arg != null && arg.Finished)
+                    dlp.ProgressBar.Invoke(new ProgressBarDelegate((pb) =>
+                        { pb.Style = ProgressBarStyle.Continuous; pb.Value = 100; }),
+                        dlp.ProgressBar);
             };
 
             // TODO | dj | not nice... this should not be allowed to get those information?!
@@ -146,15 +149,6 @@ namespace PSC2013.ES.GUI.NewSimulation
                     new ListBoxDelegate(FinishListBox), dlp.ListBoxDepartments, information.Result));   // adding result to list
 
             // TODO | dj | continue.
-        }
-
-        private delegate void ProgressBarDelegate(ProgressBar pb);
-        private delegate void ListBoxDelegate(ListBox lb, DepartmentInfo[] info);
-
-        private void FinishProgressBar(ProgressBar progressBar)
-        {
-            progressBar.Style = ProgressBarStyle.Continuous;
-            progressBar.Value = 100;
         }
 
         private void FinishListBox(ListBox lb, DepartmentInfo[] info)
