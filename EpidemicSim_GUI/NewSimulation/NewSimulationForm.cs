@@ -10,6 +10,9 @@ using PSC2013.ES.Library.IO.Readers;
 using PSC2013.ES.Library.Diseases;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.AreaData;
+using PSC2013.ES.Library;
+using PSC2013.ES.Library.Simulation.Components;
+using PSC2013.ES.Library.IO;
 
 namespace PSC2013.ES.GUI.NewSimulation
 {
@@ -19,10 +22,11 @@ namespace PSC2013.ES.GUI.NewSimulation
 
         private delegate void ProgressBarDelegate(ProgressBar pb);
         private delegate void ListBoxDelegate(ListBox lb, DepartmentInfo[] info);
+        private delegate void PanelUpdate(DiseaseLocationPanel panel);
 
         private Form _owner;
 
-        private long _snapshotInterval;
+        private int _snapshotInterval;
         private long _simDuration;
         private int _realtimeTick;
 
@@ -40,7 +44,15 @@ namespace PSC2013.ES.GUI.NewSimulation
             _owner = owner;
 
             _depFilePath = filepath;
-            _disease = new Disease();
+            
+            var facCont = new FactorContainer(new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+            _disease = new Disease()
+            {
+                HealingFactor = facCont,
+                ResistanceFactor = facCont,
+                MortalityRate = facCont
+            };
+
             _departmentReader = new DepartmentMapReader(_depFilePath);
 
             OpenDepMap();
@@ -50,6 +62,30 @@ namespace PSC2013.ES.GUI.NewSimulation
         {
             Image img = _departmentReader.ReadImage();
             MainPanel_pictureBox.Image = img;
+        }
+
+        private void StartSimulation()
+        {
+            // TODO | dj | adjust and take actual data...
+            TestSimulation();
+        }
+
+        private void TestSimulation()
+        {
+            EpidemicSimulator _epidemicSim = EpidemicSimulator.Create(
+                _disease, _depFilePath,
+                new DebugSimulationComponent(),
+                new AgeingSimulationComponent(110),
+                new MovementSimulationComponent());
+            _epidemicSim.SetSimulationIntervall(_realtimeTick);
+            _epidemicSim.SetSnapshotIntervall(_snapshotInterval);
+            _epidemicSim.AddOutputTarget(new ConsoleOutputTarget());
+            _epidemicSim.SimulationStarted += (sender, args) => Console.WriteLine("Simulation started!");
+            _epidemicSim.TickFinished += (sender, args) => Console.WriteLine("Tick finished!");
+            _epidemicSim.SimulationEnded += (sender, args) => Console.WriteLine("Simulation finished!");
+
+
+            _epidemicSim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), _simDuration);
         }
 
         // == EVENTS ====== \\
@@ -104,6 +140,8 @@ namespace PSC2013.ES.GUI.NewSimulation
                     _disease.Transferability = intValue;
                 else if (numUpDown == numField_realtimetick)
                     _realtimeTick = intValue;
+                else if (numUpDown == numField_snapshotInterval)
+                    _snapshotInterval = intValue;
             }
         }
 
@@ -119,8 +157,6 @@ namespace PSC2013.ES.GUI.NewSimulation
                 long longValue = (long)value;
                 if (numUpDown == numField_simduration)
                     _simDuration = longValue;
-                else if (numUpDown == numField_snapshotInterval)
-                    _snapshotInterval = longValue;
             }
         }
 
@@ -143,17 +179,29 @@ namespace PSC2013.ES.GUI.NewSimulation
                         dlp.ProgressBar);
             };
 
-            // TODO | dj | not nice... this should not be allowed to get those information?!
-            Task.Factory.StartNew(() => { return _departmentReader.ReadFile(); })                       // reading file
-                .ContinueWith((information) => dlp.ListBoxDepartments.Invoke(                           // continuing with
-                    new ListBoxDelegate(FinishListBox), dlp.ListBoxDepartments, information.Result));   // adding result to list
+            Task.Factory.StartNew(() =>
+                {
+                    return _departmentReader.ReadFile();                                // reading file.
+                }).ContinueWith((information) =>
+                    dlp.ListBoxDepartments.Invoke(                                      // continuing with
+                        new ListBoxDelegate((lb, info) =>                               // adding result to list.
+                            lb.Items.AddRange(info.Select(x => x.Name).ToArray())),
+                            dlp.ListBoxDepartments, information.Result)
+                ).ContinueWith((_) => // TODO | dj | THIS IS NOT THE ACTUAL NEXT STEP!!!
+                    dlp.Invoke(new PanelUpdate((panel) =>                               // now hiding progressbar
+                    {                                                                   // and adding button.
+                        panel.ProgressBar.Visible = false;
+                        Button btn = new Button();
+                        btn.Text = "Start";
+                        btn.Size = panel.ProgressBar.Size;
+                        btn.Location = panel.ProgressBar.Location;
+                        btn.Parent = panel.ProgressBar.Parent;
+                        btn.Visible = true;
+                        btn.Click += (orig, args) => StartSimulation();
+                    }),
+                    dlp));
 
             // TODO | dj | continue.
-        }
-
-        private void FinishListBox(ListBox lb, DepartmentInfo[] info)
-        {
-            lb.Items.AddRange(info.Select(x => x.Name).ToArray());
         }
 
         private void btn_back_Click(object sender, EventArgs e)

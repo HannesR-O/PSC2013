@@ -50,6 +50,7 @@
             this.txBox_name = new System.Windows.Forms.TextBox();
             this.lbl_name = new System.Windows.Forms.Label();
             this.MainSidePanel_bottom = new System.Windows.Forms.GroupBox();
+            this.btn_back = new System.Windows.Forms.Button();
             this.btn_next = new System.Windows.Forms.Button();
             this.MainSidePanel_general = new System.Windows.Forms.GroupBox();
             this.lbl_snapshotInterval = new System.Windows.Forms.Label();
@@ -62,7 +63,6 @@
             this.MainPanel_grpBox = new System.Windows.Forms.GroupBox();
             this.MainPanel_pictureBox = new System.Windows.Forms.PictureBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.btn_back = new System.Windows.Forms.Button();
             this.MainSidePanel.SuspendLayout();
             this.MainSidePanel_disease.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numField_transferability)).BeginInit();
@@ -339,6 +339,18 @@
             this.MainSidePanel_bottom.TabIndex = 2;
             this.MainSidePanel_bottom.TabStop = false;
             // 
+            // btn_back
+            // 
+            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_back.Location = new System.Drawing.Point(9, 16);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(102, 25);
+            this.btn_back.TabIndex = 1;
+            this.btn_back.Text = "< Back";
+            this.toolTip.SetToolTip(this.btn_back, "Get back to the previous window.");
+            this.btn_back.UseVisualStyleBackColor = true;
+            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
+            // 
             // btn_next
             // 
             this.btn_next.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -381,8 +393,8 @@
             this.numField_snapshotInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numField_snapshotInterval.Location = new System.Drawing.Point(113, 75);
             this.numField_snapshotInterval.Maximum = new decimal(new int[] {
-            0,
             -2147483648,
+            0,
             0,
             0});
             this.numField_snapshotInterval.Minimum = new decimal(new int[] {
@@ -394,12 +406,13 @@
             this.numField_snapshotInterval.Size = new System.Drawing.Size(120, 20);
             this.numField_snapshotInterval.TabIndex = 4;
             this.numField_snapshotInterval.ThousandsSeparator = true;
-            this.toolTip.SetToolTip(this.numField_snapshotInterval, "The interval of taking a snapshot (in hours)");
+            this.toolTip.SetToolTip(this.numField_snapshotInterval, "The interval of taking a snapshot (in hours).\r\n");
             this.numField_snapshotInterval.Value = new decimal(new int[] {
             24,
             0,
             0,
             0});
+            this.numField_snapshotInterval.ValueChanged += new System.EventHandler(this.numField_Int_ValueChanged);
             // 
             // lbl_realtimetick
             // 
@@ -428,7 +441,7 @@
             this.numField_realtimetick.Size = new System.Drawing.Size(120, 20);
             this.numField_realtimetick.TabIndex = 2;
             this.numField_realtimetick.ThousandsSeparator = true;
-            this.toolTip.SetToolTip(this.numField_realtimetick, "The (realtime) duration a tick shall emulate.");
+            this.toolTip.SetToolTip(this.numField_realtimetick, "The (realtime) duration (in hours) a tick shall emulate.");
             this.numField_realtimetick.Value = new decimal(new int[] {
             1,
             0,
@@ -492,18 +505,6 @@
             this.MainPanel_pictureBox.TabIndex = 0;
             this.MainPanel_pictureBox.TabStop = false;
             this.MainPanel_pictureBox.WaitOnLoad = true;
-            // 
-            // btn_back
-            // 
-            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_back.Location = new System.Drawing.Point(9, 16);
-            this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(102, 25);
-            this.btn_back.TabIndex = 1;
-            this.btn_back.Text = "< Back";
-            this.toolTip.SetToolTip(this.btn_back, "Get back to the previous window.");
-            this.btn_back.UseVisualStyleBackColor = true;
-            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
             // 
             // NewSimulationForm
             // 
