@@ -187,6 +187,7 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.MainPanel);
             this.Name = "ReviewSimulationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReviewSimulationForm";
             this.MainPanel.ResumeLayout(false);
             this.MainPanel_grpBox_main.ResumeLayout(false);
