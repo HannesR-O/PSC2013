@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSC2013.ES.GUI.NewSimulation;
+using PSC2013.ES.GUI.ReviewSimulation;
 
 namespace PSC2013.ES.GUI
 {
@@ -31,7 +32,9 @@ namespace PSC2013.ES.GUI
             if (result == DialogResult.OK)
             {
                 string filepath = openFileDialog.FileName;
-                new NewSimulationForm(this, filepath).Show();
+                var form = new NewSimulationForm(filepath);
+                form.FormClosing += (_,__) => this.Show();
+                form.Show();
                 this.Hide();
             }
         }
@@ -44,8 +47,9 @@ namespace PSC2013.ES.GUI
             if (result == DialogResult.OK)
             {
                 string filepath = openFileDialog.FileName;
-                // TODO | dj | call simulationReviewWindow from here.
-                Console.WriteLine("Open the window... Constructor has to get <this>!");
+                var form = new ReviewSimulationForm(filepath);
+                form.FormClosing += (_, __) => this.Show();
+                form.Show();
                 this.Hide();
             }
         }

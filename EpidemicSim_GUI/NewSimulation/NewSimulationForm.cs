@@ -24,8 +24,6 @@ namespace PSC2013.ES.GUI.NewSimulation
         private delegate void ListBoxDelegate(ListBox lb, DepartmentInfo[] info);
         private delegate void PanelUpdate(DiseaseLocationPanel panel);
 
-        private Form _owner;
-
         private int _snapshotInterval;
         private long _simDuration;
         private int _realtimeTick;
@@ -39,10 +37,8 @@ namespace PSC2013.ES.GUI.NewSimulation
             InitializeComponent();
         }
 
-        public NewSimulationForm(Form owner, string filepath) : this()
+        public NewSimulationForm(string filepath) : this()
         {
-            _owner = owner;
-
             _depFilePath = filepath;
             
             var facCont = new FactorContainer(new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
@@ -89,12 +85,6 @@ namespace PSC2013.ES.GUI.NewSimulation
         }
 
         // == EVENTS ====== \\
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            _owner.Show();
-            base.OnClosing(e);
-        }
 
         private void btn_mortality_Click(object sender, EventArgs e)
         {
