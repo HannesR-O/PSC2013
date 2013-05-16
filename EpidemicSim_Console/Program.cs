@@ -177,9 +177,9 @@ namespace PSC2013.ES.Cmd
                         break;
                     }
 
-            Console.WriteLine("Please type a color scheme (RED, BLUE):");
+            Console.WriteLine("Please type a color scheme (Red, Blue):");
             string palette = Console.ReadLine();
-            Color[] pal = palette == "BLUE" ? ColorPalette.BLUE : ColorPalette.RED;
+            EColorPalette pal = palette == "Blue" ? EColorPalette.Blue : EColorPalette.Red;
 
             manager.LoadTickSnapshot(name);
 

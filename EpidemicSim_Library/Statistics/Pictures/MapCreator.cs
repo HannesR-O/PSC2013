@@ -36,12 +36,14 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="snapshot">The Snapshot to be mapped</param>
         /// <param name="field">The Field to be visualised</param>
         /// <param name="palette">The Color Palette to be used</param>
-        public Dictionary<String, Color> GetMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
+        public Dictionary<String, Color> GetMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
         {
+            Color[] pal = GetPalette(palette);
+
             if ((int)field < 10)
-                return StandardMap(snapshot, field, palette, namePrefix);
+                return StandardMap(snapshot, field, pal, namePrefix);
             else
-                return ExtendendMap(snapshot, field, palette, namePrefix);
+                return ExtendendMap(snapshot, field, pal, namePrefix);
         }
 
         private Dictionary<String, Color> StandardMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
@@ -213,6 +215,19 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             //legend.Add(steps[steps.Length - 1] + " - 1", palette[palette.Length - 1]); // Always the last one
 
             return legend;
+        }
+
+        private static Color[] GetPalette(EColorPalette palette)
+        {
+            switch (palette)
+            {
+                case EColorPalette.Red:
+                    return ColorPalette.RED;
+                case EColorPalette.Blue:
+                    return ColorPalette.BLUE;
+                default:
+                    return ColorPalette.RED;
+            }
         }
     }
 }
