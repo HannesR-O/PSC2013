@@ -155,19 +155,23 @@ namespace PSC2013.ES.Cmd
         public static void TestStats()
         {
             var manager = new StatisticsManager();
+
             Console.WriteLine("Please enter the name of your .sim file:");
+
             string file = Console.ReadLine();
             if (file.EndsWith(".sim")) file = file.Remove(file.Length - 4);
+
             manager.OpenSimFile(
                 Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
                 + file + ".sim", 
                 Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+
             var entries = manager.Entrys;
             foreach (string s in entries)
             {
                 Console.WriteLine(s);
             }
-            Console.WriteLine("Please type a filename:");
+            Console.WriteLine("Please type a entryname:");
             string name = Console.ReadLine();            
 
             if (!entries.Contains(name))
@@ -178,20 +182,26 @@ namespace PSC2013.ES.Cmd
                         break;
                     }
 
+            Console.WriteLine("Please enter number of Field to paint (AllHumans is 12)");
+            int num = int.Parse(Console.ReadLine());
+            EStatField field = EStatField.AllHumans;
+            if (num >= 0 && num < 13)
+                field = (EStatField)num;
+        
             Console.WriteLine("Please type a color scheme (Red, Blue):");
             string palette = Console.ReadLine();
             EColorPalette pal = palette == "Blue" ? EColorPalette.Blue : EColorPalette.Red;
 
-            manager.LoadTickSnapshot(name);
-
             Console.WriteLine("Please insert desired File-Prefix:");
             string prefix = Console.ReadLine();
 
-            Dictionary<string, Color> legend = manager.CreateGraphics(EStatField.MaleBaby, pal, prefix);
+            manager.LoadTickSnapshot(name);
+
+            Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
 
             foreach (string str in legend.Keys)
             {
-                Console.WriteLine(str + " " + legend[str].ToString());
+                Console.WriteLine(str + " with " + legend[str].ToString());
             }
 
             Console.WriteLine("Finished!");

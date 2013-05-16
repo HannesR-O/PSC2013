@@ -71,6 +71,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns>A new CellSnapshot</returns>
         public static CellSnapshot InitializeFromFile(byte[] bytes)
         {
+            //TODO | T | optimize
             ushort[] temp = new ushort[10];
             temp[0] = BitConverter.ToUInt16(bytes, 0);
             temp[1] = BitConverter.ToUInt16(bytes, 2);

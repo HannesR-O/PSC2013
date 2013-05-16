@@ -63,13 +63,9 @@ namespace PSC2013.ES.Library.Snapshot
                 byte[] temp = new byte[CellSnapshot.LENGTH];
                 Array.Copy(bytes, CONSTLENGTH + i * CellSnapshot.LENGTH, temp, 0, CellSnapshot.LENGTH);
                 cells[i] = CellSnapshot.InitializeFromFile(temp);
-#if DEBUG
-                if (i % 1000000 == 0)
-                    Console.WriteLine("Parsed " + i + " Snaps");
-#endif
             }
 #if DEBUG
-            Console.WriteLine("Done!");
+            Console.WriteLine("Done parsing Snapshots");
 #endif
 
             int offset = 13 + cellCount * CellSnapshot.LENGTH;            
@@ -82,13 +78,9 @@ namespace PSC2013.ES.Library.Snapshot
                 byte[] temp = new byte[HumanSnapshot.LENGTH];
                 Array.Copy(bytes, CONSTLENGTH + (cellCount * CellSnapshot.LENGTH) + i * HumanSnapshot.LENGTH, temp, 0, HumanSnapshot.LENGTH);
                 deaths[i] = HumanSnapshot.InitializeFromFile(temp);
-#if DEBUG
-                if (i % 10 == 0)
-                    Console.WriteLine("Parsed " + i + " Deaths");
-#endif
             }
 #if DEBUG
-            Console.WriteLine("Done!");
+            Console.WriteLine("Done parsing HumanSnapshots!");
 #endif
 
             return new TickSnapshot(tick, cells, deaths);
