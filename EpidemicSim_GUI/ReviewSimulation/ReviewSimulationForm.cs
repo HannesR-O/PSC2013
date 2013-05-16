@@ -15,14 +15,20 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 {
     public partial class ReviewSimulationForm : Form
     {
+        private delegate void ProgressBarUpdate(ProgressBar pb);
+
         private string _simPath;
         private StatisticsManager _manager;
 
         private ReviewSimulationForm()
         {
             InitializeComponent();
+            
             cmbBox_palette.Items.AddRange(Enum.GetNames(typeof(EColorPalette)));
             cmbBox_palette.SelectedIndex = 0;
+
+            cmbBox_dataset.Items.AddRange(Enum.GetNames(typeof(EStatField)));
+            cmbBox_dataset.SelectedIndex = 0;
         }
 
         public ReviewSimulationForm(string filepath) : this()
@@ -32,11 +38,63 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             _manager = new StatisticsManager();
         }
 
+        private void StartStatistics()
+        {
+            btn_start.Visible = false;
+            ProgressBar progressBar = new ProgressBar();
+            progressBar.Location = btn_start.Location;
+            progressBar.Size = btn_start.Size;
+            progressBar.Style = ProgressBarStyle.Continuous;
+            progressBar.Maximum = lstBox_entries.SelectedItems.Count;
+            progressBar.Parent = btn_start.Parent;
+
+            EColorPalette palette = (EColorPalette)Enum.Parse(typeof(EColorPalette),
+                (string)cmbBox_palette.SelectedItem, true);
+            EStatField field = (EStatField)Enum.Parse(typeof(EStatField),
+                (string)cmbBox_dataset.SelectedItem, true);
+            List<string> entries = new List<string>(lstBox_entries.SelectedItems.Count);
+            foreach (string entry in lstBox_entries.SelectedItems)
+                entries.Add(entry);
+            string prefix = txtBox_prefix.Text;
+
+            Task.Run(() => StartInExtraThread(progressBar, palette, field, entries, prefix));
+        }
+
+        private void StartInExtraThread(ProgressBar progressBar, EColorPalette palette,
+            EStatField field, List<string> entries, string prefix)
+        {
+            foreach (string entry in entries)
+            {
+                _manager.LoadTickSnapshot(entry);
+                _manager.CreateGraphics(field, palette, prefix);
+                progressBar.Invoke(new ProgressBarUpdate(
+                    (pb) => pb.Increment(1)),
+                    progressBar);
+#if DEBUG
+                Console.WriteLine("Finished {0}", entry);
+#endif
+            }
+            progressBar.Invoke(new ProgressBarUpdate((pb) =>
+                {
+                    pb.Visible = false;
+                    Button btn = new Button();
+                    btn.Text = "Next >";
+                    btn.Location = pb.Location;
+                    btn.Size = pb.Size;
+                    btn.Parent = pb.Parent;
+                    btn.Focus();
+                    btn.Click += (_, __) =>
+                        {
+                            // TODO | dj | now show images?!
+                            Console.WriteLine("do next step");
+                        };
+                }), progressBar);
+        }
+
         // == EVENTS ====== \\
 
         private void txtBox_targetDirectory_TextChanged(object sender, EventArgs e)
         {
-            // TODO | dj | rework with dialog.
             string txt = txtBox_targetDirectory.Text;
             if (Directory.Exists(txt))
             {
@@ -48,16 +106,7 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            EColorPalette palette = (EColorPalette)Enum.Parse(typeof(EColorPalette),
-                (string)cmbBox_palette.SelectedItem, true);
-            foreach (string entry in lstBox_entries.SelectedItems)
-            {
-                _manager.LoadTickSnapshot(entry);
-                _manager.CreateGraphics(
-                    EStatField.AllHumans, // TODO | dj | dynamic!
-                    palette,
-                    txtBox_prefix.Text);
-            }
+            StartStatistics();
         }
 
         private void btn_back_Click(object sender, EventArgs e)

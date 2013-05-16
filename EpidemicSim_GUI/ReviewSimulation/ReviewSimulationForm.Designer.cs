@@ -44,6 +44,8 @@
             this.btn_back = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.folderBrowseDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.cmbBox_dataset = new System.Windows.Forms.ComboBox();
+            this.lbl_dataset = new System.Windows.Forms.Label();
             this.MainPanel.SuspendLayout();
             this.MainPanel_grpBox_main.SuspendLayout();
             this.MainPanel_grpBox_bottom.SuspendLayout();
@@ -57,11 +59,13 @@
             this.MainPanel.Location = new System.Drawing.Point(0, 0);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.MainPanel.Size = new System.Drawing.Size(284, 262);
+            this.MainPanel.Size = new System.Drawing.Size(284, 324);
             this.MainPanel.TabIndex = 0;
             // 
             // MainPanel_grpBox_main
             // 
+            this.MainPanel_grpBox_main.Controls.Add(this.cmbBox_dataset);
+            this.MainPanel_grpBox_main.Controls.Add(this.lbl_dataset);
             this.MainPanel_grpBox_main.Controls.Add(this.lbl_entries);
             this.MainPanel_grpBox_main.Controls.Add(this.lstBox_entries);
             this.MainPanel_grpBox_main.Controls.Add(this.cmbBox_palette);
@@ -73,7 +77,7 @@
             this.MainPanel_grpBox_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel_grpBox_main.Location = new System.Drawing.Point(3, 3);
             this.MainPanel_grpBox_main.Name = "MainPanel_grpBox_main";
-            this.MainPanel_grpBox_main.Size = new System.Drawing.Size(278, 206);
+            this.MainPanel_grpBox_main.Size = new System.Drawing.Size(278, 268);
             this.MainPanel_grpBox_main.TabIndex = 1;
             this.MainPanel_grpBox_main.TabStop = false;
             this.MainPanel_grpBox_main.Text = "Settings";
@@ -81,21 +85,22 @@
             // lbl_entries
             // 
             this.lbl_entries.AutoSize = true;
-            this.lbl_entries.Location = new System.Drawing.Point(10, 105);
+            this.lbl_entries.Location = new System.Drawing.Point(9, 130);
             this.lbl_entries.Name = "lbl_entries";
             this.lbl_entries.Size = new System.Drawing.Size(42, 13);
-            this.lbl_entries.TabIndex = 7;
+            this.lbl_entries.TabIndex = 6;
             this.lbl_entries.Text = "Entries:";
             // 
             // lstBox_entries
             // 
             this.lstBox_entries.FormattingEnabled = true;
             this.lstBox_entries.IntegralHeight = false;
-            this.lstBox_entries.Location = new System.Drawing.Point(101, 105);
+            this.lstBox_entries.Location = new System.Drawing.Point(101, 128);
             this.lstBox_entries.Name = "lstBox_entries";
             this.lstBox_entries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstBox_entries.Size = new System.Drawing.Size(168, 95);
-            this.lstBox_entries.TabIndex = 6;
+            this.lstBox_entries.Size = new System.Drawing.Size(168, 134);
+            this.lstBox_entries.TabIndex = 9;
+            this.toolTip.SetToolTip(this.lstBox_entries, "Select the entries to be visualized.");
             // 
             // cmbBox_palette
             // 
@@ -157,7 +162,7 @@
             this.MainPanel_grpBox_bottom.Controls.Add(this.btn_start);
             this.MainPanel_grpBox_bottom.Controls.Add(this.btn_back);
             this.MainPanel_grpBox_bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MainPanel_grpBox_bottom.Location = new System.Drawing.Point(3, 209);
+            this.MainPanel_grpBox_bottom.Location = new System.Drawing.Point(3, 271);
             this.MainPanel_grpBox_bottom.Name = "MainPanel_grpBox_bottom";
             this.MainPanel_grpBox_bottom.Size = new System.Drawing.Size(278, 50);
             this.MainPanel_grpBox_bottom.TabIndex = 0;
@@ -187,12 +192,33 @@
             // 
             this.folderBrowseDialog.Description = "Select directory where to save the images.";
             // 
+            // cmbBox_dataset
+            // 
+            this.cmbBox_dataset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBox_dataset.FormattingEnabled = true;
+            this.cmbBox_dataset.Location = new System.Drawing.Point(101, 101);
+            this.cmbBox_dataset.Name = "cmbBox_dataset";
+            this.cmbBox_dataset.Size = new System.Drawing.Size(168, 21);
+            this.cmbBox_dataset.TabIndex = 7;
+            this.toolTip.SetToolTip(this.cmbBox_dataset, "Dataset of which the data shall be taken.");
+            // 
+            // lbl_dataset
+            // 
+            this.lbl_dataset.AutoSize = true;
+            this.lbl_dataset.Location = new System.Drawing.Point(9, 104);
+            this.lbl_dataset.Name = "lbl_dataset";
+            this.lbl_dataset.Size = new System.Drawing.Size(47, 13);
+            this.lbl_dataset.TabIndex = 8;
+            this.lbl_dataset.Text = "Dataset:";
+            // 
             // ReviewSimulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(284, 324);
             this.Controls.Add(this.MainPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ReviewSimulationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReviewSimulationForm";
@@ -221,6 +247,8 @@
         private System.Windows.Forms.Label lbl_entries;
         private System.Windows.Forms.ListBox lstBox_entries;
         private System.Windows.Forms.FolderBrowserDialog folderBrowseDialog;
+        private System.Windows.Forms.ComboBox cmbBox_dataset;
+        private System.Windows.Forms.Label lbl_dataset;
 
     }
 }
