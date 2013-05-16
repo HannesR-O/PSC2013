@@ -12,23 +12,23 @@ namespace PSC2013.ES.Tests.Snapshot
 
         private void InitCell()
         {
-            _infosRuntime = new PopulationCell();
-            for (int i = 0; i < 12; ++i)
-            {
-                Human human = Human.Create(EGender.Female, 6, 15651);
-                human.SetDiseased(true);
-                Human human2 = Human.Create(EGender.Male, 2, 15651);
-                human.SetInfected(true);
-                _infosRuntime.AddHuman(human);
-                _infosRuntime.AddHuman(human2);
-                _infosRuntime.AddHuman(Human.Create(EGender.Male, 7, 18516));
-                _infosRuntime.AddHuman(Human.Create(EGender.Male, 26, 3541));
-                _infosRuntime.AddHuman(Human.Create(EGender.Male, 84, 8479));
+        //    _infosRuntime = new PopulationCell();
+        //    for (int i = 0; i < 12; ++i)
+        //    {
+        //        Human human = Human.Create(EGender.Female, 6, 15651);
+        //        human.SetDiseased(true);
+        //        Human human2 = Human.Create(EGender.Male, 2, 15651);
+        //        human.SetInfected(true);
+        //        _infosRuntime.AddHuman(human);
+        //        _infosRuntime.AddHuman(human2);
+        //        _infosRuntime.AddHuman(Human.Create(EGender.Male, 7, 18516));
+        //        _infosRuntime.AddHuman(Human.Create(EGender.Male, 26, 3541));
+        //        _infosRuntime.AddHuman(Human.Create(EGender.Male, 84, 8479));
                 
-                _infosRuntime.AddHuman(Human.Create(EGender.Female, 14, 18516));
-                _infosRuntime.AddHuman(Human.Create(EGender.Female, 34, 3541));
-                _infosRuntime.AddHuman(Human.Create(EGender.Female, 96, 8479));
-            }
+        //        _infosRuntime.AddHuman(Human.Create(EGender.Female, 14, 18516));
+        //        _infosRuntime.AddHuman(Human.Create(EGender.Female, 34, 3541));
+        //        _infosRuntime.AddHuman(Human.Create(EGender.Female, 96, 8479));
+        //    }
         }
 
         private void InitBytes()

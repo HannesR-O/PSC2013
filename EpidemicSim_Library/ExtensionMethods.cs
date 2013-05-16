@@ -45,38 +45,7 @@ namespace PSC2013.ES.Library
             array.CopyTo(otherArray, 0);
         }
 
-        /// <summary>
-        /// Generates an 2-Dimensional array out
-        /// of the given PopulationCells with only
-        /// the sum of (living) humans in them.
-        /// </summary>
-        /// <param name="array">The array of PopulationCells to be converted.</param>
-        /// <param name="width">The width of the matrix.</param>
-        /// <param name="height">The height of the matrix.</param>
-        /// <returns></returns>
-        public static int[,] To2DIntArray(this PopulationData.PopulationCell[] array, int width, int height)
-        {
-            int[,] matrix = new int[width, height];
 
-            for (int x = 0; x < width; x++)
-                for (int y = 0; y < height; y++)
-                    matrix[x, y] = array[x + (y * width)].Humans.Count(p => !p.IsDead());
-            return matrix;
-        }
-
-        /// <summary>
-        /// Generates an 2-Dimensional array out
-        /// of the given PopulationCells with only
-        /// the sum of (living) humans in them.
-        /// </summary>
-        /// <param name="array">The array of PopulationCells to be converted.</param>
-        /// <param name="width">The width of the matrix.</param>
-        /// <returns>2D-Matrix of the PopulationCell-Array.</returns>
-        public static int[,] To2DIntArray(this PopulationData.PopulationCell[] array, int width)
-        {
-            int height = array.Length / width;
-            return array.To2DIntArray(width, height);
-        }
 
         /// <summary>
         /// Flattens the coordinates of the given

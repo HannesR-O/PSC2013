@@ -44,23 +44,23 @@ namespace PSC2013.ES.Tests.AreaData
                 _originalCount += item.Population.Sum();
         }
 
-        [Fact]
-        public void GenerateMatrix()
-        {
-            StartUp();
+//        [Fact]
+//        public void GenerateMatrix()
+//        {
+//            StartUp();
 
-            MatrixGenerator.GenerateMatrix(_populationCells, _departments, WIDTH, HEIGHT);
+//            MatrixGenerator.GenerateMatrix(_populationCells, _departments, WIDTH, HEIGHT);
             
-            int actualCount = 0;
-            foreach (PopulationCell item in _populationCells)
-                actualCount += item.Humans.Count(x => !x.IsDead());
+//            int actualCount = 0;
+//            foreach (PopulationCell item in _populationCells)
+//                actualCount += item.Humans.Count(x => !x.IsDead());
 
-#if DEBUG
-            int[,] matrix = _populationCells.To2DIntArray(WIDTH);
-#endif
-            // Test allows 1%-difference. (having 80000 people it results into +-800...)
-            Assert.True(actualCount <= _originalCount * 1.01 && actualCount >= _originalCount * 0.99);
+//#if DEBUG
+//            int[,] matrix = _populationCells.To2DIntArray(WIDTH);
+//#endif
+//            // Test allows 1%-difference. (having 80000 people it results into +-800...)
+//            Assert.True(actualCount <= _originalCount * 1.01 && actualCount >= _originalCount * 0.99);
             
-        }
+//        }
     }
 }

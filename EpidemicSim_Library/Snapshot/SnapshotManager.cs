@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
+using System.Linq;
 
 
 namespace PSC2013.ES.Library.Snapshot
@@ -31,12 +32,15 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         /// <param name="destination">Where to save the data</param>
         /// <param name="disease">The Disease used in the Simulation</param>
-        public void Initialize(string destination, Disease disease)
+        public void Initialize(string destination, Disease disease, int mapX, int mapY)
         {
-            _simInfo = SimulationInfo.InitializeFromRuntime(disease);
+            _simInfo = SimulationInfo.InitializeFromRuntime(disease, mapX, mapY);
+
             _target = Path.Combine(destination, disease.Name);
             _snapshots = new Queue<TickSnapshot>();
+
             _tick = 1;
+
             _writer = new SnapshotWriter();
             TookSnapshot += _writer.Recieve;
         }
@@ -47,15 +51,15 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
-            CellSnapshot[] cells = new CellSnapshot[simData.Population.Length];
+            int cellCount = simData.Cells.Count(x => x != null);
+            CellSnapshot[] cells = new CellSnapshot[cellCount];
+
             int pos = 0;
             int i = 0;
-            foreach (PopulationCell cell in simData.Population)
+            foreach (PopulationCell cell in simData.Cells)
             {
                 if (cell != null)
-                {
                     cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
-                }
                 ++pos;
             }
 
@@ -65,18 +69,7 @@ namespace PSC2013.ES.Library.Snapshot
             TookSnapshot(this, null);
             _tick++;
         }
-
-        /// <summary>
-        /// Finishes writing the Snapshot Queue und compresses the folder
-        /// DEPRECATED
-        /// </summary>
-        [Obsolete]
-        public void Finish()
-        {
-            TookSnapshot(this, null);            
-            Console.WriteLine("Finished logging of Simulation @ " + DateTime.Now.ToString());
-        }
-
+        
         /// <summary>
         /// Nested class for writing the snapshots
         /// </summary>
@@ -125,6 +118,19 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 while (_snapshots.Count > 0)
                 {
+                    // TODO | dj | maybe we should copy the queue?
+                    // because IF the IO is a/the bottleneck then locking
+                    // the queue would cause the manager itself being blocked
+                    // and not being able to enqueue a new snapshot until
+                    // the IO is finished.
+                    /* other possibility for this:
+                     * TickSnapshot tmp;
+                     * lock(_snapshots) { tmp = _snapshots.Dequeue(); }
+                     * if (tmp != null)
+                     * {
+                     *      // ...the writing stuff here.
+                     * }
+                     */
                     lock (_snapshots)
                     {
                         TickSnapshot temp = _snapshots.Dequeue();

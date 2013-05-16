@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 namespace PSC2013.ES.Library.Simulation
 {
@@ -17,8 +18,13 @@ namespace PSC2013.ES.Library.Simulation
 
         private DateTime _time;
 
+        //IOData
+        public int ImageWidth { get; private set; }
+        public int ImageHeight { get; private set; }
+
         //PopulationData
-        public PopulationCell[] Population { get; private set; }
+        public PopulationCell[] Cells { get; private set; }
+        public Human[] Humans { get; private set;}
 
         //Dead Humans
         public HumanSnapshot[] Deaths { get; private set; } // Human, DeathCell, CauseOfDeath ( 0 = natural, 1 = disease) //TODO |t| Maybe not the best solution..
@@ -40,18 +46,18 @@ namespace PSC2013.ES.Library.Simulation
         //TODO: |f| add relevant checks
         public bool IsValid
         {
-            get { return CurrentDisease != null && Population != null; }
+            get { return CurrentDisease != null && Cells != null; }
         }
 
         public SimulationData()
         {
-            Population = new PopulationCell[10808574];
+            Cells = new PopulationCell[0];          //  10808574
+            Humans = new Human[0];                  // ~82000000
             Deaths = new HumanSnapshot[0];
             DeathCount = 0;
 
-            FederalStates = new FederalState[16];
-            Departments = new Department[401];
-            //Population.Initialize<PopulationCell>();
+            FederalStates = new FederalState[0];    // 16
+            Departments = new Department[0];        // 401
 
             _time = DateTime.Now;
         }
@@ -63,19 +69,34 @@ namespace PSC2013.ES.Library.Simulation
         /// </summary>
         /// <param name="filePath">The path to the .dep-file.</param>
         /// <exception cref="IOException">Might be thrown.</exception>
-        public void InitializeFromFile(string filePath)       // TODO | dj | might be extracted to another class...
+        public void InitializeFromFile(string filePath)
         {
             var reader = new DepartmentMapReader(filePath);
+
 #if DEBUG
             Console.WriteLine("Reading File...");
 #endif
             DepartmentInfo[] deps = reader.ReadFile();
+            
             Image img = reader.ReadImage();
+            ImageWidth = img.Width;
+            ImageHeight = img.Height;
+
+#if DEBUG
+            Console.WriteLine("Calculating Total-Population...");
+#endif
+            int maxPopulation = deps.Sum(x => x.GetTotal());        // getting maximum population
+            Humans = new Human[(int)(maxPopulation * 1.05f)];       // adding 5% :)
+
 #if DEBUG
             Console.WriteLine("Generating Matrix...");
 #endif
             // TODO | dj | should be changed back to .GenerateMatrix...
-            MatrixGenerator.GenerateDummyMatrix(Population, deps, img.Width, img.Height);
+            Cells = new PopulationCell[ImageWidth * ImageHeight];
+            MatrixGenerator.GenerateDummyMatrix(Cells, Humans, deps, ImageWidth, ImageHeight);
+#if DEBUG
+            Console.WriteLine("...Matrix generated.");
+#endif
         }
 
         public void AddDeadPeople(IList<HumanSnapshot> deadPeople)

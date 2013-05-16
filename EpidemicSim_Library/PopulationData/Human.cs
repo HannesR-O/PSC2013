@@ -20,6 +20,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// HomeCell of the Human
         /// </summary>
         public readonly int HomeCell;
+        public int CurrentCell;
 
         private byte _data0;    // Age & Gender
         private byte _data1;    // Infected & Spreading & Diseased & Death
@@ -40,6 +41,7 @@ namespace PSC2013.ES.Library.PopulationData
             _data2 = 0;
             _counterInfect = 1;
             _counterSpreading = 2;
+            CurrentCell = homeCell;
         }
 
         /// <summary>

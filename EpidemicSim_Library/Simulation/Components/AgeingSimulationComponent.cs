@@ -6,11 +6,12 @@ using System.Linq;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class AgeingSimulationComponent : ISimulationComponent
+    public unsafe class AgeingSimulationComponent : ISimulationComponent
     {
         // Assumes 365 x 24 hour days
         private const int HOURS_PER_YEAR = 8544;
-        public int AgeLimit { get; private set; }public int TicksPerYear { get; private set; }
+        public int AgeLimit { get; private set; }
+        public int TicksPerYear { get; private set; }
         
 
         private int _counter;
@@ -19,11 +20,10 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// Creates a new AgeingSimulationComponent and sets the "hour-value" of one tick.
         /// </summary>
         /// <param name="ageLimit">A value specifying at what age Humans should die of aging</param>
-        /// <param name="hoursPerTick">A value specifying how many hours pass in one simulation tick</param>
-        public AgeingSimulationComponent(int ageLimit, int hoursPerTick)
+        public AgeingSimulationComponent(int ageLimit)
         {
             AgeLimit = ageLimit;
-            TicksPerYear = HOURS_PER_YEAR / hoursPerTick;        //TODO: |f| not the most accurate but should be enough for our purposes
+            TicksPerYear = HOURS_PER_YEAR;        
             _counter = 0;
         }
 
@@ -39,11 +39,38 @@ namespace PSC2013.ES.Library.Simulation.Components
 #endif
             var deadPeople = new List<HumanSnapshot>();
 
-            for (int i = 0; i < data.Population.Count(); i++)
+            fixed (Human* humanptr = data.Humans)
             {
-                if (data.Population[i] == null) continue;
+                for (Human* human = humanptr; human < humanptr + data.Humans.Length; ++human)
+                {
+                    if (human->IsDead())
+                        continue;
 
-                deadPeople.AddRange(HandleSinglePopulationCell(data.Population[i], i));
+                    human->DoAgeTick();
+
+                    if (human->GetAgeInYears() <= AgeLimit) continue;
+
+                    deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human->GetGender(), (byte)human->GetAgeInYears(), (byte)human->GetProfession(),
+                                                                       human->HomeCell, human->CurrentCell, false));
+                    human->KillHuman();
+                    var index = (int)human->GetGender();
+                    index = index == 128 ? 0 : 4;
+                    switch (human->GetAge())
+                    {
+                        case EAge.Baby:
+                            break;
+                        case EAge.Child:
+                            index++;
+                            break;
+                        case EAge.Adult:
+                            index += 2;
+                            break;
+                        case EAge.Senior:
+                            index += 3;
+                            break;
+                    }
+                    data.Cells[human->CurrentCell].Data[index]--;
+                }
             }
 
             data.AddDeadPeople(deadPeople);
@@ -53,26 +80,9 @@ namespace PSC2013.ES.Library.Simulation.Components
 #endif
         }
 
-        private IEnumerable<HumanSnapshot> HandleSinglePopulationCell(PopulationCell cell, int cellID)
+        public void SetSimulationIntervall(int intervall)
         {
-            var deadPeople = new List<HumanSnapshot>();
-
-            for (int i = 0; i < cell.Humans.Length; i++)
-            {
-                if (cell.Humans[i].IsDead()) continue;
-
-                cell.Humans[i].DoAgeTick();
-
-                var human = cell.Humans[i];
-                if (human.GetAgeInYears() <= AgeLimit) continue;
-
-                // Human dies from over ageing                  //TODO: |f| Add percentage rates for dieing at high ages and kill human properly
-                deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human.GetGender(), (byte)human.GetAgeInYears(), (byte)human.GetProfession(),
-                    human.HomeCell, cellID, false));
-                cell.Humans[i].KillHuman();
-            }
-
-            return deadPeople;
+            TicksPerYear = HOURS_PER_YEAR / intervall;           //TODO: |f| add range checks?
         }
 
         public ESimulationStage SimulationStages { get { return ESimulationStage.AfterInfectedCalculation; } }

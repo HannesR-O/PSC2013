@@ -11,6 +11,11 @@ namespace PSC2013.ES.Library.Simulation.Components
 #endif
         }
 
+        public void SetSimulationIntervall(int intervall)
+        {
+            return;
+        }
+
         ESimulationStage ISimulationComponent.SimulationStages
         {
             get { return ESimulationStage.InfectedCalculation; }

@@ -1,7 +1,7 @@
-﻿using System.Threading;
+﻿using System.Drawing;
 using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
-using PSC2013.ES.Library.PopulationData;
+using PSC2013.ES.Library.IO;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.Snapshot;
@@ -9,7 +9,6 @@ using PSC2013.ES.Library.Statistics;
 using PSC2013.ES.Library.Statistics.Pictures;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace PSC2013.ES.Cmd
 {
@@ -18,17 +17,42 @@ namespace PSC2013.ES.Cmd
         static void Main(string[] args)
         {
 #if DEBUG
-            //TestEpidemicSimulator();
+            Console.WriteLine("Welcome to the Epidemic-Simulator-Test-Console.");
+            Console.WriteLine("Please select one of the following methods to call:");
+            
+            string[] methodnames = { "TestSimulation",
+                "TestStats", "TestMovementComponent", "TestEpidemicSimulator",
+                "TestMemory", "TestSnapshot"};
+            for (int i = 0; i < methodnames.Length; i++)
+                Console.WriteLine("{0} - {1}", i, methodnames[i]);
 
-            //TestSnapshot();
+            int input = int.Parse(Console.ReadLine());
 
-            //TestCalculations();
-
-            //TestAgeingComponent();
-
-            //TestMovementComponent();
-
-            TestStats();
+            Console.Clear();
+            switch (input)
+            {
+                case 0:
+                    TestSimulation();
+                    break;
+                case 1:
+                    TestStats();
+                    break;
+                case 2:
+                    TestMovementComponent();
+                    break;
+                case 3:
+                    TestEpidemicSimulator();
+                    break;
+                case 4:
+                    TestMemory();
+                    break;
+                case 5:
+                    TestSnapshot();
+                    break;
+                default:
+                    Console.WriteLine("wrong input");
+                    break;
+            }
 
             Console.ReadKey();
 #endif
@@ -74,77 +98,17 @@ namespace PSC2013.ES.Cmd
                     ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
                 };
             var mgr = new SnapshotManager();
-            mgr.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), disease);
-            //mgr.Finish();
+            mgr.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), disease, 0, 0); // Uses Default MapSize
         }
 
         public static void TestMemory()
         {
             var simData = new SimulationData();
             Console.WriteLine("Current size in MB: " + Process.GetCurrentProcess().PrivateMemorySize64 / (1024 * 1024));
-            Console.WriteLine("Total Humancount in 1000: " + simData.Population.Length * 8 / 1000);
+            Console.WriteLine("Total Humancount in 1000: " + simData.Cells.Length * 8 / 1000);
         }
 
-        public static void TestCalculations()
-        {
-            var simData = new SimulationData();
-            simData.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
-
-            var sw = new Stopwatch();
-            sw.Start();
-            Console.WriteLine("Starting cell-run.");
-
-            //int i = 0;
-            //System.IO.StreamWriter stream = new System.IO.StreamWriter(
-            //    Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/test.txt");
-            foreach (PopulationCell cell in simData.Population.NotNullIterator())
-            {
-                //Console.Write("Cell#{0,9}", i++);
-
-                //if (i % 2814 == 0)
-                //    stream.Write(Environment.NewLine);
-
-                if (cell != null)
-                {
-                    //var watch = new Stopwatch();
-                    //Console.WriteLine("Testing non-parallel..");
-                    //watch.Start();
-
-                    foreach (Human hu in cell.Humans)
-                    {
-                        int value = hu.GetAgeInYears() % 4;
-                    }
-
-                    //watch.Stop();
-                    //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                    //watch.Reset();
-                    //Console.WriteLine("Testing parallel..");
-                    //watch.Start();
-
-                    Parallel.ForEach(cell.Humans, (human) =>
-                        {
-                            int value = human.GetAgeInYears() % 4;
-                        });
-
-                    //watch.Stop();
-                    //Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds + "ms");
-                    Console.WriteLine(" - done - {0}", cell.ToString());
-                    //stream.Write("8");
-                }
-                else
-                {
-                    Console.WriteLine(" - abort : NULL");
-                    //stream.Write("-");
-                }
-            }
-            //stream.Flush();
-            //stream.Close();
-            //stream.Dispose();
-            sw.Stop();
-            Console.WriteLine("Overall only-operation-time: " + sw.Elapsed);
-        }
-
-        public static void TestAgeingComponent()
+        public static void TestSimulation()
         {
             var disease = new Disease
             {
@@ -153,29 +117,29 @@ namespace PSC2013.ES.Cmd
                 IdleTime = 123415,
                 SpreadingTime = 123123,
                 Transferability = 901237,
-                MortalityRate = new FactorContainer(new []{1, 2, 14, 151, 11515, 123, 123, 120}),
+                MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
                 HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
                 ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
             };
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new DebugSimulationComponent(),
-                new AgeingSimulationComponent(110, 8544),
+                new AgeingSimulationComponent(110),
                 new MovementSimulationComponent());
-            sim.SetSnapshotIntervall(1);
+            sim.SetSimulationIntervall(4272);
+            sim.SetSnapshotIntervall(8544);
+            sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
             sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            //Thread.Sleep(10000);
-            //sim.StopSimulation();
         }
 
         public static void TestMovementComponent()
         {
             //too slow at the moment
-            SimulationData data = new SimulationData();
-            MovementSimulationComponent movecmp = new MovementSimulationComponent();
+            var data = new SimulationData();
+            var movecmp = new MovementSimulationComponent();
             data.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
 
             for (int i = 0; i < 48; ++i)
@@ -189,20 +153,42 @@ namespace PSC2013.ES.Cmd
 
         public static void TestStats()
         {
-            StatisticsManager manager = new StatisticsManager(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            var manager = new StatisticsManager();
             Console.WriteLine("Please enter the name of your .sim file:");
             string file = Console.ReadLine();
-            manager.OpenSimFile(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
-                + file + ".sim"); // Insert your .sim path here...
-            foreach (string s in manager.Entrys)
+            if (file.EndsWith(".sim")) file = file.Remove(file.Length - 4);
+            manager.OpenSimFile(
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
+                + file + ".sim", 
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            var entries = manager.Entrys;
+            foreach (string s in entries)
             {
                 Console.WriteLine(s);
             }
-            Console.WriteLine("Please type a File Name:");
-            string name = Console.ReadLine();
+            Console.WriteLine("Please type a filename:");
+            string name = Console.ReadLine();            
+
+            if (!entries.Contains(name))
+                foreach (string entry in entries)
+                    if (entry.StartsWith(name))
+                    {
+                        name = entry;
+                        break;
+                    }
+
+            Console.WriteLine("Please type a color scheme (RED, BLUE):");
+            string palette = Console.ReadLine();
+            Color[] pal = palette == "BLUE" ? ColorPalette.BLUE : ColorPalette.RED;
 
             manager.LoadTickSnapshot(name);
-            manager.CreateGraphics(Library.Statistics.Pictures.EStatField.FemaleBaby, ColorPalette.RED);
+
+            Console.WriteLine("Please insert desired File-Prefix:");
+            string prefix = Console.ReadLine();
+
+            manager.CreateGraphics(EStatField.AllMale, pal, prefix);
+
+            Console.WriteLine("Finished!");
         }
     }
 }

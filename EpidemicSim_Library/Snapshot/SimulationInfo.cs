@@ -12,11 +12,15 @@ namespace PSC2013.ES.Library.Snapshot
         private const byte HEADER = 0x1;
         public Disease Disease { get; private set; }
         public string Name { get; private set; }
+        public int MapX { get; private set; }
+        public int MapY { get; private set; }
 
-        private SimulationInfo(Disease disease)
+        private SimulationInfo(Disease disease, int mapX, int mapY)
         {
             Disease = disease;
             Name = Disease.Name;
+            MapX = mapX;
+            MapY = mapY;
         }
 
         /// <summary>
@@ -25,9 +29,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="name">The Simulations Name</param>
         /// <param name="disease">The used Disease</param>
         /// <returns></returns>
-        public static SimulationInfo InitializeFromRuntime(Disease disease)
+        public static SimulationInfo InitializeFromRuntime(Disease disease, int x, int y)
         {
-            return new SimulationInfo(disease);
+            return new SimulationInfo(disease, x, y);
         }
 
         /// <summary>
@@ -85,9 +89,12 @@ namespace PSC2013.ES.Library.Snapshot
                 restMaleBaby, restMaleChild, restMaleAdult, restMaleSenior, 
                 restFemaleBaby, restFemaleChild, restFemaleAdult, restFemaleSenior });
 
-            string name = System.Text.Encoding.UTF8.GetString(bytes, 113, bytes.Length - 113);
+            int x = BitConverter.ToInt32(bytes, 113);
+            int y = BitConverter.ToInt32(bytes, 117);
+
+            string name = System.Text.Encoding.UTF8.GetString(bytes, 121, bytes.Length - 121);
             disease.Name = name;
-            return new SimulationInfo(disease);
+            return new SimulationInfo(disease, x, y);
         }
 
         /// <summary>
@@ -97,7 +104,7 @@ namespace PSC2013.ES.Library.Snapshot
         public byte[] GetBytes()
         {
             byte[] t = System.Text.Encoding.UTF8.GetBytes(Disease.Name);
-            var output = new byte[113 + t.Length];
+            var output = new byte[121 + t.Length];
             output[0] = HEADER;
             Array.Copy(BitConverter.GetBytes(Disease.IncubationPeriod), 0, output, 1, 4);
             Array.Copy(BitConverter.GetBytes(Disease.IdleTime), 0, output, 5, 4);
@@ -127,7 +134,9 @@ namespace PSC2013.ES.Library.Snapshot
             Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Female_Child), 0, output, 101, 4);
             Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Female_Adult), 0, output, 105, 4);
             Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Female_Senior), 0, output, 109, 4);
-            Array.Copy(t, 0, output, 113, t.Length);
+            Array.Copy(BitConverter.GetBytes(MapX), 0, output, 113, 4);
+            Array.Copy(BitConverter.GetBytes(MapY), 0, output, 117, 4);
+            Array.Copy(t, 0, output, 121, t.Length);
             return output;
         }
     }

@@ -14,7 +14,7 @@ namespace PSC2013.ES.Library.Statistics
     /// </summary>
     public class StatisticsManager
     {
-        public ArrayList Entrys { get; private set; }
+        public ArrayList Entrys { get; private set; } // TODO | dj | why no type???!!!
 
         private SimulationInfo _simInfo;
         private ZipArchive _currentArchive;
@@ -23,20 +23,12 @@ namespace PSC2013.ES.Library.Statistics
         private MapCreator _creator;
 
         /// <summary>
-        /// Creates a new StatisticsManager with the given Location to save the Files to
-        /// </summary>
-        /// <param name="mapDestination">Where the Maps shall be saved</param>
-        public StatisticsManager(string mapDestination)
-        {
-            _creator = new MapCreator(mapDestination);
-        }
-
-        /// <summary>
         /// Opens a new .sim File and restores the contents to Runtime;
         /// Only one can be opened at a time
         /// </summary>
         /// <param name="path">The path where the file is located</param>
-        public void OpenSimFile(string path)
+        /// <param name="mapDestination">Where the Pictures should be saved</param>
+        public void OpenSimFile(string path, string mapDestination)
         {
             if (_currentArchive != null)
                 _currentArchive.Dispose();
@@ -52,6 +44,8 @@ namespace PSC2013.ES.Library.Statistics
 
             byte[] file = ArchiveReader.ToByteArray(_currentArchive.GetEntry("header"));
             _simInfo = SimulationInfo.InitializeFromFile(file);
+
+            _creator = new MapCreator(mapDestination, _simInfo.MapX, _simInfo.MapY);
             _currentSnapshot = null;
         }
 
@@ -62,13 +56,32 @@ namespace PSC2013.ES.Library.Statistics
             _currentSnapshot = TickSnapshot.InitializeFromFile(temp);
         }
 
-        public void CreateGraphics(EStatField field, Color[] colors)
+        public void CreateGraphics(EStatField field, Color[] colors, string namePrefix)
         {
             if (_currentArchive != null)
             {
                 if (_currentSnapshot != null)
                 {
-                    _creator.GetMap(_currentSnapshot, field, colors);
+                    _creator.GetMap(_currentSnapshot, field, colors, namePrefix);
+                }
+                else
+                {
+                    throw new ApplicationException("No Snapshot is opened!");
+                }
+            }
+            else
+            {
+                throw new ApplicationException("No File loaded");
+            }
+        }
+
+        public void CreateDeathGraphics(Color[] colors)
+        {
+            if (_currentArchive != null)
+            {
+                if (_currentSnapshot != null)
+                {
+                    _creator.GetDeathMap(_currentSnapshot, colors);
                 }
                 else
                 {

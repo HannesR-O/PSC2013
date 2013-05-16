@@ -12,7 +12,7 @@ using PSC2013.ES.Library.Simulation.Components;
 
 namespace PSC2013.ES.Library
 {
-    public class EpidemicSimulator
+    public sealed class EpidemicSimulator
     {
 #if DEBUG
         private readonly Stopwatch _watch = new Stopwatch();
@@ -24,7 +24,7 @@ namespace PSC2013.ES.Library
         private const string ERROR_MESSAGE_SIMULATION_RUNNING = "A Simulation is already running!";
         private const string ERROR_MESSAGE_NO_SIMULATION_RUNNING = "No Simulation running!";
 
-        private const int SIMULATION_DEFAULT_START = 1;
+        private const int SIMULATION_DEFAULT_START = 0;
         private const int SIMULATION_DEFAULT_LIMIT = 0;
 
         private const int DEFAULT_SIMULATION_INTERVALL = 1;
@@ -51,8 +51,10 @@ namespace PSC2013.ES.Library
 
         // Misc.
         private volatile bool _simulationLock;
+        private volatile bool _writeToOutputs = true;
         private long _simulationRound = SIMULATION_DEFAULT_START;
         private long _simulationLimit = SIMULATION_DEFAULT_LIMIT;
+
         #endregion
 
         #region ### Public ###
@@ -68,6 +70,7 @@ namespace PSC2013.ES.Library
             }
         }
         public bool IsSimulationg { get { return _simulationLock; } }
+        public bool WriteToOutputs { get { return _writeToOutputs; } set { _writeToOutputs = value; } }
 
         // Events
         public event EventHandler<SimulationEventArgs> SimulationStarted;
@@ -84,6 +87,8 @@ namespace PSC2013.ES.Library
 
             _before = new List<ISimulationComponent>();
             _after = new List<ISimulationComponent>();
+
+            _outputTargets = new List<IOutputTarget>();
         }
 
         /// <summary>
@@ -147,6 +152,22 @@ namespace PSC2013.ES.Library
                     _after.Add(component);
         }
 
+        public void RemoveSimulationComponent(ISimulationComponent component)
+        {
+            var stages = component.SimulationStages;
+            if((stages & ESimulationStage.InfectedCalculation) == ESimulationStage.InfectedCalculation)
+                throw new SimulationException("Cannot remove Infection Simulation component! \n " +
+                                              "If you want to set a new one, use AddSimulationComponent!");
+
+            if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation &&
+                _before.Contains(component))
+                _before.Remove(component);
+
+            if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation &&
+                _after.Contains(component))
+                _after.Remove(component);
+        }
+
         /// <summary>
         /// Adds a new IOutputTarget to the Epidemic Simulator. Allowing it to write messages to
         /// this Output during simulation
@@ -157,9 +178,7 @@ namespace PSC2013.ES.Library
             if (_simulationLock)
                 throw new SimulationException("Could not add a new IOutputTarget. " + ERROR_MESSAGE_SIMULATION_RUNNING);
 
-            if (_outputTargets == null)
-                _outputTargets = new List<IOutputTarget>();
-            if (_outputTargets.Contains(target))
+            if (!_outputTargets.Contains(target))
                 _outputTargets.Add(target);
         }
 
@@ -167,7 +186,7 @@ namespace PSC2013.ES.Library
         /// Sets a new intervall determining how many hours shall be calculated each tick.
         /// Default is 1 (hour / tick).
         /// </summary>
-        /// <param name="intervall">The new intervall to use. Must be greater than 1</param>
+        /// <param name="intervall">The new intervall to use. Must be greater than 0</param>
         public void SetSimulationIntervall(int intervall)
         {
             if (_simulationLock)
@@ -177,6 +196,19 @@ namespace PSC2013.ES.Library
                 throw new ArgumentOutOfRangeException("intervall", "The given intervall must be greater than 1.");
 
             _simulationIntervall = intervall;
+
+            UpdateComponentsIntervalls();
+        }
+
+        private void UpdateComponentsIntervalls()
+        {
+            foreach (var component in _before)
+                component.SetSimulationIntervall(_simulationIntervall);
+
+            _infectionSimulator.SetSimulationIntervall(_simulationIntervall);
+
+            foreach (var component in _after)
+                component.SetSimulationIntervall(_simulationIntervall);
         }
 
         /// <summary>
@@ -228,7 +260,7 @@ namespace PSC2013.ES.Library
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease); //TODO: |f| Get correct values.
+            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease, _simData.ImageWidth, _simData.ImageHeight); //TODO: |f| Get correct values.
 
             // Actual Simulation is performed in another Thread to enable stopping
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
@@ -274,7 +306,7 @@ namespace PSC2013.ES.Library
                 _simulationLock = round != _simulationLimit;
 #if DEBUG
                 _watch.Stop();
-                Console.WriteLine("DoTick took " + _watch.ElapsedMilliseconds + "ms!");
+                WriteMessage("Tick took " + _watch.ElapsedMilliseconds + "ms!");
 #endif
                 OnTickFinished(new SimulationEventArgs() { SimulationRunning = true, SimulationRound = round });
             }
@@ -283,31 +315,31 @@ namespace PSC2013.ES.Library
         private void PerformSimulationStop()
         {
             long rounds = Interlocked.Read(ref _simulationRound);
-            _snapshotMgr.Finish();
             OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
         }
 
-        protected virtual void OnSimulationStarted(SimulationEventArgs e)
+        private void WriteMessage(string message)
         {
-#if DEBUG
-            Console.WriteLine("ES: Simulation started!");
-#endif
+            foreach(var target in _outputTargets)
+                target.WriteToOutput(message);
+        }
+
+        private void OnSimulationStarted(SimulationEventArgs e)
+        {
+            WriteMessage("ES: Simulation started!");
+
             SimulationStarted.Raise(this, e);
         }
-
-        protected virtual void OnSimulationEnded(SimulationEventArgs e)
+        private void OnSimulationEnded(SimulationEventArgs e)
         {
-#if DEBUG
-            Console.WriteLine("ES: Simulation ended!");
-#endif
+            WriteMessage("ES: Simulation ended!");
+
             SimulationEnded.Raise(this, e);
         }
-
-        protected virtual void OnTickFinished(SimulationEventArgs e)
+        private void OnTickFinished(SimulationEventArgs e)
         {
-#if DEBUG
-            Console.WriteLine("ES: Finished DoTick: " + _simulationRound + "!");
-#endif
+            WriteMessage("ES: Finished Tick #" + _simulationRound + "!");
+
             TickFinished.Raise(this, e);
         }
     }

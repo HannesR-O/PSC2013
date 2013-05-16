@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PSC2013.ES.Library.Statistics.Pictures
 {
     /// <summary>
-    /// Enmum for classifing which field should be selected
+    /// Enum for classifing which field should be selected
     /// </summary>
     public enum EStatField : int
     {
@@ -20,6 +20,9 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         FemaleAdult = 6,
         FemaleSenior = 7,
         Infected = 8,
-        Diseased = 9
+        Diseased = 9,
+        AllMale = 10,
+        AllFemale = 11,
+        AllHumans = 12
     }
 }

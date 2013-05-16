@@ -1,12 +1,46 @@
-﻿using System;
+﻿using PSC2013.ES.Library.PopulationData;
+using System;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class InfectionCalculatorComponent : ISimulationComponent
+    public unsafe class InfectionCalculatorComponent : ISimulationComponent
     {
+        private int _simulationIntervall;
+
+        public InfectionCalculatorComponent()
+        {
+            _simulationIntervall = 1;
+        }
+
         public void PerformSimulationStage(SimulationData data)
         {
-            throw new NotImplementedException();
+            //Let each Cell calculate what chance there is for an individual Human to get infected
+            foreach (var cell in data.Cells.NotNullIterator())
+            {
+                //TODO: |f & h| Calculate Probability or sth similar for each cell
+            }
+
+            //Let Humans get Infected by chance/ do their DiseaseTick
+            fixed (Human* humanptr = data.Humans)
+            {
+                for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
+                {
+                    //If human isn't healthy 
+                    if (ptr->IsInfected() || ptr->IsDiseased() || ptr->IsSpreading())
+                    {
+                        //TODO |h| Update InfectionCounter etc
+                    }
+                    else
+                    {
+                        //Pull chance to get infected use random to determine whether the human gets infected or not
+                    }
+                }
+            }
+        }
+
+        public void SetSimulationIntervall(int intervall)
+        {
+            _simulationIntervall = intervall;           //TODO: |f| make use of this ;) & add range checks?
         }
 
         public ESimulationStage SimulationStages { get { return ESimulationStage.InfectedCalculation; } }
