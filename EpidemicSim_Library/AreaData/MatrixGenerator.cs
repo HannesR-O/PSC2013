@@ -127,7 +127,7 @@ namespace PSC2013.ES.Library.AreaData
         /// <returns>The input-populationCell-array (modified).</returns>
         public static PopulationCell[] GenerateMatrix(
             PopulationCell[] populationArray,
-            // TODO | dj | continue...
+            Human[] humanArray,
             IEnumerable<DepartmentInfo> rawData,
             int width, int height)
         {
@@ -139,26 +139,35 @@ namespace PSC2013.ES.Library.AreaData
                     "The argument has to be an array if PopulationCell with a length of '" + WIDTH * HEIGHT + "'.",
                     "populationArray");
 
+            Combiner comb = new Combiner(populationArray, humanArray);
+
             // the parallel call.
             int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
             degree = Math.Max(1, degree);                       // but minimum of 1
             //degree = -1;
             Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
                 (item) => {
-#if DEBUG
-                    Console.WriteLine("Started " + item.Name);
-#endif
-                    var res = PopulateDepartment(item);         // populate the department.
-                    lock (populationArray) {                    // store the new info in the original array.
-                        foreach (var tpl in res)
-                            populationArray[tpl.Item1] = tpl.Item2;
-                    }
+//#if DEBUG
+//                    Console.WriteLine("Started " + item.Name);
+//#endif
+                    Human[] humans;
+                    var res = PopulateDepartment(item, out humans);         // populate the department.
+                    comb.Enqueue(res, humans);
+                    //lock (populationArray) {                    // store the new info in the original array.
+                    //    foreach (var tpl in res)
+                    //        populationArray[tpl.Item1] = tpl.Item2;
+                    //}
 
                     res = null;
 #if DEBUG
                     Console.WriteLine(" -- Finished " + item.Name);
 #endif
                 });
+#if DEBUG
+            Console.WriteLine("Waiting for transferring data...");
+#endif
+            comb.Wait();
+            comb.Dispose();
 
             return populationArray;
         }
@@ -166,8 +175,10 @@ namespace PSC2013.ES.Library.AreaData
         /// <summary>
         /// Populate the given department.
         /// </summary>
-        private static Tuple<int, PopulationCell>[] PopulateDepartment(DepartmentInfo depInfo)
+        private static Tuple<int, PopulationCell>[] PopulateDepartment(DepartmentInfo depInfo, out Human[] humanArray)
         {
+            List<Human> humanList = new List<Human>(depInfo.GetTotal());
+
             int areaSize = depInfo.Coordinates.Length;                      // number of points to be populated.
             Tuple<int, PopulationCell>[] resultArray =                      // the array which will be returned.
                 new Tuple<int,PopulationCell>[areaSize];
@@ -214,8 +225,8 @@ namespace PSC2013.ES.Library.AreaData
                     for (int setCount = 0; setCount < numberOfPeopleToSet; setCount++)
                     {
                         int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
-                        Human thisHuman = Human.Create(
-                            gender, thisAge, currentPoint.Flatten(WIDTH));
+                        Human thisHuman = Human.Create(gender, thisAge, currentPoint.Flatten(WIDTH));
+                        humanList.Add(thisHuman);
                         //currentCell.AddHuman(thisHuman);                    // add the human to its cell.
 
                         depInfo.Population[i]--;                            // 'removes' the human out of the population.
@@ -228,6 +239,8 @@ namespace PSC2013.ES.Library.AreaData
                         currentPoint.Flatten(WIDTH), currentCell);
             }
 
+            humanArray = humanList.ToArray();
+            humanList = null;
             return resultArray;
         }
 
@@ -380,6 +393,7 @@ namespace PSC2013.ES.Library.AreaData
                             }
                         }
                     }
+                    humans = null; // release...
                 }
             }
         }
