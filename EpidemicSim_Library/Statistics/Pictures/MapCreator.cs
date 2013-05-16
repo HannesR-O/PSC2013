@@ -51,7 +51,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             Bitmap map = new Bitmap(X, Y);
             int max = snapshot.Cells.Max(x => x.Values[(int)field]);
 
-            int[] steps = GenerateSteps(max, 0.05f);
+            int[] steps = GenerateSteps(max, CalculateSteps(max));
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
@@ -118,7 +118,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             int max = Values.Values.Max();
 
-            int[] steps = GenerateSteps(max, 0.05f);
+            int[] steps = GenerateSteps(max, CalculateSteps(max));
 
             foreach (int pos in Values.Keys)
             {
@@ -142,6 +142,14 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
 
             return GenerateLegend(steps, palette);
+        }
+
+        private static float CalculateSteps(int maximum)
+        {
+            if (maximum >= 20)
+                return 0.05f;
+            else
+                return 1f / maximum; 
         }
 
         /// <summary>
@@ -182,7 +190,10 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             for (int i = 1; i < 20; ++i)
             {
                 temp -= step;
-                steps[i] = (int)(max * temp);
+                int thisStep = (int)(max * temp);
+                if (thisStep <= 0)
+                    break;
+                steps[i] = thisStep;
             }
 
             return steps;
@@ -204,15 +215,16 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             
             Dictionary<string, Color> legend = new Dictionary<string, Color>();
 
-            // TODO | t | correct!
-            //legend.Add(steps[0] + " - " + steps[1], palette[0]); // This one has always to be there
+            legend.Add(steps[0] + " - " + steps[1], palette[0]); // This one has always to be there
 
-            //for (int i = 1; i < steps.Length - 2; ++i)
-            //{
-            //    legend.Add(steps[i] + " - " + steps[i + 1], palette[i]);
-            //}
+            for (int i = 1; i < steps.Length - 2; ++i)
+            {
+                string range = steps[i] + " - " + steps[i + 1];
+                if (!legend.ContainsKey(range))
+                    legend.Add(range, palette[i]);
+            }
 
-            //legend.Add(steps[steps.Length - 1] + " - 1", palette[palette.Length - 1]); // Always the last one
+            legend.Add(steps[steps.Length - 1] + " - 1", palette[palette.Length - 1]); // Always the last one
 
             return legend;
         }

@@ -56,13 +56,13 @@ namespace PSC2013.ES.Library.Statistics
             _currentSnapshot = TickSnapshot.InitializeFromFile(temp);
         }
 
-        public void CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
+        public Dictionary<String, Color> CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
             {
                 if (_currentSnapshot != null)
                 {
-                    _creator.GetMap(_currentSnapshot, field, colors, namePrefix);
+                    return _creator.GetMap(_currentSnapshot, field, colors, namePrefix);
                 }
                 else
                 {

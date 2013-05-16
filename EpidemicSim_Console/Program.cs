@@ -8,6 +8,7 @@ using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics;
 using PSC2013.ES.Library.Statistics.Pictures;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace PSC2013.ES.Cmd
@@ -186,7 +187,12 @@ namespace PSC2013.ES.Cmd
             Console.WriteLine("Please insert desired File-Prefix:");
             string prefix = Console.ReadLine();
 
-            manager.CreateGraphics(EStatField.AllHumans, pal, prefix);
+            Dictionary<string, Color> legend = manager.CreateGraphics(EStatField.MaleBaby, pal, prefix);
+
+            foreach (string str in legend.Keys)
+            {
+                Console.WriteLine(str + " " + legend[str].ToString());
+            }
 
             Console.WriteLine("Finished!");
         }
