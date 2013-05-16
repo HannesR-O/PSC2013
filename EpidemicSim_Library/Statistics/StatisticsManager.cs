@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using PSC2013.ES.Library.Snapshot;
@@ -14,7 +14,7 @@ namespace PSC2013.ES.Library.Statistics
     /// </summary>
     public class StatisticsManager
     {
-        public ArrayList Entrys { get; private set; } // TODO | dj | why no type???!!!
+        public List<string> Entrys { get; private set; }
 
         private SimulationInfo _simInfo;
         private ZipArchive _currentArchive;
@@ -35,7 +35,7 @@ namespace PSC2013.ES.Library.Statistics
 
             _currentArchive = ZipFile.Open(path, ZipArchiveMode.Read);
 
-            Entrys = new ArrayList();
+            Entrys = new List<string>();
             foreach (ZipArchiveEntry entry in _currentArchive.Entries)
             {
                 if (entry.Name != "header") // Very dirty, but won't need to open every file to look it up;

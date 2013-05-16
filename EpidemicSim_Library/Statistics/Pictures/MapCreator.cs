@@ -202,14 +202,15 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             
             Dictionary<string, Color> legend = new Dictionary<string, Color>();
 
-            legend.Add(steps[0] + " - " + steps[1], palette[0]); // This one has always to be there
+            // TODO | t | correct!
+            //legend.Add(steps[0] + " - " + steps[1], palette[0]); // This one has always to be there
 
-            for (int i = 1; i < steps.Length - 2; ++i)
-            {
-                legend.Add(steps[i] + " - " + steps[i + 1], palette[i]);
-            }
+            //for (int i = 1; i < steps.Length - 2; ++i)
+            //{
+            //    legend.Add(steps[i] + " - " + steps[i + 1], palette[i]);
+            //}
 
-            legend.Add(steps[steps.Length - 1] + " - 1", palette[palette.Length - 1]); // Always the last one
+            //legend.Add(steps[steps.Length - 1] + " - 1", palette[palette.Length - 1]); // Always the last one
 
             return legend;
         }

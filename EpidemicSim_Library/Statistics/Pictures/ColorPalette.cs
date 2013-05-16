@@ -2,7 +2,7 @@
 
 namespace PSC2013.ES.Library.Statistics.Pictures
 {
-    public class ColorPalette
+    public static class ColorPalette
     {
         public static Color[] RED = {Color.FromArgb(255, 0, 0), 
                                  Color.FromArgb(255, 15, 0), 
