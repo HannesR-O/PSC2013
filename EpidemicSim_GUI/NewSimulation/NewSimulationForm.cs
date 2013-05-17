@@ -22,8 +22,10 @@ namespace PSC2013.ES.GUI.NewSimulation
         private const string NUMFIELD_NOT_IN_RANGE_EXCEPTION = "The given value is invalid. It must be in range of {0} and {1}.";
 
         private delegate void ProgressBarDelegate(ProgressBar pb);
-        private delegate void ListBoxDelegate(ListBox lb, DepartmentInfo[] info);
-        private delegate void PanelUpdate(DiseaseLocationPanel panel);
+        private delegate void ListBoxDelegate(ListBox lb);
+        private delegate void PanelUpdateDelegate(DiseaseLocationPanel panel);
+        private delegate void PictureBoxDelegate(PictureBox picturebox);
+        private delegate void LastOpportunityControlDelegate(Control ctrl);
 
         private int _snapshotInterval;
         private long _simDuration;
@@ -32,6 +34,8 @@ namespace PSC2013.ES.GUI.NewSimulation
         private Disease _disease;
         private string _depFilePath;
         private DepartmentMapReader _departmentReader;
+
+        private Image _originalImage;
 
         private NewSimulationForm()
         {
@@ -57,8 +61,8 @@ namespace PSC2013.ES.GUI.NewSimulation
 
         private void OpenDepMap()
         {
-            Image img = _departmentReader.ReadImage();
-            MainPanel_pictureBox.Image = img;
+            _originalImage = _departmentReader.ReadImage();
+            MainPanel_pictureBox.Image = _originalImage;
         }
 
         private void StartSimulation()
@@ -172,25 +176,93 @@ namespace PSC2013.ES.GUI.NewSimulation
 
             Task.Factory.StartNew(() =>
                 {
-                    return _departmentReader.ReadFile();                                // reading file.
-                }).ContinueWith((information) =>
-                    dlp.ListBoxDepartments.Invoke(                                      // continuing with
-                        new ListBoxDelegate((lb, info) =>                               // adding result to list.
-                            lb.Items.AddRange(info.Select(x => x.Name).ToArray())),
-                            dlp.ListBoxDepartments, information.Result)
-                ).ContinueWith((_) => // TODO | dj | THIS IS NOT THE ACTUAL NEXT STEP!!!
-                    dlp.Invoke(new PanelUpdate((panel) =>                               // now hiding progressbar
-                    {                                                                   // and adding button.
-                        panel.ProgressBar.Visible = false;
-                        Button btn = new Button();
-                        btn.Text = "Start";
-                        btn.Size = panel.ProgressBar.Size;
-                        btn.Location = panel.ProgressBar.Location;
-                        btn.Parent = panel.ProgressBar.Parent;
-                        btn.Visible = true;
-                        btn.Click += (orig, args) => StartSimulation();
-                    }),
-                    dlp));
+                    DepartmentInfo[] info = _departmentReader.ReadFile();
+                    dlp.ListBoxDepartments.Invoke(new PanelUpdateDelegate(
+                        (panel) =>
+                        {
+                            ListBox lb = panel.ListBoxDepartments;                      // viewing results.
+                            var lst = info.Select(x => x.Name).ToList();
+                            lst.Sort();                                                 // sorting the output
+                            lb.Items.AddRange(lst.ToArray());                           // for better usage.
+                            lst = null;
+
+                            panel.ProgressBar.Visible = false;                          // building up the startbutton.
+                            Button btn = new Button();
+                            btn.Text = "Start";
+                            btn.Size = panel.ProgressBar.Size;
+                            btn.Location = panel.ProgressBar.Location;
+                            btn.Parent = panel.ProgressBar.Parent;
+                            btn.Visible = true;
+                            btn.Enabled = false;
+                            btn.Click += (orig, args) => StartSimulation();
+
+                            lb.SelectedIndexChanged += (_, __) =>                       // changes on selection.
+                                {
+                                    if (lb.SelectedIndices.Count > 0)
+                                    {
+                                        List<string> items = new List<string>();
+                                        foreach (string item in lb.SelectedItems)
+                                            items.Add(item);
+
+                                        Task.Run(() =>
+                                            {
+                                                // Wait-Cursor
+                                                this.Invoke(new LastOpportunityControlDelegate(
+                                                    (ctrl) => ctrl.Cursor = Cursors.WaitCursor), this);
+
+                                                // Modify image
+                                                Bitmap img = (Bitmap)_originalImage.Clone();
+                                                foreach (string item in items)
+                                                {
+                                                    DepartmentInfo dep = info.First(x => x.Name.Equals(item));
+                                                    foreach (Point p in dep.Coordinates)
+                                                        img.SetPixel(p.X, p.Y, Color.Cyan);
+                                                }
+
+                                                // Show new image
+                                                MainPanel_pictureBox.Invoke(
+                                                    new PictureBoxDelegate((box) =>
+                                                        {
+                                                            box.Image = img;
+                                                            box.Refresh();
+                                                        }),
+                                                    MainPanel_pictureBox);
+
+                                                // Default-Cursor
+                                                this.Invoke(new LastOpportunityControlDelegate(
+                                                    (ctrl) => ctrl.Cursor = Cursors.Default), this);
+                                            });
+                                        btn.Enabled = true;
+                                    }
+                                    else
+                                    {
+                                        MainPanel_pictureBox.Image = _originalImage;
+                                        btn.Enabled = false;
+                                    }
+                                };
+                        }), dlp);
+                });
+            //Task.Factory.StartNew(() =>
+            //    {
+            //        return _departmentReader.ReadFile();                                // reading file.
+            //    }).ContinueWith((information) =>
+            //        dlp.ListBoxDepartments.Invoke(                                      // continuing with
+            //            new ListBoxDelegate((lb, info) =>                               // adding result to list.
+            //                lb.Items.AddRange(info.Select(x => x.Name).ToArray())),
+            //                dlp.ListBoxDepartments, information.Result)
+            //    ).ContinueWith((_) => // TODO | dj | THIS IS NOT THE ACTUAL NEXT STEP!!!
+            //        dlp.Invoke(new PanelUpdate((panel) =>                               // now hiding progressbar
+            //        {                                                                   // and adding button.
+            //            panel.ProgressBar.Visible = false;
+            //            Button btn = new Button();
+            //            btn.Text = "Start";
+            //            btn.Size = panel.ProgressBar.Size;
+            //            btn.Location = panel.ProgressBar.Location;
+            //            btn.Parent = panel.ProgressBar.Parent;
+            //            btn.Visible = true;
+            //            btn.Click += (orig, args) => StartSimulation();
+            //        }),
+            //        dlp));
 
             // TODO | dj | continue.
         }

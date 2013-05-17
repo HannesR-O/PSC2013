@@ -18,6 +18,7 @@ namespace PSC2013.ES.GUI.ReviewSimulation
         private delegate void ProgressBarUpdate(ProgressBar pb);
 
         private string _simPath;
+        private string _targetPath;
         private StatisticsManager _manager;
 
         private ReviewSimulationForm()
@@ -83,11 +84,7 @@ namespace PSC2013.ES.GUI.ReviewSimulation
                     btn.Size = pb.Size;
                     btn.Parent = pb.Parent;
                     btn.Focus();
-                    btn.Click += (_, __) =>
-                        {
-                            // TODO | dj | now show images?!
-                            Console.WriteLine("do next step");
-                        };
+                    btn.Click += btn_next_Click;
                 }), progressBar);
         }
 
@@ -95,10 +92,10 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 
         private void txtBox_targetDirectory_TextChanged(object sender, EventArgs e)
         {
-            string txt = txtBox_targetDirectory.Text;
-            if (Directory.Exists(txt))
+            _targetPath = txtBox_targetDirectory.Text;
+            if (Directory.Exists(_targetPath))
             {
-                _manager.OpenSimFile(_simPath, txt);
+                _manager.OpenSimFile(_simPath, _targetPath);
                 lstBox_entries.Items.Clear();
                 lstBox_entries.Items.AddRange(_manager.Entrys.ToArray());
             }
@@ -121,6 +118,12 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             {
                 txtBox_targetDirectory.Text = folderBrowseDialog.SelectedPath;
             }
+        }
+
+        private void btn_next_Click(object sender, EventArgs e)
+        {
+            // TODO | dj | now show images?!
+            Console.WriteLine("do next step");
         }
     }
 }

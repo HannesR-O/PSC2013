@@ -61,6 +61,7 @@
             // 
             this.ListBoxDepartments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.ListBoxDepartments.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.ListBoxDepartments.FormattingEnabled = true;
             this.ListBoxDepartments.IntegralHeight = false;
             this.ListBoxDepartments.Location = new System.Drawing.Point(6, 19);
