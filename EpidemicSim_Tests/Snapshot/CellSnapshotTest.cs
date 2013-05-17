@@ -12,6 +12,7 @@ namespace PSC2013.ES.Tests.Snapshot
 
         private void InitCell()
         {
+        // However uncommented this, please fix it...
         //    _infosRuntime = new PopulationCell();
         //    for (int i = 0; i < 12; ++i)
         //    {
@@ -41,10 +42,10 @@ namespace PSC2013.ES.Tests.Snapshot
             Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 8, 2);
             Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 10, 2);
             Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 12, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 14, 2);
-            Array.Copy(BitConverter.GetBytes(15654), 0, _infosBytes, 16, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 20, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 22, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 14, 2);            
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 16, 2);
+            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 18, 2);
+            Array.Copy(BitConverter.GetBytes(15654), 0, _infosBytes, 20, 2);
 
         }
 

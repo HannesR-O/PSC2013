@@ -10,8 +10,11 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 {
     public class MapCreator
     {
+        private int[] maxima;
+
         private int X = 2814; // Now default
         private int Y = 3841; // Here as well...
+
         private string _target;
 
         /// <summary>
@@ -23,11 +26,12 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         public MapCreator(string path, int x, int y)
         {
             _target = path;
-            if (y > 0 && y > 0)
+            if (x > 0 && y > 0)
             {
                 X = x;
                 Y = y;
             }
+            maxima = new int[13];
         }
 
         /// <summary>
@@ -40,22 +44,24 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         {
             Color[] pal = GetPalette(palette);
 
-            if ((int)field < 10)
-                return StandardMap(snapshot, field, pal, namePrefix);
-            else
-                return ExtendendMap(snapshot, field, pal, namePrefix);
+            return StandardMap(snapshot, field, pal, namePrefix);            
         }
 
         private Dictionary<String, Color> StandardMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
         {
             Bitmap map = new Bitmap(X, Y);
-            int max = snapshot.Cells.Max(x => x.Values[(int)field]);
 
-            int[] steps = GenerateSteps(max, CalculateSteps(max));
+            int fieldIndex = (int)field;
+            int fieldMax = snapshot.Cells.Max(x => x.Values[(int)field]);
+
+            if (fieldMax > maxima[fieldIndex])
+                maxima[(int)field] = fieldMax;
+
+            int[] steps = GenerateSteps(maxima[fieldIndex], CalculateSteps(maxima[fieldIndex]));
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
-                int count = cell.Values[(int)field];
+                int count = cell.Values[fieldIndex];
                 Point p = cell.Position.DeFlatten(X);
 
                 if (count == 0)
@@ -73,16 +79,16 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
 
             }
-            map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
+            map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + fieldIndex + ".png", ImageFormat.Png);
 
             return GenerateLegend(steps, palette);
         }
 
-
+        // I Will delete it when its really not used anymore, but im not sure yet... |t|
         private Dictionary<String, Color> ExtendendMap(TickSnapshot snapshot, EStatField field, Color[] palette, string namePrefix)
         {
             Bitmap map = new Bitmap(X, Y);
-            Dictionary<int, int> Values = new Dictionary<int,int>();
+            Dictionary<int, int> CombinedValues = new Dictionary<int,int>();
 
             int s, i, j; // Index for each cell to count
             switch (field) // Switch over which category we want to paint
@@ -112,17 +118,21 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 {
                       temp += cell.Values[i];                  
                 }
-                Values.Add(cell.Position, temp);
+                CombinedValues.Add(cell.Position, temp);
                 i = s;
             }
 
-            int max = Values.Values.Max();
+            int fieldIndex = (int)field;
+            int fieldMax = CombinedValues.Values.Max();
 
-            int[] steps = GenerateSteps(max, CalculateSteps(max));
+            if(fieldMax > maxima[fieldIndex])
+                maxima[fieldIndex] = fieldMax;
 
-            foreach (int pos in Values.Keys)
+            int[] steps = GenerateSteps(maxima[fieldIndex], CalculateSteps(maxima[fieldIndex]));
+
+            foreach (int pos in CombinedValues.Keys)
             {
-                int count = Values[pos];
+                int count = CombinedValues[pos];
                 Point p = pos.DeFlatten(X);
 
                 if (count == 0)
@@ -143,7 +153,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             return GenerateLegend(steps, palette);
         }
-
+            
         private static float CalculateSteps(int maximum)
         {
             if (maximum >= 20)
@@ -215,18 +225,22 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             
             Dictionary<string, Color> legend = new Dictionary<string, Color>();
 
-            legend.Add(steps[0] + " - " + (steps[1] + 1), palette[0]); // This one has always to be there
-
-            int i = 1;
-            for (; i < steps.Length - 1; ++i)
+            if (steps[0] > 0)
             {
-                string range = steps[i] + " - " + (steps[i + 1] + 1);
-                if (!legend.ContainsKey(range) && !(steps[i] > 1) && !(steps[i + 1] > 0))
-                    break;
-                legend.Add(range, palette[i]);
-            }
+                legend.Add(steps[0] + " - " + (steps[1] + 1), palette[0]); // This one has always to be there
 
-            legend.Add(steps[i] + " - 1", palette[i]); // Always the last one
+                int i = 1;
+                for (; i < steps.Length - 1; ++i)
+                {
+                    string range = steps[i] + " - " + (steps[i + 1] + 1);
+                    if (!legend.ContainsKey(range) && !(steps[i] > 1) && !(steps[i + 1] > 0))
+                        break;
+                    legend.Add(range, palette[i]);
+                }
+
+                legend.Add(steps[i] + " - 1", palette[i]); // Always the last one
+            }
+            legend.Add("0", Color.Black);
 
             return legend;
         }

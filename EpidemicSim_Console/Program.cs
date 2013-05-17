@@ -113,7 +113,7 @@ namespace PSC2013.ES.Cmd
         {
             var disease = new Disease
             {
-                Name = "Test_Disease",
+                Name = "Dat",
                 IncubationPeriod = 238475,
                 IdleTime = 123415,
                 SpreadingTime = 123123,

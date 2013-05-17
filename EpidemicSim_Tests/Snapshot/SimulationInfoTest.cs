@@ -41,7 +41,7 @@ namespace PSC2013.ES.Tests.Snapshot
             Start();
             SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease, 0, 0);
             byte[] name = System.Text.Encoding.UTF8.GetBytes(_name);
-            byte[] comp = new byte[113 + name.Length];
+            byte[] comp = new byte[121 + name.Length];
             Array.Copy(BitConverter.GetBytes(238475), 0, comp, 1, 4);
             Array.Copy(BitConverter.GetBytes(123415), 0, comp, 5, 4);
             Array.Copy(BitConverter.GetBytes(123123), 0, comp, 9, 4);
@@ -70,7 +70,9 @@ namespace PSC2013.ES.Tests.Snapshot
             Array.Copy(BitConverter.GetBytes(123), 0, comp, 101, 4);
             Array.Copy(BitConverter.GetBytes(123), 0, comp, 105, 4);
             Array.Copy(BitConverter.GetBytes(120), 0, comp, 109, 4);
-            Array.Copy(name, 0, comp, 113, name.Length);
+            Array.Copy(BitConverter.GetBytes(2814), 0, comp, 113, 4);
+            Array.Copy(BitConverter.GetBytes(3841), 0, comp, 117, 4);
+            Array.Copy(name, 0, comp, 121, name.Length);
 
             SimulationInfo test = SimulationInfo.InitializeFromFile(comp);
 
@@ -79,10 +81,6 @@ namespace PSC2013.ES.Tests.Snapshot
             Assert.Equal(sim.Disease.SpreadingTime, test.Disease.SpreadingTime);
             Assert.Equal(sim.Disease.Transferability, test.Disease.Transferability);
 
-            //Assert.Equal(sim.Disease.MortalityRate, test.Disease.MortalityRate);
-            //Assert.Equal(sim.Disease.HealingFactor, test.Disease.HealingFactor);
-            //Assert.Equal(sim.Disease.ResistanceFactor, test.Disease.ResistanceFactor);
-            //Assert.Equal(sim.Disease.Name, test.Disease.Name);
             Assert.Equal(sim.Name, test.Name);
         }
 
@@ -94,7 +92,7 @@ namespace PSC2013.ES.Tests.Snapshot
 
             byte[] testing = sim.GetBytes();
             byte[] name = System.Text.Encoding.UTF8.GetBytes(_disease.Name);
-            byte[] comp = new byte[113 + name.Length];
+            byte[] comp = new byte[121 + name.Length];
             comp[0] = 0x1;
             Array.Copy(BitConverter.GetBytes(238475), 0, comp, 1, 4);
             Array.Copy(BitConverter.GetBytes(123415), 0, comp, 5, 4);
@@ -124,7 +122,9 @@ namespace PSC2013.ES.Tests.Snapshot
             Array.Copy(BitConverter.GetBytes(123), 0, comp, 101, 4);
             Array.Copy(BitConverter.GetBytes(123), 0, comp, 105, 4);
             Array.Copy(BitConverter.GetBytes(120), 0, comp, 109, 4);
-            Array.Copy(name, 0, comp, 113, name.Length);
+            Array.Copy(BitConverter.GetBytes(2814), 0, comp, 113, 4);
+            Array.Copy(BitConverter.GetBytes(3841), 0, comp, 117, 4);
+            Array.Copy(name, 0, comp, 121, name.Length);
 
             for (int i = 0; i < comp.Length; ++i)
             {
