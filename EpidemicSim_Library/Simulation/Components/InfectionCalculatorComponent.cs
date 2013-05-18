@@ -18,6 +18,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             foreach (var cell in data.Cells.NotNullIterator())
             {
                 //TODO: |f & h| Calculate Probability or sth similar for each cell
+                cell.Probability = CalculateProbability(cell);
             }
 
             //Let Humans get Infected by chance/ do their DiseaseTick
@@ -36,6 +37,12 @@ namespace PSC2013.ES.Library.Simulation.Components
                     }
                 }
             }
+        }
+
+        private float CalculateProbability(PopulationCell cell)
+        {
+            //TODO: |anyone| insert better probability calculation
+            return (float)cell.Total / cell.Spreading;
         }
 
         public void SetSimulationIntervall(int intervall)

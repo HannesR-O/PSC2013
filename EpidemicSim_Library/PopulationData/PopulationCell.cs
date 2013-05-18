@@ -1,9 +1,13 @@
-﻿namespace PSC2013.ES.Library.PopulationData
+﻿using System;
+using System.Linq;
+
+namespace PSC2013.ES.Library.PopulationData
 {
     public class PopulationCell
     {
         public int RefDepartment { get; set; }
 
+        //TODO: |f| does this need to be an int? otherwise it can overflow and most likely will
         public ushort Infected
         {
             get { return _data[8]; }
@@ -60,6 +64,18 @@
         {
             get { return _data[7]; }
             set { _data[7] = value; }
+        }
+
+        public int Total
+        {
+            get
+            {
+                /* TODO: |f| Sums up the first 8 ushorts which are the total population.. 
+                 * Should make this more elegant, but IEnumerable.Sum does not work for ushort.. */
+                var sum = 0;
+                Array.ForEach(_data.Take(8).ToArray(), value => sum += value);
+                return sum;
+            }
         }
 
         public ushort[] Data
