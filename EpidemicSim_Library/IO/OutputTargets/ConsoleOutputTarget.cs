@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PSC2013.ES.Library.IO
+namespace PSC2013.ES.Library.IO.OutputTargets
 {
     public class ConsoleOutputTarget : IOutputTarget
     {

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.IO.Readers;
 using PSC2013.ES.Library.Diseases;
 using System.Threading.Tasks;

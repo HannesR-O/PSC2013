@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
-using PSC2013.ES.Library.IO;
+using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.Snapshot;

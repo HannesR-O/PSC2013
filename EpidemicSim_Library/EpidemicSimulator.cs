@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using PSC2013.ES.Library.Diseases;
-using PSC2013.ES.Library.IO;
+using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Snapshot;
 using System.IO;
