@@ -34,6 +34,14 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             maxima = new int[13];
         }
 
+        public void InitializeMaxima(TickSnapshot firstSnapshot)
+        {
+            for (int i = 0; i < 13; ++i)
+            {
+                maxima[i] = firstSnapshot.Cells.Max(x => x.Values[i]);
+            }
+        }
+
         /// <summary>
         /// Creates a map with the given circumstances
         /// </summary>

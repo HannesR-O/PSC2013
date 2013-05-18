@@ -35,25 +35,44 @@ namespace PSC2013.ES.Library.Statistics
 
             _currentArchive = ZipFile.Open(path, ZipArchiveMode.Read);
 
+            ZipArchiveEntry first = null;
             Entrys = new List<string>();
             foreach (ZipArchiveEntry entry in _currentArchive.Entries)
             {
-                if (entry.Name != "header") // Very dirty, but won't need to open every file to look it up;
+                if (entry.Name != "header")
+                {
                     Entrys.Add(entry.Name);
+                    if (entry.Name.StartsWith("1"))
+                    {
+                        first = entry;
+                        Console.WriteLine(entry.Name + " is first. Initialzing...");
+                    }
+                }
             }
 
-            byte[] file = ArchiveReader.ToByteArray(_currentArchive.GetEntry("header"));
+            byte[] file = ArchiveReader.ToByteArray(_currentArchive.GetEntry("header")); // Reading Header
             _simInfo = SimulationInfo.InitializeFromFile(file);
-
-            _creator = new MapCreator(mapDestination, _simInfo.MapX, _simInfo.MapY);
+            
+            _creator = new MapCreator(mapDestination, _simInfo.MapX, _simInfo.MapY);            
             _currentSnapshot = null;
+
+            if (first != null) // Reading first Snap to initialize Maxima
+            {
+                byte[] temp = ArchiveReader.ToByteArray(first);
+                TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
+                _creator.InitializeMaxima(tick);
+                _currentSnapshot = tick;
+            }           
         }
 
         public void LoadTickSnapshot(String name)
         {
-            byte[] temp = ArchiveReader.ToByteArray(_currentArchive.GetEntry(name));
+            if (!name.StartsWith(_currentSnapshot.Tick.ToString()))
+            {
+                byte[] temp = ArchiveReader.ToByteArray(_currentArchive.GetEntry(name));
 
-            _currentSnapshot = TickSnapshot.InitializeFromFile(temp);
+                _currentSnapshot = TickSnapshot.InitializeFromFile(temp);
+            }
         }
 
         public Dictionary<String, Color> CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
