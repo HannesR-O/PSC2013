@@ -45,7 +45,7 @@ namespace PSC2013.ES.Library.Statistics
                     if (entry.Name.StartsWith("1"))
                     {
                         first = entry;
-                        Console.WriteLine(entry.Name + " is first. Initialzing...");
+                        Console.WriteLine(entry.Name + " is first. Initializing...");
                     }
                 }
             }
@@ -94,13 +94,13 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
-        public void CreateDeathGraphics(Color[] colors)
+        public void CreateDeathGraphics(EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
             {
                 if (_currentSnapshot != null)
                 {
-                    _creator.GetDeathMap(_currentSnapshot, colors);
+                    _creator.GetDeathMap(_currentSnapshot, colors, namePrefix);
                 }
                 else
                 {
