@@ -154,6 +154,15 @@ namespace PSC2013.ES.Cmd
 
         public static void TestStats()
         {
+            EStatField es = EStatField.MaleBaby | EStatField.MaleChild | EStatField.MaleAdult | EStatField.MaleSenior | EStatField.FemaleBaby | EStatField.FemaleChild | EStatField.FemaleAdult | EStatField.FemaleSenior;
+            Console.WriteLine((int)es);
+            Console.WriteLine(es);
+            foreach (EStatField e in Enum.GetValues(typeof(EStatField)))
+            {
+                if ((e & es) == e)
+                    Console.WriteLine((int)Math.Log((double)e, 2d));
+            }
+
             var manager = new StatisticsManager();
 
             Console.WriteLine("Please enter the name of your .sim file:");

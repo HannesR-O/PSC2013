@@ -54,8 +54,8 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             Bitmap map = new Bitmap(X, Y);
 
-            int fieldIndex = (int)field;
-            int fieldMax = snapshot.Cells.Max(x => x.Values[(int)field]);
+            int fieldIndex = 12;
+            int fieldMax = snapshot.Cells.Max(x => x.Values[12]);
 
             if (fieldMax > maxima[fieldIndex])
                 maxima[(int)field] = fieldMax;
@@ -64,7 +64,14 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
-                int count = cell.Values[fieldIndex];
+                int count = 0; //= cell.Values[fieldIndex];
+
+                foreach (EStatField e in Enum.GetValues(typeof(EStatField)))
+                {
+                    if ((e & field) == e)
+                        count += cell.Values[(int)Math.Log((double)e, 2d)];
+                }
+
                 Point p = cell.Position.DeFlatten(X);
 
                 if (count == 0)
