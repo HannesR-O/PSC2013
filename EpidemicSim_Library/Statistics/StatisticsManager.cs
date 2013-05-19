@@ -33,13 +33,16 @@ namespace PSC2013.ES.Library.Statistics
             if (_currentArchive != null)
                 _currentArchive.Dispose();
 
+            if (File.Exists(path))
             _currentArchive = ZipFile.Open(path, ZipArchiveMode.Read);
+            else 
+                throw new FileNotFoundException("File not found!");
 
             ZipArchiveEntry first = null;
             Entrys = new List<string>();
             foreach (ZipArchiveEntry entry in _currentArchive.Entries)
             {
-                if (entry.Name != "header")
+                if (!entry.Name.Equals("header"))
                 {
                     Entrys.Add(entry.Name);
                     if (entry.Name.StartsWith("1"))
@@ -50,19 +53,29 @@ namespace PSC2013.ES.Library.Statistics
                 }
             }
 
-            byte[] file = ArchiveReader.ToByteArray(_currentArchive.GetEntry("header")); // Reading Header
-            _simInfo = SimulationInfo.InitializeFromFile(file);
-            
-            _creator = new MapCreator(mapDestination, _simInfo.MapX, _simInfo.MapY);            
+            try
+            {
+                byte[] file = ArchiveReader.ToByteArray(_currentArchive.GetEntry("header")); // Reading Header                
+                _simInfo = SimulationInfo.InitializeFromFile(file);
+            }
+            catch (Exception e)
+            {
+                throw new SimFileCoruptException("The Header was not found!", e);
+            }
+           
+            if (Directory.Exists(mapDestination))
+                _creator = new MapCreator(mapDestination, _simInfo.MapX, _simInfo.MapY);
+            else
+                throw new DirectoryNotFoundException("Destination does not Exists");
             _currentSnapshot = null;
 
-            if (first != null) // Reading first Snap to initialize Maxima
-            {
-                byte[] temp = ArchiveReader.ToByteArray(first);
+            if (first == null)
+                throw new SimFileCoruptException("No first Snapshot found!");
+            
+                byte[] temp = ArchiveReader.ToByteArray(first);// Reading first Snap to initialize Maxima
                 TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
                 _creator.InitializeMaxima(tick);
-                _currentSnapshot = tick;
-            }           
+                _currentSnapshot = tick;            
         }
 
         public void LoadTickSnapshot(String name)
@@ -111,6 +124,13 @@ namespace PSC2013.ES.Library.Statistics
             {
                 throw new ApplicationException("No File loaded");
             }
+        }
+
+        public class SimFileCoruptException : Exception
+        {
+            public SimFileCoruptException() { }
+            public SimFileCoruptException(string Massage) { }
+            public SimFileCoruptException(string message, System.Exception innerException) { }
         }
     }
 }
