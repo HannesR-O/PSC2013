@@ -186,11 +186,34 @@ namespace PSC2013.ES.GUI.NewSimulation
                             lb.Items.AddRange(lst.ToArray());                           // for better usage.
                             lst = null;
 
-                            panel.ProgressBar.Visible = false;                          // building up the startbutton.
-                            Button btn = new Button();
+                            panel.ProgressBar.Visible = false;                          // building up the...
+
+                            Size progBarSize = panel.ProgressBar.Size;
+
+                            Button btn_back = new Button();                             // ...back-button.
+                            btn_back.Text = "< Back";
+                            btn_back.Size = new Size(progBarSize.Width / 2 - 5,
+                                progBarSize.Height);
+                            btn_back.Location = panel.ProgressBar.Location;
+                            btn_back.Parent = panel.ProgressBar.Parent;
+                            btn_back.Visible = true;
+                            btn_back.Enabled = true;
+                            btn_back.Click += (orig, args) =>
+                                {
+                                    this.Invoke(new LastOpportunityControlDelegate((obj) =>
+                                        {
+                                            this.Controls.Remove(panel);
+                                            this.MainSidePanel.Visible = true;
+                                        }), this);
+                                };
+
+                            Button btn = new Button();                                  // ...start-button.
                             btn.Text = "Start";
-                            btn.Size = panel.ProgressBar.Size;
-                            btn.Location = panel.ProgressBar.Location;
+                            btn.Size = new Size(progBarSize.Width / 2 - 5,
+                                progBarSize.Height);
+                            btn.Location = new Point(panel.ProgressBar.Location.X +
+                                progBarSize.Width / 2 + 5,
+                                panel.ProgressBar.Location.Y);
                             btn.Parent = panel.ProgressBar.Parent;
                             btn.Visible = true;
                             btn.Enabled = false;

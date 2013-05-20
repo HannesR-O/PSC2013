@@ -282,7 +282,7 @@
             this.numField_idle.Size = new System.Drawing.Size(120, 20);
             this.numField_idle.TabIndex = 7;
             this.numField_idle.ThousandsSeparator = true;
-            this.toolTip.SetToolTip(this.numField_idle, "The hours the incubation lasts.");
+            this.toolTip.SetToolTip(this.numField_idle, "The hours the until the subject spreads the disease\r\nafter being infected.");
             this.numField_idle.ValueChanged += new System.EventHandler(this.numField_Int_ValueChanged);
             // 
             // lbl_incubationperiod
