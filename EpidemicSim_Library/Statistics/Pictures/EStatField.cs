@@ -25,5 +25,10 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         AllMale = 0x400,
         AllFemale = 0x800,
         AllHumans = 0x1000
+        /* TODO | dj |
+         * Shouldn't All~ be accessible by
+         * concatinating the fields?
+         * e.g. AllMale = MaleBaby | MaleChild | MaleAdult | MaleSenior
+         */
     }
 }

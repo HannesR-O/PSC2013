@@ -62,10 +62,22 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             int[] steps = GenerateSteps(maxima[fieldIndex], CalculateSteps(maxima[fieldIndex]));
 
+            /* TODO | dj |
+             * Possibility to avoid the multiple loop-runs.
+            List<int> fields = new List<EStatField>();
+            foreach (EStatField f in Enum.GetValues(typeof(EStatField)))
+                if ((f & field) == f)
+                    fields.Add((int)Math.Log(f, 2));
+             */
             foreach (CellSnapshot cell in snapshot.Cells)
             {
                 int count = 0; //= cell.Values[fieldIndex];
 
+                /* Continuation of the above possibility.
+                 * 
+                foreach (int i in fields)
+                    count += cell.Values[i];
+                 */
                 foreach (EStatField e in Enum.GetValues(typeof(EStatField)))
                 {
                     if ((e & field) == e)
