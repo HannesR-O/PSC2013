@@ -148,19 +148,13 @@ namespace PSC2013.ES.Cmd
                 movecmp.PerformSimulationStage(data);
                 data.DoTick(1);
             }
-
-
         }
 
         public static void TestStats()
         {
-            EStatField es = EStatField.MaleBaby | EStatField.MaleChild | EStatField.MaleAdult | EStatField.MaleSenior | EStatField.FemaleBaby | EStatField.FemaleChild | EStatField.FemaleAdult | EStatField.FemaleSenior;
-            Console.WriteLine((int)es);
-            Console.WriteLine(es);
-            foreach (EStatField e in Enum.GetValues(typeof(EStatField)))
+            foreach (EStatField f in Enum.GetValues(typeof(EStatField)))
             {
-                if ((e & es) == e)
-                    Console.WriteLine((int)Math.Log((double)e, 2d));
+                Console.WriteLine(f);
             }
 
             var manager = new StatisticsManager();
@@ -191,15 +185,13 @@ namespace PSC2013.ES.Cmd
                         break;
                     }
 
-            Console.WriteLine("Please enter number of Field to paint (AllHumans is 12)");
+            Console.WriteLine("Please enter number of Field to paint (AllHumans is 255)");
             int num = int.Parse(Console.ReadLine());
-            EStatField field = EStatField.AllHumans;
-            if (num >= 0 && num < 13)
-                field = (EStatField)num;
+            EStatField field = (EStatField)num;
         
             Console.WriteLine("Please type a color scheme (Red, Blue):");
             string palette = Console.ReadLine();
-            EColorPalette pal = palette == "Blue" ? EColorPalette.Blue : EColorPalette.Red;
+            EColorPalette pal = palette == "Red" ? EColorPalette.Red : EColorPalette.Blue;
 
             Console.WriteLine("Please insert desired File-Prefix:");
             string prefix = Console.ReadLine();

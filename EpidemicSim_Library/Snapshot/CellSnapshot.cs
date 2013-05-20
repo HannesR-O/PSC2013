@@ -24,11 +24,7 @@ namespace PSC2013.ES.Library.Snapshot
         //[6] Females Adult
         //[7] Females Senior   
         //[8] Count of infected humans in this cell
-        //[9] Count of diseased humans in this cell
-        //[10] AllMale
-        //[11] AllFemale
-        //[12] AllHumans
-   
+        //[9] Count of diseased humans in this cell   
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static
@@ -43,14 +39,6 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 Values[i] = infos[i];
             }
-
-            for (int i = 0; i < 4; ++i) // Counting Males
-                Values[10] += Values[i]; 
-
-            for (int i = 4; i < 8; ++i) // Counting Females
-                Values[11] += Values[i];
-
-            Values[12] = (ushort)(Values[10] + Values[11]); // Counting all Humans // | T | Risky btw, but not more than 65536 Humans in one Cell?
 
             Position = position;
         }

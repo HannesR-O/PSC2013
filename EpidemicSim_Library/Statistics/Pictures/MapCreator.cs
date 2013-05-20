@@ -5,12 +5,12 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 
-
 namespace PSC2013.ES.Library.Statistics.Pictures
 {
     public class MapCreator
     {
-        private int[] maxima;
+        private int _max = 0;
+        private int[] _steps;
 
         private int X = 2814; // Now default
         private int Y = 3841; // Here as well...
@@ -31,15 +31,21 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 X = x;
                 Y = y;
             }
-            maxima = new int[13];
         }
 
         public void InitializeMaxima(TickSnapshot firstSnapshot)
         {
-            for (int i = 0; i < 13; ++i)
+            foreach (CellSnapshot c in firstSnapshot.Cells)
             {
-                maxima[i] = firstSnapshot.Cells.Max(x => x.Values[i]);
+                int max = 0;
+                for (int i = 0; i < 8; ++i)
+                {
+                    max += c.Values[i];
+                }
+                if (max > _max)
+                    _max = max;
             }
+            _steps = GenerateSteps(_max, CalculateSteps(_max));
         }
 
         /// <summary>
@@ -53,32 +59,20 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             Color[] pal = GetPalette(palette);
 
             Bitmap map = new Bitmap(X, Y);
-
-            int fieldIndex = 12;
-            int fieldMax = snapshot.Cells.Max(x => x.Values[12]);
-
-            if (fieldMax > maxima[fieldIndex])
-                maxima[(int)field] = fieldMax;
-
-            int[] steps = GenerateSteps(maxima[fieldIndex], CalculateSteps(maxima[fieldIndex]));
-
+                    
             List<int> fields = new List<int>();
             foreach (EStatField f in Enum.GetValues(typeof(EStatField)))
+            {
                 if ((f & field) == f)
-                    fields.Add((int)Math.Log((double)f, 2));
+                    fields.Add((int)Math.Log((double)f, 2d));
+            }
             
             foreach (CellSnapshot cell in snapshot.Cells)
             {
-                int count = 0; //= cell.Values[fieldIndex];
+                int count = 0;
                                 
                 foreach (int i in fields)
                     count += cell.Values[i];
-              
-                //foreach (EStatField e in Enum.GetValues(typeof(EStatField)))
-                //{
-                //    if ((e & field) == e)
-                //        count += cell.Values[(int)Math.Log((double)e, 2d)];
-                //}
 
                 Point p = cell.Position.DeFlatten(X);
 
@@ -88,7 +82,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 {
                     for (int i = 19; i >= 0; --i)
                     {
-                        if (steps[i] >= count)
+                        if (_steps[i] >= count)
                         {
                             map.SetPixel(p.X, p.Y, pal[i]);
                             break;
@@ -97,9 +91,9 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
 
             }
-            map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + fieldIndex + ".png", ImageFormat.Png);
+            map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
 
-            return GenerateLegend(steps, pal);            
+            return GenerateLegend(_steps, pal);            
         }
 
         /// <summary>

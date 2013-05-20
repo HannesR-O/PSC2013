@@ -21,15 +21,6 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         FemaleAdult = 0x40,
         FemaleSenior = 0x80,
         Infected = 0x100,
-        Diseased = 0x200,
-        AllMale = 0x400,
-        AllFemale = 0x800,
-        AllHumans = 0x1000
-        /* TODO | dj |
-         * Shouldn't All~ be accessible by
-         * concatinating the fields?
-         * e.g. AllMale = MaleBaby | MaleChild | MaleAdult | MaleSenior
-         * |t| We are not even halfway done here Anyway...
-         */
+        Diseased = 0x200
     }
 }
