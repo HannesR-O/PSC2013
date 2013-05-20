@@ -29,6 +29,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
          * Shouldn't All~ be accessible by
          * concatinating the fields?
          * e.g. AllMale = MaleBaby | MaleChild | MaleAdult | MaleSenior
+         * |t| We are not even halfway done here Anyway...
          */
     }
 }
