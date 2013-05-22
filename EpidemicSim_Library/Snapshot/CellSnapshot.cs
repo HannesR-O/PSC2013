@@ -33,12 +33,14 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="position">The position of the Cell</param>
         private CellSnapshot(ushort[] infos, int position)
         {
-            Values = new ushort[13];
+            //Values = new ushort[10];
 
-            for (int i = 0; i < 10; ++i)
-            {
-                Values[i] = infos[i];
-            }
+            Values = infos;
+
+            //for (int i = 0; i < 10; ++i)
+            //{
+            //    Values[i] = infos[i];
+            //}
 
             Position = position;
         }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Statistics.Pictures
 {
+    /// <summary>
+    /// Enum for classifing which fields in DeathMap should be selected
+    /// </summary>
     [Flags]
     public enum EDeathField : int
     {
