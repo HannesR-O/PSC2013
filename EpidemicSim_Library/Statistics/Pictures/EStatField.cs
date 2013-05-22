@@ -20,7 +20,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         FemaleChild = 0x20,
         FemaleAdult = 0x40,
         FemaleSenior = 0x80,
-        Infected = 0x100,
-        Diseased = 0x200
+        Infected = 0x100, // Or NaturalDeath
+        Diseased = 0x200 // Or DiseaseDeath
     }
 }

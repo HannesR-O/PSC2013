@@ -10,6 +10,5 @@ namespace PSC2013.ES.Library.Simulation
         }
         public SimulationException(string message) : base(message) { }
         public SimulationException(string message, Exception inner) : base(message, inner) { }
-
     }
 }
