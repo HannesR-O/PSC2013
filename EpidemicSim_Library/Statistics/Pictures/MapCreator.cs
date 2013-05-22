@@ -101,7 +101,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// </summary>
         /// <param name="snapshot"></param>
         /// <param name="palette"></param>
-        public void GetDeathMap(TickSnapshot snapshot, EColorPalette palette, string namePrefix)
+        public void GetDeathMap(TickSnapshot snapshot, EDeathField field, EColorPalette palette, string namePrefix)
         {
             Color[] pal = GetPalette(palette);
 
