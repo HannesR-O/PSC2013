@@ -107,13 +107,13 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
-        public void CreateDeathGraphics(EColorPalette colors, string namePrefix)
+        public void CreateDeathGraphics(EColorPalette colors, EDeathField field, string namePrefix)
         {
             if (_currentArchive != null)
             {
                 if (_currentSnapshot != null)
                 {
-                    _creator.GetDeathMap(_currentSnapshot, colors, namePrefix);
+                    _creator.GetDeathMap(_currentSnapshot, field, colors, namePrefix);
                 }
                 else
                 {
