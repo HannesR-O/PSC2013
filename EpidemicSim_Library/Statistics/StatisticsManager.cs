@@ -11,6 +11,10 @@ namespace PSC2013.ES.Library.Statistics
 {
     /// <summary>
     /// Manages taken SimulationSnapshots and creates Statistics out of its contents
+    /// Steps:
+    /// 1. Open a Simfile (Opens Siminfo and loads first entry)
+    /// 2. Open another a Ticksnapshot or go straight to 3.
+    /// 3. Work with it (Map or Deathmap)
     /// </summary>
     public class StatisticsManager
     {
@@ -40,20 +44,19 @@ namespace PSC2013.ES.Library.Statistics
 
             ZipArchiveEntry first = null;
             Entries = new List<string>();
-            foreach (ZipArchiveEntry entry in _currentArchive.Entries)
+            foreach (ZipArchiveEntry entry in _currentArchive.Entries) // Reading all entries
             {
-                if (!entry.Name.Equals("header"))
+                if (!entry.Name.Equals("header")) // All except header...
                 {
                     Entries.Add(entry.Name);
-                    if (entry.Name.StartsWith("1_"))
+                    if (entry.Name.StartsWith("1_")) // The first entry
                     {
-                        first = entry;
-                        Console.WriteLine(entry.Name + " is first. Initializing...");
+                        first = entry;                        
                     }
                 }
             }
 
-            try
+            try // If there's no header, the file is corrupt // yeah, with two r's 
             {
                 byte[] file = ArchiveReader.ToByteArray(_currentArchive.GetEntry("header")); // Reading Header                
                 _simInfo = SimulationInfo.InitializeFromFile(file);
@@ -63,21 +66,26 @@ namespace PSC2013.ES.Library.Statistics
                 throw new SimFileCorruptException("The Header was not found!", e);
             }
            
-            if (Directory.Exists(mapDestination))
+            if (Directory.Exists(mapDestination)) // Creates a new Mapcreator, if the target directory exists
                 _creator = new MapCreator(mapDestination, _simInfo.MapX, _simInfo.MapY);
             else
                 throw new DirectoryNotFoundException("Destination does not Exists");
             _currentSnapshot = null;
 
-            if (first == null)
+            if (first == null) // If there's no first Snapshot, the file corrupt, no sense in empty logs
                 throw new SimFileCorruptException("No first Snapshot found!");
             
-                byte[] temp = ArchiveReader.ToByteArray(first);// Reading first Snap to initialize Maxima
-                TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
-                _creator.InitializeMaxima(tick);
-                _currentSnapshot = tick;            
+            byte[] temp = ArchiveReader.ToByteArray(first);// Reading first Snap to initialize Maxima
+            TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
+            _creator.InitializeMaxima(tick);
+            Console.WriteLine(first.Name + " is first. Initializing...");
+            _currentSnapshot = tick; // First Snaphsot stays loaded
         }
 
+        /// <summary>
+        /// Loads a Ticksnapshot to Runtime, when loaded, i can be used to create graphics
+        /// </summary>
+        /// <param name="name">The Entries name</param>
         public void LoadTickSnapshot(String name)
         {
             if (!name.StartsWith(_currentSnapshot.Tick.ToString()))
@@ -88,6 +96,13 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
+        /// <summary>
+        /// Creates a Graphic of the loaded Snapshot with the given parameters
+        /// </summary>
+        /// <param name="field">A concatenation of EStatfields to be used</param>
+        /// <param name="colors">The Colorpalette to be used</param>
+        /// <param name="namePrefix">The Prefix the data shall be named with</param>
+        /// <returns></returns>
         public Dictionary<String, Color> CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
@@ -107,6 +122,12 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="colors"></param>
+        /// <param name="field"></param>
+        /// <param name="namePrefix"></param>
         public void CreateDeathGraphics(EColorPalette colors, EDeathField field, string namePrefix)
         {
             if (_currentArchive != null)
