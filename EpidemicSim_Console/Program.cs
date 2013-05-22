@@ -15,6 +15,8 @@ namespace PSC2013.ES.Cmd
 {
     class Program
     {
+        static readonly string DESKTOP_PATH = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
         static void Main(string[] args)
         {
 #if DEBUG
@@ -61,13 +63,29 @@ namespace PSC2013.ES.Cmd
 
         private static void TestEpidemicSimulator()
         {
-            var sim = EpidemicSimulator.Create(new Disease(),
+            FactorContainer fc = new FactorContainer(new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+            var sim = EpidemicSimulator.Create(new Disease()
+                {
+                    Name = "TestDisease",
+                    HealingFactor = fc,
+                    ResistanceFactor = fc,
+                    MortalityRate = fc
+                },
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new DebugSimulationComponent());
+            sim.SetSimulationIntervall(1);
+            sim.SetSnapshotIntervall(1);
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
-            sim.StartSimulation(Environment.CurrentDirectory, 5000);
+            sim.SimulationEnded += (_, __) =>
+                {
+                    StatisticsManager sm = new StatisticsManager();
+                    sm.OpenSimFile(DESKTOP_PATH + "\\TestDisease.sim", DESKTOP_PATH);
+                    sm.LoadTickSnapshot(sm.Entries[0]);
+                    sm.CreateGraphics(EStatField.FemaleAdult | EStatField.MaleAdult, EColorPalette.Red, "testmap");
+                };
+            sim.StartSimulation(DESKTOP_PATH, 5);
         }
 
         public static void OnSimStartEvent(object sender, SimulationEventArgs e)
