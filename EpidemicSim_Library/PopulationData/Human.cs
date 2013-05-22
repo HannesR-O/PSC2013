@@ -21,6 +21,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// </summary>
         public readonly int HomeCell;
         public int CurrentCell;
+        public byte TravellingCounter;
 
         private byte _data0;    // Age & Gender
         private byte _data1;    // Infected & Spreading & Diseased & Death
@@ -42,6 +43,7 @@ namespace PSC2013.ES.Library.PopulationData
             _counterInfect = 1;
             _counterSpreading = 2;
             CurrentCell = homeCell;
+            TravellingCounter = 0;
         }
 
         /// <summary>

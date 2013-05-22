@@ -10,7 +10,6 @@ namespace PSC2013.ES.Library.Simulation.Components
     public unsafe class MovementSimulationComponent : ISimulationComponent
     {
         private readonly Random _random;
-        private int _randomHolder, _simulationIntervall;         //1. tmp-variable to hold Random.Next() results
         private Human* _ptr;
 
         public MovementSimulationComponent()
@@ -38,11 +37,72 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (_ptr->IsTravelling())
                     {
                         //reduce counter, if counter == 0 remove flag travelling else continue
-                        _ptr->SetTravelling(false);
+                        --ptr->TravellingCounter;
+
+                        if (ptr->TravellingCounter == 0)
+                        {
+                            ptr->SetTravelling(false);
+
+                            if (ptr->IsInfected())
+                                ++data.Cells[ptr->CurrentCell].Infected;
+
+                            else if (ptr->IsSpreading())
+                                ++data.Cells[ptr->CurrentCell].Spreading;
+
+                            else if (ptr->IsDiseased())
+                                ++data.Cells[ptr->CurrentCell].Diseased;
+
+
+
+                            if (ptr->GetGender() == EGender.Male)
+                            {
+                                switch (ptr->GetAge())
+                                {
+                                    case EAge.Baby: ++data.Cells[ptr->CurrentCell].MaleBabies; break;
+                                    case EAge.Child: ++data.Cells[ptr->CurrentCell].MaleChildren; break;
+                                    case EAge.Adult: ++data.Cells[ptr->CurrentCell].MaleAdults; break;
+                                    case EAge.Senior: ++data.Cells[ptr->CurrentCell].MaleSeniors; break;
+                                }
+                            }
+                            else
+                            {
+                                switch (ptr->GetAge())
+                                {
+                                    case EAge.Baby: ++data.Cells[ptr->CurrentCell].FemaleBabies; break;
+                                    case EAge.Child: ++data.Cells[ptr->CurrentCell].FemaleChildren; break;
+                                    case EAge.Adult: ++data.Cells[ptr->CurrentCell].FemaleAdults; break;
+                                    case EAge.Senior: ++data.Cells[ptr->CurrentCell].FemaleSeniors; break;
+                                }
+                            }
+                        }
+                        else
+                            continue;
                     }
                     //Staying Home doesn't vary no matter what profession the human is having.
                     else if (_ptr->GetMindset() == PopulationData.EMindset.HomeStaying)
                     {
+                        if (data.CurrentHour > 6 && data.CurrentHour < 19)
+                        {
+                            if (ptr->CurrentCell != ptr->HomeCell)
+                            {
+                                if(random.Next(3) == 0)
+                                    MoveHumanHome(data);
+                            }
+                            else
+                            {
+                                if (random.Next(5) == 0)
+                                    MoveHuman(data, FindCellInReach(data,ptr->CurrentCell, 2, 75));
+                            }
+                        }
+                        else if (data.CurrentHour == 19)
+                        {
+                            if (ptr->CurrentCell != ptr->HomeCell)
+                                MoveHumanHome(data);
+                        }
+                        else
+                        {
+                            continue;
+                        }
                         //chance every day to go out 1-3 hours
                         //if ill -> go to hospital
                         //if healthy wander around aimlessly in departement (short range)
@@ -53,6 +113,13 @@ namespace PSC2013.ES.Library.Simulation.Components
                         switch (_ptr->GetProfession())
                         {
                             case PopulationData.EProfession.Pupil: MovePupil(data); break;
+                            case EProfession.Student: MoveStudent(data); break;
+                            case EProfession.Housewife: MoveHousewife(data); break;
+                            case EProfession.Plumber: MovePlumber(data); break;
+                            case EProfession.DeskJobber: MoveDeskJobber(data); break;
+                            case EProfession.Commuter: MoveCommuter(data); break;
+                            case EProfession.TravellingSalesman: MoveTravellingSalesman(data); break;
+                            default: continue;
                         }
                     }
                 }
@@ -73,49 +140,61 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// <param name="destinationcell">The index of the cell the human should be moved to</param>
         private void MoveHuman(SimulationData data, int destinationcell)
         {
-            //Set selected Human to status "travelling"
-            _ptr->SetTravelling(true);
-            if (_ptr->IsInfected())
-                --data.Cells[_ptr->CurrentCell].Infected;
-            else if (_ptr->IsSpreading())
-                --data.Cells[_ptr->CurrentCell].Spreading;
-            else if (_ptr->IsDiseased())
-                --data.Cells[_ptr->CurrentCell].Diseased;
+            if (ptr->IsInfected())
+                --data.Cells[ptr->CurrentCell].Infected;
 
-            if (_ptr->GetGender() == EGender.Male)
+            else if (ptr->IsSpreading())
+                --data.Cells[ptr->CurrentCell].Spreading;
+
+            else if (ptr->IsDiseased())
+                --data.Cells[ptr->CurrentCell].Diseased;
+            
+
+
+            if (ptr->GetGender() == EGender.Male)
             {
-                switch (_ptr->GetAge())
+                switch (ptr->GetAge())
                 {
-                    case EAge.Baby: --data.Cells[_ptr->CurrentCell].MaleBabies; break;
-                    case EAge.Child: --data.Cells[_ptr->CurrentCell].MaleChildren; break;
-                    case EAge.Adult: --data.Cells[_ptr->CurrentCell].MaleAdults; break;
-                    case EAge.Senior: --data.Cells[_ptr->CurrentCell].MaleSeniors; break;
+                    case EAge.Baby: --data.Cells[ptr->CurrentCell].MaleBabies;break;
+                    case EAge.Child: --data.Cells[ptr->CurrentCell].MaleChildren;break;
+                    case EAge.Adult: --data.Cells[ptr->CurrentCell].MaleAdults;break;
+                    case EAge.Senior: --data.Cells[ptr->CurrentCell].MaleSeniors;break;
                 }
             }
             else
             {
-                switch (_ptr->GetAge())
+                switch (ptr->GetAge())
                 {
-                    case EAge.Baby: --data.Cells[_ptr->CurrentCell].FemaleBabies; break;
-                    case EAge.Child: --data.Cells[_ptr->CurrentCell].FemaleChildren; break;
-                    case EAge.Adult: --data.Cells[_ptr->CurrentCell].FemaleAdults; break;
-                    case EAge.Senior: --data.Cells[_ptr->CurrentCell].FemaleSeniors; break;
+                    case EAge.Baby: --data.Cells[ptr->CurrentCell].FemaleBabies;break;
+                    case EAge.Child: --data.Cells[ptr->CurrentCell].FemaleChildren;break;
+                    case EAge.Adult: --data.Cells[ptr->CurrentCell].FemaleAdults;break;
+                    case EAge.Senior: --data.Cells[ptr->CurrentCell].FemaleSeniors;break;
                 }
             }
 
 
             //TODO |h| Set Travelling Counter and check for short travels (travellingcounter == 0)
             //ptr->SetTravellingCounter();
-
+            int maxcelldiffernce = Math.Max(Math.Abs(ptr->CurrentCell % 2814 - destinationcell % 2814),
+                                      Math.Abs(ptr->CurrentCell / 2814 - destinationcell / 2814));
 
             //Add the selected Human in the Destinationcell
             _ptr->CurrentCell = destinationcell;
-   
+
+            if (maxcelldiffernce < 75)
+            {
+                return;
+            }
+            else
+            {
+                ptr->TravellingCounter = (byte)((maxcelldiffernce / 5)/70);
+                ptr->SetTravelling(true);
+            }
         }
 
-        private void MoveHumanHome()
+        private void MoveHumanHome(SimulationData data)
         {
-            _ptr->CurrentCell = _ptr->HomeCell;
+            MoveHuman(data, ptr->HomeCell);
         }
 
         private void MovePupil(SimulationData data)
@@ -134,7 +213,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Pupil should be in School from 7-10
                     else if (data.CurrentHour == 7)
                     {
-                        //MoveHuman(data, cell, human, school);
+                        MoveHuman(data, FindCellInReach(data, ptr->CurrentCell, 2, 125));
                     }
                     else if (data.CurrentHour < 11)
                     {
@@ -145,8 +224,8 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         if (_ptr->HomeCell != _ptr->CurrentCell)
                         {
-                            if ((_randomHolder = _random.Next(3)) == 3)
-                                MoveHumanHome();
+                            if (random.Next(3) == 3)
+                                MoveHumanHome(data);
                             else
                                 return;
 
@@ -159,7 +238,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (data.CurrentHour == 14)
                     {
                         if (_ptr->HomeCell != _ptr->CurrentCell)
-                            MoveHumanHome();
+                            MoveHumanHome(data);
                         else
                             return;
                     }
@@ -167,7 +246,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         if (_random.Next(1) == 1)
                         {
-                            //MoveHuman(data, cell, human, friend);
+                            MoveHuman(data, FindCellInReach(data, ptr->CurrentCell, 2, 25));
                         }
                         else
                             return;
@@ -176,7 +255,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (data.CurrentHour == 18)
                     {
                         if (_ptr->HomeCell != _ptr->CurrentCell)
-                            MoveHumanHome();
+                            MoveHumanHome(data);
                         else
                             return;
                     }
@@ -195,6 +274,55 @@ namespace PSC2013.ES.Library.Simulation.Components
 
                     break;
             }
+        }
+
+        private int FindCellInReach(SimulationData data, int origincell, int minrange, int maxrange)
+        {
+            //TODO negativ movement also!
+           
+            //Horizontal Movement
+            int x = minrange + random.Next((maxrange- minrange));
+            if (random.Next(1) == 0)
+            {
+                //Do not move over array boundaries 
+                while ((origincell % 2814) + x >= 2814)
+                {
+                    --x;
+                }
+            }
+            else
+            {
+                x = -x;
+
+                while ((origincell % 2814) + x < 0)
+                {
+                    ++x;
+                }
+            }
+
+            //Vertical Movement
+            int y = minrange + random.Next((maxrange-minrange));
+
+            if (random.Next(1) == 0)
+            {
+
+
+                while (origincell + (y * 2814) > (2814 * 3841))
+                {
+                    --y;
+                }
+            }
+            else
+            {
+                y = -y;
+
+                while (origincell + (y * 2814) < 0)
+                {
+                    ++y;
+                }
+            }
+
+            return origincell + x + (y * 2814);
         }
 
         private void MoveStudent(SimulationData data)
@@ -223,7 +351,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //No lectures after 18 o'clock
                     else if (data.CurrentHour == 18)
                     {
-                        MoveHumanHome();
+                        MoveHumanHome(data);
                     }
                     //in the morning/evening student is at home 
                     else
@@ -233,11 +361,6 @@ namespace PSC2013.ES.Library.Simulation.Components
 
 
                     break;
-                case PopulationData.EMindset.HomeStaying: break;
-                case PopulationData.EMindset.Shopping: break;
-                case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.DayOff: break;
-                case PopulationData.EMindset.Vacationing: break;
             }
         }
 
@@ -257,7 +380,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (data.CurrentHour == 18)
                     {
                         if (_ptr->HomeCell != _ptr->CurrentCell)
-                            MoveHumanHome();
+                            MoveHumanHome(data);
                         else
                             return;
                     }
@@ -284,12 +407,12 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Go to work
                     if (data.CurrentHour == 9)
                     {
-                        //MoveHuman(data, cell, human, workplace);
+                        MoveHuman(data, FindCellInReach(data, ptr->CurrentCell, 0, 75));
                     }
                     //Go home
                     else if (data.CurrentHour == 18)
                     {
-                        MoveHumanHome();
+                        MoveHumanHome(data);
                     }
                     //In the morning and evening stay at home
                     else
@@ -305,7 +428,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             }
         }
 
-        private void MoveHousewife(SimulationData data, int cell, int human)
+        private void MoveHousewife(SimulationData data)
         {
 
             switch (_ptr->GetMindset())
@@ -323,7 +446,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (data.CurrentHour == 20)
                     {
                         if (_ptr->HomeCell != _ptr->CurrentCell)
-                            MoveHumanHome();
+                            MoveHumanHome(data);
                         else
                             return;
                     }
@@ -352,14 +475,16 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Returns home on friday
                     if (data.CurrentDay == DayOfWeek.Friday)
                     {
-                        //if hometravelltime == arrives on 17-20 o'clock -> go home else stay where you are
+                        //Travel Home on Friday
+                        if (data.CurrentHour == 4)
+                            MoveHumanHome(data);
                     }
                     //on every other day travel through germany
                     else
                     {
                         if (data.CurrentHour == 4)
                         {
-                            //travel to distant point
+                            MoveHuman(data, FindCellInReach(data, ptr->CurrentCell, 400, 800));
                         }
                         else
                             return;
@@ -374,7 +499,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             }
         }
 
-        private void MoveCommuter(SimulationData data, int cell, int human)
+        private void MoveCommuter(SimulationData data)
         {
             switch (_ptr->GetMindset())
             {
@@ -384,12 +509,12 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //travel to distant workplace
                     if (data.CurrentHour == 6)
                     {
-
+                        MoveHuman(data, FindCellInReach(data, ptr->CurrentCell, 125, 400));
                     }
                     //return home
                     else if (data.CurrentHour == 17)
                     {
-
+                        MoveHumanHome(data);
                     }
                     //Stay home in the morning and evening
                     else
