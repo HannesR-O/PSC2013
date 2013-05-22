@@ -169,7 +169,7 @@ namespace PSC2013.ES.Cmd
                 + file + ".sim", 
                 Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 
-            var entries = manager.Entrys;
+            var entries = manager.Entries;
             foreach (string s in entries)
             {
                 Console.WriteLine(s);

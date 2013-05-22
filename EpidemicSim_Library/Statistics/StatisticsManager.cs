@@ -14,7 +14,7 @@ namespace PSC2013.ES.Library.Statistics
     /// </summary>
     public class StatisticsManager
     {
-        public List<string> Entrys { get; private set; }
+        public List<string> Entries { get; private set; }
 
         private SimulationInfo _simInfo;
         private ZipArchive _currentArchive;
@@ -39,13 +39,13 @@ namespace PSC2013.ES.Library.Statistics
                 throw new FileNotFoundException("File not found!");
 
             ZipArchiveEntry first = null;
-            Entrys = new List<string>();
+            Entries = new List<string>();
             foreach (ZipArchiveEntry entry in _currentArchive.Entries)
             {
                 if (!entry.Name.Equals("header"))
                 {
-                    Entrys.Add(entry.Name);
-                    if (entry.Name.StartsWith("1"))
+                    Entries.Add(entry.Name);
+                    if (entry.Name.StartsWith("1_"))
                     {
                         first = entry;
                         Console.WriteLine(entry.Name + " is first. Initializing...");
@@ -60,7 +60,7 @@ namespace PSC2013.ES.Library.Statistics
             }
             catch (Exception e)
             {
-                throw new SimFileCoruptException("The Header was not found!", e);
+                throw new SimFileCorruptException("The Header was not found!", e);
             }
            
             if (Directory.Exists(mapDestination))
@@ -70,7 +70,7 @@ namespace PSC2013.ES.Library.Statistics
             _currentSnapshot = null;
 
             if (first == null)
-                throw new SimFileCoruptException("No first Snapshot found!");
+                throw new SimFileCorruptException("No first Snapshot found!");
             
                 byte[] temp = ArchiveReader.ToByteArray(first);// Reading first Snap to initialize Maxima
                 TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
@@ -126,11 +126,11 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
-        public class SimFileCoruptException : Exception
+        public class SimFileCorruptException : Exception
         {
-            public SimFileCoruptException() { }
-            public SimFileCoruptException(string Massage) { }
-            public SimFileCoruptException(string message, System.Exception innerException) { }
+            public SimFileCorruptException() { }
+            public SimFileCorruptException(string Massage) { }
+            public SimFileCorruptException(string message, System.Exception innerException) { }
         }
     }
 }

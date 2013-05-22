@@ -97,7 +97,7 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             {
                 _manager.OpenSimFile(_simPath, _targetPath);
                 lstBox_entries.Items.Clear();
-                lstBox_entries.Items.AddRange(_manager.Entrys.ToArray());
+                lstBox_entries.Items.AddRange(_manager.Entries.ToArray());
             }
         }
 
