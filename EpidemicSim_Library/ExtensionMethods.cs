@@ -91,12 +91,28 @@ namespace PSC2013.ES.Library
         /// </summary>
         /// <param name="cells"></param>
         /// <returns></returns>
-        public static IEnumerable<T> NotNullIterator<T>(this T[] cells) where T : class
+        internal static IEnumerable<T> NotNullIterator<T>(this T[] cells) where T : class
         {
             return cells.Where(item => item != null);
             // ??
             // 10 min with foreach
             // 12 min with parallel.foreach
+        }
+
+        /// <summary>
+        /// Determines in which range the value is.
+        /// Returns -1 if in none.
+        /// </summary>
+        /// <param name="x">The value itself.</param>
+        /// <param name="rangeMaxValues">Array of the Max-Values of each range in an ascending order!</param>
+        /// <param name="includingMax">Whether to include the Max-Value itself or not.</param>
+        /// <returns>The index of the range (0-based).</returns>
+        internal static int InRange(this int x, int[] rangeMaxValues, bool includingMax)
+        {
+            for (int i = 0; i < rangeMaxValues.Length; ++i)
+                if (includingMax ? rangeMaxValues[i] >= x : rangeMaxValues[i] > x)
+                    return i;
+            return -1;
         }
     }
 }
