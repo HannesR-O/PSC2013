@@ -42,7 +42,7 @@ namespace PSC2013.ES.Library.PopulationData
             _data2 = 0;
             _counterInfect = 1;
             _counterSpreading = 2;
-            CurrentCell = homeCell;
+            CurrentCell = 0;
             TravellingCounter = 0;
         }
 
@@ -56,10 +56,14 @@ namespace PSC2013.ES.Library.PopulationData
         public static Human Create(EGender gender, int age, int homeCell)
         {
             var human = new Human(homeCell);
+            Random random = new Random();
 
             human.SetGender(gender);
             human.SetAge(age);
             human.SetDeath(false);
+            human.SetProfession((EProfession)random.Next(8));
+            human.SetMindset((EMindset)random.Next(6));
+
 
             return human;
         }
