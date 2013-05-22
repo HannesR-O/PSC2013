@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PSC2013.ES.Library.Statistics.Pictures
+{
+    [Flags]
+    public enum EDeathField : int
+    {
+        Male = 0x01,
+        Female = 0x02
+    }
+}
