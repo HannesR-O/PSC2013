@@ -11,12 +11,12 @@ namespace PSC2013.ES.Library.Statistics.Pictures
     public class HumanSnapshotWrapper
     {
         /// <summary>
-        /// Useless and inefficient so far, don't comment pls
+        /// Returns a List of Humans matching the given fields
         /// </summary>
-        /// <param name="humans"></param>
-        /// <param name="field"></param>
-        /// <returns></returns>
-        public static List<HumanSnapshot> GetGroupCount(HumanSnapshot[] humans, EStatField field)
+        /// <param name="humans">The Original Array of Humans</param>
+        /// <param name="field">The field to be matched</param>
+        /// <returns>A (propably) smaller List of Humans</returns>
+        public static List<HumanSnapshot> GetMatchingHumans(HumanSnapshot[] humans, EStatField field)
         {
             List<EStatField> fields = new List<EStatField>();
 
@@ -68,6 +68,11 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             return deceasedHumans;
         }
 
+        /// <summary>
+        /// Returns an EAge to a given int
+        /// </summary>
+        /// <param name="age">The Age as int</param>
+        /// <returns>An EAge</returns>
         private static EAge WrapAge(byte age)
         {
             if (age < 6)
