@@ -84,7 +84,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         if (data.CurrentHour > 6 && data.CurrentHour < 19)
                         {
-                            if (_ptr->CurrentCell != _ptr->HomeCell)
+                            if (!_ptr->IsAtHome())
                             {
                                 if(_random.Next(3) == 0)
                                     MoveHumanHome(data);
@@ -97,7 +97,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                         }
                         else if (data.CurrentHour == 19)
                         {
-                            if (_ptr->CurrentCell != _ptr->HomeCell)
+                            if (!_ptr->IsAtHome())
                                 MoveHumanHome(data);
                         }
                         else
@@ -175,7 +175,6 @@ namespace PSC2013.ES.Library.Simulation.Components
 
 
             //TODO |h| Set Travelling Counter and check for short travels (travellingcounter == 0)
-            //ptr->SetTravellingCounter();
             int maxcelldiffernce = Math.Max(Math.Abs(_ptr->CurrentCell % 2814 - destinationcell % 2814),
                                       Math.Abs(_ptr->CurrentCell / 2814 - destinationcell / 2814));
 
@@ -223,9 +222,9 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //pupil has chance that school ends
                     else if (data.CurrentHour < 14)
                     {
-                        if (_ptr->HomeCell != _ptr->CurrentCell)
+                        if (!_ptr->IsAtHome())
                         {
-                            if (_random.Next(3) == 3)
+                            if (_random.Next(3) == 2)
                                 MoveHumanHome(data);
                             else
                                 return;
@@ -238,14 +237,14 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //School ends definately
                     else if (data.CurrentHour == 14)
                     {
-                        if (_ptr->HomeCell != _ptr->CurrentCell)
+                        if (!_ptr->IsAtHome())
                             MoveHumanHome(data);
                         else
                             return;
                     }
                     else if (data.CurrentHour == 15)
                     {
-                        if (_random.Next(1) == 1)
+                        if (_random.Next(2) == 1)
                         {
                             MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 2, 25));
                         }
@@ -255,7 +254,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Return pupil home if he isn't already
                     else if (data.CurrentHour == 18)
                     {
-                        if (_ptr->HomeCell != _ptr->CurrentCell)
+                        if (!_ptr->IsAtHome())
                             MoveHumanHome(data);
                         else
                             return;
@@ -277,54 +276,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             }
         }
 
-        private int FindCellInReach(SimulationData data, int origincell, int minrange, int maxrange)
-        {
-            //TODO negativ movement also!
-           
-            //Horizontal Movement
-            int x = minrange + _random.Next((maxrange- minrange));
-            if (_random.Next(1) == 0)
-            {
-                //Do not move over array boundaries 
-                while ((origincell % 2814) + x >= 2814)
-                {
-                    --x;
-                }
-            }
-            else
-            {
-                x = -x;
-
-                while ((origincell % 2814) + x < 0)
-                {
-                    ++x;
-                }
-            }
-
-            //Vertical Movement
-            int y = minrange + _random.Next((maxrange-minrange));
-
-            if (_random.Next(1) == 0)
-            {
-
-
-                while (origincell + (y * 2814) > (2814 * 3841))
-                {
-                    --y;
-                }
-            }
-            else
-            {
-                y = -y;
-
-                while (origincell + (y * 2814) < 0)
-                {
-                    ++y;
-                }
-            }
-
-            return origincell + x + (y * 2814);
-        }
+       
 
         private void MoveStudent(SimulationData data)
         {
@@ -337,15 +289,25 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Student can have lectures during day including breaks
                     if (data.CurrentHour > 8 && data.CurrentHour < 18)
                     {
-                        if ((_ptr->HomeCell == _ptr->CurrentCell))
+                        if (_ptr->IsAtHome())
                         {
-                            //Chance to go/return to University dependent on hour
-
-
+                            //chance to go to university
+                            if (_random.Next(3) == 2)
+                            {
+                                MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 3, 75));
+                            }
+                            else
+                                return;
                         }
                         else
                         {
-                            //chance to go home dependent on hour
+                            //chance to go home
+                            if (_random.Next(9) == 8)
+                            {
+                                MoveHumanHome(data);
+                            }
+                            else
+                                return;
 
                         }
                     }
@@ -375,12 +337,12 @@ namespace PSC2013.ES.Library.Simulation.Components
 
                     if (data.CurrentHour > 7 && data.CurrentHour < 18)
                     {
-                        //Move to another cell in <= 1h reach
+                        MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 5, 74));
                     }
                     //return home at 18 o'clock
                     else if (data.CurrentHour == 18)
                     {
-                        if (_ptr->HomeCell != _ptr->CurrentCell)
+                        if (!_ptr->IsAtHome())
                             MoveHumanHome(data);
                         else
                             return;
@@ -440,13 +402,13 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Run around aimlessly^^
                     if (data.CurrentHour > 6 && data.CurrentHour < 20)
                     {
-                        //chance to go shopping/visit friends/work at home dependent on hour?
-
+                        //chance to go shopping/visit friends/work
+                        MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 0, 5));
                     }
                     //return home at 20 o'clock
                     else if (data.CurrentHour == 20)
                     {
-                        if (_ptr->HomeCell != _ptr->CurrentCell)
+                        if (!_ptr->IsAtHome())
                             MoveHumanHome(data);
                         else
                             return;
@@ -530,6 +492,55 @@ namespace PSC2013.ES.Library.Simulation.Components
                 case PopulationData.EMindset.DayOff: break;
                 case PopulationData.EMindset.Vacationing: break;
             }
+        }
+
+        private int FindCellInReach(SimulationData data, int origincell, int minrange, int maxrange)
+        {
+            //TODO negativ movement also!
+
+            //Horizontal Movement
+            int x = minrange + _random.Next((maxrange - minrange));
+            if (_random.Next(1) == 0)
+            {
+                //Do not move over array boundaries 
+                while ((origincell % 2814) + x >= 2814)
+                {
+                    --x;
+                }
+            }
+            else
+            {
+                x = -x;
+
+                while ((origincell % 2814) + x < 0)
+                {
+                    ++x;
+                }
+            }
+
+            //Vertical Movement
+            int y = minrange + _random.Next((maxrange - minrange));
+
+            if (_random.Next(1) == 0)
+            {
+
+
+                while (origincell + (y * 2814) > (2814 * 3841))
+                {
+                    --y;
+                }
+            }
+            else
+            {
+                y = -y;
+
+                while (origincell + (y * 2814) < 0)
+                {
+                    ++y;
+                }
+            }
+
+            return origincell + x + (y * 2814);
         }
 
         public ESimulationStage SimulationStages

@@ -90,6 +90,15 @@ namespace PSC2013.ES.Library.PopulationData
         }
 
         /// <summary>
+        /// Returns whether the human is currently at Home or not
+        /// </summary>
+        /// <returns>True if home, false if not</returns>
+        public bool IsAtHome()
+        {
+            return HomeCell == CurrentCell;
+        }
+
+        /// <summary>
         /// Returns the Human's Gender
         /// </summary>
         /// <returns>The Gender</returns>
