@@ -152,10 +152,7 @@ namespace PSC2013.ES.Cmd
 
         public static void TestStats()
         {
-            foreach (EStatField f in Enum.GetValues(typeof(EStatField)))
-            {
-                Console.WriteLine(f);
-            }
+            Console.WriteLine((EStatField) 255);
 
             var manager = new StatisticsManager();
 
@@ -198,12 +195,13 @@ namespace PSC2013.ES.Cmd
 
             manager.LoadTickSnapshot(name);
 
-            Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
+            manager.CreateDeathGraphics(field, pal, prefix);
+            //Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
 
-            foreach (string str in legend.Keys)
-            {
-                Console.WriteLine(str + " with " + legend[str].ToString());
-            }
+            //foreach (string str in legend.Keys)
+            //{
+            //    Console.WriteLine(str + " with " + legend[str].ToString());
+            //}
 
             Console.WriteLine("Finished!");
         }

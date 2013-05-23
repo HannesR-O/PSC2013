@@ -128,7 +128,7 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="colors"></param>
         /// <param name="field"></param>
         /// <param name="namePrefix"></param>
-        public void CreateDeathGraphics(EColorPalette colors, EStatField field, string namePrefix)
+        public void CreateDeathGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
             {

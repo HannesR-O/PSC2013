@@ -22,13 +22,13 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             foreach (EStatField e in Enum.GetValues(typeof(EStatField)))
             {
-                if ((e & field) == field)
+                if ((e & field) == e)
                     fields.Add(e);
             }
 
             List<HumanSnapshot> deceasedHumans = new List<HumanSnapshot>();
 
-            bool useCause = !(fields.Contains(EStatField.Infected) ^ fields.Contains(EStatField.Diseased));
+            bool useCause = (fields.Contains(EStatField.Infected) != fields.Contains(EStatField.Diseased));
 
             foreach (HumanSnapshot human in humans)
             {
@@ -43,24 +43,24 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 {
                     if (gender == EGender.Male)
                     {
-                        if (fields.Contains(EStatField.MaleBaby))
+                        if (fields.Contains(EStatField.MaleBaby) & age == EAge.Baby)
                             deceasedHumans.Add(human);
-                        else if (fields.Contains(EStatField.MaleChild))
+                        else if (fields.Contains(EStatField.MaleChild) & age == EAge.Child)
                             deceasedHumans.Add(human);
-                        else if (fields.Contains(EStatField.MaleAdult))
+                        else if (fields.Contains(EStatField.MaleAdult) & age == EAge.Adult)
                             deceasedHumans.Add(human);
-                        else if (fields.Contains(EStatField.MaleSenior))
+                        else if (fields.Contains(EStatField.MaleSenior) & age == EAge.Senior)
                             deceasedHumans.Add(human);
                     }
                     else
                     {
-                        if (fields.Contains(EStatField.FemaleBaby))
+                        if (fields.Contains(EStatField.FemaleBaby) & age == EAge.Baby)
                             deceasedHumans.Add(human);
-                        else if (fields.Contains(EStatField.FemaleChild))
+                        else if (fields.Contains(EStatField.FemaleChild) & age == EAge.Child)
                             deceasedHumans.Add(human);
-                        else if (fields.Contains(EStatField.FemaleAdult))
+                        else if (fields.Contains(EStatField.FemaleAdult) & age == EAge.Adult)
                             deceasedHumans.Add(human);
-                        else if (fields.Contains(EStatField.FemaleSenior))
+                        else if (fields.Contains(EStatField.FemaleSenior) & age == EAge.Senior)
                             deceasedHumans.Add(human);
                     }
                 }
