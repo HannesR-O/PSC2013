@@ -93,7 +93,7 @@ namespace PSC2013.ES.Library.Simulation
 #endif
             // TODO | dj | should be changed back to .GenerateMatrix...
             Cells = new PopulationCell[ImageWidth * ImageHeight];
-            MatrixGenerator.GenerateDummyMatrix(Cells, Humans, deps, ImageWidth, ImageHeight);
+            MatrixGenerator.GenerateMatrix(Cells, Humans, deps, ImageWidth, ImageHeight);
 #if DEBUG
             Console.WriteLine("...Matrix generated.");
 #endif

@@ -63,6 +63,9 @@ namespace PSC2013.ES.Cmd
 
         private static void TestEpidemicSimulator()
         {
+            // TODO | dj | remove this!
+            Process.GetCurrentProcess().MaxWorkingSet = new IntPtr(4294967296); // should limit the RAM. not shure...
+
             FactorContainer fc = new FactorContainer(new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
             var sim = EpidemicSimulator.Create(new Disease()
                 {

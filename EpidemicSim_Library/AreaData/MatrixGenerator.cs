@@ -125,7 +125,7 @@ namespace PSC2013.ES.Library.AreaData
         /// <param name="width">width of the populationArray (used for offsets)</param>
         /// <param name="height">height of the populationArray (used for offsets)</param>
         /// <returns>The input-populationCell-array (modified).</returns>
-        public static PopulationCell[] GenerateMatrix(
+        public static void GenerateMatrix(
             PopulationCell[] populationArray,
             Human[] humanArray,
             IEnumerable<DepartmentInfo> rawData,
@@ -151,7 +151,7 @@ namespace PSC2013.ES.Library.AreaData
 //                    Console.WriteLine("Started " + item.Name);
 //#endif
                     Human[] humans;
-                    var res = PopulateDepartment(item, out humans);         // populate the department.
+                    var res = Populate(item, out humans);         // populate the department.
                     comb.Enqueue(res, humans);
                     //lock (populationArray) {                    // store the new info in the original array.
                     //    foreach (var tpl in res)
@@ -168,8 +168,102 @@ namespace PSC2013.ES.Library.AreaData
 #endif
             comb.Wait();
             comb.Dispose();
+        }
 
-            return populationArray;
+        private static Tuple<int, PopulationCell>[] Populate(DepartmentInfo depInfo, out Human[] humanArray)
+        {
+            // the count of cells.
+            int areaSize = depInfo.Coordinates.Length;
+
+            // precalculating humans. (~ +- 10%)
+            for (int i = 0; i < depInfo.Population.Length; ++i)
+                depInfo.Population[i] = (int)Math.Round(
+                    depInfo.Population[i] * (1 - (RANDOM.Next(20) - 10) / 100f));
+
+            // initializing array.
+            var resultArray = new Tuple<int, PopulationCell>[areaSize];
+            int resultIndex = 0;
+
+            // the origin used as fixpoint.
+            Point origin = CalculateInitialPoint(depInfo.Coordinates);
+
+            // maximum distance possible.
+            int maxDistance = depInfo.Coordinates.Max(p => p.Distance(origin)) + 1;
+
+            // array of factors
+            int[] factors = new int[maxDistance];
+            factors[0] = 175;                           // start factor.
+            for (int i = 1; i < maxDistance; i++)       // creating every factor for each distance.
+            {
+                //TODO | dj | randomise
+                // (-(1/maxDistance * i)^2 + 1.75) * 100
+                double one = 1d / maxDistance * i;
+                double two = Math.Pow(one, 2);
+                double three = factors[0] / 100d;
+                double four = three - two;
+                double five = four * 100;
+                factors[i] = (int)Math.Round(five);
+            }
+            
+            // array for each age-group, holding a list of Tuple of cell-indices and count.
+            List<Tuple<int, int>>[] agesOfCells = new List<Tuple<int, int>>[8];
+            agesOfCells.Initialize<List<Tuple<int, int>>>();
+
+            int humanCount = 0;
+
+            // going through all points and set the counts.
+            foreach (Point point in depInfo.Coordinates)
+            {
+                PopulationCell cell = new PopulationCell();
+                int cellIndex = point.Flatten(WIDTH);
+
+                int factor = factors[point.Distance(origin)];
+                for (int i = 0; i < 8; ++i)
+                {
+                    cell.Data[i] = (ushort)Math.Round(depInfo.Population[i] * (factor / 100f));
+                    humanCount += cell.Data[i];
+                    agesOfCells[i].Add(new Tuple<int,int>(cellIndex, cell.Data[i]));
+                }
+
+                resultArray[resultIndex++] = new Tuple<int,PopulationCell>(cellIndex, cell);
+            }
+
+            // initializing human array
+            humanArray = new Human[humanCount];
+            int humanIndex = 0;
+
+            // going through all ages and creating the humans.
+            for (int i = 0; i < 8; ++i)
+            {
+                var lst = agesOfCells[i];
+                var bounds = GetBounds(i);
+
+                // age-bounds (for random).
+                int lowerAge = bounds.Item1;
+                int upperAge = bounds.Item2;
+
+                // gender.
+                EGender gender = (i < 4) ? EGender.Male : EGender.Female;
+
+                // for each cell.
+                foreach (Tuple<int, int> cellTuple in lst)
+                {
+                    int cellIndex = cellTuple.Item1;
+                    int count = cellTuple.Item2;
+
+                    // for each human (which shall be created).
+                    for (int c = 0; c < count; ++c)
+                    {
+                        int thisHumanAge = RANDOM.Next(lowerAge, upperAge + 1);
+                        Human thisHuman = Human.Create(gender, thisHumanAge, cellIndex);
+                        humanArray[humanIndex++] = thisHuman;
+                    }
+                }
+
+                agesOfCells[i] = null;  // not necessary, but who knows :P
+            }
+
+            return resultArray;
         }
 
         /// <summary>
@@ -227,7 +321,7 @@ namespace PSC2013.ES.Library.AreaData
                         int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
                         Human thisHuman = Human.Create(gender, thisAge, currentPoint.Flatten(WIDTH));
                         humanList.Add(thisHuman);
-                        //currentCell.AddHuman(thisHuman);                    // add the human to its cell.
+                        currentCell.Data[i]++;                              // 'adds' the human to its cell.
 
                         depInfo.Population[i]--;                            // 'removes' the human out of the population.
                     }
@@ -394,6 +488,7 @@ namespace PSC2013.ES.Library.AreaData
                         }
                     }
                     humans = null; // release...
+                    Console.WriteLine("{0} humanarrays to go...", _queueHumans.Count);
                 }
             }
         }
