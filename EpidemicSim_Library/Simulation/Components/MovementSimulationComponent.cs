@@ -108,6 +108,20 @@ namespace PSC2013.ES.Library.Simulation.Components
                         //if ill -> go to hospital
                         //if healthy wander around aimlessly in departement (short range)
                     }
+                    else if (_ptr->GetMindset() == EMindset.Vacationing)
+                    {
+                        if (_ptr->IsAtHome())
+                        {
+                            MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 400, 800));
+                        }
+                        else
+                        {
+                            if (_random.Next(14) == 13)
+                            {
+                                MoveHumanHome(data);
+                            }
+                        }
+                    }
                     //Handle Movement for Mindsets which are dependent on the profession od the selected human
                     else
                     {
@@ -173,8 +187,6 @@ namespace PSC2013.ES.Library.Simulation.Components
                 }
             }
 
-
-            //TODO |h| Set Travelling Counter and check for short travels (travellingcounter == 0)
             int maxcelldiffernce = Math.Max(Math.Abs(_ptr->CurrentCell % 2814 - destinationcell % 2814),
                                       Math.Abs(_ptr->CurrentCell / 2814 - destinationcell / 2814));
 
@@ -266,11 +278,25 @@ namespace PSC2013.ES.Library.Simulation.Components
                     }
 
                     break;
-
-                case PopulationData.EMindset.Vacationing:
-                    //Assert : traveltime <= 10 h 
-                    break;
+                    
+                //Dayoff Behaviour
+                //Wander around aimlessly
                 case PopulationData.EMindset.DayOff:
+                    if (data.CurrentHour < 7)
+                    {
+                        return;
+                    }
+                    else if (data.CurrentHour < 18)
+                    {
+                                MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 0, 25));
+                    }
+                    else if (data.CurrentHour == 18 && !_ptr->IsAtHome())
+                    {
+                        MoveHumanHome(data);
+                    }
+                    else
+                        return;
+                        
 
                     break;
             }
@@ -324,6 +350,35 @@ namespace PSC2013.ES.Library.Simulation.Components
 
 
                     break;
+
+                //DayOff Mindset :
+                case EMindset.DayOff :
+
+                    if (data.CurrentHour == 6 && !_ptr->IsAtHome())
+                    {
+                        MoveHumanHome(data);
+                    }
+                    else if (data.CurrentHour > 6 && data.CurrentHour < 19)
+                    {
+                        if (_ptr->IsAtHome() && _random.Next(6) == 5)
+                        {
+                            MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 0, 74));
+                        }
+                    }
+                    else if (data.CurrentHour == 19 && !_ptr->IsAtHome())
+                    {
+                        MoveHumanHome(data);
+                    }
+                    else if (data.CurrentHour == 22 && _random.Next(2) == 1)
+                    {
+                        //Party
+                        MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 25, 75));
+                    }
+                    else
+                        return;
+
+
+                    break;
             }
         }
 
@@ -351,11 +406,30 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         return;
                     }
-
-
                     break;
-                case PopulationData.EMindset.DayOff: break;
-                case PopulationData.EMindset.Vacationing: break;
+
+
+                case PopulationData.EMindset.DayOff:
+                    if (data.CurrentHour < 11)
+                    {
+                        //sleep
+                        return;
+                    }
+                    else if (data.CurrentHour < 20 && _ptr->IsAtHome())
+                    {
+                        if (_random.Next(20) == 19)
+                            MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 10, 50));
+                    }
+                    else if (data.CurrentHour == 20 && !_ptr->IsAtHome())
+                    {
+                        MoveHumanHome(data);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    break;
+
             }
         }
 
@@ -383,11 +457,30 @@ namespace PSC2013.ES.Library.Simulation.Components
                         return;
                     }
                     break;
-                case PopulationData.EMindset.HomeStaying: break;
-                case PopulationData.EMindset.Shopping: break;
-                case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.DayOff: break;
-                case PopulationData.EMindset.Vacationing: break;
+
+
+
+                case PopulationData.EMindset.DayOff:
+
+                    if (data.CurrentHour < 11)
+                    {
+                        //sleep
+                        return;
+                    }
+                    else if (data.CurrentHour < 20 && _ptr->IsAtHome())
+                    {
+                        if (_random.Next(20) == 19)
+                            MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 10, 50));
+                    }
+                    else if (data.CurrentHour == 20 && !_ptr->IsAtHome())
+                    {
+                        MoveHumanHome(data);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    break;
             }
         }
 
@@ -398,6 +491,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 //Working Mindset -> Housewife doesn't go to work is either at home in the city or by friends
                 //Assert : Housewife is at Home at 0 o'clock;
+                case PopulationData.EMindset.DayOff: 
                 case PopulationData.EMindset.Working:
                     //Run around aimlessly^^
                     if (data.CurrentHour > 6 && data.CurrentHour < 20)
@@ -419,11 +513,8 @@ namespace PSC2013.ES.Library.Simulation.Components
                     }
 
                     break;
-                case PopulationData.EMindset.HomeStaying: break;
-                case PopulationData.EMindset.Shopping: break;
-                case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.DayOff: break;
-                case PopulationData.EMindset.Vacationing: break;
+                
+
             }
         }
 
@@ -454,11 +545,29 @@ namespace PSC2013.ES.Library.Simulation.Components
                     }
 
                     break;
-                case PopulationData.EMindset.HomeStaying: break;
-                case PopulationData.EMindset.Shopping: break;
-                case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.DayOff: break;
-                case PopulationData.EMindset.Vacationing: break;
+                case PopulationData.EMindset.DayOff:
+
+                    if (data.CurrentHour < 12)
+                    {
+                        //sleep
+                        return;
+                    }
+                    else if (data.CurrentHour < 20 && _ptr->IsAtHome())
+                    {
+                        if (_random.Next(20) == 19)
+                            MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 10, 50));
+                    }
+                    else if (data.CurrentHour == 20 && !_ptr->IsAtHome())
+                    {
+                        MoveHumanHome(data);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    
+
+                    break;
             }
         }
 
@@ -484,13 +593,30 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         return;
                     }
-
                     break;
-                case PopulationData.EMindset.HomeStaying: break;
-                case PopulationData.EMindset.Shopping: break;
-                case PopulationData.EMindset.Stationary: break;
-                case PopulationData.EMindset.DayOff: break;
-                case PopulationData.EMindset.Vacationing: break;
+
+
+
+                case PopulationData.EMindset.DayOff:
+                    if (data.CurrentHour < 11)
+                    {
+                        //sleep
+                        return;
+                    }
+                    else if (data.CurrentHour < 20 && _ptr->IsAtHome())
+                    {
+                        if (_random.Next(20) == 19)
+                            MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 10, 50));
+                    }
+                    else if (data.CurrentHour == 20 && !_ptr->IsAtHome())
+                    {
+                        MoveHumanHome(data);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    break;
             }
         }
 

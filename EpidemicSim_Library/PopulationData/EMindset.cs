@@ -8,6 +8,5 @@
         HomeStaying,// -> ill at home or "Today i don't feel like doing anything" 
         Vacationing,
         DayOff,     //weekend, holiday, took a day off work etc.
-        Shopping
     }
 }
