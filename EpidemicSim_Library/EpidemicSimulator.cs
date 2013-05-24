@@ -50,6 +50,7 @@ namespace PSC2013.ES.Library
         private IList<IOutputTarget> _outputTargets; 
 
         // Misc.
+        private bool _writerQueueEmpty;
         private volatile bool _simulationLock;
         private volatile bool _writeToOutputs = true;
         private long _simulationRound = SIMULATION_DEFAULT_START;
@@ -76,6 +77,7 @@ namespace PSC2013.ES.Library
         public event EventHandler<SimulationEventArgs> SimulationStarted;
         public event EventHandler<SimulationEventArgs> SimulationEnded;
         public event EventHandler<SimulationEventArgs> TickFinished;
+        public event EventHandler<SimulationEventArgs> ProcessFinished;
         //TODO: |f| do we also want StageFinished ?
         #endregion
 
@@ -84,6 +86,7 @@ namespace PSC2013.ES.Library
             _simData = new SimulationData { CurrentDisease = disease };
 
             _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
+            _snapshotMgr.WriterQueueEmpty += (_, __) => _writerQueueEmpty = true;
 
             _before = new List<ISimulationComponent>();
             _after = new List<ISimulationComponent>();
@@ -335,12 +338,22 @@ namespace PSC2013.ES.Library
             WriteMessage("ES: Simulation ended!");
 
             SimulationEnded.Raise(this, e);
+
+            // | dj | sorry, but it does not work with the event.
+            while (!_writerQueueEmpty) { }
+            OnProcessFinished(e);
         }
         private void OnTickFinished(SimulationEventArgs e)
         {
             WriteMessage("ES: Finished Tick #" + _simulationRound + "!");
 
             TickFinished.Raise(this, e);
+        }
+        private void OnProcessFinished(SimulationEventArgs e)
+        {
+            WriteMessage("ES: Process now be entirely finished.");
+
+            ProcessFinished.Raise(this, e);
         }
     }
 }

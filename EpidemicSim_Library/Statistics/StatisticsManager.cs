@@ -51,7 +51,7 @@ namespace PSC2013.ES.Library.Statistics
                     Entries.Add(entry.Name);
                     if (entry.Name.StartsWith("1_")) // The first entry
                     {
-                        first = entry;                        
+                        first = entry;
                     }
                 }
             }

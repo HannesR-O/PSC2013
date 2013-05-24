@@ -27,6 +27,8 @@ namespace PSC2013.ES.Library.Snapshot
         private event EventHandler TookSnapshot;
         private SnapshotWriter _writer;
 
+        public event EventHandler<EventArgs> WriterQueueEmpty;
+
         /// <summary>
         /// Initializes the logging of a new Simulation
         /// </summary>
@@ -42,6 +44,7 @@ namespace PSC2013.ES.Library.Snapshot
             _tick = 1;
 
             _writer = new SnapshotWriter();
+            _writer.QueueEmptied += WriterQueueEmpty.Raise;
             TookSnapshot += _writer.Recieve;
         }
 
@@ -76,8 +79,9 @@ namespace PSC2013.ES.Library.Snapshot
         class SnapshotWriter
         {
             private IBinaryWriter _writer;
-
             private Task _task;
+
+            public event EventHandler<EventArgs> QueueEmptied;
 
             /// <summary>
             /// Creates a new Writer and creates an archive at the above given destination
@@ -139,6 +143,7 @@ namespace PSC2013.ES.Library.Snapshot
                     }
                 }
                 _task = null;
+                QueueEmptied.Raise(this, null);
             }
         }
     }

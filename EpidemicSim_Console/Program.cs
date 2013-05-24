@@ -75,17 +75,18 @@ namespace PSC2013.ES.Cmd
                 new DebugSimulationComponent());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
+            sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
-            sim.SimulationEnded += (_, __) =>
+            sim.ProcessFinished += (_, __) =>
                 {
                     StatisticsManager sm = new StatisticsManager();
                     sm.OpenSimFile(DESKTOP_PATH + "\\TestDisease.sim", DESKTOP_PATH);
                     sm.LoadTickSnapshot(sm.Entries[0]);
                     sm.CreateGraphics(EStatField.FemaleAdult | EStatField.MaleAdult, EColorPalette.Red, "testmap");
                 };
-            sim.StartSimulation(DESKTOP_PATH, 5);
+            sim.StartSimulation(DESKTOP_PATH, 1);
         }
 
         public static void OnSimStartEvent(object sender, SimulationEventArgs e)
