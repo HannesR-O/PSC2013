@@ -631,7 +631,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (_random.Next(2) == 0)
             {
                 //Do not move over array boundaries 
-                while ((origincell % data.ImageWidth) + x >= data.ImageWidth || data.Cells[(origincell % data.ImageWidth) + x] == null)
+                while ((origincell % data.ImageWidth) + x > data.ImageWidth || data.Cells[origincell + x] == null)
                 {
                     --x;
                 }
@@ -640,21 +640,19 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 x = -x;
 
-                while ((origincell % data.ImageWidth) + x < 0 || data.Cells[(origincell % data.ImageWidth) + x] == null)
+                while ((origincell % data.ImageWidth) + x < 0 || data.Cells[origincell + x] == null)
                 {
                     ++x;
                 }
             }
 
             //Vertical Movement
-            int y = minrange + _random.Next((maxrange - minrange));
+            int y = (minrange + _random.Next((maxrange - minrange)) * data.ImageWidth);
 
-            if (_random.Next(1) == 0)
+            if (_random.Next(2) == 0)
             {
-
-
-                while (origincell + (y * data.ImageWidth) > (data.ImageWidth * data.ImageHeight)
-                    || data.Cells[origincell + (y * data.ImageWidth)] == null)
+                while (origincell + y  >= (data.ImageWidth * data.ImageHeight)
+                    || data.Cells[origincell + y] == null)
                 {
                     --y;
                 }
@@ -663,8 +661,8 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 y = -y;
 
-                while (origincell + (y * data.ImageWidth) < 0
-                       || data.Cells[origincell + (y * data.ImageWidth)] == null)
+                while (origincell + y  < 0
+                       || data.Cells[origincell + y] == null)
                 {
                     ++y;
                 }
