@@ -50,7 +50,7 @@ namespace PSC2013.ES.Library
         private IList<IOutputTarget> _outputTargets; 
 
         // Misc.
-        private bool _writerQueueEmpty;
+        private volatile bool _simulationFinished;
         private volatile bool _simulationLock;
         private volatile bool _writeToOutputs = true;
         private long _simulationRound = SIMULATION_DEFAULT_START;
@@ -77,7 +77,7 @@ namespace PSC2013.ES.Library
         public event EventHandler<SimulationEventArgs> SimulationStarted;
         public event EventHandler<SimulationEventArgs> SimulationEnded;
         public event EventHandler<SimulationEventArgs> TickFinished;
-        public event EventHandler<SimulationEventArgs> ProcessFinished;
+        public event EventHandler<EventArgs> ProcessFinished;
         //TODO: |f| do we also want StageFinished ?
         #endregion
 
@@ -86,7 +86,7 @@ namespace PSC2013.ES.Library
             _simData = new SimulationData { CurrentDisease = disease };
 
             _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
-            _snapshotMgr.WriterQueueEmpty += (_, __) => _writerQueueEmpty = true;
+            _snapshotMgr.WriterQueueEmpty += OnWriterQueueEmpty;
 
             _before = new List<ISimulationComponent>();
             _after = new List<ISimulationComponent>();
@@ -338,10 +338,12 @@ namespace PSC2013.ES.Library
             WriteMessage("ES: Simulation ended!");
 
             SimulationEnded.Raise(this, e);
-
-            // | dj | sorry, but it does not work with the event.
-            while (!_writerQueueEmpty) { }
-            OnProcessFinished(e);
+            _simulationFinished = true;
+        }
+        private void OnWriterQueueEmpty(object sender, EventArgs e)
+        {
+            if (_simulationFinished)
+                OnProcessFinished();
         }
         private void OnTickFinished(SimulationEventArgs e)
         {
@@ -349,11 +351,11 @@ namespace PSC2013.ES.Library
 
             TickFinished.Raise(this, e);
         }
-        private void OnProcessFinished(SimulationEventArgs e)
+        private void OnProcessFinished()
         {
-            WriteMessage("ES: Process now be entirely finished.");
+            WriteMessage("ES: Process is entirely finished now.");
 
-            ProcessFinished.Raise(this, e);
+            ProcessFinished.Raise(this, null);
         }
     }
 }
