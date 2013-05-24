@@ -129,7 +129,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         switch (_ptr->GetProfession())
                         {
-                            case PopulationData.EProfession.Pupil: MovePupil(data); break;
+                            case EProfession.Pupil: MovePupil(data); break;
                             case EProfession.Student: MoveStudent(data); break;
                             case EProfession.Housewife: MoveHousewife(data); break;
                             case EProfession.Plumber: MovePlumber(data); break;
@@ -628,10 +628,10 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             //Horizontal Movement
             int x = minrange + _random.Next((maxrange - minrange));
-            if (_random.Next(1) == 0)
+            if (_random.Next(2) == 0)
             {
                 //Do not move over array boundaries 
-                while ((origincell % 2814) + x >= 2814)
+                while ((origincell % data.ImageWidth) + x >= data.ImageWidth || data.Cells[(origincell % data.ImageWidth) + x] == null)
                 {
                     --x;
                 }
@@ -640,7 +640,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 x = -x;
 
-                while ((origincell % 2814) + x < 0)
+                while ((origincell % data.ImageWidth) + x < 0 || data.Cells[(origincell % data.ImageWidth) + x] == null)
                 {
                     ++x;
                 }
@@ -653,7 +653,8 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
 
 
-                while (origincell + (y * 2814) > (2814 * 3841))
+                while (origincell + (y * data.ImageWidth) > (data.ImageWidth * data.ImageHeight)
+                    || data.Cells[origincell + (y * data.ImageWidth)] == null)
                 {
                     --y;
                 }
@@ -662,13 +663,14 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 y = -y;
 
-                while (origincell + (y * 2814) < 0)
+                while (origincell + (y * data.ImageWidth) < 0
+                       || data.Cells[origincell + (y * data.ImageWidth)] == null)
                 {
                     ++y;
                 }
             }
 
-            return origincell + x + (y * 2814);
+            return origincell + x + (y * data.ImageWidth);
         }
 
         public ESimulationStage SimulationStages
