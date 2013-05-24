@@ -110,17 +110,19 @@ namespace PSC2013.ES.Library.Simulation.Components
                     }
                     else if (_ptr->GetMindset() == EMindset.Vacationing)
                     {
-                        if (_ptr->IsAtHome())
+                        if (data.CurrentHour == 8 && _ptr->IsAtHome())
                         {
                             MoveHuman(data, FindCellInReach(data, _ptr->CurrentCell, 400, 800));
                         }
-                        else
+                        else if (data.CurrentHour == 6)
                         {
                             if (_random.Next(14) == 13)
                             {
                                 MoveHumanHome(data);
                             }
                         }
+                        else
+                            continue;
                     }
                     //Handle Movement for Mindsets which are dependent on the profession od the selected human
                     else
