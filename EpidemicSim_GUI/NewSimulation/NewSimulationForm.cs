@@ -21,12 +21,6 @@ namespace PSC2013.ES.GUI.NewSimulation
     {
         private const string NUMFIELD_NOT_IN_RANGE_EXCEPTION = "The given value is invalid. It must be in range of {0} and {1}.";
 
-        private delegate void ProgressBarDelegate(ProgressBar pb);
-        private delegate void ListBoxDelegate(ListBox lb);
-        private delegate void PanelUpdateDelegate(DiseaseLocationPanel panel);
-        private delegate void PictureBoxDelegate(PictureBox picturebox);
-        private delegate void LastOpportunityControlDelegate(Control ctrl);
-
         private int _snapshotInterval;
         private long _simDuration;
         private int _realtimeTick;
@@ -163,75 +157,70 @@ namespace PSC2013.ES.GUI.NewSimulation
         private void btn_next_Click(object sender, EventArgs e)
         {
             this.MainSidePanel.Visible = false;
-            var dlp = new DiseaseLocationPanel();
-            dlp.Dock = DockStyle.Right;
+            var dlp = new DiseaseLocationPanel {Dock = DockStyle.Right};
             this.Controls.Add(dlp);
             _departmentReader.IterationPassed += (s, arg) =>
             {
                 if (arg != null && arg.Finished)
-                    dlp.ProgressBar.Invoke(new ProgressBarDelegate((pb) =>
-                        { pb.Style = ProgressBarStyle.Continuous; pb.Value = 100; }),
-                        dlp.ProgressBar);
+                    dlp.ProgressBar.Invoke(() =>
+                    {
+                        dlp.ProgressBar.Style = ProgressBarStyle.Continuous;
+                        dlp.ProgressBar.Value = 100;
+                    });
             };
 
             Task.Factory.StartNew(() =>
                 {
                     DepartmentInfo[] info = _departmentReader.ReadFile();
-                    dlp.ListBoxDepartments.Invoke(new PanelUpdateDelegate(
-                        (panel) =>
+                    dlp.ListBoxDepartments.Invoke(() =>
                         {
-                            ListBox lb = panel.ListBoxDepartments;                      // viewing results.
+                            ListBox lb = dlp.ListBoxDepartments; // viewing results.
                             var lst = info.Select(x => x.Name).ToList();
-                            lst.Sort();                                                 // sorting the output
-                            lb.Items.AddRange(lst.ToArray());                           // for better usage.
+                            lst.Sort(); // sorting the output
+                            lb.Items.AddRange(lst.ToArray()); // for better usage.
                             lst = null;
 
-                            panel.ProgressBar.Visible = false;                          // building up the...
+                            dlp.ProgressBar.Visible = false; // building up the...
 
-                            Size progBarSize = panel.ProgressBar.Size;
+                            Size progBarSize = dlp.ProgressBar.Size;
 
-                            Button btn_back = new Button();                             // ...back-button.
-                            btn_back.Text = "< Back";
-                            btn_back.Size = new Size(progBarSize.Width / 2 - 5,
-                                progBarSize.Height);
-                            btn_back.Location = panel.ProgressBar.Location;
-                            btn_back.Parent = panel.ProgressBar.Parent;
-                            btn_back.Visible = true;
-                            btn_back.Enabled = true;
-                            btn_back.Click += (orig, args) =>
+                            Button btn_back = new Button
+                            {
+                                    Text = "< Back",
+                                    Size = new Size(progBarSize.Width / 2 - 5, progBarSize.Height),
+                                    Location = dlp.ProgressBar.Location,
+                                    Parent = dlp.ProgressBar.Parent,
+                                    Visible = true,
+                                    Enabled = true
+                            }; // ...back-button.
+                            btn_back.Click += (orig, args) => this.Invoke(() =>
                                 {
-                                    this.Invoke(new LastOpportunityControlDelegate((obj) =>
-                                        {
-                                            this.Controls.Remove(panel);
-                                            this.MainSidePanel.Visible = true;
-                                        }), this);
-                                };
+                                    this.Controls.Remove(dlp);
+                                    this.MainSidePanel.Visible = true;
+                                });
 
-                            Button btn = new Button();                                  // ...start-button.
-                            btn.Text = "Start";
-                            btn.Size = new Size(progBarSize.Width / 2 - 5,
-                                progBarSize.Height);
-                            btn.Location = new Point(panel.ProgressBar.Location.X +
-                                progBarSize.Width / 2 + 5,
-                                panel.ProgressBar.Location.Y);
-                            btn.Parent = panel.ProgressBar.Parent;
-                            btn.Visible = true;
-                            btn.Enabled = false;
+                            Button btn = new Button
+                            {
+                                    Text = "Start",
+                                    Size = new Size(progBarSize.Width / 2 - 5, progBarSize.Height),
+                                    Location = new Point(dlp.ProgressBar.Location.X + progBarSize.Width / 2 + 5,
+                                                         dlp.ProgressBar.Location.Y),
+                                    Parent = dlp.ProgressBar.Parent,
+                                    Visible = true,
+                                    Enabled = false
+                            }; // ...start-button.
                             btn.Click += (orig, args) => StartSimulation();
 
-                            lb.SelectedIndexChanged += (_, __) =>                       // changes on selection.
+                            lb.SelectedIndexChanged += (_, __) => // changes on selection.
                                 {
                                     if (lb.SelectedIndices.Count > 0)
                                     {
-                                        List<string> items = new List<string>();
-                                        foreach (string item in lb.SelectedItems)
-                                            items.Add(item);
+                                        List<string> items = lb.SelectedItems.Cast<string>().ToList();
 
                                         Task.Run(() =>
                                             {
                                                 // Wait-Cursor
-                                                this.Invoke(new LastOpportunityControlDelegate(
-                                                    (ctrl) => ctrl.Cursor = Cursors.WaitCursor), this);
+                                                this.Invoke(() => this.Cursor = Cursors.WaitCursor);
 
                                                 // Modify image
                                                 Bitmap img = (Bitmap)_originalImage.Clone();
@@ -243,17 +232,14 @@ namespace PSC2013.ES.GUI.NewSimulation
                                                 }
 
                                                 // Show new image
-                                                MainPanel_pictureBox.Invoke(
-                                                    new PictureBoxDelegate((box) =>
-                                                        {
-                                                            box.Image = img;
-                                                            box.Refresh();
-                                                        }),
-                                                    MainPanel_pictureBox);
+                                                MainPanel_pictureBox.Invoke(() =>
+                                                    {
+                                                        MainPanel_pictureBox.Image = img;
+                                                        MainPanel_pictureBox.Refresh();
+                                                    });
 
                                                 // Default-Cursor
-                                                this.Invoke(new LastOpportunityControlDelegate(
-                                                    (ctrl) => ctrl.Cursor = Cursors.Default), this);
+                                                this.Invoke(() => this.Cursor = Cursors.Default);
                                             });
                                         btn.Enabled = true;
                                     }
@@ -263,7 +249,7 @@ namespace PSC2013.ES.GUI.NewSimulation
                                         btn.Enabled = false;
                                     }
                                 };
-                        }), dlp);
+                        });
                 });
             //Task.Factory.StartNew(() =>
             //    {
