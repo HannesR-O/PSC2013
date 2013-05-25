@@ -8,7 +8,7 @@ using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library.Statistics.Pictures
 {
-    public class HumanSnapshotWrapper
+    public class HumanSnapshotCreteriaMatcher
     {
         /// <summary>
         /// Returns a List of Humans matching the given fields

@@ -113,7 +113,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 Point p = cell.Position.DeFlatten(X);
                 map.SetPixel(p.X, p.Y, Color.Black);
             }
-            foreach (HumanSnapshot snap in (HumanSnapshotWrapper.GetMatchingHumans(snapshot.Deaths, field)))
+            foreach (HumanSnapshot snap in (HumanSnapshotCreteriaMatcher.GetMatchingHumans(snapshot.Deaths, field)))
             {
                 Point p = ExtensionMethods.DeFlatten(snap.DeathCell, X);
                 map.SetPixel(p.X, p.Y, pal[0]);
