@@ -195,13 +195,13 @@ namespace PSC2013.ES.Cmd
 
             manager.LoadTickSnapshot(name);
 
-            manager.CreateDeathGraphics(field, pal, prefix);
-            //Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
+            //manager.CreateDeathGraphics(field, pal, prefix);
+            Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
 
-            //foreach (string str in legend.Keys)
-            //{
-            //    Console.WriteLine(str + " with " + legend[str].ToString());
-            //}
+            foreach (string str in legend.Keys)
+            {
+                Console.WriteLine(str + " with " + legend[str].ToString());
+            }
 
             Console.WriteLine("Finished!");
         }
