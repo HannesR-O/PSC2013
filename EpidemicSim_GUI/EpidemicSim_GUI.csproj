@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Misc\ListBoxOutputTarget.cs" />
     <Compile Include="NewSimulation\DiseaseLocationPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
