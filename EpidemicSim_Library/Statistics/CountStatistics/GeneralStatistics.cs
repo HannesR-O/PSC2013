@@ -11,12 +11,18 @@ namespace PSC2013.ES.Library.Statistics.CountStatistics
     {
         public static int HumanCount(TickSnapshot snap)
         {
-            return 0;
+            int count = 0;
+            foreach (CellSnapshot cell in snap.Cells)
+            { 
+                for (int i = 0; i < 8; ++i)
+                    count += cell.Values[i];
+            }
+            return count;
         }
 
         public static int Deaths(TickSnapshot snap)
         {
-            return 0;
+            return snap.Deaths.Length;
         }
 
         public static Dictionary<String, int> AgeGroups(TickSnapshot snap)
@@ -24,19 +30,29 @@ namespace PSC2013.ES.Library.Statistics.CountStatistics
             return null;
         }
 
-        public static int DiseasedCount()
+        public static int DiseasedCount(TickSnapshot snap)
         {
-            return 0;
+            int count = 0;
+            foreach (CellSnapshot cell in snap.Cells)
+            {
+                count += cell.Values[9];
+            }
+            return count;
         }
 
-        public static int InfectedCount()
+        public static int InfectedCount(TickSnapshot snap)
         {
-            return 0;
+            int count = 0;
+            foreach (CellSnapshot cell in snap.Cells)
+            {
+                count += cell.Values[8];
+            }
+            return count;
         }
 
-        public static int CellCount()
+        public static int CellCount(TickSnapshot snap)
         {
-            return 0;
+            return snap.Cells.Length;
         }
     }
 }
