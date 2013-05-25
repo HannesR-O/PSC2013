@@ -83,7 +83,8 @@
     <Compile Include="Simulation\SimulationData.cs" />
     <Compile Include="Simulation\ETimeConstants.cs" />
     <Compile Include="Snapshot\SnapshotManager.cs" />
-    <Compile Include="Statistics\HumanSnapshotStatistics\HumanSnapshotStatistics.cs" />
+    <Compile Include="Statistics\CountStatistics\GeneralStatistics.cs" />
+    <Compile Include="Statistics\CountStatistics\HumanSnapshotStatistics.cs" />
     <Compile Include="Statistics\Pictures\HumanSnapshotCreteriaMatcher.cs" />
     <Compile Include="Statistics\Pictures\ColorPalette.cs" />
     <Compile Include="Statistics\Pictures\EColorPalette.cs" />

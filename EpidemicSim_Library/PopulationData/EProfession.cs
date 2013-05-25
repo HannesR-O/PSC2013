@@ -10,6 +10,6 @@
         Housewife, 
         Commuter, 
         TravellingSalesman, 
-        Unemployed 
+        Unemployed //Still more to come?
     }
 }
