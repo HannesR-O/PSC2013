@@ -107,7 +107,7 @@ namespace PSC2013.ES.Library
         /// <param name="rangeMaxValues">Array of the Max-Values of each range in an ascending order!</param>
         /// <param name="includingMax">Whether to include the Max-Value itself or not.</param>
         /// <returns>The index of the range (0-based).</returns>
-        internal static int InRange(this int x, int[] rangeMaxValues, bool includingMax)
+        public static int InRange(this int x, int[] rangeMaxValues, bool includingMax)
         {
             for (int i = 0; i < rangeMaxValues.Length; ++i)
                 if (includingMax ? rangeMaxValues[i] >= x : rangeMaxValues[i] > x)

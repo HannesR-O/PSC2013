@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.IO.OutputTargets;
@@ -7,9 +10,6 @@ using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics;
 using PSC2013.ES.Library.Statistics.Pictures;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace PSC2013.ES.Cmd
 {
@@ -64,7 +64,7 @@ namespace PSC2013.ES.Cmd
         private static void TestEpidemicSimulator()
         {
             // TODO | dj | remove this!
-            Process.GetCurrentProcess().MaxWorkingSet = new IntPtr(4294967296); // should limit the RAM. not shure...
+            Process.GetCurrentProcess().MaxWorkingSet = new IntPtr(4294967296); // should limit the RAM to ~4GB.
 
             FactorContainer fc = new FactorContainer(new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
             var sim = EpidemicSimulator.Create(new Disease()
@@ -79,15 +79,13 @@ namespace PSC2013.ES.Cmd
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
             sim.AddOutputTarget(new ConsoleOutputTarget());
-            sim.SimulationStarted += OnSimStartEvent;
-            sim.TickFinished += OnTickfinishedEvent;
-            sim.SimulationEnded += OnSimEndedEvent;
             sim.ProcessFinished += (_, __) =>
                 {
                     StatisticsManager sm = new StatisticsManager();
                     sm.OpenSimFile(DESKTOP_PATH + "\\TestDisease.sim", DESKTOP_PATH);
                     sm.LoadTickSnapshot(sm.Entries[0]);
-                    sm.CreateGraphics(EStatField.FemaleAdult | EStatField.MaleAdult, EColorPalette.Red, "testmap");
+                    sm.CreateGraphics((EStatField)255, EColorPalette.Red, "testmap");
+                    Console.WriteLine("DONE!");
                 };
             sim.StartSimulation(DESKTOP_PATH, 1);
         }

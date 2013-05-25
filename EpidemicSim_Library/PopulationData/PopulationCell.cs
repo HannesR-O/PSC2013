@@ -72,6 +72,7 @@ namespace PSC2013.ES.Library.PopulationData
             {
                 /* TODO: |f| Sums up the first 8 ushorts which are the total population.. 
                  * Should make this more elegant, but IEnumerable.Sum does not work for ushort.. */
+                // TODO | dj | what's with: _data.Take(8).Sum(x => x); ???
                 var sum = 0;
                 Array.ForEach(_data.Take(8).ToArray(), value => sum += value);
                 return sum;

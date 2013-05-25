@@ -147,24 +147,17 @@ namespace PSC2013.ES.Library.AreaData
             //degree = -1;
             Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
                 (item) => {
-//#if DEBUG
-//                    Console.WriteLine("Started " + item.Name);
-//#endif
                     Human[] humans;
                     var res = Populate(item, out humans);         // populate the department.
                     comb.Enqueue(res, humans);
-                    //lock (populationArray) {                    // store the new info in the original array.
-                    //    foreach (var tpl in res)
-                    //        populationArray[tpl.Item1] = tpl.Item2;
-                    //}
-
                     res = null;
+                    humans = null;
 #if DEBUG
                     Console.WriteLine(" -- Finished " + item.Name);
 #endif
                 });
 #if DEBUG
-            Console.WriteLine("Waiting for transferring data...");
+            Console.WriteLine("Waiting for datatransfer...");
 #endif
             comb.Wait();
             comb.Dispose();
@@ -187,22 +180,21 @@ namespace PSC2013.ES.Library.AreaData
             // the origin used as fixpoint.
             Point origin = CalculateInitialPoint(depInfo.Coordinates);
 
-            // maximum distance possible.
+            // maximum distance possible. (returns a relative small number)
             int maxDistance = depInfo.Coordinates.Max(p => p.Distance(origin)) + 1;
 
             // array of factors
-            int[] factors = new int[maxDistance];
-            factors[0] = 175;                           // start factor.
+            double[] factors = new double[maxDistance];
+            factors[0] = 1.5;                           // start factor.
             for (int i = 1; i < maxDistance; i++)       // creating every factor for each distance.
             {
                 //TODO | dj | randomise
                 // (-(1/maxDistance * i)^2 + 1.75) * 100
                 double one = 1d / maxDistance * i;
                 double two = Math.Pow(one, 2);
-                double three = factors[0] / 100d;
+                double three = factors[0];
                 double four = three - two;
-                double five = four * 100;
-                factors[i] = (int)Math.Round(five);
+                factors[i] = four;
             }
             
             // array for each age-group, holding a list of Tuple of cell-indices and count.
@@ -217,13 +209,15 @@ namespace PSC2013.ES.Library.AreaData
                 PopulationCell cell = new PopulationCell();
                 int cellIndex = point.Flatten(WIDTH);
 
-                int factor = factors[point.Distance(origin)];
+                double factor = factors[point.Distance(origin)];
                 for (int i = 0; i < 8; ++i)
                 {
-                    cell.Data[i] = (ushort)Math.Round(depInfo.Population[i] * (factor / 100f));
-                    humanCount += cell.Data[i];
+                    // why does this work?
+                    cell.Data[i] = (ushort)Math.Round(depInfo.Population[i] / areaSize * factor);
                     agesOfCells[i].Add(new Tuple<int,int>(cellIndex, cell.Data[i]));
                 }
+
+                humanCount += cell.Total;
 
                 resultArray[resultIndex++] = new Tuple<int,PopulationCell>(cellIndex, cell);
             }
@@ -251,8 +245,10 @@ namespace PSC2013.ES.Library.AreaData
                     int cellIndex = cellTuple.Item1;
                     int count = cellTuple.Item2;
 
-                    // for each human (which shall be created).
-                    for (int c = 0; c < count; ++c)
+                    // for each human (who shall be created).
+                    int c = count;
+                    while (c-- > 0)
+                    //for (int c = 0; c < count; ++c)
                     {
                         int thisHumanAge = RANDOM.Next(lowerAge, upperAge + 1);
                         Human thisHuman = Human.Create(gender, thisHumanAge, cellIndex);
@@ -488,7 +484,6 @@ namespace PSC2013.ES.Library.AreaData
                         }
                     }
                     humans = null; // release...
-                    Console.WriteLine("{0} humanarrays to go...", _queueHumans.Count);
                 }
             }
         }
