@@ -160,7 +160,7 @@ namespace PSC2013.ES.Library.PopulationData
             return ((_data1 & MASK_INFECTED) == 128);
         }
 
-        public void SetInfected(bool infected)
+        private void SetInfected(bool infected)
         {
             _data1 = (byte)((_data1 & ~MASK_INFECTED) + (infected ? 128 : 0));
         }
@@ -174,7 +174,7 @@ namespace PSC2013.ES.Library.PopulationData
             return ((_data1 & MASK_SPREADING) == 64);
         }
 
-        public void SetSpreading(bool spreading)
+        private void SetSpreading(bool spreading)
         {
             _data1 = (byte)((_data1 & ~MASK_SPREADING) + (spreading ? 64 : 0));
         }
@@ -188,7 +188,7 @@ namespace PSC2013.ES.Library.PopulationData
             return ((_data1 & MASK_DISEASED) == 32);
         }
 
-        public void SetDiseased(bool diseased)
+        private void SetDiseased(bool diseased)
         {
             _data1 = (byte)((_data1 & ~MASK_DISEASED) + (diseased ? 32 : 0));
         }
@@ -214,7 +214,7 @@ namespace PSC2013.ES.Library.PopulationData
         public bool IsTravelling()
         {
             return ((_data1 & MASK_TRAVELLING) == 8);
-        }
+        }   //TODO: shouldnt that be return CurrentCell == HomeCell? So we dont need a setter
 
         /// <summary>
         /// Sets whether a human is travelling or not
@@ -223,7 +223,7 @@ namespace PSC2013.ES.Library.PopulationData
         public void SetTravelling(bool travelling)
         {
             _data1 = (byte)((_data1 & ~MASK_TRAVELLING) + (travelling ? 8 : 0));
-        }
+        }   
 
         /// <summary>
         /// Returns the current Profession of the human
@@ -234,7 +234,7 @@ namespace PSC2013.ES.Library.PopulationData
             return (EProfession)(_data2 >> 4);
         }
 
-        public void SetProfession(EProfession profession)
+        private void SetProfession(EProfession profession)
         {
             _data2 = (byte)(_data2 & ~MASK_PROFESSION + ((byte)profession) << 4);
         }
@@ -254,6 +254,17 @@ namespace PSC2013.ES.Library.PopulationData
         }
 
         /// <summary>
+        /// Infects the human with the appropiate counters from the Disease
+        /// </summary>
+        public void Infect(short infectionCounter, short spreadingCounter)  //TODO: do we need more parameters?
+        {
+            SetInfected(true);
+
+            _counterInfect = infectionCounter;
+            _counterSpreading = spreadingCounter;
+        }
+
+        /// <summary>
         /// Performes an age-tick on the human and increases his age by 1 year
         /// </summary>
         public void DoAgeTick()
@@ -261,11 +272,27 @@ namespace PSC2013.ES.Library.PopulationData
             SetAge(GetAgeInYears() + 1);
         }
 
-        public bool KillHuman()
+        /// <summary>
+        /// Performes a disease-tick on the human and increases his counters if appropiate
+        /// </summary>
+        public void DoDiseaseTick()
+        {
+            //TODO: Are the checks correct? does counterInfect get updated when human is infected?
+            if(IsInfected())
+                _counterInfect--;
+            if (IsSpreading())
+                _counterSpreading--;
+
+            if (_counterInfect == 0)                    
+                throw new NotImplementedException();
+
+            if(_counterSpreading == 0)
+                throw new NotImplementedException();
+        }
+
+        public void KillHuman()
         {
             SetDeath(true);
-            // Still unnecessary
-            return false;
         }
     }
 }

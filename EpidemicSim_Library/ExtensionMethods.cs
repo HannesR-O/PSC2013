@@ -45,8 +45,6 @@ namespace PSC2013.ES.Library
             array.CopyTo(otherArray, 0);
         }
 
-
-
         /// <summary>
         /// Flattens the coordinates of the given
         /// point onto a 1D-index.

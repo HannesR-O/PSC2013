@@ -5,6 +5,8 @@ namespace PSC2013.ES.Library.PopulationData
 {
     public class PopulationCell
     {
+        private readonly ushort[] _data;
+
         public int RefDepartment { get; set; }
 
         //TODO: |f| does this need to be an int? otherwise it can overflow and most likely will
@@ -87,9 +89,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// <summary>
         /// Probability to of a human meeting an infected human.
         /// </summary>
-        public float Probability { get; set; }
-
-        private ushort[] _data;
+        public int Probability { get; set; }
 
         public PopulationCell()
         {
