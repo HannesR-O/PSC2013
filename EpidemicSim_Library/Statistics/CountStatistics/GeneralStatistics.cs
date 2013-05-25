@@ -25,7 +25,7 @@ namespace PSC2013.ES.Library.Statistics.CountStatistics
             return snap.Deaths.Length;
         }
 
-        public static Dictionary<String, int> AgeGroups(TickSnapshot snap)
+        public static Dictionary<string, int> AgeGroups(TickSnapshot snap)
         {
             int[] counts = new int[8];
 

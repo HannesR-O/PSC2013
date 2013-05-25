@@ -25,12 +25,14 @@ namespace PSC2013.ES.Library.Statistics.HumanSnapshotStatistics
             return profInf;
         }
 
-        public static void DeathInformation(HumanSnapshot[] humans)
-        { 
+        public static string DeathInformation(HumanSnapshot[] humans)
+        {
+            return humans.Count(x => x.Cause) + " Humans died of the disease, " + humans.Count(x => !x.Cause) + " Humans died of their age...";
         }
 
-        public static void HomeCellInformation(HumanSnapshot[] humans)
-        { 
+        public static string HomeCellInformation(HumanSnapshot[] humans)
+        {
+            return humans.Count(x => x.HomeCell != x.DeathCell) + " out of " + humans.Length + " Humans died far away from home...";
         }
     }
 }
