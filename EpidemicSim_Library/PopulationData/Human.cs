@@ -27,7 +27,7 @@ namespace PSC2013.ES.Library.PopulationData
         private byte _data1;    // Infected & Spreading & Diseased & Death
         private byte _data2;    // Profession & Mindset 
 
-        private short _counterInfect;
+        private short _counterInfect;   // bad name for IncubationCounter
         private short _counterSpreading;
 
         /// <summary>
@@ -275,19 +275,29 @@ namespace PSC2013.ES.Library.PopulationData
         /// <summary>
         /// Performes a disease-tick on the human and increases his counters if appropiate
         /// </summary>
-        public void DoDiseaseTick()
+        public void DoDiseaseTick(short spreadingTime)
         {
             //TODO: Are the checks correct? does counterInfect get updated when human is infected?
-            if(IsInfected())
-                _counterInfect--;
-            if (IsSpreading())
-                _counterSpreading--;
+            if (IsInfected())
+            {
+                if (_counterInfect > 0)
+                    _counterInfect--;
 
-            if (_counterInfect == 0)                    
-                throw new NotImplementedException();
-
-            if(_counterSpreading == 0)
-                throw new NotImplementedException();
+                if (_counterSpreading > 0)
+                    _counterSpreading--;
+                else if (_counterSpreading == 0)
+                {
+                    if (!IsSpreading())
+                    {
+                        _counterSpreading = spreadingTime;
+                        SetSpreading(true);
+                    }
+                    else
+                        SetSpreading(false);
+                }
+                if (_counterInfect == 0)
+                    SetDiseased(true);
+            }
         }
 
         public void KillHuman()

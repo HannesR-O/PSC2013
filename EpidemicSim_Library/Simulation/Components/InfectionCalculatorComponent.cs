@@ -4,6 +4,7 @@ using System.Linq;
 using PSC2013.ES.Library.PopulationData;
 using System;
 using System.Drawing;
+using PSC2013.ES.Library.Diseases;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
@@ -20,6 +21,8 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public unsafe void PerformSimulationStage(SimulationData data)
         {
+            Disease disease = data.CurrentDisease;
+
             if (_arrayHeight == 0 /* || _arrayWidth == 0 */) //Checking one value should be enough, only happens in first round
             {
                 _arrayHeight = data.ImageHeight;
@@ -32,7 +35,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 PopulationCell cell = data.Cells[index];
                 if (cell != null)
-                    cell.Probability = CalculateProbability(data.Cells, index, data.CurrentDisease.Transferability);
+                    cell.Probability = CalculateProbability(data.Cells, index, disease.Transferability);
             }
 
             //Let Humans get Infected by chance/ do their DiseaseTick
@@ -40,17 +43,30 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
                 {
-                    ptr->DoDiseaseTick();
+                    ptr->DoDiseaseTick((short)disease.SpreadingTime);
 
-                    //foreach (var cell in GetCorrespondingCells(ptr->CurrentCell, data.Cells))
-                    // TODO | dj | ^ this one should not be necessary. the propability in each cell should be enough.
-                    {
-                        /* These are the (existing) cells surrounding the cell the human is currently staying in
-                         * also the ssurroundings get calculated everytime again (for every human!!).. 
-                         * might consider saving them but this will be memory intensive..  
-                         * also i dont know what to do with them.. ;( */
-                    }
+                    if (!ptr->IsInfected())
+                        TryInfection(ptr, disease, data.Cells[ptr->CurrentCell].Probability);
+                    
+                    // TODO | dj | TEST!!!!
                 }
+            }
+        }
+
+        private unsafe void TryInfection(Human* ptr, Disease disease, int probability)
+        {
+            // get index for FactorContainer
+            int ageIndex = (byte)ptr->GetAge() / 32;
+            ageIndex += ptr->GetGender() == EGender.Male ? 0 : 4;
+
+            int resistance = disease.ResistanceFactor.Data[ageIndex];
+
+            if (resistance < probability) // no infection if resistance to high!?
+            {
+                int factor = probability - resistance;
+                int rand = _random.Next(100);
+                if (rand <= factor)
+                    ptr->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
             }
         }
 
@@ -66,7 +82,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             prop = prop / surroundings.Count();
 
-            // now the current cell is eqully treated like the surrounding...
+            // now the current cell is equally treated like the surrounding...
             return prop;
         }
 
