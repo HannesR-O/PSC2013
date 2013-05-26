@@ -40,34 +40,12 @@ namespace PSC2013.ES.Library.AreaData
             Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
                 (item) =>
                 {
-//#if DEBUG
-//                    Console.WriteLine("Started " + item.Name);
-//#endif
                     Human[] humans;
                     var res = DummyPopulate(item, out humans);
                     comb.Enqueue(res, humans);
-                    //lock (populationArray)
-                    //{
-                    //    foreach (var tpl in res)
-                    //        populationArray[tpl.Item1] = tpl.Item2;
-                    //}
-                    //lock (humanArray)
-                    //{
-                    //    for (int i = Array.FindIndex(humanArray, x => x.IsDead()), j = 0;
-                    //        j < humans.Length; i++, j++)
-                    //    {
-                    //        humanArray[i] = humans[j];
-                    //    }
-                    //}
 
                     res = null;
-//#if DEBUG
-//                    Console.WriteLine(" -- Finished " + item.Name);
-//#endif
                 });
-#if DEBUG
-            Console.WriteLine("Waiting for transferring data...");
-#endif
             comb.Wait();
             comb.Dispose();
         }
@@ -136,7 +114,7 @@ namespace PSC2013.ES.Library.AreaData
 
             if (populationArray.Length != WIDTH * HEIGHT)
                 throw new ArgumentException(
-                    "The argument has to be an array if PopulationCell with a length of '" + WIDTH * HEIGHT + "'.",
+                    "The argument has to be an array of PopulationCell with a length of '" + WIDTH * HEIGHT + "'.",
                     "populationArray");
 
             Combiner comb = new Combiner(populationArray, humanArray);
@@ -153,7 +131,7 @@ namespace PSC2013.ES.Library.AreaData
                     res = null;
                     humans = null;
 #if DEBUG
-                    Console.WriteLine(" -- Finished " + item.Name);
+                    Console.WriteLine("Finished: {0}", item.Name);
 #endif
                 });
 #if DEBUG
