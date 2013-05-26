@@ -84,20 +84,24 @@
             // 
             // ComboBox_Entries
             // 
-            this.ComboBox_Entries.FormattingEnabled = true;
+            this.ComboBox_Entries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_Entries.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ComboBox_Entries.Location = new System.Drawing.Point(10, 35);
             this.ComboBox_Entries.Name = "ComboBox_Entries";
             this.ComboBox_Entries.Size = new System.Drawing.Size(208, 21);
+            this.ComboBox_Entries.Sorted = true;
             this.ComboBox_Entries.TabIndex = 1;
             // 
             // Btn_LoadTick
             // 
+            this.Btn_LoadTick.Enabled = false;
             this.Btn_LoadTick.Location = new System.Drawing.Point(143, 62);
             this.Btn_LoadTick.Name = "Btn_LoadTick";
             this.Btn_LoadTick.Size = new System.Drawing.Size(75, 23);
             this.Btn_LoadTick.TabIndex = 2;
             this.Btn_LoadTick.Text = "Load";
             this.Btn_LoadTick.UseVisualStyleBackColor = true;
+            this.Btn_LoadTick.Click += new System.EventHandler(this.Btn_LoadTick_Click);
             // 
             // Label_DiseaseName
             // 
@@ -207,6 +211,8 @@
             // 
             // ComboBox_S_IndPalette
             // 
+            this.ComboBox_S_IndPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_S_IndPalette.Enabled = false;
             this.ComboBox_S_IndPalette.FormattingEnabled = true;
             this.ComboBox_S_IndPalette.Location = new System.Drawing.Point(203, 81);
             this.ComboBox_S_IndPalette.Name = "ComboBox_S_IndPalette";
@@ -245,6 +251,7 @@
             // 
             // Btn_Create_S
             // 
+            this.Btn_Create_S.Enabled = false;
             this.Btn_Create_S.Location = new System.Drawing.Point(255, 153);
             this.Btn_Create_S.Name = "Btn_Create_S";
             this.Btn_Create_S.Size = new System.Drawing.Size(94, 23);
@@ -507,7 +514,7 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 

@@ -94,8 +94,22 @@ namespace PSC2013.ES.GUI.ReviewSimulation
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileChooser.ShowDialog();
+
             _manager.OpenSimFile(FileChooser.FileName);
-            // Insert Open SimInfo here...
+
+            Label_DiseaseName.Text = _manager.SimInfo.Disease.Name;
+
+            foreach (string entry in _manager.Entries)
+                ComboBox_Entries.Items.Add(entry);
+            ComboBox_Entries.Text = _manager.Entries[0];
+
+            Btn_LoadTick.Enabled = true;
+            Btn_Create_S.Enabled = true;
+        }
+
+        private void Btn_LoadTick_Click(object sender, EventArgs e)
+        {
+            _manager.LoadTickSnapshot(ComboBox_Entries.Text);
         }        
     }
 }
