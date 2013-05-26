@@ -36,7 +36,7 @@ namespace PSC2013.ES.Library.Statistics
                 _currentArchive.Dispose();
 
             if (File.Exists(path))
-            _currentArchive = ZipFile.Open(path, ZipArchiveMode.Read);
+                _currentArchive = ZipFile.Open(path, ZipArchiveMode.Read);
             else 
                 throw new FileNotFoundException("File not found!");
 
