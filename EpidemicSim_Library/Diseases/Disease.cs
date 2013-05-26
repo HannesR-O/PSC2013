@@ -44,7 +44,8 @@
 
         /// <summary>
         /// The possibility to transfer the
-        /// disease from one subject to another
+        /// disease from one subject to another.
+        /// 100 = 100% ...
         /// </summary>
         public int Transferability { get; set; }
 

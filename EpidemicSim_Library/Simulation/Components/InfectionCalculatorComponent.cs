@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PSC2013.ES.Library.PopulationData;
 using System;
+using System.Drawing;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
@@ -27,10 +28,11 @@ namespace PSC2013.ES.Library.Simulation.Components
             }
 
             //Let each Cell calculate its probability (currently Total/Spreading)
-            foreach (var cell in data.Cells.NotNullIterator())
+            for (int index = 0; index < data.Cells.Length; ++index)
             {
-                //TODO: |f & h| Calculate Probability or sth similar for each cell
-                cell.Probability = CalculateProbability(cell);
+                PopulationCell cell = data.Cells[index];
+                if (cell != null)
+                    cell.Probability = CalculateProbability(data.Cells, index, data.CurrentDisease.Transferability);
             }
 
             //Let Humans get Infected by chance/ do their DiseaseTick
@@ -40,7 +42,8 @@ namespace PSC2013.ES.Library.Simulation.Components
                 {
                     ptr->DoDiseaseTick();
 
-                    foreach (var cell in GetCorrespondingCells(ptr->CurrentCell, data.Cells))
+                    //foreach (var cell in GetCorrespondingCells(ptr->CurrentCell, data.Cells))
+                    // TODO | dj | ^ this one should not be necessary. the propability in each cell should be enough.
                     {
                         /* These are the (existing) cells surrounding the cell the human is currently staying in
                          * also the ssurroundings get calculated everytime again (for every human!!).. 
@@ -51,47 +54,51 @@ namespace PSC2013.ES.Library.Simulation.Components
             }
         }
 
+        private int CalculateProbability(PopulationCell[] cells, int currentCellIndex, int trans)
+        {
+            var surroundings = GetCorrespondingCells(currentCellIndex, cells);
+
+            int prop = 0;
+            foreach (PopulationCell cell in surroundings)
+            {
+                prop += (int)((cell.Total * 100f) / cell.Spreading * (trans / 100f));
+            }
+
+            prop = prop / surroundings.Count();
+
+            // now the current cell is eqully treated like the surrounding...
+            return prop;
+        }
+
         private IEnumerable<PopulationCell> GetCorrespondingCells(int cell, PopulationCell[] allCells)
         {
             return (from cellIndex in GetSurroundingCellIndices(cell)       //dat LINQ...
-                    where cellIndex != -1
                     where allCells[cellIndex] != null
                     select allCells[cellIndex]);
         }
 
-        private int[] GetSurroundingCellIndices(int cell)
+        private int[] GetSurroundingCellIndices(int cellIndex)
         {
-            Tuple<int, int> index = ExpandIndex(cell);
-            var indices = new int[9];
+            Point indexPoint = cellIndex.DeFlatten(_arrayWidth);
+            List<int> indices = new List<int>(8);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = -1; i < 2; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = -1; j < 2; j++)
                 {
-                    var calulatedIndex = FlattenIndex(index.Item1 + (i - 1), index.Item2 + (j - 1));
-                    indices[3 * i + j] = calulatedIndex >= 0  && calulatedIndex < _arrayMaxIndex? calulatedIndex : -1;
+                    Point newCellPoint = new Point(indexPoint.X + i, indexPoint.Y + j);
+                    if (CheckPoint(newCellPoint))
+                        indices.Add(newCellPoint.Flatten(_arrayWidth));
                 }
             }
 
-            return indices;
+            return indices.ToArray();
         }
 
-        private Tuple<int, int> ExpandIndex(int index)
+        private bool CheckPoint(Point point)
         {
-            int x = index % _arrayWidth;
-            int y = index / x;              //TODO: Should be correct, but better check
-            return new Tuple<int, int>(x, y);
-        }
-
-        private int FlattenIndex(int x, int y)
-        {
-            return x + (y * _arrayWidth);
-        }
-
-        private int CalculateProbability(PopulationCell cell)
-        {
-            //TODO: |anyone| insert better probability calculation
-            return (cell.Total * 100) / cell.Spreading;
+            return point.X >= 0 && point.X < _arrayWidth
+                && point.Y >= 0 && point.X < _arrayHeight;
         }
 
         public void SetSimulationIntervall(int intervall)
