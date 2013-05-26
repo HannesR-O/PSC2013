@@ -77,6 +77,7 @@ namespace PSC2013.ES.Library.PopulationData
                 // TODO | dj | what's with: _data.Take(8).Sum(x => x); ???
                 var sum = 0;
                 Array.ForEach(_data.Take(8).ToArray(), value => sum += value);
+                _data.Take(8).Sum(x => x);
                 return sum;
             }
         }
