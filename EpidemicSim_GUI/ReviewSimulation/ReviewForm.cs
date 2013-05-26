@@ -17,59 +17,51 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             InitializeComponent();
         }
 
+        private void EnableMaleCheckBoxes(bool enable)
+        {
+            var boxes = new CheckBox[] {
+                CheckBox_S_MaleAdult,
+                CheckBox_S_MaleBaby,
+                CheckBox_S_MaleChild,
+                CheckBox_S_MaleSenior
+                };
+            foreach (var box in boxes)
+                box.Enabled = enable;
+        }
+
+        private void EnableFemaleCheckBoxes(bool enable)
+        {
+            var boxes = new CheckBox[] {
+                CheckBox_S_FemaleAdult,
+                CheckBox_S_FemaleBaby,
+                CheckBox_S_FemaleChild,
+                CheckBox_S_FemaleSenior
+                };
+            foreach (var box in boxes)
+                box.Enabled = enable;
+        }
+
+        private void EnableAllCheckBoxes(bool enable)
+        {
+            CheckBox_S_Male.Enabled = enable;
+            EnableMaleCheckBoxes(enable);
+            CheckBox_S_Female.Enabled = enable;
+            EnableFemaleCheckBoxes(enable);
+        }
+
         private void CheckBox_S_All_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox_S_All.Checked)
-            {
-                CheckBox_S_Male.Checked = true;
-                CheckBox_S_Female.Checked = true;
-            }
-            else
-            {
-                CheckBox_S_Male.Checked = false;
-                CheckBox_S_Female.Checked = false;
-            }
+            EnableAllCheckBoxes(!CheckBox_S_All.Checked);
         }
 
         private void CheckBox_S_Male_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox_S_Male.Checked)
-            {
-                CheckBox_S_MaleBaby.Checked = true;
-                CheckBox_S_MaleChild.Checked = true;
-                CheckBox_S_MaleAdult.Checked = true;
-                CheckBox_S_MaleSenior.Checked = true;
-            }
-            else
-            {
-                CheckBox_S_MaleBaby.Checked = false;
-                CheckBox_S_MaleChild.Checked = false;
-                CheckBox_S_MaleAdult.Checked = false;
-                CheckBox_S_MaleSenior.Checked = false;
-            }
+            EnableMaleCheckBoxes(!CheckBox_S_Male.Checked);
         }
 
         private void CheckBox_S_Female_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox_S_Female.Checked)
-            {
-                CheckBox_S_FemaleBaby.Checked = true;
-                CheckBox_S_FemaleChild.Checked = true;
-                CheckBox_S_FemaleAdult.Checked = true;
-                CheckBox_S_FemaleSenior.Checked = true;
-            }
-            else
-            {
-                CheckBox_S_FemaleBaby.Checked = false;
-                CheckBox_S_FemaleChild.Checked = false;
-                CheckBox_S_FemaleAdult.Checked = false;
-                CheckBox_S_FemaleSenior.Checked = false;
-            }
-        }
-
-        private void ReviewForm_Load(object sender, EventArgs e)
-        {
-
+            EnableFemaleCheckBoxes(!CheckBox_S_Female.Checked);
         }
 
         private void CheckBox_S_IndPredix_CheckedChanged(object sender, EventArgs e)
