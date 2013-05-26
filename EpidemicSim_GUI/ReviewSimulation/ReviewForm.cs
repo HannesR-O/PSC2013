@@ -70,6 +70,14 @@ namespace PSC2013.ES.GUI.ReviewSimulation
                 TextBox_S_Prefix.Enabled = true;
             else
                 TextBox_S_Prefix.Enabled = false;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_S_IndPalette.Checked)
+                ComboBox_S_IndPalette.Enabled = true;
+            else
+                ComboBox_S_IndPalette.Enabled = false;
         }        
     }
 }

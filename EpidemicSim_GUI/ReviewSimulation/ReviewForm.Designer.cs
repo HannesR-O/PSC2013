@@ -37,6 +37,7 @@
             this.Panel_leftside = new System.Windows.Forms.Panel();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.Panel_Tick = new System.Windows.Forms.Panel();
+            this.Panel_fieldSelectionContainer = new System.Windows.Forms.Panel();
             this.TabControl_MapCreator = new System.Windows.Forms.TabControl();
             this.Page_Standard = new System.Windows.Forms.TabPage();
             this.TextBox_S_Prefix = new System.Windows.Forms.TextBox();
@@ -58,14 +59,21 @@
             this.Page_Death = new System.Windows.Forms.TabPage();
             this.GroupBox_TickInfo = new System.Windows.Forms.GroupBox();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.Panel_fieldSelectionContainer = new System.Windows.Forms.Panel();
+            this.Page_Defaults = new System.Windows.Forms.TabPage();
+            this.Label_Prefix = new System.Windows.Forms.Label();
+            this.TextBox_DefaultPrefix = new System.Windows.Forms.TextBox();
+            this.ComboBox_DefaultPalette = new System.Windows.Forms.ComboBox();
+            this.Label_Palette = new System.Windows.Forms.Label();
+            this.CheckBox_S_IndPalette = new System.Windows.Forms.CheckBox();
+            this.ComboBox_S_IndPalette = new System.Windows.Forms.ComboBox();
             this.GroupBox_Disease.SuspendLayout();
             this.GroupBox_TickSelections.SuspendLayout();
             this.Panel_leftside.SuspendLayout();
             this.Panel_Tick.SuspendLayout();
+            this.Panel_fieldSelectionContainer.SuspendLayout();
             this.TabControl_MapCreator.SuspendLayout();
             this.Page_Standard.SuspendLayout();
-            this.Panel_fieldSelectionContainer.SuspendLayout();
+            this.Page_Defaults.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -141,23 +149,37 @@
             this.Panel_Tick.Dock = System.Windows.Forms.DockStyle.Top;
             this.Panel_Tick.Location = new System.Drawing.Point(255, 0);
             this.Panel_Tick.Name = "Panel_Tick";
-            this.Panel_Tick.Size = new System.Drawing.Size(679, 216);
+            this.Panel_Tick.Size = new System.Drawing.Size(679, 211);
             this.Panel_Tick.TabIndex = 7;
+            // 
+            // Panel_fieldSelectionContainer
+            // 
+            this.Panel_fieldSelectionContainer.Controls.Add(this.TabControl_MapCreator);
+            this.Panel_fieldSelectionContainer.Dock = System.Windows.Forms.DockStyle.Right;
+            this.Panel_fieldSelectionContainer.Location = new System.Drawing.Point(309, 0);
+            this.Panel_fieldSelectionContainer.Name = "Panel_fieldSelectionContainer";
+            this.Panel_fieldSelectionContainer.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.Panel_fieldSelectionContainer.Size = new System.Drawing.Size(370, 211);
+            this.Panel_fieldSelectionContainer.TabIndex = 8;
             // 
             // TabControl_MapCreator
             // 
+            this.TabControl_MapCreator.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.TabControl_MapCreator.Controls.Add(this.Page_Standard);
             this.TabControl_MapCreator.Controls.Add(this.Page_Death);
+            this.TabControl_MapCreator.Controls.Add(this.Page_Defaults);
             this.TabControl_MapCreator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl_MapCreator.Location = new System.Drawing.Point(5, 5);
             this.TabControl_MapCreator.Name = "TabControl_MapCreator";
             this.TabControl_MapCreator.SelectedIndex = 0;
-            this.TabControl_MapCreator.Size = new System.Drawing.Size(360, 211);
+            this.TabControl_MapCreator.Size = new System.Drawing.Size(360, 206);
             this.TabControl_MapCreator.TabIndex = 1;
             // 
             // Page_Standard
             // 
             this.Page_Standard.BackColor = System.Drawing.Color.Transparent;
+            this.Page_Standard.Controls.Add(this.ComboBox_S_IndPalette);
+            this.Page_Standard.Controls.Add(this.CheckBox_S_IndPalette);
             this.Page_Standard.Controls.Add(this.TextBox_S_Prefix);
             this.Page_Standard.Controls.Add(this.CheckBox_S_IndPredix);
             this.Page_Standard.Controls.Add(this.Btn_Create_S);
@@ -174,17 +196,17 @@
             this.Page_Standard.Controls.Add(this.CheckBox_S_MaleAdult);
             this.Page_Standard.Controls.Add(this.CheckBox_S_MaleChild);
             this.Page_Standard.Controls.Add(this.CheckBox_S_MaleBaby);
-            this.Page_Standard.Location = new System.Drawing.Point(4, 22);
+            this.Page_Standard.Location = new System.Drawing.Point(4, 25);
             this.Page_Standard.Name = "Page_Standard";
             this.Page_Standard.Padding = new System.Windows.Forms.Padding(3);
-            this.Page_Standard.Size = new System.Drawing.Size(352, 185);
+            this.Page_Standard.Size = new System.Drawing.Size(352, 177);
             this.Page_Standard.TabIndex = 0;
             this.Page_Standard.Text = "Standard";
             // 
             // TextBox_S_Prefix
             // 
             this.TextBox_S_Prefix.Enabled = false;
-            this.TextBox_S_Prefix.Location = new System.Drawing.Point(202, 130);
+            this.TextBox_S_Prefix.Location = new System.Drawing.Point(203, 31);
             this.TextBox_S_Prefix.Name = "TextBox_S_Prefix";
             this.TextBox_S_Prefix.Size = new System.Drawing.Size(146, 20);
             this.TextBox_S_Prefix.TabIndex = 15;
@@ -192,7 +214,7 @@
             // CheckBox_S_IndPredix
             // 
             this.CheckBox_S_IndPredix.AutoSize = true;
-            this.CheckBox_S_IndPredix.Location = new System.Drawing.Point(202, 107);
+            this.CheckBox_S_IndPredix.Location = new System.Drawing.Point(203, 8);
             this.CheckBox_S_IndPredix.Name = "CheckBox_S_IndPredix";
             this.CheckBox_S_IndPredix.Size = new System.Drawing.Size(122, 17);
             this.CheckBox_S_IndPredix.TabIndex = 14;
@@ -202,7 +224,7 @@
             // 
             // Btn_Create_S
             // 
-            this.Btn_Create_S.Location = new System.Drawing.Point(254, 156);
+            this.Btn_Create_S.Location = new System.Drawing.Point(255, 153);
             this.Btn_Create_S.Name = "Btn_Create_S";
             this.Btn_Create_S.Size = new System.Drawing.Size(94, 23);
             this.Btn_Create_S.TabIndex = 13;
@@ -223,7 +245,7 @@
             // CheckBox_S_Female
             // 
             this.CheckBox_S_Female.AutoSize = true;
-            this.CheckBox_S_Female.Location = new System.Drawing.Point(101, 31);
+            this.CheckBox_S_Female.Location = new System.Drawing.Point(101, 27);
             this.CheckBox_S_Female.Name = "CheckBox_S_Female";
             this.CheckBox_S_Female.Size = new System.Drawing.Size(60, 17);
             this.CheckBox_S_Female.TabIndex = 11;
@@ -235,7 +257,7 @@
             // 
             this.CheckBox_S_Male.AutoSize = true;
             this.CheckBox_S_Male.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBox_S_Male.Location = new System.Drawing.Point(6, 31);
+            this.CheckBox_S_Male.Location = new System.Drawing.Point(6, 27);
             this.CheckBox_S_Male.Name = "CheckBox_S_Male";
             this.CheckBox_S_Male.Size = new System.Drawing.Size(49, 17);
             this.CheckBox_S_Male.TabIndex = 10;
@@ -246,7 +268,7 @@
             // CheckBox_S_Diseased
             // 
             this.CheckBox_S_Diseased.AutoSize = true;
-            this.CheckBox_S_Diseased.Location = new System.Drawing.Point(101, 4);
+            this.CheckBox_S_Diseased.Location = new System.Drawing.Point(6, 142);
             this.CheckBox_S_Diseased.Name = "CheckBox_S_Diseased";
             this.CheckBox_S_Diseased.Size = new System.Drawing.Size(70, 17);
             this.CheckBox_S_Diseased.TabIndex = 9;
@@ -256,7 +278,7 @@
             // CheckBox_S_Infected
             // 
             this.CheckBox_S_Infected.AutoSize = true;
-            this.CheckBox_S_Infected.Location = new System.Drawing.Point(193, 4);
+            this.CheckBox_S_Infected.Location = new System.Drawing.Point(6, 159);
             this.CheckBox_S_Infected.Name = "CheckBox_S_Infected";
             this.CheckBox_S_Infected.Size = new System.Drawing.Size(65, 17);
             this.CheckBox_S_Infected.TabIndex = 8;
@@ -266,7 +288,7 @@
             // CheckBox_S_FemaleSenior
             // 
             this.CheckBox_S_FemaleSenior.AutoSize = true;
-            this.CheckBox_S_FemaleSenior.Location = new System.Drawing.Point(101, 132);
+            this.CheckBox_S_FemaleSenior.Location = new System.Drawing.Point(101, 119);
             this.CheckBox_S_FemaleSenior.Name = "CheckBox_S_FemaleSenior";
             this.CheckBox_S_FemaleSenior.Size = new System.Drawing.Size(56, 17);
             this.CheckBox_S_FemaleSenior.TabIndex = 7;
@@ -276,7 +298,7 @@
             // CheckBox_S_FemaleAdult
             // 
             this.CheckBox_S_FemaleAdult.AutoSize = true;
-            this.CheckBox_S_FemaleAdult.Location = new System.Drawing.Point(101, 109);
+            this.CheckBox_S_FemaleAdult.Location = new System.Drawing.Point(101, 96);
             this.CheckBox_S_FemaleAdult.Name = "CheckBox_S_FemaleAdult";
             this.CheckBox_S_FemaleAdult.Size = new System.Drawing.Size(50, 17);
             this.CheckBox_S_FemaleAdult.TabIndex = 6;
@@ -286,7 +308,7 @@
             // CheckBox_S_FemaleChild
             // 
             this.CheckBox_S_FemaleChild.AutoSize = true;
-            this.CheckBox_S_FemaleChild.Location = new System.Drawing.Point(101, 86);
+            this.CheckBox_S_FemaleChild.Location = new System.Drawing.Point(101, 73);
             this.CheckBox_S_FemaleChild.Name = "CheckBox_S_FemaleChild";
             this.CheckBox_S_FemaleChild.Size = new System.Drawing.Size(49, 17);
             this.CheckBox_S_FemaleChild.TabIndex = 5;
@@ -296,7 +318,7 @@
             // CheckBox_S_FemaleBaby
             // 
             this.CheckBox_S_FemaleBaby.AutoSize = true;
-            this.CheckBox_S_FemaleBaby.Location = new System.Drawing.Point(101, 63);
+            this.CheckBox_S_FemaleBaby.Location = new System.Drawing.Point(101, 50);
             this.CheckBox_S_FemaleBaby.Name = "CheckBox_S_FemaleBaby";
             this.CheckBox_S_FemaleBaby.Size = new System.Drawing.Size(50, 17);
             this.CheckBox_S_FemaleBaby.TabIndex = 4;
@@ -306,7 +328,7 @@
             // CheckBox_S_MaleSenior
             // 
             this.CheckBox_S_MaleSenior.AutoSize = true;
-            this.CheckBox_S_MaleSenior.Location = new System.Drawing.Point(6, 132);
+            this.CheckBox_S_MaleSenior.Location = new System.Drawing.Point(6, 119);
             this.CheckBox_S_MaleSenior.Name = "CheckBox_S_MaleSenior";
             this.CheckBox_S_MaleSenior.Size = new System.Drawing.Size(56, 17);
             this.CheckBox_S_MaleSenior.TabIndex = 3;
@@ -316,7 +338,7 @@
             // CheckBox_S_MaleAdult
             // 
             this.CheckBox_S_MaleAdult.AutoSize = true;
-            this.CheckBox_S_MaleAdult.Location = new System.Drawing.Point(6, 109);
+            this.CheckBox_S_MaleAdult.Location = new System.Drawing.Point(6, 96);
             this.CheckBox_S_MaleAdult.Name = "CheckBox_S_MaleAdult";
             this.CheckBox_S_MaleAdult.Size = new System.Drawing.Size(50, 17);
             this.CheckBox_S_MaleAdult.TabIndex = 2;
@@ -326,7 +348,7 @@
             // CheckBox_S_MaleChild
             // 
             this.CheckBox_S_MaleChild.AutoSize = true;
-            this.CheckBox_S_MaleChild.Location = new System.Drawing.Point(6, 86);
+            this.CheckBox_S_MaleChild.Location = new System.Drawing.Point(6, 73);
             this.CheckBox_S_MaleChild.Name = "CheckBox_S_MaleChild";
             this.CheckBox_S_MaleChild.Size = new System.Drawing.Size(49, 17);
             this.CheckBox_S_MaleChild.TabIndex = 1;
@@ -336,7 +358,7 @@
             // CheckBox_S_MaleBaby
             // 
             this.CheckBox_S_MaleBaby.AutoSize = true;
-            this.CheckBox_S_MaleBaby.Location = new System.Drawing.Point(6, 63);
+            this.CheckBox_S_MaleBaby.Location = new System.Drawing.Point(6, 50);
             this.CheckBox_S_MaleBaby.Name = "CheckBox_S_MaleBaby";
             this.CheckBox_S_MaleBaby.Size = new System.Drawing.Size(50, 17);
             this.CheckBox_S_MaleBaby.TabIndex = 0;
@@ -345,13 +367,13 @@
             // 
             // Page_Death
             // 
-            this.Page_Death.Location = new System.Drawing.Point(4, 22);
+            this.Page_Death.BackColor = System.Drawing.Color.Transparent;
+            this.Page_Death.Location = new System.Drawing.Point(4, 25);
             this.Page_Death.Name = "Page_Death";
             this.Page_Death.Padding = new System.Windows.Forms.Padding(3);
-            this.Page_Death.Size = new System.Drawing.Size(362, 190);
+            this.Page_Death.Size = new System.Drawing.Size(352, 177);
             this.Page_Death.TabIndex = 1;
             this.Page_Death.Text = "Death";
-            this.Page_Death.UseVisualStyleBackColor = true;
             // 
             // GroupBox_TickInfo
             // 
@@ -360,7 +382,7 @@
             this.GroupBox_TickInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.GroupBox_TickInfo.Location = new System.Drawing.Point(0, 0);
             this.GroupBox_TickInfo.Name = "GroupBox_TickInfo";
-            this.GroupBox_TickInfo.Size = new System.Drawing.Size(306, 216);
+            this.GroupBox_TickInfo.Size = new System.Drawing.Size(306, 207);
             this.GroupBox_TickInfo.TabIndex = 0;
             this.GroupBox_TickInfo.TabStop = false;
             this.GroupBox_TickInfo.Text = "Tick Information";
@@ -371,15 +393,72 @@
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
-            // Panel_fieldSelectionContainer
+            // Page_Defaults
             // 
-            this.Panel_fieldSelectionContainer.Controls.Add(this.TabControl_MapCreator);
-            this.Panel_fieldSelectionContainer.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Panel_fieldSelectionContainer.Location = new System.Drawing.Point(309, 0);
-            this.Panel_fieldSelectionContainer.Name = "Panel_fieldSelectionContainer";
-            this.Panel_fieldSelectionContainer.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.Panel_fieldSelectionContainer.Size = new System.Drawing.Size(370, 216);
-            this.Panel_fieldSelectionContainer.TabIndex = 8;
+            this.Page_Defaults.BackColor = System.Drawing.Color.Transparent;
+            this.Page_Defaults.Controls.Add(this.Label_Palette);
+            this.Page_Defaults.Controls.Add(this.ComboBox_DefaultPalette);
+            this.Page_Defaults.Controls.Add(this.TextBox_DefaultPrefix);
+            this.Page_Defaults.Controls.Add(this.Label_Prefix);
+            this.Page_Defaults.Location = new System.Drawing.Point(4, 25);
+            this.Page_Defaults.Name = "Page_Defaults";
+            this.Page_Defaults.Padding = new System.Windows.Forms.Padding(3);
+            this.Page_Defaults.Size = new System.Drawing.Size(352, 177);
+            this.Page_Defaults.TabIndex = 2;
+            this.Page_Defaults.Text = "Defaults";
+            // 
+            // Label_Prefix
+            // 
+            this.Label_Prefix.AutoSize = true;
+            this.Label_Prefix.Location = new System.Drawing.Point(8, 10);
+            this.Label_Prefix.Name = "Label_Prefix";
+            this.Label_Prefix.Size = new System.Drawing.Size(33, 13);
+            this.Label_Prefix.TabIndex = 0;
+            this.Label_Prefix.Text = "Prefix";
+            // 
+            // TextBox_DefaultPrefix
+            // 
+            this.TextBox_DefaultPrefix.Location = new System.Drawing.Point(53, 7);
+            this.TextBox_DefaultPrefix.Name = "TextBox_DefaultPrefix";
+            this.TextBox_DefaultPrefix.Size = new System.Drawing.Size(142, 20);
+            this.TextBox_DefaultPrefix.TabIndex = 1;
+            this.TextBox_DefaultPrefix.Text = "Map";
+            // 
+            // ComboBox_DefaultPalette
+            // 
+            this.ComboBox_DefaultPalette.FormattingEnabled = true;
+            this.ComboBox_DefaultPalette.Location = new System.Drawing.Point(53, 38);
+            this.ComboBox_DefaultPalette.Name = "ComboBox_DefaultPalette";
+            this.ComboBox_DefaultPalette.Size = new System.Drawing.Size(142, 21);
+            this.ComboBox_DefaultPalette.TabIndex = 2;
+            // 
+            // Label_Palette
+            // 
+            this.Label_Palette.AutoSize = true;
+            this.Label_Palette.Location = new System.Drawing.Point(7, 41);
+            this.Label_Palette.Name = "Label_Palette";
+            this.Label_Palette.Size = new System.Drawing.Size(40, 13);
+            this.Label_Palette.TabIndex = 3;
+            this.Label_Palette.Text = "Palette";
+            // 
+            // CheckBox_S_IndPalette
+            // 
+            this.CheckBox_S_IndPalette.AutoSize = true;
+            this.CheckBox_S_IndPalette.Location = new System.Drawing.Point(203, 57);
+            this.CheckBox_S_IndPalette.Name = "CheckBox_S_IndPalette";
+            this.CheckBox_S_IndPalette.Size = new System.Drawing.Size(129, 17);
+            this.CheckBox_S_IndPalette.TabIndex = 16;
+            this.CheckBox_S_IndPalette.Text = "Use Individual Palette";
+            this.CheckBox_S_IndPalette.UseVisualStyleBackColor = true;
+            this.CheckBox_S_IndPalette.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // ComboBox_S_IndPalette
+            // 
+            this.ComboBox_S_IndPalette.FormattingEnabled = true;
+            this.ComboBox_S_IndPalette.Location = new System.Drawing.Point(203, 81);
+            this.ComboBox_S_IndPalette.Name = "ComboBox_S_IndPalette";
+            this.ComboBox_S_IndPalette.Size = new System.Drawing.Size(146, 21);
+            this.ComboBox_S_IndPalette.TabIndex = 17;
             // 
             // ReviewForm
             // 
@@ -397,10 +476,12 @@
             this.GroupBox_TickSelections.ResumeLayout(false);
             this.Panel_leftside.ResumeLayout(false);
             this.Panel_Tick.ResumeLayout(false);
+            this.Panel_fieldSelectionContainer.ResumeLayout(false);
             this.TabControl_MapCreator.ResumeLayout(false);
             this.Page_Standard.ResumeLayout(false);
             this.Page_Standard.PerformLayout();
-            this.Panel_fieldSelectionContainer.ResumeLayout(false);
+            this.Page_Defaults.ResumeLayout(false);
+            this.Page_Defaults.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -438,5 +519,12 @@
         private System.DirectoryServices.DirectorySearcher directorySearcher1;
         private System.Windows.Forms.TextBox TextBox_S_Prefix;
         private System.Windows.Forms.Panel Panel_fieldSelectionContainer;
+        private System.Windows.Forms.TabPage Page_Defaults;
+        private System.Windows.Forms.TextBox TextBox_DefaultPrefix;
+        private System.Windows.Forms.Label Label_Prefix;
+        private System.Windows.Forms.ComboBox ComboBox_DefaultPalette;
+        private System.Windows.Forms.Label Label_Palette;
+        private System.Windows.Forms.ComboBox ComboBox_S_IndPalette;
+        private System.Windows.Forms.CheckBox CheckBox_S_IndPalette;
     }
 }
