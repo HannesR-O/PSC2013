@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Statistics.Pictures
 {
@@ -12,15 +8,15 @@ namespace PSC2013.ES.Library.Statistics.Pictures
     [Flags]
     public enum EStatField : int
     {
-        MaleBaby = 0x01, 
-        MaleChild = 0x02, 
-        MaleAdult = 0x04,
-        MaleSenior = 0x08, 
-        FemaleBaby = 0x10,
-        FemaleChild = 0x20,
-        FemaleAdult = 0x40,
-        FemaleSenior = 0x80,
-        Infected = 0x100, // Or NaturalDeath
-        Diseased = 0x200 // Or DiseaseDeath
+        MaleBaby        = 0x01, 
+        MaleChild       = 0x02, 
+        MaleAdult       = 0x04,
+        MaleSenior      = 0x08, 
+        FemaleBaby      = 0x10,
+        FemaleChild     = 0x20,
+        FemaleAdult     = 0x40,
+        FemaleSenior    = 0x80,
+        Infected        = 0x100, // Or NaturalDeath
+        Diseased        = 0x200 // Or DiseaseDeath
     }
 }
