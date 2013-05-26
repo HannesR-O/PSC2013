@@ -31,8 +31,7 @@ namespace PSC2013.ES.Library.Statistics
         /// Only one can be opened at a time
         /// </summary>
         /// <param name="path">The path where the file is located</param>
-        /// <param name="mapDestination">Where the Pictures should be saved</param>
-        public void OpenSimFile(string path, string mapDestination)
+        public void OpenSimFile(string path)
         {
             if (_currentArchive != null)
                 _currentArchive.Dispose();
@@ -66,10 +65,9 @@ namespace PSC2013.ES.Library.Statistics
                 throw new SimFileCorruptException("The Header was not found!", e);
             }
            
-            if (Directory.Exists(mapDestination)) // Creates a new Mapcreator, if the target directory exists
-                _creator = new MapCreator(mapDestination, _simInfo.MapX, _simInfo.MapY);
-            else
-                throw new DirectoryNotFoundException("Destination does not Exists");
+            _creator = new MapCreator(_simInfo.MapX, _simInfo.MapY);
+            _creator.setTarget(Path.GetDirectoryName(path)); // Setting Default Destination
+
             _currentSnapshot = null;
 
             if (first == null) // If there's no first Snapshot, the file corrupt, no sense in empty logs
@@ -80,6 +78,14 @@ namespace PSC2013.ES.Library.Statistics
             _creator.InitializeMaxima(tick);
             Console.WriteLine(first.Name + " is first. Initializing...");
             _currentSnapshot = tick; // First Snaphsot stays loaded
+        }
+
+        public void SetNewDestination(string destination)
+        {
+            if (Directory.Exists(destination))
+                _creator.setTarget(destination);
+            else 
+                throw new FileNotFoundException("Destination at " + destination + " could not be found");
         }
 
         /// <summary>

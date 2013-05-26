@@ -15,7 +15,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         private int X = 2814; // Now default
         private int Y = 3841; // Here as well...
 
-        private string _target;
+        public string Target { get; private set; }
 
         /// <summary>
         /// Initializes a new Mapcreator
@@ -23,14 +23,18 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="path">Where the Maps shall be saved</param>
         /// <param name="x">Map Size X</param>
         /// <param name="y">Map Size Y</param>
-        public MapCreator(string path, int x, int y)
+        public MapCreator(int x, int y)
         {
-            _target = path;
             if (x > 0 && y > 0)
             {
                 X = x;
                 Y = y;
             }
+        }
+
+        public void setTarget(string newtarget)
+        {
+            Target = newtarget;
         }
 
         public void InitializeMaxima(TickSnapshot firstSnapshot)
@@ -91,7 +95,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
 
             }
-            map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
+            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
 
             return GenerateLegend(_steps, pal);            
         }
@@ -119,7 +123,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 map.SetPixel(p.X, p.Y, pal[0]);
             }
 
-            map.Save(_target + "/" + namePrefix + "_" + snapshot.Tick + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + ".png", System.Drawing.Imaging.ImageFormat.Png);
         }
 
         /// <summary>

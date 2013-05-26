@@ -95,7 +95,8 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             _targetPath = txtBox_targetDirectory.Text;
             if (Directory.Exists(_targetPath))
             {
-                _manager.OpenSimFile(_simPath, _targetPath);
+                _manager.OpenSimFile(_simPath);
+                _manager.SetNewDestination(_targetPath);
                 lstBox_entries.Items.Clear();
                 lstBox_entries.Items.AddRange(_manager.Entries.ToArray());
             }

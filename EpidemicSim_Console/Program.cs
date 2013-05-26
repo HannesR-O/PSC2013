@@ -82,7 +82,7 @@ namespace PSC2013.ES.Cmd
             sim.ProcessFinished += (_, __) =>
                 {
                     StatisticsManager sm = new StatisticsManager();
-                    sm.OpenSimFile(DESKTOP_PATH + "\\TestDisease.sim", DESKTOP_PATH);
+                    sm.OpenSimFile(DESKTOP_PATH + "\\TestDisease.sim");
                     sm.LoadTickSnapshot(sm.Entries[0]);
                     sm.CreateGraphics((EStatField)255, EColorPalette.Red, "testmap");
                     Console.WriteLine("DONE!");
@@ -172,8 +172,6 @@ namespace PSC2013.ES.Cmd
 
         public static void TestStats()
         {
-            Console.WriteLine((EStatField) 255);
-
             var manager = new StatisticsManager();
 
             Console.WriteLine("Please enter the name of your .sim file:");
@@ -183,8 +181,7 @@ namespace PSC2013.ES.Cmd
 
             manager.OpenSimFile(
                 Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
-                + file + ".sim", 
-                Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                + file + ".sim");
 
             var entries = manager.Entries;
             foreach (string s in entries)
