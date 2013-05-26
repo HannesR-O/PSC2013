@@ -46,18 +46,18 @@ namespace PSC2013.ES.Library.Simulation.Components
                     ptr->DoDiseaseTick((short)disease.SpreadingTime);
 
                     if (!ptr->IsInfected())
-                        TryInfection(ptr, disease, data.Cells[ptr->CurrentCell].Probability);
+                        TryInfection(*ptr, disease, data.Cells[ptr->CurrentCell].Probability);
                     
                     // TODO | dj | TEST!!!!
                 }
             }
         }
 
-        private unsafe void TryInfection(Human* ptr, Disease disease, int probability)
+        private void TryInfection(Human human, Disease disease, int probability)
         {
             // get index for FactorContainer
-            int ageIndex = (byte)ptr->GetAge() / 32;
-            ageIndex += ptr->GetGender() == EGender.Male ? 0 : 4;
+            int ageIndex = (byte)human.GetAge() / 32;
+            ageIndex += human.GetGender() == EGender.Male ? 0 : 4;
 
             int resistance = disease.ResistanceFactor.Data[ageIndex];
 
@@ -66,7 +66,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                 int factor = probability - resistance;
                 int rand = _random.Next(100);
                 if (rand <= factor)
-                    ptr->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
+                    human.Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
             }
         }
 
