@@ -65,6 +65,19 @@ namespace PSC2013.ES.GUI.ReviewSimulation
                 CheckBox_S_FemaleAdult.Checked = false;
                 CheckBox_S_FemaleSenior.Checked = false;
             }
+        }
+
+        private void ReviewForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBox_S_IndPredix_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_S_IndPredix.Checked)
+                TextBox_S_Prefix.Enabled = true;
+            else
+                TextBox_S_Prefix.Enabled = false;
         }        
     }
 }
