@@ -7,14 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PSC2013.ES.Library.Snapshot;
+using PSC2013.ES.Library.Statistics;
 
 namespace PSC2013.ES.GUI.ReviewSimulation
 {
     public partial class ReviewForm : Form
     {
+        private SimulationInfo _siminfo;
+        private StatisticsManager _manager;
+
         public ReviewForm()
         {
             InitializeComponent();
+            _manager = new StatisticsManager();
         }
 
         private void EnableMaleCheckBoxes(bool enable)
@@ -78,6 +84,17 @@ namespace PSC2013.ES.GUI.ReviewSimulation
                 ComboBox_S_IndPalette.Enabled = true;
             else
                 ComboBox_S_IndPalette.Enabled = false;
+        }
+
+        private void Btn_SaveTo_Browse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog.ShowDialog();
+            TextBox_SaveTo.Text = FolderBrowserDialog.SelectedPath;
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileChooser.ShowDialog();
         }        
     }
 }

@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.ComboBox_Entries = new System.Windows.Forms.ComboBox();
             this.Btn_LoadTick = new System.Windows.Forms.Button();
             this.Label_DiseaseName = new System.Windows.Forms.Label();
             this.GroupBox_Disease = new System.Windows.Forms.GroupBox();
             this.GroupBox_TickSelections = new System.Windows.Forms.GroupBox();
             this.Panel_leftside = new System.Windows.Forms.Panel();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.Panel_Tick = new System.Windows.Forms.Panel();
             this.Panel_fieldSelectionContainer = new System.Windows.Forms.Panel();
             this.TabControl_MapCreator = new System.Windows.Forms.TabControl();
             this.Page_Standard = new System.Windows.Forms.TabPage();
+            this.ComboBox_S_IndPalette = new System.Windows.Forms.ComboBox();
+            this.CheckBox_S_IndPalette = new System.Windows.Forms.CheckBox();
             this.TextBox_S_Prefix = new System.Windows.Forms.TextBox();
             this.CheckBox_S_IndPredix = new System.Windows.Forms.CheckBox();
             this.Btn_Create_S = new System.Windows.Forms.Button();
@@ -57,15 +57,20 @@
             this.CheckBox_S_MaleChild = new System.Windows.Forms.CheckBox();
             this.CheckBox_S_MaleBaby = new System.Windows.Forms.CheckBox();
             this.Page_Death = new System.Windows.Forms.TabPage();
-            this.GroupBox_TickInfo = new System.Windows.Forms.GroupBox();
-            this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
             this.Page_Defaults = new System.Windows.Forms.TabPage();
-            this.Label_Prefix = new System.Windows.Forms.Label();
-            this.TextBox_DefaultPrefix = new System.Windows.Forms.TextBox();
-            this.ComboBox_DefaultPalette = new System.Windows.Forms.ComboBox();
+            this.TextBox_SaveTo = new System.Windows.Forms.TextBox();
+            this.LabelSaveTo = new System.Windows.Forms.Label();
+            this.Btn_SaveTo_Browse = new System.Windows.Forms.Button();
             this.Label_Palette = new System.Windows.Forms.Label();
-            this.CheckBox_S_IndPalette = new System.Windows.Forms.CheckBox();
-            this.ComboBox_S_IndPalette = new System.Windows.Forms.ComboBox();
+            this.ComboBox_DefaultPalette = new System.Windows.Forms.ComboBox();
+            this.TextBox_DefaultPrefix = new System.Windows.Forms.TextBox();
+            this.Label_Prefix = new System.Windows.Forms.Label();
+            this.GroupBox_TickInfo = new System.Windows.Forms.GroupBox();
+            this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.Menu = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileChooser = new System.Windows.Forms.OpenFileDialog();
             this.GroupBox_Disease.SuspendLayout();
             this.GroupBox_TickSelections.SuspendLayout();
             this.Panel_leftside.SuspendLayout();
@@ -74,11 +79,8 @@
             this.TabControl_MapCreator.SuspendLayout();
             this.Page_Standard.SuspendLayout();
             this.Page_Defaults.SuspendLayout();
+            this.Menu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // ComboBox_Entries
             // 
@@ -126,7 +128,7 @@
             this.GroupBox_TickSelections.Controls.Add(this.Btn_LoadTick);
             this.GroupBox_TickSelections.Location = new System.Drawing.Point(10, 335);
             this.GroupBox_TickSelections.Name = "GroupBox_TickSelections";
-            this.GroupBox_TickSelections.Size = new System.Drawing.Size(235, 321);
+            this.GroupBox_TickSelections.Size = new System.Drawing.Size(235, 297);
             this.GroupBox_TickSelections.TabIndex = 5;
             this.GroupBox_TickSelections.TabStop = false;
             this.GroupBox_TickSelections.Text = "Tick Selections";
@@ -136,10 +138,10 @@
             this.Panel_leftside.Controls.Add(this.GroupBox_Disease);
             this.Panel_leftside.Controls.Add(this.GroupBox_TickSelections);
             this.Panel_leftside.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Panel_leftside.Location = new System.Drawing.Point(0, 0);
+            this.Panel_leftside.Location = new System.Drawing.Point(0, 24);
             this.Panel_leftside.Name = "Panel_leftside";
             this.Panel_leftside.Padding = new System.Windows.Forms.Padding(10, 0, 10, 3);
-            this.Panel_leftside.Size = new System.Drawing.Size(255, 662);
+            this.Panel_leftside.Size = new System.Drawing.Size(255, 638);
             this.Panel_leftside.TabIndex = 6;
             // 
             // Panel_Tick
@@ -147,7 +149,7 @@
             this.Panel_Tick.Controls.Add(this.Panel_fieldSelectionContainer);
             this.Panel_Tick.Controls.Add(this.GroupBox_TickInfo);
             this.Panel_Tick.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Panel_Tick.Location = new System.Drawing.Point(255, 0);
+            this.Panel_Tick.Location = new System.Drawing.Point(255, 24);
             this.Panel_Tick.Name = "Panel_Tick";
             this.Panel_Tick.Size = new System.Drawing.Size(679, 211);
             this.Panel_Tick.TabIndex = 7;
@@ -202,6 +204,25 @@
             this.Page_Standard.Size = new System.Drawing.Size(352, 177);
             this.Page_Standard.TabIndex = 0;
             this.Page_Standard.Text = "Standard";
+            // 
+            // ComboBox_S_IndPalette
+            // 
+            this.ComboBox_S_IndPalette.FormattingEnabled = true;
+            this.ComboBox_S_IndPalette.Location = new System.Drawing.Point(203, 81);
+            this.ComboBox_S_IndPalette.Name = "ComboBox_S_IndPalette";
+            this.ComboBox_S_IndPalette.Size = new System.Drawing.Size(146, 21);
+            this.ComboBox_S_IndPalette.TabIndex = 17;
+            // 
+            // CheckBox_S_IndPalette
+            // 
+            this.CheckBox_S_IndPalette.AutoSize = true;
+            this.CheckBox_S_IndPalette.Location = new System.Drawing.Point(203, 57);
+            this.CheckBox_S_IndPalette.Name = "CheckBox_S_IndPalette";
+            this.CheckBox_S_IndPalette.Size = new System.Drawing.Size(129, 17);
+            this.CheckBox_S_IndPalette.TabIndex = 16;
+            this.CheckBox_S_IndPalette.Text = "Use Individual Palette";
+            this.CheckBox_S_IndPalette.UseVisualStyleBackColor = true;
+            this.CheckBox_S_IndPalette.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // TextBox_S_Prefix
             // 
@@ -375,6 +396,83 @@
             this.Page_Death.TabIndex = 1;
             this.Page_Death.Text = "Death";
             // 
+            // Page_Defaults
+            // 
+            this.Page_Defaults.BackColor = System.Drawing.Color.Transparent;
+            this.Page_Defaults.Controls.Add(this.TextBox_SaveTo);
+            this.Page_Defaults.Controls.Add(this.LabelSaveTo);
+            this.Page_Defaults.Controls.Add(this.Btn_SaveTo_Browse);
+            this.Page_Defaults.Controls.Add(this.Label_Palette);
+            this.Page_Defaults.Controls.Add(this.ComboBox_DefaultPalette);
+            this.Page_Defaults.Controls.Add(this.TextBox_DefaultPrefix);
+            this.Page_Defaults.Controls.Add(this.Label_Prefix);
+            this.Page_Defaults.Location = new System.Drawing.Point(4, 25);
+            this.Page_Defaults.Name = "Page_Defaults";
+            this.Page_Defaults.Padding = new System.Windows.Forms.Padding(3);
+            this.Page_Defaults.Size = new System.Drawing.Size(352, 177);
+            this.Page_Defaults.TabIndex = 2;
+            this.Page_Defaults.Text = "Defaults";
+            // 
+            // TextBox_SaveTo
+            // 
+            this.TextBox_SaveTo.Location = new System.Drawing.Point(57, 70);
+            this.TextBox_SaveTo.Name = "TextBox_SaveTo";
+            this.TextBox_SaveTo.Size = new System.Drawing.Size(142, 20);
+            this.TextBox_SaveTo.TabIndex = 6;
+            // 
+            // LabelSaveTo
+            // 
+            this.LabelSaveTo.AutoSize = true;
+            this.LabelSaveTo.Location = new System.Drawing.Point(7, 73);
+            this.LabelSaveTo.Name = "LabelSaveTo";
+            this.LabelSaveTo.Size = new System.Drawing.Size(44, 13);
+            this.LabelSaveTo.TabIndex = 5;
+            this.LabelSaveTo.Text = "Save to";
+            // 
+            // Btn_SaveTo_Browse
+            // 
+            this.Btn_SaveTo_Browse.Location = new System.Drawing.Point(205, 70);
+            this.Btn_SaveTo_Browse.Name = "Btn_SaveTo_Browse";
+            this.Btn_SaveTo_Browse.Size = new System.Drawing.Size(31, 23);
+            this.Btn_SaveTo_Browse.TabIndex = 4;
+            this.Btn_SaveTo_Browse.Text = "->";
+            this.Btn_SaveTo_Browse.UseVisualStyleBackColor = true;
+            this.Btn_SaveTo_Browse.Click += new System.EventHandler(this.Btn_SaveTo_Browse_Click);
+            // 
+            // Label_Palette
+            // 
+            this.Label_Palette.AutoSize = true;
+            this.Label_Palette.Location = new System.Drawing.Point(7, 41);
+            this.Label_Palette.Name = "Label_Palette";
+            this.Label_Palette.Size = new System.Drawing.Size(40, 13);
+            this.Label_Palette.TabIndex = 3;
+            this.Label_Palette.Text = "Palette";
+            // 
+            // ComboBox_DefaultPalette
+            // 
+            this.ComboBox_DefaultPalette.FormattingEnabled = true;
+            this.ComboBox_DefaultPalette.Location = new System.Drawing.Point(57, 38);
+            this.ComboBox_DefaultPalette.Name = "ComboBox_DefaultPalette";
+            this.ComboBox_DefaultPalette.Size = new System.Drawing.Size(142, 21);
+            this.ComboBox_DefaultPalette.TabIndex = 2;
+            // 
+            // TextBox_DefaultPrefix
+            // 
+            this.TextBox_DefaultPrefix.Location = new System.Drawing.Point(57, 7);
+            this.TextBox_DefaultPrefix.Name = "TextBox_DefaultPrefix";
+            this.TextBox_DefaultPrefix.Size = new System.Drawing.Size(142, 20);
+            this.TextBox_DefaultPrefix.TabIndex = 1;
+            this.TextBox_DefaultPrefix.Text = "Map";
+            // 
+            // Label_Prefix
+            // 
+            this.Label_Prefix.AutoSize = true;
+            this.Label_Prefix.Location = new System.Drawing.Point(8, 10);
+            this.Label_Prefix.Name = "Label_Prefix";
+            this.Label_Prefix.Size = new System.Drawing.Size(33, 13);
+            this.Label_Prefix.TabIndex = 0;
+            this.Label_Prefix.Text = "Prefix";
+            // 
             // GroupBox_TickInfo
             // 
             this.GroupBox_TickInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -387,78 +485,36 @@
             this.GroupBox_TickInfo.TabStop = false;
             this.GroupBox_TickInfo.Text = "Tick Information";
             // 
-            // directorySearcher1
+            // Menu
             // 
-            this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
-            this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.Menu.Location = new System.Drawing.Point(0, 0);
+            this.Menu.Name = "Menu";
+            this.Menu.Size = new System.Drawing.Size(934, 24);
+            this.Menu.TabIndex = 8;
+            this.Menu.Text = "Menu";
             // 
-            // Page_Defaults
+            // fileToolStripMenuItem
             // 
-            this.Page_Defaults.BackColor = System.Drawing.Color.Transparent;
-            this.Page_Defaults.Controls.Add(this.Label_Palette);
-            this.Page_Defaults.Controls.Add(this.ComboBox_DefaultPalette);
-            this.Page_Defaults.Controls.Add(this.TextBox_DefaultPrefix);
-            this.Page_Defaults.Controls.Add(this.Label_Prefix);
-            this.Page_Defaults.Location = new System.Drawing.Point(4, 25);
-            this.Page_Defaults.Name = "Page_Defaults";
-            this.Page_Defaults.Padding = new System.Windows.Forms.Padding(3);
-            this.Page_Defaults.Size = new System.Drawing.Size(352, 177);
-            this.Page_Defaults.TabIndex = 2;
-            this.Page_Defaults.Text = "Defaults";
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
             // 
-            // Label_Prefix
+            // openToolStripMenuItem
             // 
-            this.Label_Prefix.AutoSize = true;
-            this.Label_Prefix.Location = new System.Drawing.Point(8, 10);
-            this.Label_Prefix.Name = "Label_Prefix";
-            this.Label_Prefix.Size = new System.Drawing.Size(33, 13);
-            this.Label_Prefix.TabIndex = 0;
-            this.Label_Prefix.Text = "Prefix";
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
-            // TextBox_DefaultPrefix
+            // FileChooser
             // 
-            this.TextBox_DefaultPrefix.Location = new System.Drawing.Point(53, 7);
-            this.TextBox_DefaultPrefix.Name = "TextBox_DefaultPrefix";
-            this.TextBox_DefaultPrefix.Size = new System.Drawing.Size(142, 20);
-            this.TextBox_DefaultPrefix.TabIndex = 1;
-            this.TextBox_DefaultPrefix.Text = "Map";
-            // 
-            // ComboBox_DefaultPalette
-            // 
-            this.ComboBox_DefaultPalette.FormattingEnabled = true;
-            this.ComboBox_DefaultPalette.Location = new System.Drawing.Point(53, 38);
-            this.ComboBox_DefaultPalette.Name = "ComboBox_DefaultPalette";
-            this.ComboBox_DefaultPalette.Size = new System.Drawing.Size(142, 21);
-            this.ComboBox_DefaultPalette.TabIndex = 2;
-            // 
-            // Label_Palette
-            // 
-            this.Label_Palette.AutoSize = true;
-            this.Label_Palette.Location = new System.Drawing.Point(7, 41);
-            this.Label_Palette.Name = "Label_Palette";
-            this.Label_Palette.Size = new System.Drawing.Size(40, 13);
-            this.Label_Palette.TabIndex = 3;
-            this.Label_Palette.Text = "Palette";
-            // 
-            // CheckBox_S_IndPalette
-            // 
-            this.CheckBox_S_IndPalette.AutoSize = true;
-            this.CheckBox_S_IndPalette.Location = new System.Drawing.Point(203, 57);
-            this.CheckBox_S_IndPalette.Name = "CheckBox_S_IndPalette";
-            this.CheckBox_S_IndPalette.Size = new System.Drawing.Size(129, 17);
-            this.CheckBox_S_IndPalette.TabIndex = 16;
-            this.CheckBox_S_IndPalette.Text = "Use Individual Palette";
-            this.CheckBox_S_IndPalette.UseVisualStyleBackColor = true;
-            this.CheckBox_S_IndPalette.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // ComboBox_S_IndPalette
-            // 
-            this.ComboBox_S_IndPalette.FormattingEnabled = true;
-            this.ComboBox_S_IndPalette.Location = new System.Drawing.Point(203, 81);
-            this.ComboBox_S_IndPalette.Name = "ComboBox_S_IndPalette";
-            this.ComboBox_S_IndPalette.Size = new System.Drawing.Size(146, 21);
-            this.ComboBox_S_IndPalette.TabIndex = 17;
+            this.FileChooser.FileName = "FileChooser";
+            this.FileChooser.Filter = "\"Simulation-Files (*.sim)|*.sim|All files (*.*)|*.*\"";
             // 
             // ReviewForm
             // 
@@ -467,6 +523,8 @@
             this.ClientSize = new System.Drawing.Size(934, 662);
             this.Controls.Add(this.Panel_Tick);
             this.Controls.Add(this.Panel_leftside);
+            this.Controls.Add(this.Menu);
+            this.MainMenuStrip = this.Menu;
             this.MinimumSize = new System.Drawing.Size(850, 600);
             this.Name = "ReviewForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -482,20 +540,21 @@
             this.Page_Standard.PerformLayout();
             this.Page_Defaults.ResumeLayout(false);
             this.Page_Defaults.PerformLayout();
+            this.Menu.ResumeLayout(false);
+            this.Menu.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Label Label_DiseaseName;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ComboBox ComboBox_Entries;
         private System.Windows.Forms.Button Btn_LoadTick;
         private System.Windows.Forms.GroupBox GroupBox_Disease;
         private System.Windows.Forms.GroupBox GroupBox_TickSelections;
         private System.Windows.Forms.Panel Panel_leftside;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Panel Panel_Tick;
         private System.Windows.Forms.GroupBox GroupBox_TickInfo;
         private System.Windows.Forms.TabControl TabControl_MapCreator;
@@ -516,7 +575,6 @@
         private System.Windows.Forms.CheckBox CheckBox_S_All;
         private System.Windows.Forms.Button Btn_Create_S;
         private System.Windows.Forms.CheckBox CheckBox_S_IndPredix;
-        private System.DirectoryServices.DirectorySearcher directorySearcher1;
         private System.Windows.Forms.TextBox TextBox_S_Prefix;
         private System.Windows.Forms.Panel Panel_fieldSelectionContainer;
         private System.Windows.Forms.TabPage Page_Defaults;
@@ -526,5 +584,13 @@
         private System.Windows.Forms.Label Label_Palette;
         private System.Windows.Forms.ComboBox ComboBox_S_IndPalette;
         private System.Windows.Forms.CheckBox CheckBox_S_IndPalette;
+        private System.Windows.Forms.Button Btn_SaveTo_Browse;
+        private System.Windows.Forms.FolderBrowserDialog FolderBrowserDialog;
+        private System.Windows.Forms.Label LabelSaveTo;
+        private System.Windows.Forms.TextBox TextBox_SaveTo;
+        private System.Windows.Forms.MenuStrip Menu;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog FileChooser;
     }
 }
