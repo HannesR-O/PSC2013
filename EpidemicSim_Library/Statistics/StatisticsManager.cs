@@ -20,7 +20,7 @@ namespace PSC2013.ES.Library.Statistics
     {
         public List<string> Entries { get; private set; }
         public SimulationInfo SimInfo { get; private set; }
-        private TickSnapshot _loadedSnapshot;
+        public TickSnapshot _loadedSnapshot { get; private set; }
 
         private ZipArchive _currentArchive;
         private MapCreator _creator;
