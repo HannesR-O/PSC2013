@@ -19,11 +19,10 @@ namespace PSC2013.ES.Library.Statistics
     public class StatisticsManager
     {
         public List<string> Entries { get; private set; }
+        public SimulationInfo SimInfo { get; private set; }
+        private TickSnapshot LoadedSnapshot { get; private set; }
 
-        private SimulationInfo _simInfo;
         private ZipArchive _currentArchive;
-        private TickSnapshot _currentSnapshot;
-
         private MapCreator _creator;
 
         /// <summary>
@@ -58,17 +57,17 @@ namespace PSC2013.ES.Library.Statistics
             try // If there's no header, the file is corrupt // yeah, with two r's 
             {
                 byte[] file = ArchiveReader.ToByteArray(_currentArchive.GetEntry("header")); // Reading Header                
-                _simInfo = SimulationInfo.InitializeFromFile(file);
+                SimInfo = SimulationInfo.InitializeFromFile(file);
             }
             catch (Exception e)
             {
                 throw new SimFileCorruptException("The Header was not found!", e);
             }
            
-            _creator = new MapCreator(_simInfo.MapX, _simInfo.MapY);
+            _creator = new MapCreator(SimInfo.MapX, SimInfo.MapY);
             _creator.setTarget(Path.GetDirectoryName(path)); // Setting Default Destination
 
-            _currentSnapshot = null;
+            LoadedSnapshot = null;
 
             if (first == null) // If there's no first Snapshot, the file corrupt, no sense in empty logs
                 throw new SimFileCorruptException("No first Snapshot found!");
@@ -77,7 +76,7 @@ namespace PSC2013.ES.Library.Statistics
             TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
             _creator.InitializeMaxima(tick);
             Console.WriteLine(first.Name + " is first. Initializing...");
-            _currentSnapshot = tick; // First Snaphsot stays loaded
+            LoadedSnapshot = tick; // First Snaphsot stays loaded
         }
 
         public void SetNewDestination(string destination)
@@ -94,11 +93,11 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="name">The Entries name</param>
         public void LoadTickSnapshot(String name)
         {
-            if (!name.StartsWith(_currentSnapshot.Tick.ToString()))
+            if (!name.StartsWith(LoadedSnapshot.Tick.ToString()))
             {
                 byte[] temp = ArchiveReader.ToByteArray(_currentArchive.GetEntry(name));
 
-                _currentSnapshot = TickSnapshot.InitializeFromFile(temp);
+                LoadedSnapshot = TickSnapshot.InitializeFromFile(temp);
             }
         }
 
@@ -113,9 +112,9 @@ namespace PSC2013.ES.Library.Statistics
         {
             if (_currentArchive != null)
             {
-                if (_currentSnapshot != null)
+                if (LoadedSnapshot != null)
                 {
-                    return _creator.GetMap(_currentSnapshot, field, colors, namePrefix);
+                    return _creator.GetMap(LoadedSnapshot, field, colors, namePrefix);
                 }
                 else
                 {
@@ -138,9 +137,9 @@ namespace PSC2013.ES.Library.Statistics
         {
             if (_currentArchive != null)
             {
-                if (_currentSnapshot != null)
+                if (LoadedSnapshot != null)
                 {
-                    _creator.GetDeathMap(_currentSnapshot, field, colors, namePrefix);
+                    _creator.GetDeathMap(LoadedSnapshot, field, colors, namePrefix);
                 }
                 else
                 {
