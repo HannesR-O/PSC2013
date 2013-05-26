@@ -14,7 +14,6 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 {
     public partial class ReviewForm : Form
     {
-        private SimulationInfo _siminfo;
         private StatisticsManager _manager;
 
         public ReviewForm()
@@ -95,6 +94,8 @@ namespace PSC2013.ES.GUI.ReviewSimulation
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileChooser.ShowDialog();
+            _manager.OpenSimFile(FileChooser.FileName);
+            // Insert Open SimInfo here...
         }        
     }
 }
