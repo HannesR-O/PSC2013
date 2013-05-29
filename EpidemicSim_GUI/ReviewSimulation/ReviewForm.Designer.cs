@@ -32,7 +32,7 @@
             this.Btn_LoadTick = new System.Windows.Forms.Button();
             this.Label_DiseaseName = new System.Windows.Forms.Label();
             this.GroupBox_Disease = new System.Windows.Forms.GroupBox();
-            this.label_Transfer = new System.Windows.Forms.Label();
+            this.Label_Transfer = new System.Windows.Forms.Label();
             this.Label_Spreading = new System.Windows.Forms.Label();
             this.Label_Idle = new System.Windows.Forms.Label();
             this.Label_Incubation = new System.Windows.Forms.Label();
@@ -82,6 +82,8 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileChooser = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.GroupBox_Settings = new System.Windows.Forms.GroupBox();
+            this.Btn_ApplySettings = new System.Windows.Forms.Button();
             this.GroupBox_Disease.SuspendLayout();
             this.GroupBox_TickSelections.SuspendLayout();
             this.Panel_leftside.SuspendLayout();
@@ -94,6 +96,7 @@
             this.GroupBox_TickInfo.SuspendLayout();
             this.Menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.GroupBox_Settings.SuspendLayout();
             this.SuspendLayout();
             // 
             // ComboBox_Entries
@@ -130,7 +133,7 @@
             // 
             // GroupBox_Disease
             // 
-            this.GroupBox_Disease.Controls.Add(this.label_Transfer);
+            this.GroupBox_Disease.Controls.Add(this.Label_Transfer);
             this.GroupBox_Disease.Controls.Add(this.Label_Spreading);
             this.GroupBox_Disease.Controls.Add(this.Label_Idle);
             this.GroupBox_Disease.Controls.Add(this.Label_Incubation);
@@ -147,14 +150,13 @@
             this.GroupBox_Disease.TabStop = false;
             this.GroupBox_Disease.Text = "Disease";
             // 
-            // label_Transfer
+            // Label_Transfer
             // 
-            this.label_Transfer.Location = new System.Drawing.Point(123, 82);
-            this.label_Transfer.Name = "label_Transfer";
-            this.label_Transfer.Size = new System.Drawing.Size(95, 13);
-            this.label_Transfer.TabIndex = 8;
-            this.label_Transfer.Text = "label1";
-            this.label_Transfer.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.Label_Transfer.Location = new System.Drawing.Point(123, 82);
+            this.Label_Transfer.Name = "Label_Transfer";
+            this.Label_Transfer.Size = new System.Drawing.Size(95, 13);
+            this.Label_Transfer.TabIndex = 8;
+            this.Label_Transfer.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Label_Spreading
             // 
@@ -162,7 +164,6 @@
             this.Label_Spreading.Name = "Label_Spreading";
             this.Label_Spreading.Size = new System.Drawing.Size(95, 13);
             this.Label_Spreading.TabIndex = 7;
-            this.Label_Spreading.Text = "label1";
             this.Label_Spreading.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Label_Idle
@@ -171,7 +172,6 @@
             this.Label_Idle.Name = "Label_Idle";
             this.Label_Idle.Size = new System.Drawing.Size(95, 13);
             this.Label_Idle.TabIndex = 6;
-            this.Label_Idle.Text = "label1";
             this.Label_Idle.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Label_Incubation
@@ -181,7 +181,6 @@
             this.Label_Incubation.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label_Incubation.Size = new System.Drawing.Size(98, 13);
             this.Label_Incubation.TabIndex = 5;
-            this.Label_Incubation.Text = "label1";
             this.Label_Incubation.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Transferability
@@ -516,13 +515,7 @@
             // Page_Defaults
             // 
             this.Page_Defaults.BackColor = System.Drawing.Color.Transparent;
-            this.Page_Defaults.Controls.Add(this.TextBox_SaveTo);
-            this.Page_Defaults.Controls.Add(this.LabelSaveTo);
-            this.Page_Defaults.Controls.Add(this.Btn_SaveTo_Browse);
-            this.Page_Defaults.Controls.Add(this.Label_Palette);
-            this.Page_Defaults.Controls.Add(this.ComboBox_DefaultPalette);
-            this.Page_Defaults.Controls.Add(this.TextBox_DefaultPrefix);
-            this.Page_Defaults.Controls.Add(this.Label_Prefix);
+            this.Page_Defaults.Controls.Add(this.GroupBox_Settings);
             this.Page_Defaults.Location = new System.Drawing.Point(4, 25);
             this.Page_Defaults.Name = "Page_Defaults";
             this.Page_Defaults.Padding = new System.Windows.Forms.Padding(3);
@@ -533,15 +526,16 @@
             // TextBox_SaveTo
             // 
             this.TextBox_SaveTo.Enabled = false;
-            this.TextBox_SaveTo.Location = new System.Drawing.Point(57, 70);
+            this.TextBox_SaveTo.Location = new System.Drawing.Point(55, 82);
             this.TextBox_SaveTo.Name = "TextBox_SaveTo";
             this.TextBox_SaveTo.Size = new System.Drawing.Size(142, 20);
             this.TextBox_SaveTo.TabIndex = 6;
+            this.TextBox_SaveTo.TextChanged += new System.EventHandler(this.TextBox_SaveTo_TextChanged);
             // 
             // LabelSaveTo
             // 
             this.LabelSaveTo.AutoSize = true;
-            this.LabelSaveTo.Location = new System.Drawing.Point(7, 73);
+            this.LabelSaveTo.Location = new System.Drawing.Point(5, 85);
             this.LabelSaveTo.Name = "LabelSaveTo";
             this.LabelSaveTo.Size = new System.Drawing.Size(44, 13);
             this.LabelSaveTo.TabIndex = 5;
@@ -549,9 +543,9 @@
             // 
             // Btn_SaveTo_Browse
             // 
-            this.Btn_SaveTo_Browse.Location = new System.Drawing.Point(205, 70);
+            this.Btn_SaveTo_Browse.Location = new System.Drawing.Point(203, 82);
             this.Btn_SaveTo_Browse.Name = "Btn_SaveTo_Browse";
-            this.Btn_SaveTo_Browse.Size = new System.Drawing.Size(31, 23);
+            this.Btn_SaveTo_Browse.Size = new System.Drawing.Size(31, 20);
             this.Btn_SaveTo_Browse.TabIndex = 4;
             this.Btn_SaveTo_Browse.Text = "->";
             this.Btn_SaveTo_Browse.UseVisualStyleBackColor = true;
@@ -560,7 +554,7 @@
             // Label_Palette
             // 
             this.Label_Palette.AutoSize = true;
-            this.Label_Palette.Location = new System.Drawing.Point(7, 41);
+            this.Label_Palette.Location = new System.Drawing.Point(5, 53);
             this.Label_Palette.Name = "Label_Palette";
             this.Label_Palette.Size = new System.Drawing.Size(40, 13);
             this.Label_Palette.TabIndex = 3;
@@ -570,23 +564,25 @@
             // 
             this.ComboBox_DefaultPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBox_DefaultPalette.FormattingEnabled = true;
-            this.ComboBox_DefaultPalette.Location = new System.Drawing.Point(57, 38);
+            this.ComboBox_DefaultPalette.Location = new System.Drawing.Point(55, 50);
             this.ComboBox_DefaultPalette.Name = "ComboBox_DefaultPalette";
             this.ComboBox_DefaultPalette.Size = new System.Drawing.Size(142, 21);
             this.ComboBox_DefaultPalette.TabIndex = 2;
+            this.ComboBox_DefaultPalette.SelectedValueChanged += new System.EventHandler(this.ComboBox_DefaultPalette_SelectedValueChanged);
             // 
             // TextBox_DefaultPrefix
             // 
-            this.TextBox_DefaultPrefix.Location = new System.Drawing.Point(57, 7);
+            this.TextBox_DefaultPrefix.Location = new System.Drawing.Point(55, 19);
             this.TextBox_DefaultPrefix.Name = "TextBox_DefaultPrefix";
             this.TextBox_DefaultPrefix.Size = new System.Drawing.Size(142, 20);
             this.TextBox_DefaultPrefix.TabIndex = 1;
             this.TextBox_DefaultPrefix.Text = "Map";
+            this.TextBox_DefaultPrefix.TextChanged += new System.EventHandler(this.TextBox_DefaultPrefix_TextChanged);
             // 
             // Label_Prefix
             // 
             this.Label_Prefix.AutoSize = true;
-            this.Label_Prefix.Location = new System.Drawing.Point(8, 10);
+            this.Label_Prefix.Location = new System.Drawing.Point(6, 22);
             this.Label_Prefix.Name = "Label_Prefix";
             this.Label_Prefix.Size = new System.Drawing.Size(33, 13);
             this.Label_Prefix.TabIndex = 0;
@@ -638,7 +634,7 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.TooStripOpen_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.ToolStripOpen_Click);
             // 
             // FileChooser
             // 
@@ -652,6 +648,35 @@
             this.pictureBox1.Size = new System.Drawing.Size(352, 385);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            // 
+            // GroupBox_Settings
+            // 
+            this.GroupBox_Settings.Controls.Add(this.Btn_ApplySettings);
+            this.GroupBox_Settings.Controls.Add(this.TextBox_SaveTo);
+            this.GroupBox_Settings.Controls.Add(this.Label_Prefix);
+            this.GroupBox_Settings.Controls.Add(this.TextBox_DefaultPrefix);
+            this.GroupBox_Settings.Controls.Add(this.LabelSaveTo);
+            this.GroupBox_Settings.Controls.Add(this.ComboBox_DefaultPalette);
+            this.GroupBox_Settings.Controls.Add(this.Label_Palette);
+            this.GroupBox_Settings.Controls.Add(this.Btn_SaveTo_Browse);
+            this.GroupBox_Settings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupBox_Settings.Location = new System.Drawing.Point(3, 3);
+            this.GroupBox_Settings.Name = "GroupBox_Settings";
+            this.GroupBox_Settings.Size = new System.Drawing.Size(358, 195);
+            this.GroupBox_Settings.TabIndex = 0;
+            this.GroupBox_Settings.TabStop = false;
+            this.GroupBox_Settings.Text = "Settings";
+            // 
+            // Btn_ApplySettings
+            // 
+            this.Btn_ApplySettings.Enabled = false;
+            this.Btn_ApplySettings.Location = new System.Drawing.Point(277, 166);
+            this.Btn_ApplySettings.Name = "Btn_ApplySettings";
+            this.Btn_ApplySettings.Size = new System.Drawing.Size(75, 23);
+            this.Btn_ApplySettings.TabIndex = 7;
+            this.Btn_ApplySettings.Text = "Apply";
+            this.Btn_ApplySettings.UseVisualStyleBackColor = true;
+            this.Btn_ApplySettings.Click += new System.EventHandler(this.Btn_ApplySettings_Click);
             // 
             // ReviewForm
             // 
@@ -678,12 +703,13 @@
             this.GroupBox_S_Create.ResumeLayout(false);
             this.GroupBox_S_Create.PerformLayout();
             this.Page_Defaults.ResumeLayout(false);
-            this.Page_Defaults.PerformLayout();
             this.GroupBox_TickInfo.ResumeLayout(false);
             this.GroupBox_TickInfo.PerformLayout();
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.GroupBox_Settings.ResumeLayout(false);
+            this.GroupBox_Settings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -742,8 +768,10 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox GroupBox_S_Create;
         private System.Windows.Forms.Label Label_Incubation;
-        private System.Windows.Forms.Label label_Transfer;
+        private System.Windows.Forms.Label Label_Transfer;
         private System.Windows.Forms.Label Label_Spreading;
         private System.Windows.Forms.Label Label_Idle;
+        private System.Windows.Forms.GroupBox GroupBox_Settings;
+        private System.Windows.Forms.Button Btn_ApplySettings;
     }
 }

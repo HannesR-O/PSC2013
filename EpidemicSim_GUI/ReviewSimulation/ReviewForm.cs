@@ -18,6 +18,9 @@ namespace PSC2013.ES.GUI.ReviewSimulation
     {
         private StatisticsManager _manager;
 
+        private string _defaultPrefix = "Map";
+        private EColorPalette _defaultPalette = EColorPalette.Red;
+
         /// <summary>
         /// Creates a new ReviewForm and opens the Given File
         /// </summary>
@@ -35,16 +38,13 @@ namespace PSC2013.ES.GUI.ReviewSimulation
                 ComboBox_S_IndPalette.Items.Add(color);
             ComboBox_S_IndPalette.SelectedItem = EColorPalette.Red;
 
+            TextBox_SaveTo.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            Btn_ApplySettings.Enabled = false;
+
             OpenFile(file);
         }
 
-        private void Btn_SaveTo_Browse_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog.ShowDialog();
-            TextBox_SaveTo.Text = FolderBrowserDialog.SelectedPath;
-        }
-
-        private void TooStripOpen_Click(object sender, EventArgs e)
+        private void ToolStripOpen_Click(object sender, EventArgs e)
         {
             FileChooser.ShowDialog();
 
@@ -82,12 +82,15 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             Label_Incubation.Text = _manager.SimInfo.Disease.IncubationPeriod + " Hours";
             Label_Idle.Text = _manager.SimInfo.Disease.IdleTime + " Hours";
             Label_Spreading.Text = _manager.SimInfo.Disease.SpreadingTime + " Hours";
+            Label_Transfer.Text = _manager.SimInfo.Disease.Transferability + " %";
         }
 
         private void RefreshTickInformation()
         {
             Label_DeathInformation.Text = HumanSnapshotStatistics.DeathInformation(_manager.LoadedSnapshot.Deaths);
         }
+
+        // Checkboxes
 
         private void CheckBox_S_All_CheckedChanged(object sender, EventArgs e)
         {
@@ -127,6 +130,40 @@ namespace PSC2013.ES.GUI.ReviewSimulation
                 ComboBox_S_IndPalette.Enabled = true;
             else
                 ComboBox_S_IndPalette.Enabled = false;
+        }
+
+        // Defaults tab
+
+        private void Btn_SaveTo_Browse_Click(object sender, EventArgs e)
+        {
+            if (FolderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                TextBox_SaveTo.Text = FolderBrowserDialog.SelectedPath; 
+            }
+        }
+
+        private void Btn_ApplySettings_Click(object sender, EventArgs e)
+        {
+            _manager.SetNewDestination(TextBox_SaveTo.Text);
+            _defaultPrefix = TextBox_DefaultPrefix.Text;
+            _defaultPalette = (EColorPalette)ComboBox_DefaultPalette.SelectedItem;
+
+            Btn_ApplySettings.Enabled = false;
+        }
+
+        private void TextBox_DefaultPrefix_TextChanged(object sender, EventArgs e)
+        {
+            Btn_ApplySettings.Enabled = true;
+        }
+
+        private void ComboBox_DefaultPalette_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Btn_ApplySettings.Enabled = true;
+        }
+
+        private void TextBox_SaveTo_TextChanged(object sender, EventArgs e)
+        {
+            Btn_ApplySettings.Enabled = true;
         }
     }
 }
