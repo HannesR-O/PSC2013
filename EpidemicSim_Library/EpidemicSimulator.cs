@@ -43,8 +43,8 @@ namespace PSC2013.ES.Library
         private readonly SnapshotManager _snapshotMgr;
 
         // ISimulationComponents
-        private ISimulationComponent _infectionSimulator;
-        private readonly IList<ISimulationComponent> _before, _after;
+        private SimulationComponent _infectionSimulator;
+        private readonly IList<SimulationComponent> _before, _after;
 
         // ISimulationOutputTargets
         private IList<IOutputTarget> _outputTargets; 
@@ -88,8 +88,8 @@ namespace PSC2013.ES.Library
             _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
             _snapshotMgr.WriterQueueEmpty += OnWriterQueueEmpty;
 
-            _before = new List<ISimulationComponent>();
-            _after = new List<ISimulationComponent>();
+            _before = new List<SimulationComponent>();
+            _after = new List<SimulationComponent>();
 
             _outputTargets = new List<IOutputTarget>();
         }
@@ -101,11 +101,11 @@ namespace PSC2013.ES.Library
         /// <param name="dataFilePath">The file's path containing populational data to simulate on</param>
         /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
         /// <returns>The created instance of EpidemicSimulator</returns>
-        public static EpidemicSimulator Create(Disease disease, string dataFilePath, params ISimulationComponent[] components)
+        public static EpidemicSimulator Create(Disease disease, string dataFilePath, params SimulationComponent[] components)
         {
             var sim = new EpidemicSimulator(disease);
 
-            foreach (ISimulationComponent component in components)
+            foreach (SimulationComponent component in components)
             {
                 sim.AddSimulationComponent(component);
             }
@@ -129,7 +129,7 @@ namespace PSC2013.ES.Library
         /// the previous one will be overriden
         /// </summary>
         /// <param name="component"></param>
-        public void AddSimulationComponent(ISimulationComponent component)
+        public void AddSimulationComponent(SimulationComponent component)
         {
             if (_simulationLock)
                 throw new SimulationException("Could not add a new ISimulationComponent. " + ERROR_MESSAGE_SIMULATION_RUNNING);
@@ -155,7 +155,7 @@ namespace PSC2013.ES.Library
                     _after.Add(component);
         }
 
-        public void RemoveSimulationComponent(ISimulationComponent component)
+        public void RemoveSimulationComponent(SimulationComponent component)
         {
             var stages = component.SimulationStages;
             if((stages & ESimulationStage.InfectedCalculation) == ESimulationStage.InfectedCalculation)
@@ -288,7 +288,7 @@ namespace PSC2013.ES.Library
                 _watch.Reset();
                 _watch.Start();
 #endif
-                foreach (ISimulationComponent comp in _before)
+                foreach (SimulationComponent comp in _before)
                 {
                     comp.PerformSimulationStage(_simData);
                 }
@@ -296,7 +296,7 @@ namespace PSC2013.ES.Library
                 // Main simulation step
                 _infectionSimulator.PerformSimulationStage(_simData);
 
-                foreach (ISimulationComponent comp in _after)
+                foreach (SimulationComponent comp in _after)
                 {
                     comp.PerformSimulationStage(_simData);
                 }

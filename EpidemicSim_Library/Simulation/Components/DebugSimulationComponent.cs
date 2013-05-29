@@ -2,23 +2,17 @@
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class DebugSimulationComponent : ISimulationComponent
+    public class DebugSimulationComponent : SimulationComponent
     {
-        void ISimulationComponent.PerformSimulationStage(SimulationData data)
+        public DebugSimulationComponent() : base(ESimulationStage.InfectedCalculation) 
+        {
+        }
+
+        public override void PerformSimulationStage(SimulationData data)
         {
 #if DEBUG
             Console.WriteLine("DEBUG SIMULATION TICK");
 #endif
-        }
-
-        public void SetSimulationIntervall(int intervall)
-        {
-            return;
-        }
-
-        ESimulationStage ISimulationComponent.SimulationStages
-        {
-            get { return ESimulationStage.InfectedCalculation; }
         }
 
         public override int GetHashCode()
@@ -28,10 +22,10 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as ISimulationComponent);
+            return Equals(obj as SimulationComponent);
         }
 
-        public bool Equals(ISimulationComponent other)
+        public override bool Equals(SimulationComponent other)
         {
             return (other as DebugSimulationComponent) != null;
         }

@@ -55,9 +55,9 @@
     <Compile Include="Simulation\Components\AgeingSimulationComponent.cs" />
     <Compile Include="Simulation\Components\DebugSimulationComponent.cs" />
     <Compile Include="Simulation\Components\InfectionCalculatorComponent.cs" />
-    <Compile Include="Simulation\Components\ISimulationComponent.cs" />
     <Compile Include="Simulation\Components\MindsetSimulationComponent.cs" />
     <Compile Include="Simulation\Components\MovementSimulationComponent.cs" />
+    <Compile Include="Simulation\Components\SimulationComponent.cs" />
     <Compile Include="Simulation\SimulationEventArgs.cs" />
     <Compile Include="Simulation\SimulationException.cs" />
     <Compile Include="Snapshot\CellSnapshot.cs" />

@@ -40,7 +40,7 @@ namespace PSC2013.ES.Library
         /// </summary>
         /// <param name="array">Source array</param>
         /// <param name="otherArray">Destination array</param>
-        internal static void CopyToOtherArray(this Array array, Array otherArray)
+        public static void CopyToOtherArray(this Array array, Array otherArray)
         {
             array.CopyTo(otherArray, 0);
         }

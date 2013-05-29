@@ -3,19 +3,18 @@ using System;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public unsafe class MindsetSimulationComponent : ISimulationComponent
+    public unsafe class MindsetSimulationComponent : SimulationComponent
     {
-        private int _simulationIntervall;
         private Human* _ptr;
         private Random _random;
 
-        MindsetSimulationComponent()
+        MindsetSimulationComponent() : base(ESimulationStage.BeforeInfectedCalculation)
         {
             _random = new Random();
             _simulationIntervall = 1;
         }
 
-        public void PerformSimulationStage(SimulationData data)
+        public unsafe override void PerformSimulationStage(SimulationData data)
         {
             fixed (Human* humanptr = data.Humans)
             {
@@ -49,16 +48,6 @@ namespace PSC2013.ES.Library.Simulation.Components
             }
         }
 
-        public void SetSimulationIntervall(int intervall)
-        {
-            _simulationIntervall = intervall;           //TODO: |f| make use of this ;) & add range checks?
-        }
-
-        public ESimulationStage SimulationStages
-        {
-            get { return ESimulationStage.BeforeInfectedCalculation; }
-        }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -66,10 +55,10 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as ISimulationComponent);
+            return Equals(obj as SimulationComponent);
         }
 
-        public bool Equals(ISimulationComponent other)
+        public override bool Equals(SimulationComponent other)
         {
             var otherComponent = other as MindsetSimulationComponent;
             if (otherComponent == null)

@@ -8,18 +8,17 @@ using PSC2013.ES.Library.Diseases;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class InfectionCalculatorComponent : ISimulationComponent
+    public class InfectionCalculatorComponent : SimulationComponent
     {
         private readonly Random _random;
-        private int _simulationIntervall, _arrayHeight, _arrayWidth, _arrayMaxIndex;
+        private int _arrayHeight, _arrayWidth, _arrayMaxIndex;
 
-        public InfectionCalculatorComponent()
+        public InfectionCalculatorComponent() : base(ESimulationStage.InfectedCalculation)
         {
-            _simulationIntervall = 1;
             _random = new Random((int)DateTime.Now.Ticks);
         }
 
-        public unsafe void PerformSimulationStage(SimulationData data)
+        public override unsafe void PerformSimulationStage(SimulationData data)
         {
             Disease disease = data.CurrentDisease;
 
@@ -117,13 +116,6 @@ namespace PSC2013.ES.Library.Simulation.Components
                 && point.Y >= 0 && point.X < _arrayHeight;
         }
 
-        public void SetSimulationIntervall(int intervall)
-        {
-            _simulationIntervall = intervall;           //TODO: |f| make use of this ;) & add range checks?
-        }
-
-        public ESimulationStage SimulationStages { get { return ESimulationStage.InfectedCalculation; } }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -131,10 +123,10 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as ISimulationComponent);
+            return Equals(obj as SimulationComponent);
         }
 
-        public bool Equals(ISimulationComponent other)
+        public override bool Equals(SimulationComponent other)
         {
             var otherComponent = other as InfectionCalculatorComponent;
             if (otherComponent == null)

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public unsafe class AgeingSimulationComponent : ISimulationComponent
+    public class AgeingSimulationComponent : SimulationComponent
     {
         // Assumes 365 x 24 hour days
         private const int HOURS_PER_YEAR = 8544;
@@ -20,14 +20,25 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// Creates a new AgeingSimulationComponent and sets the "hour-value" of one tick.
         /// </summary>
         /// <param name="ageLimit">A value specifying at what age Humans should die of aging</param>
-        public AgeingSimulationComponent(int ageLimit)
+        public AgeingSimulationComponent(int ageLimit) : base(ESimulationStage.AfterInfectedCalculation)
         {
             AgeLimit = ageLimit;
-            TicksPerYear = HOURS_PER_YEAR;        
+            UpdateTicksPerYear();        
             _counter = 0;
         }
 
-        public void PerformSimulationStage(SimulationData data)
+        private void UpdateTicksPerYear()
+        {
+            TicksPerYear = HOURS_PER_YEAR / _simulationIntervall;
+        }
+
+        public override void SetSimulationIntervall(int intervall)
+        {
+            base.SetSimulationIntervall(intervall);
+            UpdateTicksPerYear();
+        }
+
+        public unsafe override void PerformSimulationStage(SimulationData data)
         {
             _counter = ++_counter % TicksPerYear;
 
@@ -80,13 +91,6 @@ namespace PSC2013.ES.Library.Simulation.Components
 #endif
         }
 
-        public void SetSimulationIntervall(int intervall)
-        {
-            TicksPerYear = HOURS_PER_YEAR / intervall;           //TODO: |f| add range checks?
-        }
-
-        public ESimulationStage SimulationStages { get { return ESimulationStage.AfterInfectedCalculation; } }
-
         public override int GetHashCode()
         {
             return AgeLimit.GetHashCode();
@@ -94,10 +98,10 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as ISimulationComponent);
+            return Equals(obj as SimulationComponent);
         }
 
-        public bool Equals(ISimulationComponent other)
+        public override bool Equals(SimulationComponent other)
         {
             var otherComponent = other as AgeingSimulationComponent;
             if (otherComponent == null)

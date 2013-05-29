@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="AreaData\MatrixGeneratorTest.cs" />
     <Compile Include="ExampleTest.cs" />
+    <Compile Include="ExtensionMethodsTest.cs" />
     <Compile Include="IO\Readers\DepartmentMapReaderTest.cs" />
     <Compile Include="PopulationData\HumanTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +74,7 @@
     <Folder Include="Diseases\" />
     <Folder Include="IO\Files\" />
     <Folder Include="IO\Writers\" />
+    <Folder Include="Statistics\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EpidemicSim_Library\EpidemicSim_Library.csproj">
