@@ -647,28 +647,31 @@ namespace PSC2013.ES.Library.Simulation.Components
             }
 
             //Vertical Movement
-            int y = (minrange + _random.Next((maxrange - minrange)) * data.ImageWidth);
+            int y = ((minrange + _random.Next((maxrange - minrange))) * data.ImageWidth);
+
 
             if (_random.Next(2) == 0)
             {
-                while (origincell + y  >= (data.ImageWidth * data.ImageHeight)
-                    || data.Cells[origincell + y] == null)
+                while (origincell + x + y  >= (data.ImageWidth * data.ImageHeight)
+                    || data.Cells[origincell + x + y] == null)
                 {
-                    --y;
+                    y = y - data.ImageWidth;
                 }
             }
             else
             {
                 y = -y;
 
-                while (origincell + y  < 0
-                       || data.Cells[origincell + y] == null)
+                while (origincell + x + y  < 0
+                       || data.Cells[origincell+ x + y] == null)
                 {
-                    ++y;
+                    y = y + data.ImageWidth;
                 }
             }
 
-            return origincell + x + (y * data.ImageWidth);
+
+
+            return origincell + x + y;
         }
 
         public ESimulationStage SimulationStages
