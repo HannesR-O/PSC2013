@@ -42,24 +42,25 @@
             this.Panel_fieldSelectionContainer = new System.Windows.Forms.Panel();
             this.TabControl_MapCreator = new System.Windows.Forms.TabControl();
             this.Page_Standard = new System.Windows.Forms.TabPage();
+            this.GroupBox_S_Create = new System.Windows.Forms.GroupBox();
             this.ComboBox_S_IndPalette = new System.Windows.Forms.ComboBox();
-            this.CheckBox_S_IndPalette = new System.Windows.Forms.CheckBox();
-            this.TextBox_S_Prefix = new System.Windows.Forms.TextBox();
-            this.CheckBox_S_IndPredix = new System.Windows.Forms.CheckBox();
-            this.Btn_Create_S = new System.Windows.Forms.Button();
-            this.CheckBox_S_All = new System.Windows.Forms.CheckBox();
-            this.CheckBox_S_Female = new System.Windows.Forms.CheckBox();
             this.CheckBox_S_Male = new System.Windows.Forms.CheckBox();
-            this.CheckBox_S_Diseased = new System.Windows.Forms.CheckBox();
-            this.CheckBox_S_Infected = new System.Windows.Forms.CheckBox();
-            this.CheckBox_S_FemaleSenior = new System.Windows.Forms.CheckBox();
             this.CheckBox_S_FemaleAdult = new System.Windows.Forms.CheckBox();
+            this.CheckBox_S_IndPalette = new System.Windows.Forms.CheckBox();
             this.CheckBox_S_FemaleChild = new System.Windows.Forms.CheckBox();
+            this.CheckBox_S_FemaleSenior = new System.Windows.Forms.CheckBox();
+            this.TextBox_S_Prefix = new System.Windows.Forms.TextBox();
             this.CheckBox_S_FemaleBaby = new System.Windows.Forms.CheckBox();
+            this.CheckBox_S_Infected = new System.Windows.Forms.CheckBox();
+            this.CheckBox_S_IndPredix = new System.Windows.Forms.CheckBox();
             this.CheckBox_S_MaleSenior = new System.Windows.Forms.CheckBox();
+            this.CheckBox_S_Diseased = new System.Windows.Forms.CheckBox();
+            this.Btn_Create_S = new System.Windows.Forms.Button();
             this.CheckBox_S_MaleAdult = new System.Windows.Forms.CheckBox();
+            this.CheckBox_S_All = new System.Windows.Forms.CheckBox();
             this.CheckBox_S_MaleChild = new System.Windows.Forms.CheckBox();
             this.CheckBox_S_MaleBaby = new System.Windows.Forms.CheckBox();
+            this.CheckBox_S_Female = new System.Windows.Forms.CheckBox();
             this.Page_Death = new System.Windows.Forms.TabPage();
             this.Page_Defaults = new System.Windows.Forms.TabPage();
             this.TextBox_SaveTo = new System.Windows.Forms.TextBox();
@@ -77,12 +78,6 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileChooser = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.GroupBox_S_Create = new System.Windows.Forms.GroupBox();
-            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
-            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.shapeContainer2 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
-            this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.GroupBox_Disease.SuspendLayout();
             this.GroupBox_TickSelections.SuspendLayout();
             this.Panel_leftside.SuspendLayout();
@@ -90,11 +85,11 @@
             this.Panel_fieldSelectionContainer.SuspendLayout();
             this.TabControl_MapCreator.SuspendLayout();
             this.Page_Standard.SuspendLayout();
+            this.GroupBox_S_Create.SuspendLayout();
             this.Page_Defaults.SuspendLayout();
             this.GroupBox_TickInfo.SuspendLayout();
             this.Menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.GroupBox_S_Create.SuspendLayout();
             this.SuspendLayout();
             // 
             // ComboBox_Entries
@@ -186,7 +181,6 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.GroupBox_TickSelections.Controls.Add(this.ComboBox_Entries);
             this.GroupBox_TickSelections.Controls.Add(this.Btn_LoadTick);
-            this.GroupBox_TickSelections.Controls.Add(this.shapeContainer2);
             this.GroupBox_TickSelections.Location = new System.Drawing.Point(10, 335);
             this.GroupBox_TickSelections.Name = "GroupBox_TickSelections";
             this.GroupBox_TickSelections.Size = new System.Drawing.Size(235, 297);
@@ -250,6 +244,34 @@
             this.Page_Standard.TabIndex = 0;
             this.Page_Standard.Text = "Standard";
             // 
+            // GroupBox_S_Create
+            // 
+            this.GroupBox_S_Create.Controls.Add(this.ComboBox_S_IndPalette);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Male);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleAdult);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_IndPalette);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleChild);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleSenior);
+            this.GroupBox_S_Create.Controls.Add(this.TextBox_S_Prefix);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleBaby);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Infected);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_IndPredix);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleSenior);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Diseased);
+            this.GroupBox_S_Create.Controls.Add(this.Btn_Create_S);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleAdult);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_All);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleChild);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleBaby);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Female);
+            this.GroupBox_S_Create.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupBox_S_Create.Location = new System.Drawing.Point(3, 3);
+            this.GroupBox_S_Create.Name = "GroupBox_S_Create";
+            this.GroupBox_S_Create.Size = new System.Drawing.Size(358, 195);
+            this.GroupBox_S_Create.TabIndex = 0;
+            this.GroupBox_S_Create.TabStop = false;
+            this.GroupBox_S_Create.Text = "Create";
+            // 
             // ComboBox_S_IndPalette
             // 
             this.ComboBox_S_IndPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -259,68 +281,6 @@
             this.ComboBox_S_IndPalette.Name = "ComboBox_S_IndPalette";
             this.ComboBox_S_IndPalette.Size = new System.Drawing.Size(146, 21);
             this.ComboBox_S_IndPalette.TabIndex = 17;
-            // 
-            // CheckBox_S_IndPalette
-            // 
-            this.CheckBox_S_IndPalette.AutoSize = true;
-            this.CheckBox_S_IndPalette.Location = new System.Drawing.Point(203, 67);
-            this.CheckBox_S_IndPalette.Name = "CheckBox_S_IndPalette";
-            this.CheckBox_S_IndPalette.Size = new System.Drawing.Size(129, 17);
-            this.CheckBox_S_IndPalette.TabIndex = 16;
-            this.CheckBox_S_IndPalette.Text = "Use Individual Palette";
-            this.CheckBox_S_IndPalette.UseVisualStyleBackColor = true;
-            this.CheckBox_S_IndPalette.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // TextBox_S_Prefix
-            // 
-            this.TextBox_S_Prefix.Enabled = false;
-            this.TextBox_S_Prefix.Location = new System.Drawing.Point(203, 41);
-            this.TextBox_S_Prefix.Name = "TextBox_S_Prefix";
-            this.TextBox_S_Prefix.Size = new System.Drawing.Size(146, 20);
-            this.TextBox_S_Prefix.TabIndex = 15;
-            // 
-            // CheckBox_S_IndPredix
-            // 
-            this.CheckBox_S_IndPredix.AutoSize = true;
-            this.CheckBox_S_IndPredix.Location = new System.Drawing.Point(203, 18);
-            this.CheckBox_S_IndPredix.Name = "CheckBox_S_IndPredix";
-            this.CheckBox_S_IndPredix.Size = new System.Drawing.Size(122, 17);
-            this.CheckBox_S_IndPredix.TabIndex = 14;
-            this.CheckBox_S_IndPredix.Text = "Use Individual Prefix";
-            this.CheckBox_S_IndPredix.UseVisualStyleBackColor = true;
-            this.CheckBox_S_IndPredix.CheckedChanged += new System.EventHandler(this.CheckBox_S_IndPredix_CheckedChanged);
-            // 
-            // Btn_Create_S
-            // 
-            this.Btn_Create_S.Enabled = false;
-            this.Btn_Create_S.Location = new System.Drawing.Point(255, 163);
-            this.Btn_Create_S.Name = "Btn_Create_S";
-            this.Btn_Create_S.Size = new System.Drawing.Size(94, 23);
-            this.Btn_Create_S.TabIndex = 13;
-            this.Btn_Create_S.Text = "Create!";
-            this.Btn_Create_S.UseVisualStyleBackColor = true;
-            // 
-            // CheckBox_S_All
-            // 
-            this.CheckBox_S_All.AutoSize = true;
-            this.CheckBox_S_All.Location = new System.Drawing.Point(6, 19);
-            this.CheckBox_S_All.Name = "CheckBox_S_All";
-            this.CheckBox_S_All.Size = new System.Drawing.Size(37, 17);
-            this.CheckBox_S_All.TabIndex = 12;
-            this.CheckBox_S_All.Text = "All";
-            this.CheckBox_S_All.UseVisualStyleBackColor = true;
-            this.CheckBox_S_All.CheckedChanged += new System.EventHandler(this.CheckBox_S_All_CheckedChanged);
-            // 
-            // CheckBox_S_Female
-            // 
-            this.CheckBox_S_Female.AutoSize = true;
-            this.CheckBox_S_Female.Location = new System.Drawing.Point(101, 42);
-            this.CheckBox_S_Female.Name = "CheckBox_S_Female";
-            this.CheckBox_S_Female.Size = new System.Drawing.Size(60, 17);
-            this.CheckBox_S_Female.TabIndex = 11;
-            this.CheckBox_S_Female.Text = "Female";
-            this.CheckBox_S_Female.UseVisualStyleBackColor = true;
-            this.CheckBox_S_Female.CheckedChanged += new System.EventHandler(this.CheckBox_S_Female_CheckedChanged);
             // 
             // CheckBox_S_Male
             // 
@@ -334,38 +294,6 @@
             this.CheckBox_S_Male.UseVisualStyleBackColor = true;
             this.CheckBox_S_Male.CheckedChanged += new System.EventHandler(this.CheckBox_S_Male_CheckedChanged);
             // 
-            // CheckBox_S_Diseased
-            // 
-            this.CheckBox_S_Diseased.AutoSize = true;
-            this.CheckBox_S_Diseased.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.CheckBox_S_Diseased.Location = new System.Drawing.Point(6, 157);
-            this.CheckBox_S_Diseased.Name = "CheckBox_S_Diseased";
-            this.CheckBox_S_Diseased.Size = new System.Drawing.Size(70, 17);
-            this.CheckBox_S_Diseased.TabIndex = 9;
-            this.CheckBox_S_Diseased.Text = "Diseased";
-            this.CheckBox_S_Diseased.UseVisualStyleBackColor = false;
-            // 
-            // CheckBox_S_Infected
-            // 
-            this.CheckBox_S_Infected.AutoSize = true;
-            this.CheckBox_S_Infected.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.CheckBox_S_Infected.Location = new System.Drawing.Point(6, 174);
-            this.CheckBox_S_Infected.Name = "CheckBox_S_Infected";
-            this.CheckBox_S_Infected.Size = new System.Drawing.Size(65, 17);
-            this.CheckBox_S_Infected.TabIndex = 8;
-            this.CheckBox_S_Infected.Text = "Infected";
-            this.CheckBox_S_Infected.UseVisualStyleBackColor = false;
-            // 
-            // CheckBox_S_FemaleSenior
-            // 
-            this.CheckBox_S_FemaleSenior.AutoSize = true;
-            this.CheckBox_S_FemaleSenior.Location = new System.Drawing.Point(101, 134);
-            this.CheckBox_S_FemaleSenior.Name = "CheckBox_S_FemaleSenior";
-            this.CheckBox_S_FemaleSenior.Size = new System.Drawing.Size(56, 17);
-            this.CheckBox_S_FemaleSenior.TabIndex = 7;
-            this.CheckBox_S_FemaleSenior.Text = "Senior";
-            this.CheckBox_S_FemaleSenior.UseVisualStyleBackColor = true;
-            // 
             // CheckBox_S_FemaleAdult
             // 
             this.CheckBox_S_FemaleAdult.AutoSize = true;
@@ -375,6 +303,17 @@
             this.CheckBox_S_FemaleAdult.TabIndex = 6;
             this.CheckBox_S_FemaleAdult.Text = "Adult";
             this.CheckBox_S_FemaleAdult.UseVisualStyleBackColor = true;
+            // 
+            // CheckBox_S_IndPalette
+            // 
+            this.CheckBox_S_IndPalette.AutoSize = true;
+            this.CheckBox_S_IndPalette.Location = new System.Drawing.Point(203, 67);
+            this.CheckBox_S_IndPalette.Name = "CheckBox_S_IndPalette";
+            this.CheckBox_S_IndPalette.Size = new System.Drawing.Size(129, 17);
+            this.CheckBox_S_IndPalette.TabIndex = 16;
+            this.CheckBox_S_IndPalette.Text = "Use Individual Palette";
+            this.CheckBox_S_IndPalette.UseVisualStyleBackColor = true;
+            this.CheckBox_S_IndPalette.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // CheckBox_S_FemaleChild
             // 
@@ -386,6 +325,24 @@
             this.CheckBox_S_FemaleChild.Text = "Child";
             this.CheckBox_S_FemaleChild.UseVisualStyleBackColor = true;
             // 
+            // CheckBox_S_FemaleSenior
+            // 
+            this.CheckBox_S_FemaleSenior.AutoSize = true;
+            this.CheckBox_S_FemaleSenior.Location = new System.Drawing.Point(101, 134);
+            this.CheckBox_S_FemaleSenior.Name = "CheckBox_S_FemaleSenior";
+            this.CheckBox_S_FemaleSenior.Size = new System.Drawing.Size(56, 17);
+            this.CheckBox_S_FemaleSenior.TabIndex = 7;
+            this.CheckBox_S_FemaleSenior.Text = "Senior";
+            this.CheckBox_S_FemaleSenior.UseVisualStyleBackColor = true;
+            // 
+            // TextBox_S_Prefix
+            // 
+            this.TextBox_S_Prefix.Enabled = false;
+            this.TextBox_S_Prefix.Location = new System.Drawing.Point(203, 41);
+            this.TextBox_S_Prefix.Name = "TextBox_S_Prefix";
+            this.TextBox_S_Prefix.Size = new System.Drawing.Size(146, 20);
+            this.TextBox_S_Prefix.TabIndex = 15;
+            // 
             // CheckBox_S_FemaleBaby
             // 
             this.CheckBox_S_FemaleBaby.AutoSize = true;
@@ -395,6 +352,28 @@
             this.CheckBox_S_FemaleBaby.TabIndex = 4;
             this.CheckBox_S_FemaleBaby.Text = "Baby";
             this.CheckBox_S_FemaleBaby.UseVisualStyleBackColor = true;
+            // 
+            // CheckBox_S_Infected
+            // 
+            this.CheckBox_S_Infected.AutoSize = true;
+            this.CheckBox_S_Infected.BackColor = System.Drawing.Color.Transparent;
+            this.CheckBox_S_Infected.Location = new System.Drawing.Point(6, 174);
+            this.CheckBox_S_Infected.Name = "CheckBox_S_Infected";
+            this.CheckBox_S_Infected.Size = new System.Drawing.Size(65, 17);
+            this.CheckBox_S_Infected.TabIndex = 8;
+            this.CheckBox_S_Infected.Text = "Infected";
+            this.CheckBox_S_Infected.UseVisualStyleBackColor = false;
+            // 
+            // CheckBox_S_IndPredix
+            // 
+            this.CheckBox_S_IndPredix.AutoSize = true;
+            this.CheckBox_S_IndPredix.Location = new System.Drawing.Point(203, 18);
+            this.CheckBox_S_IndPredix.Name = "CheckBox_S_IndPredix";
+            this.CheckBox_S_IndPredix.Size = new System.Drawing.Size(122, 17);
+            this.CheckBox_S_IndPredix.TabIndex = 14;
+            this.CheckBox_S_IndPredix.Text = "Use Individual Prefix";
+            this.CheckBox_S_IndPredix.UseVisualStyleBackColor = true;
+            this.CheckBox_S_IndPredix.CheckedChanged += new System.EventHandler(this.CheckBox_S_IndPredix_CheckedChanged);
             // 
             // CheckBox_S_MaleSenior
             // 
@@ -406,6 +385,27 @@
             this.CheckBox_S_MaleSenior.Text = "Senior";
             this.CheckBox_S_MaleSenior.UseVisualStyleBackColor = true;
             // 
+            // CheckBox_S_Diseased
+            // 
+            this.CheckBox_S_Diseased.AutoSize = true;
+            this.CheckBox_S_Diseased.BackColor = System.Drawing.Color.Transparent;
+            this.CheckBox_S_Diseased.Location = new System.Drawing.Point(6, 157);
+            this.CheckBox_S_Diseased.Name = "CheckBox_S_Diseased";
+            this.CheckBox_S_Diseased.Size = new System.Drawing.Size(70, 17);
+            this.CheckBox_S_Diseased.TabIndex = 9;
+            this.CheckBox_S_Diseased.Text = "Diseased";
+            this.CheckBox_S_Diseased.UseVisualStyleBackColor = false;
+            // 
+            // Btn_Create_S
+            // 
+            this.Btn_Create_S.Enabled = false;
+            this.Btn_Create_S.Location = new System.Drawing.Point(255, 163);
+            this.Btn_Create_S.Name = "Btn_Create_S";
+            this.Btn_Create_S.Size = new System.Drawing.Size(94, 23);
+            this.Btn_Create_S.TabIndex = 13;
+            this.Btn_Create_S.Text = "Create!";
+            this.Btn_Create_S.UseVisualStyleBackColor = true;
+            // 
             // CheckBox_S_MaleAdult
             // 
             this.CheckBox_S_MaleAdult.AutoSize = true;
@@ -415,6 +415,17 @@
             this.CheckBox_S_MaleAdult.TabIndex = 2;
             this.CheckBox_S_MaleAdult.Text = "Adult";
             this.CheckBox_S_MaleAdult.UseVisualStyleBackColor = true;
+            // 
+            // CheckBox_S_All
+            // 
+            this.CheckBox_S_All.AutoSize = true;
+            this.CheckBox_S_All.Location = new System.Drawing.Point(6, 19);
+            this.CheckBox_S_All.Name = "CheckBox_S_All";
+            this.CheckBox_S_All.Size = new System.Drawing.Size(37, 17);
+            this.CheckBox_S_All.TabIndex = 12;
+            this.CheckBox_S_All.Text = "All";
+            this.CheckBox_S_All.UseVisualStyleBackColor = true;
+            this.CheckBox_S_All.CheckedChanged += new System.EventHandler(this.CheckBox_S_All_CheckedChanged);
             // 
             // CheckBox_S_MaleChild
             // 
@@ -436,13 +447,24 @@
             this.CheckBox_S_MaleBaby.Text = "Baby";
             this.CheckBox_S_MaleBaby.UseVisualStyleBackColor = true;
             // 
+            // CheckBox_S_Female
+            // 
+            this.CheckBox_S_Female.AutoSize = true;
+            this.CheckBox_S_Female.Location = new System.Drawing.Point(101, 42);
+            this.CheckBox_S_Female.Name = "CheckBox_S_Female";
+            this.CheckBox_S_Female.Size = new System.Drawing.Size(60, 17);
+            this.CheckBox_S_Female.TabIndex = 11;
+            this.CheckBox_S_Female.Text = "Female";
+            this.CheckBox_S_Female.UseVisualStyleBackColor = true;
+            this.CheckBox_S_Female.CheckedChanged += new System.EventHandler(this.CheckBox_S_Female_CheckedChanged);
+            // 
             // Page_Death
             // 
             this.Page_Death.BackColor = System.Drawing.Color.Transparent;
             this.Page_Death.Location = new System.Drawing.Point(4, 25);
             this.Page_Death.Name = "Page_Death";
             this.Page_Death.Padding = new System.Windows.Forms.Padding(3);
-            this.Page_Death.Size = new System.Drawing.Size(352, 177);
+            this.Page_Death.Size = new System.Drawing.Size(364, 201);
             this.Page_Death.TabIndex = 1;
             this.Page_Death.Text = "Death";
             // 
@@ -459,7 +481,7 @@
             this.Page_Defaults.Location = new System.Drawing.Point(4, 25);
             this.Page_Defaults.Name = "Page_Defaults";
             this.Page_Defaults.Padding = new System.Windows.Forms.Padding(3);
-            this.Page_Defaults.Size = new System.Drawing.Size(352, 177);
+            this.Page_Defaults.Size = new System.Drawing.Size(364, 201);
             this.Page_Defaults.TabIndex = 2;
             this.Page_Defaults.Text = "Defaults";
             // 
@@ -584,86 +606,6 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
-            // GroupBox_S_Create
-            // 
-            this.GroupBox_S_Create.Controls.Add(this.ComboBox_S_IndPalette);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Male);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleAdult);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_IndPalette);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleChild);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleSenior);
-            this.GroupBox_S_Create.Controls.Add(this.TextBox_S_Prefix);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleBaby);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Infected);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_IndPredix);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleSenior);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Diseased);
-            this.GroupBox_S_Create.Controls.Add(this.Btn_Create_S);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleAdult);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_All);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleChild);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleBaby);
-            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Female);
-            this.GroupBox_S_Create.Controls.Add(this.shapeContainer1);
-            this.GroupBox_S_Create.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GroupBox_S_Create.Location = new System.Drawing.Point(3, 3);
-            this.GroupBox_S_Create.Name = "GroupBox_S_Create";
-            this.GroupBox_S_Create.Size = new System.Drawing.Size(358, 195);
-            this.GroupBox_S_Create.TabIndex = 0;
-            this.GroupBox_S_Create.TabStop = false;
-            this.GroupBox_S_Create.Text = "Create";
-            // 
-            // shapeContainer1
-            // 
-            this.shapeContainer1.Location = new System.Drawing.Point(3, 16);
-            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.shapeContainer1.Name = "shapeContainer1";
-            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
-            this.rectangleShape1,
-            this.lineShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(352, 176);
-            this.shapeContainer1.TabIndex = 18;
-            this.shapeContainer1.TabStop = false;
-            // 
-            // lineShape1
-            // 
-            this.lineShape1.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.lineShape1.Name = "lineShape1";
-            this.lineShape1.X1 = 189;
-            this.lineShape1.X2 = 189;
-            this.lineShape1.Y1 = 4;
-            this.lineShape1.Y2 = 164;
-            // 
-            // lineShape2
-            // 
-            this.lineShape2.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.lineShape2.Name = "lineShape2";
-            this.lineShape2.X1 = 10;
-            this.lineShape2.X2 = 215;
-            this.lineShape2.Y1 = 94;
-            this.lineShape2.Y2 = 94;
-            // 
-            // shapeContainer2
-            // 
-            this.shapeContainer2.Location = new System.Drawing.Point(3, 16);
-            this.shapeContainer2.Margin = new System.Windows.Forms.Padding(0);
-            this.shapeContainer2.Name = "shapeContainer2";
-            this.shapeContainer2.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
-            this.lineShape2});
-            this.shapeContainer2.Size = new System.Drawing.Size(229, 278);
-            this.shapeContainer2.TabIndex = 3;
-            this.shapeContainer2.TabStop = false;
-            // 
-            // rectangleShape1
-            // 
-            this.rectangleShape1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.rectangleShape1.BorderColor = System.Drawing.SystemColors.ControlLight;
-            this.rectangleShape1.FillColor = System.Drawing.SystemColors.ControlLight;
-            this.rectangleShape1.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid;
-            this.rectangleShape1.Location = new System.Drawing.Point(0, 138);
-            this.rectangleShape1.Name = "rectangleShape1";
-            this.rectangleShape1.Size = new System.Drawing.Size(184, 37);
-            // 
             // ReviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -686,6 +628,8 @@
             this.Panel_fieldSelectionContainer.ResumeLayout(false);
             this.TabControl_MapCreator.ResumeLayout(false);
             this.Page_Standard.ResumeLayout(false);
+            this.GroupBox_S_Create.ResumeLayout(false);
+            this.GroupBox_S_Create.PerformLayout();
             this.Page_Defaults.ResumeLayout(false);
             this.Page_Defaults.PerformLayout();
             this.GroupBox_TickInfo.ResumeLayout(false);
@@ -693,8 +637,6 @@
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.GroupBox_S_Create.ResumeLayout(false);
-            this.GroupBox_S_Create.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -752,10 +694,5 @@
         private System.Windows.Forms.Label Label_Spreading;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox GroupBox_S_Create;
-        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
-        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
-        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
-        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer2;
-        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
     }
 }
