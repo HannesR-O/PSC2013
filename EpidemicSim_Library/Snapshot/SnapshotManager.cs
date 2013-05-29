@@ -138,7 +138,7 @@ namespace PSC2013.ES.Library.Snapshot
                     lock (_snapshots)
                     {
                         TickSnapshot temp = _snapshots.Dequeue();
-                        _writer.WriteIntoArchive(temp, _target, temp.Head, false);
+                        _writer.WriteIntoArchive(temp, _target, temp.Head, true);
                         Console.WriteLine("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                     }
                 }
