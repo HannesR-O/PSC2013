@@ -72,7 +72,8 @@ namespace PSC2013.ES.Cmd
                     Name = "TestDisease",
                     HealingFactor = fc,
                     ResistanceFactor = fc,
-                    MortalityRate = fc
+                    MortalityRate = fc,
+                    Transferability = 75
                 },
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new DebugSimulationComponent());
@@ -134,10 +135,10 @@ namespace PSC2013.ES.Cmd
             var disease = new Disease
             {
                 Name = "Dat",
-                IncubationPeriod = 238475,
-                IdleTime = 123415,
-                SpreadingTime = 123123,
-                Transferability = 901237,
+                IncubationPeriod = 10,
+                IdleTime = 3,
+                SpreadingTime = 8,
+                Transferability = 75,
                 MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
                 HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
                 ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
@@ -146,7 +147,8 @@ namespace PSC2013.ES.Cmd
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new DebugSimulationComponent(),
                 new AgeingSimulationComponent(110),
-                new MovementSimulationComponent());
+                new MovementSimulationComponent(),
+                new InfectionCalculatorComponent());
             sim.SetSimulationIntervall(4272);
             sim.SetSnapshotIntervall(8544);
             sim.AddOutputTarget(new ConsoleOutputTarget());

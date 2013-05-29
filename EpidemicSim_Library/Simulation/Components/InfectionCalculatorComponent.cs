@@ -42,11 +42,13 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
                 {
-                    ptr->DoDiseaseTick((short)disease.SpreadingTime);
+                    if (!ptr->IsDead())
+                    {
+                        ptr->DoDiseaseTick((short)disease.SpreadingTime);
 
-                    if (!ptr->IsInfected())
-                        TryInfection(*ptr, disease, data.Cells[ptr->CurrentCell].Probability);
-                    
+                        if (!ptr->IsInfected())
+                            TryInfection(*ptr, disease, data.Cells[ptr->CurrentCell].Probability);
+                    }
                     // TODO | dj | TEST!!!!
                 }
             }
