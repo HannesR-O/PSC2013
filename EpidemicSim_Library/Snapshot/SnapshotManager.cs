@@ -41,7 +41,7 @@ namespace PSC2013.ES.Library.Snapshot
             _target = Path.Combine(destination, disease.Name);
             _snapshots = new Queue<TickSnapshot>();
 
-            _tick = 1;
+            _tick = 0;
 
             _writer = new SnapshotWriter();
             _writer.QueueEmptied += WriterQueueEmpty.Raise;
@@ -54,6 +54,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
+            _tick++;
             int cellCount = simData.Cells.Count(x => x != null);
             CellSnapshot[] cells = new CellSnapshot[cellCount];
 
@@ -69,8 +70,7 @@ namespace PSC2013.ES.Library.Snapshot
             TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
 
             _snapshots.Enqueue(snap);
-            TookSnapshot(this, null);
-            _tick++;
+            TookSnapshot(this, null);            
         }
         
         /// <summary>
@@ -138,7 +138,7 @@ namespace PSC2013.ES.Library.Snapshot
                     lock (_snapshots)
                     {
                         TickSnapshot temp = _snapshots.Dequeue();
-                        _writer.WriteIntoArchive(temp, _target, temp.Head, true);
+                        _writer.WriteIntoArchive(temp, _target, temp.Head, false);
                         Console.WriteLine("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                     }
                 }
