@@ -21,6 +21,8 @@ namespace PSC2013.ES.GUI.ReviewSimulation
         private string _defaultPrefix = "Map";
         private EColorPalette _defaultPalette = EColorPalette.Red;
 
+        private Dictionary<string, Color> _currentLegend;
+
         /// <summary>
         /// Creates a new ReviewForm and opens the Given File
         /// </summary>
@@ -90,7 +92,49 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             Label_DeathInformation.Text = HumanSnapshotStatistics.DeathInformation(_manager.LoadedSnapshot.Deaths);
         }
 
+        // Create Standard Map
+
+        private void Btn_Create_S_Click(object sender, EventArgs e)
+        {
+            if ((int)EnumFromSelection() > 0)
+            {
+                _currentLegend = _manager.CreateGraphics(
+                    EnumFromSelection(),
+                    (CheckBox_S_IndPalette.Checked ? (EColorPalette)ComboBox_S_IndPalette.SelectedItem : _defaultPalette),
+                    (CheckBox_S_IndPredix.Checked ? TextBox_S_Prefix.Text : _defaultPrefix));
+            }        
+        }
+
         // Checkboxes
+
+        private EStatField EnumFromSelection()
+        {
+            EStatField selection = 0;
+
+            // Well, this is awkward...!?
+            if (CheckBox_S_MaleBaby.Checked)
+                selection = selection | EStatField.MaleBaby;
+            if (CheckBox_S_MaleChild.Checked)
+                selection = selection | EStatField.MaleChild;
+            if (CheckBox_S_MaleAdult.Checked)
+                selection = selection | EStatField.MaleAdult;
+            if (CheckBox_S_MaleSenior.Checked)
+                selection = selection | EStatField.MaleSenior;
+            if (CheckBox_S_FemaleBaby.Checked)
+                selection = selection | EStatField.FemaleBaby;
+            if (CheckBox_S_FemaleChild.Checked)
+                selection = selection | EStatField.FemaleChild;
+            if (CheckBox_S_FemaleAdult.Checked)
+                selection = selection | EStatField.FemaleAdult;
+            if (CheckBox_S_FemaleSenior.Checked)
+                selection = selection | EStatField.FemaleSenior;
+            if (CheckBox_S_Infected.Checked)
+                selection = selection | EStatField.Infected;
+            if (CheckBox_S_Diseased.Checked)
+                selection = selection | EStatField.Diseased;
+
+            return selection;
+        }
 
         private void CheckBox_S_All_CheckedChanged(object sender, EventArgs e)
         {
@@ -108,12 +152,38 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 
         private void CheckBox_S_Male_CheckedChanged(object sender, EventArgs e)
         {
-            //EnableMaleCheckBoxes(!CheckBox_S_Male.Checked);
+            if (CheckBox_S_Male.Checked)
+            {
+                CheckBox_S_MaleBaby.Checked = true;
+                CheckBox_S_MaleChild.Checked = true;
+                CheckBox_S_MaleAdult.Checked = true;
+                CheckBox_S_MaleSenior.Checked = true;
+            }
+            else
+            {
+                CheckBox_S_MaleBaby.Checked = false;
+                CheckBox_S_MaleChild.Checked = false;
+                CheckBox_S_MaleAdult.Checked = false;
+                CheckBox_S_MaleSenior.Checked = false;
+            }
         }
 
         private void CheckBox_S_Female_CheckedChanged(object sender, EventArgs e)
         {
-            //EnableFemaleCheckBoxes(!CheckBox_S_Female.Checked);
+            if (CheckBox_S_Female.Checked)
+            {
+                CheckBox_S_FemaleBaby.Checked = true;
+                CheckBox_S_FemaleChild.Checked = true;
+                CheckBox_S_FemaleAdult.Checked = true;
+                CheckBox_S_FemaleSenior.Checked = true;
+            }
+            else
+            {
+                CheckBox_S_FemaleBaby.Checked = false;
+                CheckBox_S_FemaleChild.Checked = false;
+                CheckBox_S_FemaleAdult.Checked = false;
+                CheckBox_S_FemaleSenior.Checked = false;
+            }
         }
 
         private void CheckBox_S_IndPredix_CheckedChanged(object sender, EventArgs e)

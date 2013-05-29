@@ -449,6 +449,7 @@
             this.Btn_Create_S.TabIndex = 13;
             this.Btn_Create_S.Text = "Create!";
             this.Btn_Create_S.UseVisualStyleBackColor = true;
+            this.Btn_Create_S.Click += new System.EventHandler(this.Btn_Create_S_Click);
             // 
             // CheckBox_S_MaleAdult
             // 
