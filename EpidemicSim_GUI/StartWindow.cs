@@ -41,21 +41,19 @@ namespace PSC2013.ES.GUI
 
         private void btn_review_Click(object sender, EventArgs e)
         {
-            //openFileDialog.Filter = DEFAULT_EXTENSIONS_SIM;
-            //openFileDialog.Title = FILEDIALOG_TITLE_SIM;
-            //DialogResult result = openFileDialog.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    string filepath = openFileDialog.FileName;
-            //    var form = new ReviewSimulationForm(filepath);
-            //    form.FormClosing += (_, __) => this.Show();
-            //    form.Show();
-            //    this.Hide();
-            //}
-            var form = new ReviewForm();
-            form.FormClosing += (_, __) => this.Show();
-            form.Show();
-            this.Hide();
+            openFileDialog.Filter = DEFAULT_EXTENSIONS_SIM;
+            openFileDialog.Title = FILEDIALOG_TITLE_SIM;
+
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string filepath = openFileDialog.FileName;
+                var form = new ReviewForm(filepath);
+                // var form = new ReviewSimulationForm(filepath);
+                form.FormClosing += (_, __) => this.Show();
+                form.Show();
+                this.Hide();
+            }
         }
     }
 }

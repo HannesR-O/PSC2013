@@ -32,10 +32,14 @@
             this.Btn_LoadTick = new System.Windows.Forms.Button();
             this.Label_DiseaseName = new System.Windows.Forms.Label();
             this.GroupBox_Disease = new System.Windows.Forms.GroupBox();
-            this.Label_Transferability = new System.Windows.Forms.Label();
-            this.Label_Idle = new System.Windows.Forms.Label();
+            this.label_Transfer = new System.Windows.Forms.Label();
             this.Label_Spreading = new System.Windows.Forms.Label();
+            this.Label_Idle = new System.Windows.Forms.Label();
             this.Label_Incubation = new System.Windows.Forms.Label();
+            this.Transferability = new System.Windows.Forms.Label();
+            this.Idle = new System.Windows.Forms.Label();
+            this.Spreading = new System.Windows.Forms.Label();
+            this.Incubation = new System.Windows.Forms.Label();
             this.GroupBox_TickSelections = new System.Windows.Forms.GroupBox();
             this.Panel_leftside = new System.Windows.Forms.Panel();
             this.Panel_Tick = new System.Windows.Forms.Panel();
@@ -118,7 +122,7 @@
             // 
             this.Label_DiseaseName.AutoSize = true;
             this.Label_DiseaseName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label_DiseaseName.Location = new System.Drawing.Point(6, 15);
+            this.Label_DiseaseName.Location = new System.Drawing.Point(6, 22);
             this.Label_DiseaseName.Name = "Label_DiseaseName";
             this.Label_DiseaseName.Size = new System.Drawing.Size(51, 20);
             this.Label_DiseaseName.TabIndex = 0;
@@ -126,11 +130,15 @@
             // 
             // GroupBox_Disease
             // 
-            this.GroupBox_Disease.Controls.Add(this.Label_Transferability);
-            this.GroupBox_Disease.Controls.Add(this.Label_DiseaseName);
-            this.GroupBox_Disease.Controls.Add(this.Label_Idle);
+            this.GroupBox_Disease.Controls.Add(this.label_Transfer);
             this.GroupBox_Disease.Controls.Add(this.Label_Spreading);
+            this.GroupBox_Disease.Controls.Add(this.Label_Idle);
             this.GroupBox_Disease.Controls.Add(this.Label_Incubation);
+            this.GroupBox_Disease.Controls.Add(this.Transferability);
+            this.GroupBox_Disease.Controls.Add(this.Label_DiseaseName);
+            this.GroupBox_Disease.Controls.Add(this.Idle);
+            this.GroupBox_Disease.Controls.Add(this.Spreading);
+            this.GroupBox_Disease.Controls.Add(this.Incubation);
             this.GroupBox_Disease.Dock = System.Windows.Forms.DockStyle.Top;
             this.GroupBox_Disease.Location = new System.Drawing.Point(10, 0);
             this.GroupBox_Disease.Name = "GroupBox_Disease";
@@ -139,41 +147,78 @@
             this.GroupBox_Disease.TabStop = false;
             this.GroupBox_Disease.Text = "Disease";
             // 
-            // Label_Transferability
+            // label_Transfer
             // 
-            this.Label_Transferability.AutoSize = true;
-            this.Label_Transferability.Location = new System.Drawing.Point(7, 83);
-            this.Label_Transferability.Name = "Label_Transferability";
-            this.Label_Transferability.Size = new System.Drawing.Size(72, 13);
-            this.Label_Transferability.TabIndex = 4;
-            this.Label_Transferability.Text = "Transferability";
-            // 
-            // Label_Idle
-            // 
-            this.Label_Idle.AutoSize = true;
-            this.Label_Idle.Location = new System.Drawing.Point(7, 57);
-            this.Label_Idle.Name = "Label_Idle";
-            this.Label_Idle.Size = new System.Drawing.Size(50, 13);
-            this.Label_Idle.TabIndex = 2;
-            this.Label_Idle.Text = "Idle Time";
+            this.label_Transfer.Location = new System.Drawing.Point(123, 82);
+            this.label_Transfer.Name = "label_Transfer";
+            this.label_Transfer.Size = new System.Drawing.Size(95, 13);
+            this.label_Transfer.TabIndex = 8;
+            this.label_Transfer.Text = "label1";
+            this.label_Transfer.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Label_Spreading
             // 
-            this.Label_Spreading.AutoSize = true;
-            this.Label_Spreading.Location = new System.Drawing.Point(7, 70);
+            this.Label_Spreading.Location = new System.Drawing.Point(123, 69);
             this.Label_Spreading.Name = "Label_Spreading";
-            this.Label_Spreading.Size = new System.Drawing.Size(81, 13);
-            this.Label_Spreading.TabIndex = 3;
-            this.Label_Spreading.Text = "Spreading Time";
+            this.Label_Spreading.Size = new System.Drawing.Size(95, 13);
+            this.Label_Spreading.TabIndex = 7;
+            this.Label_Spreading.Text = "label1";
+            this.Label_Spreading.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // Label_Idle
+            // 
+            this.Label_Idle.Location = new System.Drawing.Point(123, 56);
+            this.Label_Idle.Name = "Label_Idle";
+            this.Label_Idle.Size = new System.Drawing.Size(95, 13);
+            this.Label_Idle.TabIndex = 6;
+            this.Label_Idle.Text = "label1";
+            this.Label_Idle.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Label_Incubation
             // 
-            this.Label_Incubation.AutoSize = true;
-            this.Label_Incubation.Location = new System.Drawing.Point(7, 44);
+            this.Label_Incubation.Location = new System.Drawing.Point(120, 44);
             this.Label_Incubation.Name = "Label_Incubation";
-            this.Label_Incubation.Size = new System.Drawing.Size(83, 13);
-            this.Label_Incubation.TabIndex = 1;
-            this.Label_Incubation.Text = "Incubation Time";
+            this.Label_Incubation.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Label_Incubation.Size = new System.Drawing.Size(98, 13);
+            this.Label_Incubation.TabIndex = 5;
+            this.Label_Incubation.Text = "label1";
+            this.Label_Incubation.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // Transferability
+            // 
+            this.Transferability.AutoSize = true;
+            this.Transferability.Location = new System.Drawing.Point(7, 83);
+            this.Transferability.Name = "Transferability";
+            this.Transferability.Size = new System.Drawing.Size(72, 13);
+            this.Transferability.TabIndex = 4;
+            this.Transferability.Text = "Transferability";
+            // 
+            // Idle
+            // 
+            this.Idle.AutoSize = true;
+            this.Idle.Location = new System.Drawing.Point(7, 57);
+            this.Idle.Name = "Idle";
+            this.Idle.Size = new System.Drawing.Size(50, 13);
+            this.Idle.TabIndex = 2;
+            this.Idle.Text = "Idle Time";
+            // 
+            // Spreading
+            // 
+            this.Spreading.AutoSize = true;
+            this.Spreading.Location = new System.Drawing.Point(7, 70);
+            this.Spreading.Name = "Spreading";
+            this.Spreading.Size = new System.Drawing.Size(81, 13);
+            this.Spreading.TabIndex = 3;
+            this.Spreading.Text = "Spreading Time";
+            // 
+            // Incubation
+            // 
+            this.Incubation.AutoSize = true;
+            this.Incubation.Location = new System.Drawing.Point(7, 44);
+            this.Incubation.Name = "Incubation";
+            this.Incubation.Size = new System.Drawing.Size(83, 13);
+            this.Incubation.TabIndex = 1;
+            this.Incubation.Text = "Incubation Time";
             // 
             // GroupBox_TickSelections
             // 
@@ -221,7 +266,7 @@
             // 
             // TabControl_MapCreator
             // 
-            this.TabControl_MapCreator.Appearance = System.Windows.Forms.TabAppearance.Buttons;
+            this.TabControl_MapCreator.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.TabControl_MapCreator.Controls.Add(this.Page_Standard);
             this.TabControl_MapCreator.Controls.Add(this.Page_Death);
             this.TabControl_MapCreator.Controls.Add(this.Page_Defaults);
@@ -487,6 +532,7 @@
             // 
             // TextBox_SaveTo
             // 
+            this.TextBox_SaveTo.Enabled = false;
             this.TextBox_SaveTo.Location = new System.Drawing.Point(57, 70);
             this.TextBox_SaveTo.Name = "TextBox_SaveTo";
             this.TextBox_SaveTo.Size = new System.Drawing.Size(142, 20);
@@ -522,6 +568,7 @@
             // 
             // ComboBox_DefaultPalette
             // 
+            this.ComboBox_DefaultPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBox_DefaultPalette.FormattingEnabled = true;
             this.ComboBox_DefaultPalette.Location = new System.Drawing.Point(57, 38);
             this.ComboBox_DefaultPalette.Name = "ComboBox_DefaultPalette";
@@ -688,11 +735,15 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog FileChooser;
         private System.Windows.Forms.Label Label_DeathInformation;
-        private System.Windows.Forms.Label Label_Incubation;
-        private System.Windows.Forms.Label Label_Idle;
-        private System.Windows.Forms.Label Label_Transferability;
-        private System.Windows.Forms.Label Label_Spreading;
+        private System.Windows.Forms.Label Incubation;
+        private System.Windows.Forms.Label Idle;
+        private System.Windows.Forms.Label Transferability;
+        private System.Windows.Forms.Label Spreading;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox GroupBox_S_Create;
+        private System.Windows.Forms.Label Label_Incubation;
+        private System.Windows.Forms.Label label_Transfer;
+        private System.Windows.Forms.Label Label_Spreading;
+        private System.Windows.Forms.Label Label_Idle;
     }
 }
