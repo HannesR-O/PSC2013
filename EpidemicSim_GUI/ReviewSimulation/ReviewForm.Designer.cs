@@ -84,6 +84,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.GroupBox_Settings = new System.Windows.Forms.GroupBox();
             this.Btn_ApplySettings = new System.Windows.Forms.Button();
+            this.Label_Diseased = new System.Windows.Forms.Label();
+            this.Label_Infected = new System.Windows.Forms.Label();
             this.GroupBox_Disease.SuspendLayout();
             this.GroupBox_TickSelections.SuspendLayout();
             this.Panel_leftside.SuspendLayout();
@@ -594,7 +596,9 @@
             this.GroupBox_TickInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GroupBox_TickInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GroupBox_TickInfo.Controls.Add(this.Label_Diseased);
             this.GroupBox_TickInfo.Controls.Add(this.Label_DeathInformation);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_Infected);
             this.GroupBox_TickInfo.Location = new System.Drawing.Point(0, 0);
             this.GroupBox_TickInfo.Name = "GroupBox_TickInfo";
             this.GroupBox_TickInfo.Size = new System.Drawing.Size(314, 228);
@@ -605,7 +609,7 @@
             // Label_DeathInformation
             // 
             this.Label_DeathInformation.AutoSize = true;
-            this.Label_DeathInformation.Location = new System.Drawing.Point(7, 22);
+            this.Label_DeathInformation.Location = new System.Drawing.Point(6, 22);
             this.Label_DeathInformation.Name = "Label_DeathInformation";
             this.Label_DeathInformation.Size = new System.Drawing.Size(91, 13);
             this.Label_DeathInformation.TabIndex = 0;
@@ -633,7 +637,7 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.ToolStripOpen_Click);
             // 
@@ -678,6 +682,24 @@
             this.Btn_ApplySettings.Text = "Apply";
             this.Btn_ApplySettings.UseVisualStyleBackColor = true;
             this.Btn_ApplySettings.Click += new System.EventHandler(this.Btn_ApplySettings_Click);
+            // 
+            // Label_Diseased
+            // 
+            this.Label_Diseased.AutoSize = true;
+            this.Label_Diseased.Location = new System.Drawing.Point(6, 48);
+            this.Label_Diseased.Name = "Label_Diseased";
+            this.Label_Diseased.Size = new System.Drawing.Size(51, 13);
+            this.Label_Diseased.TabIndex = 1;
+            this.Label_Diseased.Text = "Diseased";
+            // 
+            // Label_Infected
+            // 
+            this.Label_Infected.AutoSize = true;
+            this.Label_Infected.Location = new System.Drawing.Point(6, 35);
+            this.Label_Infected.Name = "Label_Infected";
+            this.Label_Infected.Size = new System.Drawing.Size(46, 13);
+            this.Label_Infected.TabIndex = 2;
+            this.Label_Infected.Text = "Infected";
             // 
             // ReviewForm
             // 
@@ -774,5 +796,7 @@
         private System.Windows.Forms.Label Label_Idle;
         private System.Windows.Forms.GroupBox GroupBox_Settings;
         private System.Windows.Forms.Button Btn_ApplySettings;
+        private System.Windows.Forms.Label Label_Diseased;
+        private System.Windows.Forms.Label Label_Infected;
     }
 }

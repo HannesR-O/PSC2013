@@ -90,6 +90,8 @@ namespace PSC2013.ES.GUI.ReviewSimulation
         private void RefreshTickInformation()
         {
             Label_DeathInformation.Text = HumanSnapshotStatistics.DeathInformation(_manager.LoadedSnapshot.Deaths);
+            Label_Infected.Text = GeneralStatistics.InfectedCount(_manager.LoadedSnapshot) + " Humans infected";
+            Label_Diseased.Text = GeneralStatistics.DiseasedCount(_manager.LoadedSnapshot) + " Humans disease";
         }
 
         // Create Standard Map
