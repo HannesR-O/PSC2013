@@ -48,10 +48,10 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 
         private void ToolStripOpen_Click(object sender, EventArgs e)
         {
-            FileChooser.ShowDialog();
-
-            string file = FileChooser.FileName;
-            OpenFile(file);
+            if (FileChooser.ShowDialog() == DialogResult.OK)
+            {
+                OpenFile(FileChooser.FileName);
+            }
         }
 
         private void Btn_LoadTick_Click(object sender, EventArgs e)
