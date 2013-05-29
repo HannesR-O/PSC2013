@@ -20,7 +20,7 @@ namespace PSC2013.ES.Library.Statistics
     {
         public List<string> Entries { get; private set; }
         public SimulationInfo SimInfo { get; private set; }
-        public TickSnapshot _loadedSnapshot { get; private set; }
+        public TickSnapshot LoadedSnapshot { get; private set; }
 
         private ZipArchive _currentArchive;
         private MapCreator _creator;
@@ -67,7 +67,7 @@ namespace PSC2013.ES.Library.Statistics
             _creator = new MapCreator(SimInfo.MapX, SimInfo.MapY);
             _creator.setTarget(Path.GetDirectoryName(path)); // Setting Default Destination
 
-            _loadedSnapshot = null;
+            LoadedSnapshot = null;
 
             if (first == null) // If there's no first Snapshot, the file corrupt, no sense in empty logs
                 throw new SimFileCorruptException("No first Snapshot found!");
@@ -76,7 +76,7 @@ namespace PSC2013.ES.Library.Statistics
             TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
             _creator.InitializeMaxima(tick);
             Console.WriteLine(first.Name + " is first. Initializing...");
-            _loadedSnapshot = tick; // First Snaphsot stays loaded
+            LoadedSnapshot = tick; // First Snaphsot stays loaded
         }
 
         public void SetNewDestination(string destination)
@@ -93,11 +93,11 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="name">The Entries name</param>
         public void LoadTickSnapshot(String name)
         {
-            if (!name.StartsWith(_loadedSnapshot.Tick.ToString()))
+            if (!name.StartsWith(LoadedSnapshot.Tick.ToString()))
             {
                 byte[] temp = ArchiveReader.ToByteArray(_currentArchive.GetEntry(name));
 
-                _loadedSnapshot = TickSnapshot.InitializeFromFile(temp);
+                LoadedSnapshot = TickSnapshot.InitializeFromFile(temp);
             }
         }
 
@@ -112,9 +112,9 @@ namespace PSC2013.ES.Library.Statistics
         {
             if (_currentArchive != null)
             {
-                if (_loadedSnapshot != null)
+                if (LoadedSnapshot != null)
                 {
-                    return _creator.GetMap(_loadedSnapshot, field, colors, namePrefix);
+                    return _creator.GetMap(LoadedSnapshot, field, colors, namePrefix);
                 }
                 else
                 {
@@ -137,9 +137,9 @@ namespace PSC2013.ES.Library.Statistics
         {
             if (_currentArchive != null)
             {
-                if (_loadedSnapshot != null)
+                if (LoadedSnapshot != null)
                 {
-                    _creator.GetDeathMap(_loadedSnapshot, field, colors, namePrefix);
+                    _creator.GetDeathMap(LoadedSnapshot, field, colors, namePrefix);
                 }
                 else
                 {

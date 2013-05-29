@@ -32,6 +32,10 @@
             this.Btn_LoadTick = new System.Windows.Forms.Button();
             this.Label_DiseaseName = new System.Windows.Forms.Label();
             this.GroupBox_Disease = new System.Windows.Forms.GroupBox();
+            this.Label_Transferability = new System.Windows.Forms.Label();
+            this.Label_Idle = new System.Windows.Forms.Label();
+            this.Label_Spreading = new System.Windows.Forms.Label();
+            this.Label_Incubation = new System.Windows.Forms.Label();
             this.GroupBox_TickSelections = new System.Windows.Forms.GroupBox();
             this.Panel_leftside = new System.Windows.Forms.Panel();
             this.Panel_Tick = new System.Windows.Forms.Panel();
@@ -66,11 +70,19 @@
             this.TextBox_DefaultPrefix = new System.Windows.Forms.TextBox();
             this.Label_Prefix = new System.Windows.Forms.Label();
             this.GroupBox_TickInfo = new System.Windows.Forms.GroupBox();
+            this.Label_DeathInformation = new System.Windows.Forms.Label();
             this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.Menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileChooser = new System.Windows.Forms.OpenFileDialog();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.GroupBox_S_Create = new System.Windows.Forms.GroupBox();
+            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.shapeContainer2 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.GroupBox_Disease.SuspendLayout();
             this.GroupBox_TickSelections.SuspendLayout();
             this.Panel_leftside.SuspendLayout();
@@ -79,12 +91,16 @@
             this.TabControl_MapCreator.SuspendLayout();
             this.Page_Standard.SuspendLayout();
             this.Page_Defaults.SuspendLayout();
+            this.GroupBox_TickInfo.SuspendLayout();
             this.Menu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.GroupBox_S_Create.SuspendLayout();
             this.SuspendLayout();
             // 
             // ComboBox_Entries
             // 
             this.ComboBox_Entries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_Entries.Enabled = false;
             this.ComboBox_Entries.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ComboBox_Entries.Location = new System.Drawing.Point(10, 35);
             this.ComboBox_Entries.Name = "ComboBox_Entries";
@@ -107,15 +123,19 @@
             // 
             this.Label_DiseaseName.AutoSize = true;
             this.Label_DiseaseName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label_DiseaseName.Location = new System.Drawing.Point(6, 16);
+            this.Label_DiseaseName.Location = new System.Drawing.Point(6, 15);
             this.Label_DiseaseName.Name = "Label_DiseaseName";
-            this.Label_DiseaseName.Size = new System.Drawing.Size(113, 20);
+            this.Label_DiseaseName.Size = new System.Drawing.Size(51, 20);
             this.Label_DiseaseName.TabIndex = 0;
-            this.Label_DiseaseName.Text = "Disease Name";
+            this.Label_DiseaseName.Text = "Name";
             // 
             // GroupBox_Disease
             // 
+            this.GroupBox_Disease.Controls.Add(this.Label_Transferability);
             this.GroupBox_Disease.Controls.Add(this.Label_DiseaseName);
+            this.GroupBox_Disease.Controls.Add(this.Label_Idle);
+            this.GroupBox_Disease.Controls.Add(this.Label_Spreading);
+            this.GroupBox_Disease.Controls.Add(this.Label_Incubation);
             this.GroupBox_Disease.Dock = System.Windows.Forms.DockStyle.Top;
             this.GroupBox_Disease.Location = new System.Drawing.Point(10, 0);
             this.GroupBox_Disease.Name = "GroupBox_Disease";
@@ -124,12 +144,49 @@
             this.GroupBox_Disease.TabStop = false;
             this.GroupBox_Disease.Text = "Disease";
             // 
+            // Label_Transferability
+            // 
+            this.Label_Transferability.AutoSize = true;
+            this.Label_Transferability.Location = new System.Drawing.Point(7, 83);
+            this.Label_Transferability.Name = "Label_Transferability";
+            this.Label_Transferability.Size = new System.Drawing.Size(72, 13);
+            this.Label_Transferability.TabIndex = 4;
+            this.Label_Transferability.Text = "Transferability";
+            // 
+            // Label_Idle
+            // 
+            this.Label_Idle.AutoSize = true;
+            this.Label_Idle.Location = new System.Drawing.Point(7, 57);
+            this.Label_Idle.Name = "Label_Idle";
+            this.Label_Idle.Size = new System.Drawing.Size(50, 13);
+            this.Label_Idle.TabIndex = 2;
+            this.Label_Idle.Text = "Idle Time";
+            // 
+            // Label_Spreading
+            // 
+            this.Label_Spreading.AutoSize = true;
+            this.Label_Spreading.Location = new System.Drawing.Point(7, 70);
+            this.Label_Spreading.Name = "Label_Spreading";
+            this.Label_Spreading.Size = new System.Drawing.Size(81, 13);
+            this.Label_Spreading.TabIndex = 3;
+            this.Label_Spreading.Text = "Spreading Time";
+            // 
+            // Label_Incubation
+            // 
+            this.Label_Incubation.AutoSize = true;
+            this.Label_Incubation.Location = new System.Drawing.Point(7, 44);
+            this.Label_Incubation.Name = "Label_Incubation";
+            this.Label_Incubation.Size = new System.Drawing.Size(83, 13);
+            this.Label_Incubation.TabIndex = 1;
+            this.Label_Incubation.Text = "Incubation Time";
+            // 
             // GroupBox_TickSelections
             // 
             this.GroupBox_TickSelections.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.GroupBox_TickSelections.Controls.Add(this.ComboBox_Entries);
             this.GroupBox_TickSelections.Controls.Add(this.Btn_LoadTick);
+            this.GroupBox_TickSelections.Controls.Add(this.shapeContainer2);
             this.GroupBox_TickSelections.Location = new System.Drawing.Point(10, 335);
             this.GroupBox_TickSelections.Name = "GroupBox_TickSelections";
             this.GroupBox_TickSelections.Size = new System.Drawing.Size(235, 297);
@@ -155,17 +212,17 @@
             this.Panel_Tick.Dock = System.Windows.Forms.DockStyle.Top;
             this.Panel_Tick.Location = new System.Drawing.Point(255, 24);
             this.Panel_Tick.Name = "Panel_Tick";
-            this.Panel_Tick.Size = new System.Drawing.Size(679, 211);
+            this.Panel_Tick.Size = new System.Drawing.Size(702, 235);
             this.Panel_Tick.TabIndex = 7;
             // 
             // Panel_fieldSelectionContainer
             // 
             this.Panel_fieldSelectionContainer.Controls.Add(this.TabControl_MapCreator);
             this.Panel_fieldSelectionContainer.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Panel_fieldSelectionContainer.Location = new System.Drawing.Point(309, 0);
+            this.Panel_fieldSelectionContainer.Location = new System.Drawing.Point(320, 0);
             this.Panel_fieldSelectionContainer.Name = "Panel_fieldSelectionContainer";
             this.Panel_fieldSelectionContainer.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.Panel_fieldSelectionContainer.Size = new System.Drawing.Size(370, 211);
+            this.Panel_fieldSelectionContainer.Size = new System.Drawing.Size(382, 235);
             this.Panel_fieldSelectionContainer.TabIndex = 8;
             // 
             // TabControl_MapCreator
@@ -175,37 +232,21 @@
             this.TabControl_MapCreator.Controls.Add(this.Page_Death);
             this.TabControl_MapCreator.Controls.Add(this.Page_Defaults);
             this.TabControl_MapCreator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl_MapCreator.Enabled = false;
             this.TabControl_MapCreator.Location = new System.Drawing.Point(5, 5);
             this.TabControl_MapCreator.Name = "TabControl_MapCreator";
             this.TabControl_MapCreator.SelectedIndex = 0;
-            this.TabControl_MapCreator.Size = new System.Drawing.Size(360, 206);
+            this.TabControl_MapCreator.Size = new System.Drawing.Size(372, 230);
             this.TabControl_MapCreator.TabIndex = 1;
             // 
             // Page_Standard
             // 
             this.Page_Standard.BackColor = System.Drawing.Color.Transparent;
-            this.Page_Standard.Controls.Add(this.ComboBox_S_IndPalette);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_IndPalette);
-            this.Page_Standard.Controls.Add(this.TextBox_S_Prefix);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_IndPredix);
-            this.Page_Standard.Controls.Add(this.Btn_Create_S);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_All);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_Female);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_Male);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_Diseased);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_Infected);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_FemaleSenior);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_FemaleAdult);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_FemaleChild);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_FemaleBaby);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_MaleSenior);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_MaleAdult);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_MaleChild);
-            this.Page_Standard.Controls.Add(this.CheckBox_S_MaleBaby);
+            this.Page_Standard.Controls.Add(this.GroupBox_S_Create);
             this.Page_Standard.Location = new System.Drawing.Point(4, 25);
             this.Page_Standard.Name = "Page_Standard";
             this.Page_Standard.Padding = new System.Windows.Forms.Padding(3);
-            this.Page_Standard.Size = new System.Drawing.Size(352, 177);
+            this.Page_Standard.Size = new System.Drawing.Size(364, 201);
             this.Page_Standard.TabIndex = 0;
             this.Page_Standard.Text = "Standard";
             // 
@@ -214,7 +255,7 @@
             this.ComboBox_S_IndPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBox_S_IndPalette.Enabled = false;
             this.ComboBox_S_IndPalette.FormattingEnabled = true;
-            this.ComboBox_S_IndPalette.Location = new System.Drawing.Point(203, 81);
+            this.ComboBox_S_IndPalette.Location = new System.Drawing.Point(203, 91);
             this.ComboBox_S_IndPalette.Name = "ComboBox_S_IndPalette";
             this.ComboBox_S_IndPalette.Size = new System.Drawing.Size(146, 21);
             this.ComboBox_S_IndPalette.TabIndex = 17;
@@ -222,7 +263,7 @@
             // CheckBox_S_IndPalette
             // 
             this.CheckBox_S_IndPalette.AutoSize = true;
-            this.CheckBox_S_IndPalette.Location = new System.Drawing.Point(203, 57);
+            this.CheckBox_S_IndPalette.Location = new System.Drawing.Point(203, 67);
             this.CheckBox_S_IndPalette.Name = "CheckBox_S_IndPalette";
             this.CheckBox_S_IndPalette.Size = new System.Drawing.Size(129, 17);
             this.CheckBox_S_IndPalette.TabIndex = 16;
@@ -233,7 +274,7 @@
             // TextBox_S_Prefix
             // 
             this.TextBox_S_Prefix.Enabled = false;
-            this.TextBox_S_Prefix.Location = new System.Drawing.Point(203, 31);
+            this.TextBox_S_Prefix.Location = new System.Drawing.Point(203, 41);
             this.TextBox_S_Prefix.Name = "TextBox_S_Prefix";
             this.TextBox_S_Prefix.Size = new System.Drawing.Size(146, 20);
             this.TextBox_S_Prefix.TabIndex = 15;
@@ -241,7 +282,7 @@
             // CheckBox_S_IndPredix
             // 
             this.CheckBox_S_IndPredix.AutoSize = true;
-            this.CheckBox_S_IndPredix.Location = new System.Drawing.Point(203, 8);
+            this.CheckBox_S_IndPredix.Location = new System.Drawing.Point(203, 18);
             this.CheckBox_S_IndPredix.Name = "CheckBox_S_IndPredix";
             this.CheckBox_S_IndPredix.Size = new System.Drawing.Size(122, 17);
             this.CheckBox_S_IndPredix.TabIndex = 14;
@@ -252,7 +293,7 @@
             // Btn_Create_S
             // 
             this.Btn_Create_S.Enabled = false;
-            this.Btn_Create_S.Location = new System.Drawing.Point(255, 153);
+            this.Btn_Create_S.Location = new System.Drawing.Point(255, 163);
             this.Btn_Create_S.Name = "Btn_Create_S";
             this.Btn_Create_S.Size = new System.Drawing.Size(94, 23);
             this.Btn_Create_S.TabIndex = 13;
@@ -262,7 +303,7 @@
             // CheckBox_S_All
             // 
             this.CheckBox_S_All.AutoSize = true;
-            this.CheckBox_S_All.Location = new System.Drawing.Point(6, 4);
+            this.CheckBox_S_All.Location = new System.Drawing.Point(6, 19);
             this.CheckBox_S_All.Name = "CheckBox_S_All";
             this.CheckBox_S_All.Size = new System.Drawing.Size(37, 17);
             this.CheckBox_S_All.TabIndex = 12;
@@ -273,7 +314,7 @@
             // CheckBox_S_Female
             // 
             this.CheckBox_S_Female.AutoSize = true;
-            this.CheckBox_S_Female.Location = new System.Drawing.Point(101, 27);
+            this.CheckBox_S_Female.Location = new System.Drawing.Point(101, 42);
             this.CheckBox_S_Female.Name = "CheckBox_S_Female";
             this.CheckBox_S_Female.Size = new System.Drawing.Size(60, 17);
             this.CheckBox_S_Female.TabIndex = 11;
@@ -285,7 +326,7 @@
             // 
             this.CheckBox_S_Male.AutoSize = true;
             this.CheckBox_S_Male.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBox_S_Male.Location = new System.Drawing.Point(6, 27);
+            this.CheckBox_S_Male.Location = new System.Drawing.Point(6, 42);
             this.CheckBox_S_Male.Name = "CheckBox_S_Male";
             this.CheckBox_S_Male.Size = new System.Drawing.Size(49, 17);
             this.CheckBox_S_Male.TabIndex = 10;
@@ -296,27 +337,29 @@
             // CheckBox_S_Diseased
             // 
             this.CheckBox_S_Diseased.AutoSize = true;
-            this.CheckBox_S_Diseased.Location = new System.Drawing.Point(6, 142);
+            this.CheckBox_S_Diseased.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.CheckBox_S_Diseased.Location = new System.Drawing.Point(6, 157);
             this.CheckBox_S_Diseased.Name = "CheckBox_S_Diseased";
             this.CheckBox_S_Diseased.Size = new System.Drawing.Size(70, 17);
             this.CheckBox_S_Diseased.TabIndex = 9;
             this.CheckBox_S_Diseased.Text = "Diseased";
-            this.CheckBox_S_Diseased.UseVisualStyleBackColor = true;
+            this.CheckBox_S_Diseased.UseVisualStyleBackColor = false;
             // 
             // CheckBox_S_Infected
             // 
             this.CheckBox_S_Infected.AutoSize = true;
-            this.CheckBox_S_Infected.Location = new System.Drawing.Point(6, 159);
+            this.CheckBox_S_Infected.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.CheckBox_S_Infected.Location = new System.Drawing.Point(6, 174);
             this.CheckBox_S_Infected.Name = "CheckBox_S_Infected";
             this.CheckBox_S_Infected.Size = new System.Drawing.Size(65, 17);
             this.CheckBox_S_Infected.TabIndex = 8;
             this.CheckBox_S_Infected.Text = "Infected";
-            this.CheckBox_S_Infected.UseVisualStyleBackColor = true;
+            this.CheckBox_S_Infected.UseVisualStyleBackColor = false;
             // 
             // CheckBox_S_FemaleSenior
             // 
             this.CheckBox_S_FemaleSenior.AutoSize = true;
-            this.CheckBox_S_FemaleSenior.Location = new System.Drawing.Point(101, 119);
+            this.CheckBox_S_FemaleSenior.Location = new System.Drawing.Point(101, 134);
             this.CheckBox_S_FemaleSenior.Name = "CheckBox_S_FemaleSenior";
             this.CheckBox_S_FemaleSenior.Size = new System.Drawing.Size(56, 17);
             this.CheckBox_S_FemaleSenior.TabIndex = 7;
@@ -326,7 +369,7 @@
             // CheckBox_S_FemaleAdult
             // 
             this.CheckBox_S_FemaleAdult.AutoSize = true;
-            this.CheckBox_S_FemaleAdult.Location = new System.Drawing.Point(101, 96);
+            this.CheckBox_S_FemaleAdult.Location = new System.Drawing.Point(101, 111);
             this.CheckBox_S_FemaleAdult.Name = "CheckBox_S_FemaleAdult";
             this.CheckBox_S_FemaleAdult.Size = new System.Drawing.Size(50, 17);
             this.CheckBox_S_FemaleAdult.TabIndex = 6;
@@ -336,7 +379,7 @@
             // CheckBox_S_FemaleChild
             // 
             this.CheckBox_S_FemaleChild.AutoSize = true;
-            this.CheckBox_S_FemaleChild.Location = new System.Drawing.Point(101, 73);
+            this.CheckBox_S_FemaleChild.Location = new System.Drawing.Point(101, 88);
             this.CheckBox_S_FemaleChild.Name = "CheckBox_S_FemaleChild";
             this.CheckBox_S_FemaleChild.Size = new System.Drawing.Size(49, 17);
             this.CheckBox_S_FemaleChild.TabIndex = 5;
@@ -346,7 +389,7 @@
             // CheckBox_S_FemaleBaby
             // 
             this.CheckBox_S_FemaleBaby.AutoSize = true;
-            this.CheckBox_S_FemaleBaby.Location = new System.Drawing.Point(101, 50);
+            this.CheckBox_S_FemaleBaby.Location = new System.Drawing.Point(101, 65);
             this.CheckBox_S_FemaleBaby.Name = "CheckBox_S_FemaleBaby";
             this.CheckBox_S_FemaleBaby.Size = new System.Drawing.Size(50, 17);
             this.CheckBox_S_FemaleBaby.TabIndex = 4;
@@ -356,7 +399,7 @@
             // CheckBox_S_MaleSenior
             // 
             this.CheckBox_S_MaleSenior.AutoSize = true;
-            this.CheckBox_S_MaleSenior.Location = new System.Drawing.Point(6, 119);
+            this.CheckBox_S_MaleSenior.Location = new System.Drawing.Point(6, 134);
             this.CheckBox_S_MaleSenior.Name = "CheckBox_S_MaleSenior";
             this.CheckBox_S_MaleSenior.Size = new System.Drawing.Size(56, 17);
             this.CheckBox_S_MaleSenior.TabIndex = 3;
@@ -366,7 +409,7 @@
             // CheckBox_S_MaleAdult
             // 
             this.CheckBox_S_MaleAdult.AutoSize = true;
-            this.CheckBox_S_MaleAdult.Location = new System.Drawing.Point(6, 96);
+            this.CheckBox_S_MaleAdult.Location = new System.Drawing.Point(6, 111);
             this.CheckBox_S_MaleAdult.Name = "CheckBox_S_MaleAdult";
             this.CheckBox_S_MaleAdult.Size = new System.Drawing.Size(50, 17);
             this.CheckBox_S_MaleAdult.TabIndex = 2;
@@ -376,7 +419,7 @@
             // CheckBox_S_MaleChild
             // 
             this.CheckBox_S_MaleChild.AutoSize = true;
-            this.CheckBox_S_MaleChild.Location = new System.Drawing.Point(6, 73);
+            this.CheckBox_S_MaleChild.Location = new System.Drawing.Point(6, 88);
             this.CheckBox_S_MaleChild.Name = "CheckBox_S_MaleChild";
             this.CheckBox_S_MaleChild.Size = new System.Drawing.Size(49, 17);
             this.CheckBox_S_MaleChild.TabIndex = 1;
@@ -386,7 +429,7 @@
             // CheckBox_S_MaleBaby
             // 
             this.CheckBox_S_MaleBaby.AutoSize = true;
-            this.CheckBox_S_MaleBaby.Location = new System.Drawing.Point(6, 50);
+            this.CheckBox_S_MaleBaby.Location = new System.Drawing.Point(6, 65);
             this.CheckBox_S_MaleBaby.Name = "CheckBox_S_MaleBaby";
             this.CheckBox_S_MaleBaby.Size = new System.Drawing.Size(50, 17);
             this.CheckBox_S_MaleBaby.TabIndex = 0;
@@ -485,12 +528,22 @@
             this.GroupBox_TickInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GroupBox_TickInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GroupBox_TickInfo.Controls.Add(this.Label_DeathInformation);
             this.GroupBox_TickInfo.Location = new System.Drawing.Point(0, 0);
             this.GroupBox_TickInfo.Name = "GroupBox_TickInfo";
-            this.GroupBox_TickInfo.Size = new System.Drawing.Size(306, 207);
+            this.GroupBox_TickInfo.Size = new System.Drawing.Size(314, 228);
             this.GroupBox_TickInfo.TabIndex = 0;
             this.GroupBox_TickInfo.TabStop = false;
             this.GroupBox_TickInfo.Text = "Tick Information";
+            // 
+            // Label_DeathInformation
+            // 
+            this.Label_DeathInformation.AutoSize = true;
+            this.Label_DeathInformation.Location = new System.Drawing.Point(7, 22);
+            this.Label_DeathInformation.Name = "Label_DeathInformation";
+            this.Label_DeathInformation.Size = new System.Drawing.Size(91, 13);
+            this.Label_DeathInformation.TabIndex = 0;
+            this.Label_DeathInformation.Text = "Death Information";
             // 
             // Menu
             // 
@@ -498,7 +551,7 @@
             this.fileToolStripMenuItem});
             this.Menu.Location = new System.Drawing.Point(0, 0);
             this.Menu.Name = "Menu";
-            this.Menu.Size = new System.Drawing.Size(934, 24);
+            this.Menu.Size = new System.Drawing.Size(957, 24);
             this.Menu.TabIndex = 8;
             this.Menu.Text = "Menu";
             // 
@@ -516,18 +569,107 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.TooStripOpen_Click);
             // 
             // FileChooser
             // 
             this.FileChooser.FileName = "FileChooser";
             this.FileChooser.Filter = "\"Simulation-Files (*.sim)|*.sim|All files (*.*)|*.*\"";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(573, 265);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(352, 385);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // GroupBox_S_Create
+            // 
+            this.GroupBox_S_Create.Controls.Add(this.ComboBox_S_IndPalette);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Male);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleAdult);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_IndPalette);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleChild);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleSenior);
+            this.GroupBox_S_Create.Controls.Add(this.TextBox_S_Prefix);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_FemaleBaby);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Infected);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_IndPredix);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleSenior);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Diseased);
+            this.GroupBox_S_Create.Controls.Add(this.Btn_Create_S);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleAdult);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_All);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleChild);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_MaleBaby);
+            this.GroupBox_S_Create.Controls.Add(this.CheckBox_S_Female);
+            this.GroupBox_S_Create.Controls.Add(this.shapeContainer1);
+            this.GroupBox_S_Create.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupBox_S_Create.Location = new System.Drawing.Point(3, 3);
+            this.GroupBox_S_Create.Name = "GroupBox_S_Create";
+            this.GroupBox_S_Create.Size = new System.Drawing.Size(358, 195);
+            this.GroupBox_S_Create.TabIndex = 0;
+            this.GroupBox_S_Create.TabStop = false;
+            this.GroupBox_S_Create.Text = "Create";
+            // 
+            // shapeContainer1
+            // 
+            this.shapeContainer1.Location = new System.Drawing.Point(3, 16);
+            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer1.Name = "shapeContainer1";
+            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.rectangleShape1,
+            this.lineShape1});
+            this.shapeContainer1.Size = new System.Drawing.Size(352, 176);
+            this.shapeContainer1.TabIndex = 18;
+            this.shapeContainer1.TabStop = false;
+            // 
+            // lineShape1
+            // 
+            this.lineShape1.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.lineShape1.Name = "lineShape1";
+            this.lineShape1.X1 = 189;
+            this.lineShape1.X2 = 189;
+            this.lineShape1.Y1 = 4;
+            this.lineShape1.Y2 = 164;
+            // 
+            // lineShape2
+            // 
+            this.lineShape2.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.lineShape2.Name = "lineShape2";
+            this.lineShape2.X1 = 10;
+            this.lineShape2.X2 = 215;
+            this.lineShape2.Y1 = 94;
+            this.lineShape2.Y2 = 94;
+            // 
+            // shapeContainer2
+            // 
+            this.shapeContainer2.Location = new System.Drawing.Point(3, 16);
+            this.shapeContainer2.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer2.Name = "shapeContainer2";
+            this.shapeContainer2.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.lineShape2});
+            this.shapeContainer2.Size = new System.Drawing.Size(229, 278);
+            this.shapeContainer2.TabIndex = 3;
+            this.shapeContainer2.TabStop = false;
+            // 
+            // rectangleShape1
+            // 
+            this.rectangleShape1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.rectangleShape1.BorderColor = System.Drawing.SystemColors.ControlLight;
+            this.rectangleShape1.FillColor = System.Drawing.SystemColors.ControlLight;
+            this.rectangleShape1.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid;
+            this.rectangleShape1.Location = new System.Drawing.Point(0, 138);
+            this.rectangleShape1.Name = "rectangleShape1";
+            this.rectangleShape1.Size = new System.Drawing.Size(184, 37);
+            // 
             // ReviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 662);
+            this.ClientSize = new System.Drawing.Size(957, 662);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Panel_Tick);
             this.Controls.Add(this.Panel_leftside);
             this.Controls.Add(this.Menu);
@@ -544,11 +686,15 @@
             this.Panel_fieldSelectionContainer.ResumeLayout(false);
             this.TabControl_MapCreator.ResumeLayout(false);
             this.Page_Standard.ResumeLayout(false);
-            this.Page_Standard.PerformLayout();
             this.Page_Defaults.ResumeLayout(false);
             this.Page_Defaults.PerformLayout();
+            this.GroupBox_TickInfo.ResumeLayout(false);
+            this.GroupBox_TickInfo.PerformLayout();
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.GroupBox_S_Create.ResumeLayout(false);
+            this.GroupBox_S_Create.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -599,5 +745,17 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog FileChooser;
+        private System.Windows.Forms.Label Label_DeathInformation;
+        private System.Windows.Forms.Label Label_Incubation;
+        private System.Windows.Forms.Label Label_Idle;
+        private System.Windows.Forms.Label Label_Transferability;
+        private System.Windows.Forms.Label Label_Spreading;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.GroupBox GroupBox_S_Create;
+        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
+        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer2;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
     }
 }
