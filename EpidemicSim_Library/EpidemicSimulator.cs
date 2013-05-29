@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using PSC2013.ES.Library.Snapshot;
 using System.IO;
 using System.Threading;
 using PSC2013.ES.Library.Simulation.Components;
+using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library
 {
@@ -83,7 +85,7 @@ namespace PSC2013.ES.Library
 
         private EpidemicSimulator(Disease disease)
         {
-            _simData = new SimulationData { CurrentDisease = disease };
+            _simData = new SimulationData { DiseaseToSimulate = disease };
 
             _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
             _snapshotMgr.WriterQueueEmpty += OnWriterQueueEmpty;
@@ -235,9 +237,9 @@ namespace PSC2013.ES.Library
         /// have an ISimulationComponent set for the Infection calculation.
         /// </summary>
         /// <param name="saveDirectory">The directory to save the snapshots in</param>
-        public void StartSimulation(string saveDirectory)
+        public void StartSimulation(string saveDirectory, InfectionInitState initialState)
         {
-            StartSimulation(saveDirectory, SIMULATION_DEFAULT_LIMIT);
+            StartSimulation(saveDirectory, initialState, SIMULATION_DEFAULT_LIMIT);
         }
 
         /// <summary>
@@ -246,13 +248,13 @@ namespace PSC2013.ES.Library
         /// </summary>
         /// <param name="saveDirectory">The directory to save the snapshots in</param>
         /// <param name="limit">The limit of simulation rounds to perform</param>
-        public void StartSimulation(string saveDirectory, long limit)
+        public void StartSimulation(string saveDirectory, InfectionInitState initialState, long limit)
         {
             if (!CanStartSimulation)
                 throw new SimulationException(ERROR_MESSAGE_STARTING_SIMULATION + 
                     "Not all mandatory settings are set up correctly. Check Intervalls!");
 
-            if (!Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
+            if (saveDirectory == null || !Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
                 throw new ArgumentException(ERROR_MESSAGE_STARTING_SIMULATION + "Could not create given directory!", "saveDirectory");
 
             if (limit < 0)
@@ -260,13 +262,42 @@ namespace PSC2013.ES.Library
 
             _simulationLimit = limit;
             _ticksPerSnapshot = _snapshotIntervall / _simulationIntervall;
+            InitializeInfection(initialState);
 
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
-            _snapshotMgr.Initialize(saveDirectory, _simData.CurrentDisease, _simData.ImageWidth, _simData.ImageHeight); //TODO: |f| Get correct values.
+            _snapshotMgr.Initialize(saveDirectory, _simData.DiseaseToSimulate, _simData.ImageWidth, _simData.ImageHeight); //TODO: |f| Get correct values.
 
             // Actual Simulation is performed in another Thread to enable stopping
             _simulation = Task.Run(() => PerformSimulation()).ContinueWith(_ => PerformSimulationStop());
+        }
+
+        private void InitializeInfection(InfectionInitState initialState)
+        {
+            if (initialState.Equals(InfectionInitState.Empty))
+                return;
+
+            //TODO: |f| does not handle weird diseases atm
+            short infectionTimer = (short)_simData.DiseaseToSimulate.IncubationPeriod;
+            short spreadingTimer = (short)_simData.DiseaseToSimulate.SpreadingTime;
+
+            WriteMessage("Infecting " + initialState.TotalPeopleToInfect + " people!");
+            foreach (var human in _simData.Humans)
+            {
+                if (initialState.DesiredInfection.ContainsKey(human.CurrentCell))
+                {
+                    int cellIndex = human.CurrentCell;
+
+                    human.Infect(infectionTimer, spreadingTimer);
+                    initialState.DesiredInfection[cellIndex]--;
+                    _simData.Cells[cellIndex].Infected++;
+
+                    if (initialState.DesiredInfection[cellIndex] == 0)
+                        initialState.DesiredInfection.Remove(cellIndex);
+                }
+            }
+            WriteMessage("Finished infecting!");
+            WriteMessage("Could not infect " + initialState.TotalPeopleToInfect + " poeple!");
         }
 
         /// <summary>
@@ -323,19 +354,20 @@ namespace PSC2013.ES.Library
 
         private void WriteMessage(string message)
         {
-            foreach(var target in _outputTargets)
-                target.WriteToOutput(message);
+            if (_writeToOutputs)
+                foreach(var target in _outputTargets)
+                    target.WriteToOutput("ES: " + message);
         }
 
         private void OnSimulationStarted(SimulationEventArgs e)
         {
-            WriteMessage("ES: Simulation started!");
+            WriteMessage("Simulation started!");
 
             SimulationStarted.Raise(this, e);
         }
         private void OnSimulationEnded(SimulationEventArgs e)
         {
-            WriteMessage("ES: Simulation ended!");
+            WriteMessage("Simulation ended!");
 
             SimulationEnded.Raise(this, e);
             _simulationFinished = true;
@@ -347,15 +379,55 @@ namespace PSC2013.ES.Library
         }
         private void OnTickFinished(SimulationEventArgs e)
         {
-            WriteMessage("ES: Finished Tick #" + _simulationRound + "!");
+            WriteMessage("Finished Tick #" + _simulationRound + "!");
 
             TickFinished.Raise(this, e);
         }
         private void OnProcessFinished()
         {
-            WriteMessage("ES: Process is entirely finished now.");
+            WriteMessage("Process is entirely finished now.");
 
             ProcessFinished.Raise(this, null);
+        }
+    }
+
+    public struct InfectionInitState : IEquatable<InfectionInitState>
+    {
+        /// <summary>
+        /// Describes the desired initial infection values.
+        /// Key: flattened cell index to infect people in
+        /// Value: amount of people to get infected in that cell
+        /// </summary>
+        public Dictionary<int, int> DesiredInfection { get; set; }
+
+        /// <summary>
+        /// Provides a constant value representing an empty InfectionInitState
+        /// </summary>
+        public static InfectionInitState Empty = new InfectionInitState() { DesiredInfection = null };
+
+        public int TotalPeopleToInfect { get { return DesiredInfection.Values.Sum(); } }
+
+        public bool Equals(InfectionInitState other)
+        {
+            if (other.DesiredInfection == null)
+                return DesiredInfection == null;
+
+            foreach (var pair in DesiredInfection)
+            {
+                if (!other.DesiredInfection.ContainsKey(pair.Key))
+                    return false;
+                if (other.DesiredInfection[pair.Key] != pair.Value)
+                    return false;
+            }
+            foreach (var pair in other.DesiredInfection)
+            {
+                if (!DesiredInfection.ContainsKey(pair.Key))
+                    return false;
+                if (DesiredInfection[pair.Key] != pair.Value)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

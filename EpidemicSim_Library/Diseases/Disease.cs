@@ -24,12 +24,12 @@
         /// Time until a subject spreads the
         /// disease after getting infected.
         /// </summary>
-        public int IdleTime { get; set; }
+        public int IdleTime { get; set; }                                       //TODO: |f| should be short.... 
 
         /// <summary>
         /// Time, the subject spreads the disease.
         /// </summary>
-        public int SpreadingTime { get; set; }
+        public int SpreadingTime { get; set; }                                  //TODO: |f| should be short.... ASWELL!
 
         /// <summary>
         /// Mortality rate of diseased subjects.

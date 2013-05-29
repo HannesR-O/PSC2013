@@ -40,13 +40,13 @@ namespace PSC2013.ES.Library.Simulation
         public int CurrentHour { get { return _time.Hour; } }                // 0-23 Uhr
 
         //Used Disease
-        public Disease CurrentDisease { get; set; }
+        public Disease DiseaseToSimulate { get; set; }
 
         // Used to check whether the currently set data is ready for simulating
         //TODO: |f| add relevant checks
         public bool IsValid
         {
-            get { return CurrentDisease != null && Cells != null; }
+            get { return DiseaseToSimulate != null && Cells != null; }
         }
 
         public SimulationData()

@@ -80,7 +80,7 @@ namespace PSC2013.ES.GUI.NewSimulation
             _epidemicSim.SimulationEnded += (sender, args) => Console.WriteLine("Simulation finished!");
 
 
-            _epidemicSim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), _simDuration);
+            _epidemicSim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), InfectionInitState.Empty, _simDuration);
         }
 
         // == EVENTS ====== \\

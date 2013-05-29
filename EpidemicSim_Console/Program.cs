@@ -88,7 +88,7 @@ namespace PSC2013.ES.Cmd
                     sm.CreateGraphics((EStatField)255, EColorPalette.Red, "testmap");
                     Console.WriteLine("DONE!");
                 };
-            sim.StartSimulation(DESKTOP_PATH, 1);
+            sim.StartSimulation(DESKTOP_PATH, InfectionInitState.Empty, 1);
         }
 
         public static void OnSimStartEvent(object sender, SimulationEventArgs e)
@@ -155,7 +155,7 @@ namespace PSC2013.ES.Cmd
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), InfectionInitState.Empty);
         }
 
         public static void TestMovementComponent()

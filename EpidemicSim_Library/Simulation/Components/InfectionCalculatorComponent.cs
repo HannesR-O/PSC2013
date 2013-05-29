@@ -20,7 +20,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override unsafe void PerformSimulationStage(SimulationData data)
         {
-            Disease disease = data.CurrentDisease;
+            Disease disease = data.DiseaseToSimulate;
 
             if (_arrayHeight == 0 /* || _arrayWidth == 0 */) //Checking one value should be enough, only happens in first round
             {
