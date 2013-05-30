@@ -52,7 +52,7 @@ namespace PSC2013.ES.Library
         /// <param name="point">The point to be flattend.</param>
         /// <param name="width">The width of the environmental area.</param>
         /// <returns>The 1D-index corresponding to the point.</returns>
-        internal static int Flatten(this Point point, int width)
+        public static int Flatten(this Point point, int width)
         {
             return point.X + (point.Y * width);
         }

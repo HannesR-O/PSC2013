@@ -30,10 +30,12 @@ namespace PSC2013.ES.GUI.NewSimulation
         private DepartmentMapReader _departmentReader;
 
         private Image _originalImage;
+        private List<int> _startInfectionPoints;
 
         private NewSimulationForm()
         {
             InitializeComponent();
+            _startInfectionPoints = new List<int>();
         }
 
         public NewSimulationForm(string filepath) : this()
@@ -71,7 +73,8 @@ namespace PSC2013.ES.GUI.NewSimulation
                 _disease, _depFilePath,
                 new DebugSimulationComponent(),
                 new AgeingSimulationComponent(110),
-                new MovementSimulationComponent());
+                new MovementSimulationComponent(),
+                new InfectionCalculatorComponent());
             _epidemicSim.SetSimulationIntervall(_realtimeTick);
             _epidemicSim.SetSnapshotIntervall(_snapshotInterval);
             _epidemicSim.AddOutputTarget(new ConsoleOutputTarget());
@@ -79,8 +82,15 @@ namespace PSC2013.ES.GUI.NewSimulation
             _epidemicSim.TickFinished += (sender, args) => Console.WriteLine("Tick finished!");
             _epidemicSim.SimulationEnded += (sender, args) => Console.WriteLine("Simulation finished!");
 
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            Random r = new Random();
+            foreach (int item in _startInfectionPoints)
+                dict[item] = r.Next(15) + 3;
 
-            _epidemicSim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), InfectionInitState.Empty, _simDuration);
+            _epidemicSim.StartSimulation(
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                new InfectionInitState { DesiredInfection = dict },
+                _simDuration);
         }
 
         // == EVENTS ====== \\
@@ -174,13 +184,13 @@ namespace PSC2013.ES.GUI.NewSimulation
                     DepartmentInfo[] info = _departmentReader.ReadFile();
                     dlp.ListBoxDepartments.Invoke(() =>
                         {
-                            ListBox lb = dlp.ListBoxDepartments; // viewing results.
+                            ListBox lb = dlp.ListBoxDepartments;                // viewing results.
                             var lst = info.Select(x => x.Name).ToList();
-                            lst.Sort(); // sorting the output
-                            lb.Items.AddRange(lst.ToArray()); // for better usage.
+                            lst.Sort();                                         // sorting the output
+                            lb.Items.AddRange(lst.ToArray());                   // for better usage.
                             lst = null;
 
-                            dlp.ProgressBar.Visible = false; // building up the...
+                            dlp.ProgressBar.Visible = false;                    // building up the...
 
                             Size progBarSize = dlp.ProgressBar.Size;
 
@@ -224,11 +234,15 @@ namespace PSC2013.ES.GUI.NewSimulation
 
                                                 // Modify image
                                                 Bitmap img = (Bitmap)_originalImage.Clone();
+                                                _startInfectionPoints.Clear();
                                                 foreach (string item in items)
                                                 {
                                                     DepartmentInfo dep = info.First(x => x.Name.Equals(item));
                                                     foreach (Point p in dep.Coordinates)
+                                                    {
+                                                        _startInfectionPoints.Add(p.Flatten(img.Width));
                                                         img.SetPixel(p.X, p.Y, Color.Cyan);
+                                                    }
                                                 }
 
                                                 // Show new image
