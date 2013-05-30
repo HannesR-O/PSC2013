@@ -191,6 +191,39 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             if (maxcelldiffernce < 75)
             {
+
+                if (_ptr->IsInfected())
+                    ++data.Cells[_ptr->CurrentCell].Infected;
+
+                else if (_ptr->IsSpreading())
+                    ++data.Cells[_ptr->CurrentCell].Spreading;
+
+                else if (_ptr->IsDiseased())
+                    ++data.Cells[_ptr->CurrentCell].Diseased;
+
+
+
+                if (_ptr->GetGender() == EGender.Male)
+                {
+                    switch (_ptr->GetAge())
+                    {
+                        case EAge.Baby: ++data.Cells[_ptr->CurrentCell].MaleBabies; break;
+                        case EAge.Child: ++data.Cells[_ptr->CurrentCell].MaleChildren; break;
+                        case EAge.Adult: ++data.Cells[_ptr->CurrentCell].MaleAdults; break;
+                        case EAge.Senior: ++data.Cells[_ptr->CurrentCell].MaleSeniors; break;
+                    }
+                }
+                else
+                {
+                    switch (_ptr->GetAge())
+                    {
+                        case EAge.Baby: ++data.Cells[_ptr->CurrentCell].FemaleBabies; break;
+                        case EAge.Child: ++data.Cells[_ptr->CurrentCell].FemaleChildren; break;
+                        case EAge.Adult: ++data.Cells[_ptr->CurrentCell].FemaleAdults; break;
+                        case EAge.Senior: ++data.Cells[_ptr->CurrentCell].FemaleSeniors; break;
+                    }
+                }
+
                 return;
             }
             else
