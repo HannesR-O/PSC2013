@@ -111,7 +111,6 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             Bitmap map = new Bitmap(X, Y);
 
-            // inefficient, needs fields as well
             foreach (CellSnapshot cell in snapshot.Cells)
             {
                 Point p = cell.Position.DeFlatten(X);

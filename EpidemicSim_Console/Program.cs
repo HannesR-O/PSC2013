@@ -186,43 +186,55 @@ namespace PSC2013.ES.Cmd
                 + file + ".sim");
 
             var entries = manager.Entries;
-            foreach (string s in entries)
+            
+            while (true) // I am Evil, I know |T|
             {
-                Console.WriteLine(s);
+                foreach (string s in entries)
+                {
+                    Console.WriteLine(s);
+                }
+                Console.WriteLine("Please type a entryname:");
+                string name = Console.ReadLine();
+
+                if (!entries.Contains(name))
+                    foreach (string entry in entries)
+                        if (entry.StartsWith(name))
+                        {
+                            name = entry;
+                            break;
+                        }
+
+                Console.WriteLine("Please enter number of Field to paint (AllHumans is 255)");
+                int num = int.Parse(Console.ReadLine());
+                EStatField field = (EStatField)num;
+
+                Console.WriteLine("Please type a color scheme (Red, Blue):");
+                string palette = Console.ReadLine();
+                EColorPalette pal = palette == "Red" ? EColorPalette.Red : EColorPalette.Blue;
+
+                Console.WriteLine("Please insert desired File-Prefix:");
+                string prefix = Console.ReadLine();
+
+                manager.LoadTickSnapshot(name);
+
+                Dictionary<string, int> am = 
+                    PSC2013.ES.Library.Statistics.CountStatistics.GeneralStatistics.AgeGroups(manager.LoadedSnapshot); // Dat Aufrufkette, Insert import, if this hurts your eyes...
+
+                foreach (string group in am.Keys)
+                {
+                    Console.WriteLine(group + ": " + am[group]);
+                }
+
+                manager.CreateDeathGraphics(field, pal, prefix);
+                Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
+
+                foreach (string str in legend.Keys)
+                {
+                    Console.WriteLine(str + " with " + legend[str].ToString());
+                }
+
+                Console.WriteLine("Finished!");
             }
-            Console.WriteLine("Please type a entryname:");
-            string name = Console.ReadLine();            
-
-            if (!entries.Contains(name))
-                foreach (string entry in entries)
-                    if (entry.StartsWith(name))
-                    {
-                        name = entry;
-                        break;
-                    }
-
-            Console.WriteLine("Please enter number of Field to paint (AllHumans is 255)");
-            int num = int.Parse(Console.ReadLine());
-            EStatField field = (EStatField)num;
-        
-            Console.WriteLine("Please type a color scheme (Red, Blue):");
-            string palette = Console.ReadLine();
-            EColorPalette pal = palette == "Red" ? EColorPalette.Red : EColorPalette.Blue;
-
-            Console.WriteLine("Please insert desired File-Prefix:");
-            string prefix = Console.ReadLine();
-
-            manager.LoadTickSnapshot(name);
-
-            //manager.CreateDeathGraphics(field, pal, prefix);
-            Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
-
-            foreach (string str in legend.Keys)
-            {
-                Console.WriteLine(str + " with " + legend[str].ToString());
-            }
-
-            Console.WriteLine("Finished!");
         }
     }
 }

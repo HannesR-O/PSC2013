@@ -45,7 +45,7 @@ namespace PSC2013.ES.Library.Statistics.CountStatistics
             output.Add("Female Adults", counts[6]);
             output.Add("Female Seniors", counts[7]);
 
-            return null;
+            return output;
         }
 
         public static int DiseasedCount(TickSnapshot snap)
