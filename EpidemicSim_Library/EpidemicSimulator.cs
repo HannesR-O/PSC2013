@@ -282,13 +282,12 @@ namespace PSC2013.ES.Library
             short spreadingTimer = (short)_simData.DiseaseToSimulate.SpreadingTime;
 
             WriteMessage("Infecting " + initialState.TotalPeopleToInfect + " people!");
-            foreach (var human in _simData.Humans)
+            for (int i = 0; i < _simData.Humans.Length; ++i)
             {
-                if (initialState.DesiredInfection.ContainsKey(human.CurrentCell))
+                int cellIndex = _simData.Humans[i].CurrentCell;
+                if (initialState.DesiredInfection.ContainsKey(cellIndex))
                 {
-                    int cellIndex = human.CurrentCell;
-
-                    human.Infect(infectionTimer, spreadingTimer);
+                    _simData.Humans[i].Infect(infectionTimer, spreadingTimer);
                     initialState.DesiredInfection[cellIndex]--;
                     _simData.Cells[cellIndex].Infected++;
 
@@ -297,7 +296,7 @@ namespace PSC2013.ES.Library
                 }
             }
             WriteMessage("Finished infecting!");
-            WriteMessage("Could not infect " + initialState.TotalPeopleToInfect + " poeple!");
+            WriteMessage("Could not infect " + initialState.TotalPeopleToInfect + " people!");
         }
 
         /// <summary>

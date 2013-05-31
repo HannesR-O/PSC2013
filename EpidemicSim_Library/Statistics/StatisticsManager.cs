@@ -93,7 +93,7 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="name">The Entries name</param>
         public void LoadTickSnapshot(String name)
         {
-            if (!name.StartsWith(LoadedSnapshot.Tick.ToString()))
+            if (!name.StartsWith(LoadedSnapshot.Tick + "_"))
             {
                 byte[] temp = ArchiveReader.ToByteArray(_currentArchive.GetEntry(name));
 
