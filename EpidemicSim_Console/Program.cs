@@ -9,6 +9,7 @@ using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics;
+using PSC2013.ES.Library.Statistics.CountStatistics;
 using PSC2013.ES.Library.Statistics.Pictures;
 
 namespace PSC2013.ES.Cmd
@@ -149,8 +150,8 @@ namespace PSC2013.ES.Cmd
                 new AgeingSimulationComponent(110),
                 new MovementSimulationComponent(),
                 new InfectionCalculatorComponent());
-            sim.SetSimulationIntervall(4272);
-            sim.SetSnapshotIntervall(8544);
+            sim.SetSimulationIntervall(1);
+            sim.SetSnapshotIntervall(1);
             sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
@@ -218,7 +219,7 @@ namespace PSC2013.ES.Cmd
                 manager.LoadTickSnapshot(name);
 
                 Dictionary<string, int> am = 
-                    PSC2013.ES.Library.Statistics.CountStatistics.GeneralStatistics.AgeGroups(manager.LoadedSnapshot); // Dat Aufrufkette, Insert import, if this hurts your eyes...
+                    GeneralStatistics.AgeGroups(manager.LoadedSnapshot);
 
                 foreach (string group in am.Keys)
                 {
