@@ -9,10 +9,40 @@ using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library.AreaData
 {
+    // TODO | dj | maybe we should export this one?
+    public static class RANDOM
+    {
+        private static Random _global = new Random();
+        [ThreadStatic]
+        private static Random _local;
+
+        public static int Next(int max)
+        {
+            Random inst = _local;
+            if (inst == null)
+            {
+                int seed;
+                lock (_global) seed = _global.Next();
+                _local = inst = new Random(seed);
+            }
+            return inst.Next(max);
+        }
+
+        public static int Next(int min, int max)
+        {
+            Random inst = _local;
+            if (inst == null)
+            {
+                int seed;
+                lock (_global) seed = _global.Next();
+                _local = inst = new Random(seed);
+            }
+            return inst.Next(min, max);
+        }
+    }
+
     public static class MatrixGenerator
     {
-        private static readonly Random RANDOM = new Random();
-
         private static int WIDTH = 2814;
         private static int HEIGHT = 3841;
 
@@ -69,7 +99,7 @@ namespace PSC2013.ES.Library.AreaData
                 {
                     EGender gender = (i < 4) ? EGender.Male : EGender.Female;
 
-                    var bounds = GetBounds(i);
+                    var bounds = GetAgeBounds(i);
                     int lowerAgeBound = bounds.Item1;
                     int upperAgeBound = bounds.Item2;
 
@@ -123,6 +153,7 @@ namespace PSC2013.ES.Library.AreaData
             int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
             degree = Math.Max(1, degree);                       // but minimum of 1
             //degree = -1;
+            //degree = 1;
             Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
                 (item) => {
                     Human[] humans;
@@ -176,8 +207,8 @@ namespace PSC2013.ES.Library.AreaData
             }
             
             // array for each age-group, holding a list of Tuple of cell-indices and count.
-            List<Tuple<int, int>>[] agesOfCells = new List<Tuple<int, int>>[8];
-            agesOfCells.Initialize<List<Tuple<int, int>>>();
+            Queue<Tuple<int, ushort>>[] agesOfCells = new Queue<Tuple<int, ushort>>[8];
+            agesOfCells.Initialize<Queue<Tuple<int, ushort>>>();
 
             int humanCount = 0;
 
@@ -190,10 +221,26 @@ namespace PSC2013.ES.Library.AreaData
                 double factor = factors[point.Distance(origin)];
                 for (int i = 0; i < 8; ++i)
                 {
-                    // why does this work?
-                    cell.Data[i] = (ushort)Math.Round(depInfo.Population[i] / areaSize * factor);
-                    agesOfCells[i].Add(new Tuple<int,int>(cellIndex, cell.Data[i]));
+                    ushort toSet = (ushort)Math.Round(depInfo.Population[i] / (double)areaSize * factor);
+                    cell.Data[i] = toSet;
+                    agesOfCells[i].Enqueue(new Tuple<int,ushort>(cellIndex, toSet));
+                    depInfo.Population[i] -= toSet;
+                    //if (cell.Data[i] == 0)
+                    //    Console.WriteLine("0 people in {0}", cellIndex);
                 }
+                if (cell.Total == 0 && depInfo.Population.Sum() != 0)
+                {
+                    int j = 0;
+                    do
+                    {
+                        j = RANDOM.Next(8);
+                    } while (depInfo.Population[j] == 0);
+
+                    cell.Data[j] = 1;
+                    agesOfCells[j].Enqueue(new Tuple<int,ushort>(cellIndex, 1));
+                    depInfo.Population[j] -= 1;
+                }
+                areaSize--;
 
                 humanCount += cell.Total;
 
@@ -207,8 +254,8 @@ namespace PSC2013.ES.Library.AreaData
             // going through all ages and creating the humans.
             for (int i = 0; i < 8; ++i)
             {
-                var lst = agesOfCells[i];
-                var bounds = GetBounds(i);
+                var queue = agesOfCells[i];
+                var bounds = GetAgeBounds(i);
 
                 // age-bounds (for random).
                 int lowerAge = bounds.Item1;
@@ -218,13 +265,16 @@ namespace PSC2013.ES.Library.AreaData
                 EGender gender = (i < 4) ? EGender.Male : EGender.Female;
 
                 // for each cell.
-                foreach (Tuple<int, int> cellTuple in lst)
+                while (queue.Count > 0)
+                //foreach (Tuple<int, ushort> cellTuple in queue)
                 {
+                    var cellTuple = queue.Dequeue();
+
                     int cellIndex = cellTuple.Item1;
-                    int count = cellTuple.Item2;
+                    ushort count = cellTuple.Item2;
 
                     // for each human (who shall be created).
-                    int c = count;
+                    ushort c = count;
                     while (c-- > 0)
                     //for (int c = 0; c < count; ++c)
                     {
@@ -286,7 +336,7 @@ namespace PSC2013.ES.Library.AreaData
                     EGender gender = (i < 4) ?                              // the first four are male, the last female.
                         EGender.Male : EGender.Female;
 
-                    var bounds = GetBounds(i);                              // the age-boundaries for the corresponding age-group.
+                    var bounds = GetAgeBounds(i);                              // the age-boundaries for the corresponding age-group.
                     int lowerAgeBound = bounds.Item1;
                     int upperAgeBound = bounds.Item2;
 
@@ -315,7 +365,7 @@ namespace PSC2013.ES.Library.AreaData
         /// <summary>
         /// Returns the age-boundaries for the given age-group.
         /// </summary>
-        private static Tuple<int, int> GetBounds(int i)
+        private static Tuple<int, int> GetAgeBounds(int i)
         {
             int lower = 1;
             int upper = 110;
