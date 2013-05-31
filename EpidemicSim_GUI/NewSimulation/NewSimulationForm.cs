@@ -63,8 +63,22 @@ namespace PSC2013.ES.GUI.NewSimulation
 
         private void StartSimulation()
         {
-            // TODO | dj | adjust and take actual data...
+            /* TODO |f| now gets the correct values even if valueChanged was not raised.. 
+             * still need to remove unecessary eventmethods since they are no longer needed */
+            ParseInputs();
+
             TestSimulation();
+        }
+
+        private void ParseInputs()
+        {
+            _disease.IncubationPeriod = (int)numField_incubationperiod.Value;
+            _disease.IdleTime = (int)numField_idle.Value;
+            _disease.SpreadingTime = (int)numField_spreading.Value;
+            _disease.Transferability = (int)numField_transferability.Value;
+            _realtimeTick = (int)numField_realtimetick.Value;
+            _snapshotInterval = (int)numField_snapshotInterval.Value;
+            _simDuration = (long)numField_simduration.Value;
         }
 
         private void TestSimulation()
