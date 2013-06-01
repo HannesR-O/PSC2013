@@ -77,7 +77,7 @@ namespace PSC2013.ES.Cmd
                     Transferability = 75
                 },
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
-                new DebugSimulationComponent());
+                new DebugInfectionComponent());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
             sim.AddOutputTarget(new ConsoleOutputTarget());
@@ -146,10 +146,10 @@ namespace PSC2013.ES.Cmd
             };
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
-                new DebugSimulationComponent(),
-                new AgeingSimulationComponent(110),
-                new MovementSimulationComponent(),
-                new InfectionCalculatorComponent());
+                new DebugInfectionComponent(),
+                new AgeingComponent(110),
+                new MovementComponent(),
+                new InfectionComponent());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
             sim.AddOutputTarget(new ConsoleOutputTarget());
@@ -163,7 +163,7 @@ namespace PSC2013.ES.Cmd
         {
             //too slow at the moment
             var data = new SimulationData();
-            var movecmp = new MovementSimulationComponent();
+            var movecmp = new MovementComponent();
             data.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
 
             for (int i = 0; i < 48; ++i)

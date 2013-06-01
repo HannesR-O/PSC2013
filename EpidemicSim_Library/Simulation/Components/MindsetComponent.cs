@@ -3,12 +3,12 @@ using System;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public unsafe class MindsetSimulationComponent : SimulationComponent
+    public unsafe class MindsetComponent : SimulationComponent
     {
         private Human* _ptr;
         private Random _random;
 
-        MindsetSimulationComponent() : base(ESimulationStage.BeforeInfectedCalculation)
+        MindsetComponent() : base(ESimulationStage.BeforeInfectedCalculation)
         {
             _random = new Random();
             _simulationIntervall = 1;
@@ -60,7 +60,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(SimulationComponent other)
         {
-            var otherComponent = other as MindsetSimulationComponent;
+            var otherComponent = other as MindsetComponent;
             if (otherComponent == null)
                 return false;
 

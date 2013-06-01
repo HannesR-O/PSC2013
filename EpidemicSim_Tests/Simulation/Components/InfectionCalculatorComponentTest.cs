@@ -6,11 +6,11 @@ namespace PSC2013.ES.Tests.Simulation.Components
 {
     public class InfectionCalculatorComponentTest
     {
-        private InfectionCalculatorComponent _component;
+        private InfectionComponent _component;
 
         private void SetUp()
         {
-            _component = new InfectionCalculatorComponent();
+            _component = new InfectionComponent();
         }
 
         [Fact]

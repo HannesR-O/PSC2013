@@ -17,10 +17,26 @@ namespace PSC2013.ES.Library.PopulationData
         private const byte MASK_MINDSET     = 0x0F;            // 0000 1111
 
         /// <summary>
-        /// HomeCell of the Human
+        /// Human's HomeCell where he will return to after some time dependent on his MindSet
         /// </summary>
-        public readonly int HomeCell;
-        public int CurrentCell;
+        public int HomeCell { get { return _homeCell; } }
+        private readonly int _homeCell;
+        /// <summary>
+        /// Human's current position in the simulated area
+        /// </summary>
+        public int CurrentCell 
+        { 
+            get 
+            { 
+                return _currentCell; 
+            } 
+            set 
+            { 
+                _currentCell = value;
+                //SetTravelling(!IsAtHome()); //TODO: |f| what exactly is "travlling"
+            } 
+        }
+        private int _currentCell;
         public byte TravellingCounter;
 
         private byte _data0;    // Age & Gender
@@ -36,13 +52,13 @@ namespace PSC2013.ES.Library.PopulationData
         /// <param name="homeCell"></param>
         private Human(int homeCell)
         {
-            HomeCell = homeCell;
+            _homeCell = homeCell;
+            _currentCell = homeCell;
             _data0 = 0;
             _data1 = 0;
             _data2 = 0;
             _counterInfect = 1;
             _counterSpreading = 2;
-            CurrentCell = homeCell;
             TravellingCounter = 0;
         }
 
@@ -64,29 +80,7 @@ namespace PSC2013.ES.Library.PopulationData
             human.SetProfession((EProfession)random.Next(8));
             human.SetMindset((EMindset)random.Next(6));
 
-
             return human;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null || !(obj is Human))
-                return false;
-
-            var other = (Human)obj;
-            return (this.HomeCell == other.HomeCell) && (this._data0 == other._data0) && (this._data1 == other._data1) &&
-                (this._data2 == other._data2) && (this._counterInfect == other._counterInfect) && (this._counterSpreading == other._counterSpreading);
-        }
-
-        public override int GetHashCode()
-        {
-            return (_data0 + _data1);
-        }
-
-        public override string ToString()
-        {
-            //TODO: |f| Add later
-            return base.ToString();
         }
 
         /// <summary>
@@ -95,7 +89,7 @@ namespace PSC2013.ES.Library.PopulationData
         /// <returns>True if home, false if not</returns>
         public bool IsAtHome()
         {
-            return HomeCell == CurrentCell;
+            return CurrentCell == HomeCell;
         }
 
         /// <summary>
@@ -216,10 +210,6 @@ namespace PSC2013.ES.Library.PopulationData
             return ((_data1 & MASK_TRAVELLING) == 8);
         }   //TODO: shouldnt that be return CurrentCell == HomeCell? So we dont need a setter
 
-        /// <summary>
-        /// Sets whether a human is travelling or not
-        /// </summary>
-        /// <param name="travelling"></param>
         public void SetTravelling(bool travelling)
         {
             _data1 = (byte)((_data1 & ~MASK_TRAVELLING) + (travelling ? 8 : 0));
@@ -240,14 +230,18 @@ namespace PSC2013.ES.Library.PopulationData
         }
 
         /// <summary>
-        /// Returns the current Mindset of the human
+        /// Returns the current MindSet of the human
         /// </summary>
-        /// <returns>the Mindset</returns>
+        /// <returns>Human's Mindset</returns>
         public EMindset GetMindset()
         {
             return (EMindset)(_data2 & MASK_MINDSET);
         }
 
+        /// <summary>
+        /// Sets the current MindSet of the human to the desired value
+        /// </summary>
+        /// <param name="mindset">MindSet to set</param>
         public void SetMindset(EMindset mindset)
         {
             _data2 = (byte)((_data2 & ~MASK_MINDSET) +  (byte)mindset);
@@ -256,26 +250,26 @@ namespace PSC2013.ES.Library.PopulationData
         /// <summary>
         /// Infects the human with the appropiate counters from the Disease
         /// </summary>
-        public void Infect(short infectionCounter, short spreadingCounter)  //TODO: do we need more parameters?
+        public void Infect(short infectionCounter, short idleCounter)  //TODO: do we need more parameters?
         {
             SetInfected(true);
 
             _counterInfect = infectionCounter;
-            _counterSpreading = spreadingCounter;
+            _counterSpreading = idleCounter;
         }
 
         /// <summary>
         /// Performes an age-tick on the human and increases his age by 1 year
         /// </summary>
-        public void DoAgeTick()
+        public void DoAgeTick(byte count)
         {
-            SetAge(GetAgeInYears() + 1);
+            SetAge(GetAgeInYears() + count);
         }
 
         /// <summary>
         /// Performes a disease-tick on the human and increases his counters if appropiate
         /// </summary>
-        public void DoDiseaseTick(short spreadingTime)
+        public void DoDiseaseTick(short spreadingTime, int count)
         {
             //TODO: Are the checks correct? does counterInfect get updated when human is infected?
             if (IsInfected())
@@ -300,9 +294,33 @@ namespace PSC2013.ES.Library.PopulationData
             }
         }
 
+        /// <summary>
+        /// Kills the Human. Pretty simple stuff..
+        /// </summary>
         public void KillHuman()
         {
             SetDeath(true);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Human))
+                return false;
+
+            var other = (Human)obj;
+            return (this.HomeCell == other.HomeCell) && (this._data0 == other._data0) && (this._data1 == other._data1) &&
+                (this._data2 == other._data2) && (this._counterInfect == other._counterInfect) && (this._counterSpreading == other._counterSpreading);
+        }
+
+        public override int GetHashCode()
+        {
+            return (_data0 + _data1);
+        }
+
+        public override string ToString()
+        {
+            //TODO: |f| Add later
+            return base.ToString();
         }
     }
 }

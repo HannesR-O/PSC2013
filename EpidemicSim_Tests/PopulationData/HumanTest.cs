@@ -98,38 +98,38 @@ namespace PSC2013.ES.Tests.PopulationData
             Assert.Equal(EAge.Baby, human.GetAge());
 
             for (int i = 0; i < 5; i++)
-                human.DoAgeTick();
+                human.DoAgeTick(1);
 
             Assert.Equal(EAge.Baby, human.GetAge());         // age should be 6 now
 
-            human.DoAgeTick();
+            human.DoAgeTick(1);
 
             Assert.Equal(EAge.Child, human.GetAge());        // age should be 7 now => GetAge() should return Age.Child
 
             for (int i = 0; i < 18; i++)
-                human.DoAgeTick();
+                human.DoAgeTick(1);
 
             Assert.Equal(EAge.Child, human.GetAge());        // age should be 25 now
 
-            human.DoAgeTick();
+            human.DoAgeTick(1);
 
             Assert.Equal(EAge.Adult, human.GetAge());        // age should be 26 now => GetAge() should return Age.Adult
 
             for (int i = 0; i < 34; i++)
-                human.DoAgeTick();
+                human.DoAgeTick(1);
 
             Assert.Equal(EAge.Adult, human.GetAge());        // age should be 60 now
 
-            human.DoAgeTick();
+            human.DoAgeTick(1);
 
             Assert.Equal(EAge.Senior, human.GetAge());       // age should be 61 now => GetAge() should return Age.Senior
 
             for (int i = 0; i < 49; i++)
-                human.DoAgeTick();
+                human.DoAgeTick(1);
 
             Assert.Equal(EAge.Senior, human.GetAge());       // age should be 110 now
 
-            human.DoAgeTick();
+            human.DoAgeTick(1);
 
             Assert.Equal(EAge.Senior, human.GetAge());       // age should be 111 now
         }

@@ -52,11 +52,12 @@
     <Compile Include="IO\Readers\ContinuationEventArgs.cs" />
     <Compile Include="IO\Readers\DepartmentMapReader.cs" />
     <Compile Include="IO\Writers\ArchiveBinaryWriter.cs" />
-    <Compile Include="Simulation\Components\AgeingSimulationComponent.cs" />
-    <Compile Include="Simulation\Components\DebugSimulationComponent.cs" />
-    <Compile Include="Simulation\Components\InfectionCalculatorComponent.cs" />
-    <Compile Include="Simulation\Components\MindsetSimulationComponent.cs" />
-    <Compile Include="Simulation\Components\MovementSimulationComponent.cs" />
+    <Compile Include="Simulation\Components\AgeingComponent.cs" />
+    <Compile Include="Simulation\Components\DebugInfectionComponent.cs" />
+    <Compile Include="Simulation\Components\DiseaseEffectComponent.cs" />
+    <Compile Include="Simulation\Components\InfectionComponent.cs" />
+    <Compile Include="Simulation\Components\MindsetComponent.cs" />
+    <Compile Include="Simulation\Components\MovementComponent.cs" />
     <Compile Include="Simulation\Components\SimulationComponent.cs" />
     <Compile Include="Simulation\SimulationEventArgs.cs" />
     <Compile Include="Simulation\SimulationException.cs" />

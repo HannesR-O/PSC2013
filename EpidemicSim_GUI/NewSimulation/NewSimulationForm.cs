@@ -85,10 +85,10 @@ namespace PSC2013.ES.GUI.NewSimulation
         {
             EpidemicSimulator _epidemicSim = EpidemicSimulator.Create(
                 _disease, _depFilePath,
-                new DebugSimulationComponent(),
-                new AgeingSimulationComponent(110),
-                new MovementSimulationComponent(),
-                new InfectionCalculatorComponent());
+                new DebugInfectionComponent(),
+                new AgeingComponent(110),
+                new MovementComponent(),
+                new InfectionComponent());
             _epidemicSim.SetSimulationIntervall(_realtimeTick);
             _epidemicSim.SetSnapshotIntervall(_snapshotInterval);
             _epidemicSim.AddOutputTarget(new ConsoleOutputTarget());

@@ -8,12 +8,12 @@ using PSC2013.ES.Library.Diseases;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class InfectionCalculatorComponent : SimulationComponent
+    public class InfectionComponent : SimulationComponent
     {
         private readonly Random _random;
         private int _arrayHeight, _arrayWidth, _arrayMaxIndex;
 
-        public InfectionCalculatorComponent() : base(ESimulationStage.InfectedCalculation)
+        public InfectionComponent() : base(ESimulationStage.InfectedCalculation)
         {
             _random = new Random((int)DateTime.Now.Ticks);
         }
@@ -37,55 +37,34 @@ namespace PSC2013.ES.Library.Simulation.Components
                     cell.Probability = CalculateProbability(data.Cells, index, disease.Transferability);
             }
 
-            //Let Humans get Infected by chance/ do their DiseaseTick
+            //Let Humans get Infected by chance
             fixed (Human* humanptr = data.Humans)
             {
                 for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
                 {
-                    if (!ptr->IsDead())
+                    if (!ptr->IsDead() && !ptr->IsInfected())
                     {
-                        // TODO | dj | take hour-tick-time relationship into account...
-                        ptr->DoDiseaseTick((short)disease.SpreadingTime);
-
-                        if (!ptr->IsInfected())
-                            TryInfection(ptr, disease, data.Cells[ptr->CurrentCell].Probability);
+                        TryInfection(ptr, disease, data.Cells[ptr->CurrentCell].Probability);
                     }
                     // TODO | dj | TEST!!!!
                 }
             }
         }
 
-        private unsafe void TryInfection(Human* human, Disease disease, int probability)
-        {
-            // get index for FactorContainer
-            int ageIndex = (byte)human->GetAge() / 32;
-            ageIndex += human->GetGender() == EGender.Male ? 0 : 4;
-
-            int resistance = disease.ResistanceFactor.Data[ageIndex];
-
-            if (resistance < probability) // no infection if resistance to high!?
-            {
-                int factor = probability - resistance;
-                int rand = _random.Next(100);
-                if (rand <= factor)
-                    human->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
-            }
-        }
-
-        private int CalculateProbability(PopulationCell[] cells, int currentCellIndex, int trans)
+        private int CalculateProbability(PopulationCell[] cells, int currentCellIndex, int transferability)
         {
             var surroundings = GetCorrespondingCells(currentCellIndex, cells);
 
-            int prop = 0;
+            int chance = 0;
             foreach (PopulationCell cell in surroundings)
             {
-                prop += (int)((cell.Total * 100f) / cell.Spreading * (trans / 100f));
+                chance += (int)((cell.Total * 100f) / cell.Spreading * (transferability / 100f));
             }
 
-            prop = prop / surroundings.Count();
+            chance = chance / surroundings.Count();
 
             // now the current cell is equally treated like the surrounding...
-            return prop;
+            return chance;
         }
 
         private IEnumerable<PopulationCell> GetCorrespondingCells(int cell, PopulationCell[] allCells)
@@ -119,6 +98,23 @@ namespace PSC2013.ES.Library.Simulation.Components
                 && point.Y >= 0 && point.X < _arrayHeight;
         }
 
+        private unsafe void TryInfection(Human* human, Disease disease, int probability)
+        {
+            // get index for FactorContainer
+            int ageIndex = (byte)human->GetAge() / 32;
+            ageIndex += human->GetGender() == EGender.Male ? 0 : 4;
+
+            int resistance = disease.ResistanceFactor.Data[ageIndex];
+
+            if (resistance < probability) // no infection if resistance to high!?
+            {
+                int factor = probability - resistance;
+                int rand = _random.Next(100);
+                if (rand <= factor)
+                    human->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
+            }
+        }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -131,7 +127,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(SimulationComponent other)
         {
-            var otherComponent = other as InfectionCalculatorComponent;
+            var otherComponent = other as InfectionComponent;
             if (otherComponent == null)
                 return false;
 

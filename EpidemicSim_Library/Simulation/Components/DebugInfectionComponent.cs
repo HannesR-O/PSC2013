@@ -2,9 +2,9 @@
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class DebugSimulationComponent : SimulationComponent
+    public class DebugInfectionComponent : SimulationComponent
     {
-        public DebugSimulationComponent() : base(ESimulationStage.InfectedCalculation) 
+        public DebugInfectionComponent() : base(ESimulationStage.InfectedCalculation) 
         {
         }
 
@@ -27,7 +27,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(SimulationComponent other)
         {
-            return (other as DebugSimulationComponent) != null;
+            return (other as DebugInfectionComponent) != null;
         }
     }
 }

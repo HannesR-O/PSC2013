@@ -7,12 +7,12 @@ namespace PSC2013.ES.Library.Simulation.Components
     /// SimulationComponent to move the entire human population 
     /// according to their Mindset, Profession and SimulationTime
     /// </summary>
-    public unsafe class MovementSimulationComponent : SimulationComponent
+    public unsafe class MovementComponent : SimulationComponent
     {
         private readonly Random _random;
         private Human* _ptr;
 
-        public MovementSimulationComponent() : base(ESimulationStage.BeforeInfectedCalculation)
+        public MovementComponent() : base(ESimulationStage.BeforeInfectedCalculation)
         {
             _random = new Random();
             _simulationIntervall = 1;
@@ -711,7 +711,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(SimulationComponent other)
         {
-            var otherComponent = other as MindsetSimulationComponent;
+            var otherComponent = other as MindsetComponent;
             if (otherComponent == null)
                 return false;
 

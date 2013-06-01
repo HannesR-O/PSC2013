@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public class AgeingSimulationComponent : SimulationComponent
+    public class AgeingComponent : SimulationComponent
     {
         // Assumes 365 x 24 hour days
         private const int HOURS_PER_YEAR = 8544;
         public int AgeLimit { get; private set; }
         public int TicksPerYear { get; private set; }
-        
+        public int YearsPerTick { get; private set; } //TODO: |f| need to add logic to that but im lazy
 
         private int _counter;
 
@@ -20,16 +20,11 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// Creates a new AgeingSimulationComponent and sets the "hour-value" of one tick.
         /// </summary>
         /// <param name="ageLimit">A value specifying at what age Humans should die of aging</param>
-        public AgeingSimulationComponent(int ageLimit) : base(ESimulationStage.AfterInfectedCalculation)
+        public AgeingComponent(int ageLimit) : base(ESimulationStage.AfterInfectedCalculation)
         {
             AgeLimit = ageLimit;
             UpdateTicksPerYear();        
             _counter = 0;
-        }
-
-        private void UpdateTicksPerYear()
-        {
-            TicksPerYear = HOURS_PER_YEAR / _simulationIntervall;
         }
 
         public override void SetSimulationIntervall(int intervall)
@@ -57,7 +52,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     if (human->IsDead())
                         continue;
 
-                    human->DoAgeTick();
+                    human->DoAgeTick(1);            //TODO: |f| fixme im dirty nonsense
 
                     if (human->GetAgeInYears() <= AgeLimit) continue;
 
@@ -91,6 +86,11 @@ namespace PSC2013.ES.Library.Simulation.Components
 #endif
         }
 
+        private void UpdateTicksPerYear()
+        {
+            TicksPerYear = HOURS_PER_YEAR / _simulationIntervall;
+        }
+
         public override int GetHashCode()
         {
             return AgeLimit.GetHashCode();
@@ -103,7 +103,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override bool Equals(SimulationComponent other)
         {
-            var otherComponent = other as AgeingSimulationComponent;
+            var otherComponent = other as AgeingComponent;
             if (otherComponent == null)
                 return false;
 
