@@ -14,7 +14,7 @@ using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library
 {
-    public sealed class EpidemicSimulator
+    public sealed class EpidemicSimulator : OutputTargetWriter
     {
 #if DEBUG
         private readonly Stopwatch _watch = new Stopwatch();
@@ -48,9 +48,6 @@ namespace PSC2013.ES.Library
         private SimulationComponent _infectionSimulator;
         private readonly IList<SimulationComponent> _before, _after;
 
-        // ISimulationOutputTargets
-        private IList<IOutputTarget> _outputTargets; 
-
         // Misc.
         private volatile bool _simulationFinished;
         private volatile bool _simulationLock;
@@ -83,7 +80,7 @@ namespace PSC2013.ES.Library
         //TODO: |f| do we also want StageFinished ?
         #endregion
 
-        private EpidemicSimulator(Disease disease)
+        private EpidemicSimulator(Disease disease) : base("ES")
         {
             _simData = new SimulationData { DiseaseToSimulate = disease };
 
@@ -92,8 +89,6 @@ namespace PSC2013.ES.Library
 
             _before = new List<SimulationComponent>();
             _after = new List<SimulationComponent>();
-
-            _outputTargets = new List<IOutputTarget>();
         }
 
         /// <summary>
@@ -183,8 +178,7 @@ namespace PSC2013.ES.Library
             if (_simulationLock)
                 throw new SimulationException("Could not add a new IOutputTarget. " + ERROR_MESSAGE_SIMULATION_RUNNING);
 
-            if (!_outputTargets.Contains(target))
-                _outputTargets.Add(target);
+            RegisterTarget(target);
         }
 
         /// <summary>
@@ -351,11 +345,10 @@ namespace PSC2013.ES.Library
             OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
         }
 
-        private void WriteMessage(string message)
+        override protected void WriteMessage(string message)
         {
             if (_writeToOutputs)
-                foreach(var target in _outputTargets)
-                    target.WriteToOutput("ES: " + message);
+                base.WriteMessage(message);
         }
 
         private void OnSimulationStarted(SimulationEventArgs e)
