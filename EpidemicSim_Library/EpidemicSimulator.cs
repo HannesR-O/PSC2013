@@ -45,8 +45,8 @@ namespace PSC2013.ES.Library
         private readonly SnapshotManager _snapshotMgr;
 
         // ISimulationComponents
-        private SimulationComponent _infectionSimulator;
-        private readonly IList<SimulationComponent> _before, _after;
+        private SimulationComponent _infectionComponent;
+        private readonly ISet<SimulationComponent> _before, _after;
 
         // Misc.
         private volatile bool _simulationFinished;
@@ -63,7 +63,7 @@ namespace PSC2013.ES.Library
             get 
             { 
                 return !_simulationLock && 
-                _infectionSimulator != null &&
+                _infectionComponent != null &&
                 _snapshotIntervall % _simulationIntervall == 0 &&
                 _simData.IsValid; 
             }
@@ -82,11 +82,11 @@ namespace PSC2013.ES.Library
         {
             _simData = new SimulationData { DiseaseToSimulate = disease };
 
-            _snapshotMgr = new SnapshotManager();       // Needs to be initialized before using
+            _snapshotMgr = new SnapshotManager();                           // Needs to be initialized before using
             _snapshotMgr.WriterQueueEmpty += OnWriterQueueEmpty;
 
-            _before = new List<SimulationComponent>();
-            _after = new List<SimulationComponent>();
+            _before = new HashSet<SimulationComponent>();
+            _after = new HashSet<SimulationComponent>();
         }
 
         /// <summary>
@@ -138,15 +138,13 @@ namespace PSC2013.ES.Library
                         "The given ISimulationComponent cannot get executed in the Infection stage and before/after!",
                         "component");
 
-                _infectionSimulator = component;
+                _infectionComponent = component;
                 return;
             }
-            if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation &&
-                    !_before.Contains(component))
+            if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation)
                     _before.Add(component);
             
-            if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation &&
-                    !_after.Contains(component))
+            if ((stages & ESimulationStage.AfterInfectedCalculation) == ESimulationStage.AfterInfectedCalculation)
                     _after.Add(component);
         }
 
@@ -155,7 +153,7 @@ namespace PSC2013.ES.Library
             var stages = component.SimulationStages;
             if((stages & ESimulationStage.InfectedCalculation) == ESimulationStage.InfectedCalculation)
                 throw new SimulationException("Cannot remove Infection Simulation component! \n " +
-                                              "If you want to set a new one, use AddSimulationComponent!");
+                                              "If you want to set a new one, use AddSimulationComponent to overwrite the previous one!");
 
             if ((stages & ESimulationStage.BeforeInfectedCalculation) == ESimulationStage.BeforeInfectedCalculation &&
                 _before.Contains(component))
@@ -202,7 +200,7 @@ namespace PSC2013.ES.Library
             foreach (var component in _before)
                 component.SetSimulationIntervall(_simulationIntervall);
 
-            _infectionSimulator.SetSimulationIntervall(_simulationIntervall);
+            _infectionComponent.SetSimulationIntervall(_simulationIntervall);
 
             foreach (var component in _after)
                 component.SetSimulationIntervall(_simulationIntervall);
@@ -316,7 +314,7 @@ namespace PSC2013.ES.Library
                 }
 
                 // Main simulation step
-                _infectionSimulator.PerformSimulationStage(_simData);
+                _infectionComponent.PerformSimulationStage(_simData);
 
                 foreach (SimulationComponent comp in _after)
                 {

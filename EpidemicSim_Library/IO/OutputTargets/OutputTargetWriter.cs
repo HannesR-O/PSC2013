@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PSC2013.ES.Library.IO.OutputTargets
 {
@@ -20,26 +16,23 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         protected string Symbol { get; set; }
         /// <summary>
         /// Gets or sets, whether the Symbol will be
-        /// sended toward the IOutputTargets.
+        /// forwareded towards the IOutputTargets.
         /// </summary>
         public bool IsSymbolEnabled { get; set; }
         /// <summary>
         /// Gets or sets, whether the message will
-        /// be send to the IOutputTargets.
+        /// be forwareded to the IOutputTargets.
         /// </summary>
         public bool IsWritingEnabled { get; set; }
 
         private ISet<IOutputTarget> _targets;
 
-        private OutputTargetWriter()
+        protected OutputTargetWriter(string symbol)
         {
             _targets = new HashSet<IOutputTarget>();
             IsSymbolEnabled = true;
             IsWritingEnabled = true;
-        }
 
-        protected OutputTargetWriter(string symbol) : this()
-        {
             Symbol = symbol;
         }
 
