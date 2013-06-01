@@ -209,9 +209,13 @@ namespace PSC2013.ES.Cmd
                 int num = int.Parse(Console.ReadLine());
                 EStatField field = (EStatField)num;
 
-                Console.WriteLine("Please type a color scheme (Red, Blue):");
+                Console.WriteLine("Please type a color scheme (Red, Blue, RedGreen[default]):");
                 string palette = Console.ReadLine();
-                EColorPalette pal = palette == "Red" ? EColorPalette.Red : EColorPalette.Blue;
+                EColorPalette pal = EColorPalette.RedGreen;
+                if (palette.ToLower().Equals("red"))
+                    pal = EColorPalette.Red;
+                else if (palette.ToLower().Equals("blue"))
+                    pal = EColorPalette.Blue;
 
                 Console.WriteLine("Please insert desired File-Prefix:");
                 string prefix = Console.ReadLine();

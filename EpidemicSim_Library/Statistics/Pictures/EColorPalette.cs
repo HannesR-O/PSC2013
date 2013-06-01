@@ -8,6 +8,6 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 {
     public enum EColorPalette
     {
-        Red, Blue
+        Red, Blue, RedGreen
     }
 }

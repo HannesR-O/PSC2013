@@ -84,7 +84,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                     map.SetPixel(p.X, p.Y, Color.Black);
                 else
                 {
-                    for (int i = 19; i >= 0; --i)
+                    for (int i = ColorPalette.RANGE - 1; i >= 0; --i)
                     {
                         if (_steps[i] >= count)
                         {
@@ -162,14 +162,14 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         }
 
         /// <summary>
-        /// Calculates a Range of Values from a given int up to 20 Steps
+        /// Calculates a Range of Values from a given int up to ColorPalette.RANGE Steps
         /// </summary>
         /// <param name="maximum">The Maxrange</param>
-        /// <returns>A List of max 20 equals steps</returns>
+        /// <returns>not the correct comment</returns>
         private static float CalculateSteps(int maximum)
         {
-            if (maximum >= 20)
-                return 0.05f;
+            if (maximum >= ColorPalette.RANGE)
+                return 1f / ColorPalette.RANGE;
             else
                 return 1f / maximum;
         }
@@ -181,12 +181,12 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <returns></returns>
         private static int[] GenerateSteps(int max, float step)
         {
-            int[] steps = new int[20];
+            int[] steps = new int[ColorPalette.RANGE];
             steps[0] = max;
 
             float temp = 1.0f;
 
-            for (int i = 1; i < 20; ++i)
+            for (int i = 1; i < ColorPalette.RANGE; ++i)
             {
                 temp -= step;
                 int thisStep = (int)(max * temp);
@@ -206,6 +206,8 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                     return ColorPalette.RED;
                 case EColorPalette.Blue:
                     return ColorPalette.BLUE;
+                case EColorPalette.RedGreen:
+                    return ColorPalette.REDGREEN;
                 default:
                     return ColorPalette.RED;
             }

@@ -4,46 +4,57 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 {
     public static class ColorPalette
     {
-        public static Color[] RED = {Color.FromArgb(255, 0, 0), 
-                                 Color.FromArgb(255, 15, 0), 
-                                 Color.FromArgb(255, 30, 0), 
-                                 Color.FromArgb(255, 45, 0), 
-                                 Color.FromArgb(255, 60, 0),
-                                 Color.FromArgb(255, 75, 0), 
-                                 Color.FromArgb(255, 90, 0), 
-                                 Color.FromArgb(255, 105, 0), 
-                                 Color.FromArgb(255, 120, 0), 
-                                 Color.FromArgb(255, 135, 0),
-                                 Color.FromArgb(255, 150, 0), 
-                                 Color.FromArgb(255, 165, 0), 
-                                 Color.FromArgb(255, 180, 0), 
-                                 Color.FromArgb(255, 195, 0), 
-                                 Color.FromArgb(255, 210, 0),
-                                 Color.FromArgb(255, 215, 0), 
-                                 Color.FromArgb(255, 220, 0), 
-                                 Color.FromArgb(255, 225, 0), 
-                                 Color.FromArgb(255, 230, 0), 
-                                 Color.FromArgb(255, 235, 0)};
+        public const int RANGE = 50;
 
-        public static Color[] BLUE = {Color.FromArgb(0, 0, 255), 
-                                 Color.FromArgb(0, 15, 255), 
-                                 Color.FromArgb(0, 30, 255), 
-                                 Color.FromArgb(0, 45, 255), 
-                                 Color.FromArgb(0, 60, 255),
-                                 Color.FromArgb(0, 75, 255), 
-                                 Color.FromArgb(0, 90, 255), 
-                                 Color.FromArgb(0, 105, 255), 
-                                 Color.FromArgb(0, 120, 255), 
-                                 Color.FromArgb(0, 135, 255),
-                                 Color.FromArgb(0, 150, 255), 
-                                 Color.FromArgb(0, 165, 255), 
-                                 Color.FromArgb(0, 180, 255), 
-                                 Color.FromArgb(0, 195, 255), 
-                                 Color.FromArgb(0, 210, 255),
-                                 Color.FromArgb(0, 215, 255), 
-                                 Color.FromArgb(0, 220, 255), 
-                                 Color.FromArgb(0, 225, 255), 
-                                 Color.FromArgb(0, 230, 255), 
-                                 Color.FromArgb(0, 235, 255)};
+        private static Color[] _red;
+        private static Color[] _blue;
+        private static Color[] _redgreen;
+
+        public static Color[] RED
+        {
+            get
+            {
+                if (_red == null)
+                {
+                    _red = new Color[RANGE];
+                    for (int i = 0; i < RANGE; i++)
+                        _red[i] = Color.FromArgb(255, (int)(255f / RANGE * i), 0);
+                }
+                return _red;
+            }
+        }
+
+        public static Color[] BLUE
+        {
+            get
+            {
+                if (_blue == null)
+                {
+                    _blue = new Color[RANGE];
+                    for (int i = 0; i < RANGE; i++)
+                        _blue[i] = Color.FromArgb(0, (int)(255f / RANGE * i), 255);
+                }
+                return _blue;
+            }
+        }
+
+        public static Color[] REDGREEN
+        {
+            get
+            {
+                if (_redgreen == null)
+                {
+                    _redgreen = new Color[RANGE];
+                    int smallerPart = RANGE / 8;
+                    int greaterPart = RANGE - smallerPart;
+
+                    for (int i = 0; i < greaterPart; i++)
+                        _redgreen[i] = Color.FromArgb(255, (int)(255f / greaterPart * i), 0);
+                    for (int i = 0; i < smallerPart; i++)
+                        _redgreen[i + greaterPart] = Color.FromArgb(255-(int)(255f / smallerPart * i), 255, 0);
+                }
+                return _redgreen;
+            }
+        }
     }
 }
