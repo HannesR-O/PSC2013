@@ -22,7 +22,12 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         /// Gets or sets, whether the Symbol will be
         /// sended toward the IOutputTargets.
         /// </summary>
-        protected bool IsSymbolEnabled { get; set; }
+        public bool IsSymbolEnabled { get; set; }
+        /// <summary>
+        /// Gets or sets, whether the message will
+        /// be send to the IOutputTargets.
+        /// </summary>
+        public bool IsWritingEnabled { get; set; }
 
         private ISet<IOutputTarget> _targets;
 
@@ -30,6 +35,7 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         {
             _targets = new HashSet<IOutputTarget>();
             IsSymbolEnabled = true;
+            IsWritingEnabled = true;
         }
 
         protected OutputTargetWriter(string symbol) : this()
@@ -58,8 +64,11 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         /// If IsSymbolEnabled is true, the symbol will
         /// be added to the string.
         /// </summary>
-        protected virtual void WriteMessage(string message)
+        protected void WriteMessage(string message)
         {
+            if (!IsWritingEnabled)
+                return;
+
             if (IsSymbolEnabled)
                 message = Symbol + ": " + message;
 

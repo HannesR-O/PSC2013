@@ -51,7 +51,6 @@ namespace PSC2013.ES.Library
         // Misc.
         private volatile bool _simulationFinished;
         private volatile bool _simulationLock;
-        private volatile bool _writeToOutputs = true;
         private long _simulationRound = SIMULATION_DEFAULT_START;
         private long _simulationLimit = SIMULATION_DEFAULT_LIMIT;
 
@@ -69,8 +68,7 @@ namespace PSC2013.ES.Library
                 _simData.IsValid; 
             }
         }
-        public bool IsSimulationg { get { return _simulationLock; } }
-        public bool WriteToOutputs { get { return _writeToOutputs; } set { _writeToOutputs = value; } }
+        public bool IsSimulating { get { return _simulationLock; } }
 
         // Events
         public event EventHandler<SimulationEventArgs> SimulationStarted;
@@ -344,13 +342,7 @@ namespace PSC2013.ES.Library
             long rounds = Interlocked.Read(ref _simulationRound);
             OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
         }
-
-        override protected void WriteMessage(string message)
-        {
-            if (_writeToOutputs)
-                base.WriteMessage(message);
-        }
-
+        
         private void OnSimulationStarted(SimulationEventArgs e)
         {
             WriteMessage("Simulation started!");
