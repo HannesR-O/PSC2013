@@ -39,7 +39,7 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         /// <summary>
         /// Tries to add the target to the writer-list.
         /// </summary>
-        protected bool RegisterTarget(IOutputTarget target)
+        public bool RegisterTarget(IOutputTarget target)
         {
             return _targets.Add(target);
         }
@@ -47,7 +47,7 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         /// <summary>
         /// Tries to remove the target from the writer-list.
         /// </summary>
-        protected bool UnregisterTarget(IOutputTarget target)
+        public bool UnregisterTarget(IOutputTarget target)
         {
             return _targets.Remove(target);
         }

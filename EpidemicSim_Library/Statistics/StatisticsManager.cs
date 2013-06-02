@@ -27,8 +27,7 @@ namespace PSC2013.ES.Library.Statistics
         private MapCreator _creator;
 
         public StatisticsManager() : base ("SM")
-        {
-        }
+        { }
 
         /// <summary>
         /// Opens a new .sim File and restores the contents to Runtime;
