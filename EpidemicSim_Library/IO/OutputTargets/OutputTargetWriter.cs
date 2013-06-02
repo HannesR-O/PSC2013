@@ -16,12 +16,12 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         protected string Symbol { get; set; }
         /// <summary>
         /// Gets or sets, whether the Symbol will be
-        /// forwareded towards the IOutputTargets.
+        /// forwarded towards the IOutputTargets.
         /// </summary>
         public bool IsSymbolEnabled { get; set; }
         /// <summary>
         /// Gets or sets, whether the message will
-        /// be forwareded to the IOutputTargets.
+        /// be forwarded to the IOutputTargets.
         /// </summary>
         public bool IsWritingEnabled { get; set; }
 
