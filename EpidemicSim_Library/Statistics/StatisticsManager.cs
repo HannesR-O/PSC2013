@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics.Pictures;
 using PSC2013.ES.Library.IO.Readers;
@@ -16,7 +17,7 @@ namespace PSC2013.ES.Library.Statistics
     /// 2. Open another a Ticksnapshot or go straight to 3.
     /// 3. Work with it (Map or Deathmap)
     /// </summary>
-    public class StatisticsManager
+    public class StatisticsManager : OutputTargetWriter
     {
         public List<string> Entries { get; private set; }
         public SimulationInfo SimInfo { get; private set; }
@@ -24,6 +25,10 @@ namespace PSC2013.ES.Library.Statistics
 
         private ZipArchive _currentArchive;
         private MapCreator _creator;
+
+        public StatisticsManager() : base ("SM")
+        {
+        }
 
         /// <summary>
         /// Opens a new .sim File and restores the contents to Runtime;
@@ -75,7 +80,7 @@ namespace PSC2013.ES.Library.Statistics
             byte[] temp = ArchiveReader.ToByteArray(first);// Reading first Snap to initialize Maxima
             TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
             _creator.InitializeMaxima(tick);
-            Console.WriteLine(first.Name + " is first. Initializing...");
+            WriteMessage(first.Name + " is first. Initializing...");
             LoadedSnapshot = tick; // First Snaphsot stays loaded
         }
 

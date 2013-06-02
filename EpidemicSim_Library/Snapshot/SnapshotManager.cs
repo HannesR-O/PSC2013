@@ -1,4 +1,5 @@
-﻿using PSC2013.ES.Library.PopulationData;
+﻿using PSC2013.ES.Library.IO.OutputTargets;
+using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.IO.Writers;
 using PSC2013.ES.Library.Simulation;
@@ -15,7 +16,7 @@ namespace PSC2013.ES.Library.Snapshot
     /// <summary>
     /// Used to persist Simulation-Snapshots
     /// </summary>
-    public class SnapshotManager
+    public class SnapshotManager : OutputTargetWriter
     {
         private string defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // ...
 
@@ -28,6 +29,10 @@ namespace PSC2013.ES.Library.Snapshot
         private SnapshotWriter _writer;
 
         public event EventHandler<EventArgs> WriterQueueEmpty;
+
+        public SnapshotManager()
+            : base("SNM")
+        { }
 
         /// <summary>
         /// Initializes the logging of a new Simulation
