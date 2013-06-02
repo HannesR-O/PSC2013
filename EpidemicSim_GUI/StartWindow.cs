@@ -43,12 +43,13 @@ namespace PSC2013.ES.GUI
         {
             openFileDialog.Filter = DEFAULT_EXTENSIONS_SIM;
             openFileDialog.Title = FILEDIALOG_TITLE_SIM;
-
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
+                Cursor.Current = Cursors.AppStarting;
                 string filepath = openFileDialog.FileName;
                 var form = new ReviewForm(filepath);
+                Cursor.Current = Cursors.Default;
                 // var form = new ReviewSimulationForm(filepath);
                 form.FormClosing += (_, __) => this.Show();
                 form.Show();

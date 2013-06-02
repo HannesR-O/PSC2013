@@ -67,25 +67,26 @@
             this.CheckBox_S_Female = new System.Windows.Forms.CheckBox();
             this.Page_Death = new System.Windows.Forms.TabPage();
             this.Page_Defaults = new System.Windows.Forms.TabPage();
+            this.GroupBox_Settings = new System.Windows.Forms.GroupBox();
+            this.Btn_ApplySettings = new System.Windows.Forms.Button();
             this.TextBox_SaveTo = new System.Windows.Forms.TextBox();
-            this.LabelSaveTo = new System.Windows.Forms.Label();
-            this.Btn_SaveTo_Browse = new System.Windows.Forms.Button();
-            this.Label_Palette = new System.Windows.Forms.Label();
-            this.ComboBox_DefaultPalette = new System.Windows.Forms.ComboBox();
-            this.TextBox_DefaultPrefix = new System.Windows.Forms.TextBox();
             this.Label_Prefix = new System.Windows.Forms.Label();
+            this.TextBox_DefaultPrefix = new System.Windows.Forms.TextBox();
+            this.LabelSaveTo = new System.Windows.Forms.Label();
+            this.ComboBox_DefaultPalette = new System.Windows.Forms.ComboBox();
+            this.Label_Palette = new System.Windows.Forms.Label();
+            this.Btn_SaveTo_Browse = new System.Windows.Forms.Button();
             this.GroupBox_TickInfo = new System.Windows.Forms.GroupBox();
+            this.Label_Diseased = new System.Windows.Forms.Label();
             this.Label_DeathInformation = new System.Windows.Forms.Label();
+            this.Label_Infected = new System.Windows.Forms.Label();
             this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.Menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileChooser = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.GroupBox_Settings = new System.Windows.Forms.GroupBox();
-            this.Btn_ApplySettings = new System.Windows.Forms.Button();
-            this.Label_Diseased = new System.Windows.Forms.Label();
-            this.Label_Infected = new System.Windows.Forms.Label();
+            this.Label_LoadedTick = new System.Windows.Forms.Label();
             this.GroupBox_Disease.SuspendLayout();
             this.GroupBox_TickSelections.SuspendLayout();
             this.Panel_leftside.SuspendLayout();
@@ -95,10 +96,10 @@
             this.Page_Standard.SuspendLayout();
             this.GroupBox_S_Create.SuspendLayout();
             this.Page_Defaults.SuspendLayout();
+            this.GroupBox_Settings.SuspendLayout();
             this.GroupBox_TickInfo.SuspendLayout();
             this.Menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.GroupBox_Settings.SuspendLayout();
             this.SuspendLayout();
             // 
             // ComboBox_Entries
@@ -526,134 +527,6 @@
             this.Page_Defaults.TabIndex = 2;
             this.Page_Defaults.Text = "Defaults";
             // 
-            // TextBox_SaveTo
-            // 
-            this.TextBox_SaveTo.Enabled = false;
-            this.TextBox_SaveTo.Location = new System.Drawing.Point(55, 82);
-            this.TextBox_SaveTo.Name = "TextBox_SaveTo";
-            this.TextBox_SaveTo.Size = new System.Drawing.Size(142, 20);
-            this.TextBox_SaveTo.TabIndex = 6;
-            this.TextBox_SaveTo.TextChanged += new System.EventHandler(this.TextBox_SaveTo_TextChanged);
-            // 
-            // LabelSaveTo
-            // 
-            this.LabelSaveTo.AutoSize = true;
-            this.LabelSaveTo.Location = new System.Drawing.Point(5, 85);
-            this.LabelSaveTo.Name = "LabelSaveTo";
-            this.LabelSaveTo.Size = new System.Drawing.Size(44, 13);
-            this.LabelSaveTo.TabIndex = 5;
-            this.LabelSaveTo.Text = "Save to";
-            // 
-            // Btn_SaveTo_Browse
-            // 
-            this.Btn_SaveTo_Browse.Location = new System.Drawing.Point(203, 82);
-            this.Btn_SaveTo_Browse.Name = "Btn_SaveTo_Browse";
-            this.Btn_SaveTo_Browse.Size = new System.Drawing.Size(31, 20);
-            this.Btn_SaveTo_Browse.TabIndex = 4;
-            this.Btn_SaveTo_Browse.Text = "->";
-            this.Btn_SaveTo_Browse.UseVisualStyleBackColor = true;
-            this.Btn_SaveTo_Browse.Click += new System.EventHandler(this.Btn_SaveTo_Browse_Click);
-            // 
-            // Label_Palette
-            // 
-            this.Label_Palette.AutoSize = true;
-            this.Label_Palette.Location = new System.Drawing.Point(5, 53);
-            this.Label_Palette.Name = "Label_Palette";
-            this.Label_Palette.Size = new System.Drawing.Size(40, 13);
-            this.Label_Palette.TabIndex = 3;
-            this.Label_Palette.Text = "Palette";
-            // 
-            // ComboBox_DefaultPalette
-            // 
-            this.ComboBox_DefaultPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBox_DefaultPalette.FormattingEnabled = true;
-            this.ComboBox_DefaultPalette.Location = new System.Drawing.Point(55, 50);
-            this.ComboBox_DefaultPalette.Name = "ComboBox_DefaultPalette";
-            this.ComboBox_DefaultPalette.Size = new System.Drawing.Size(142, 21);
-            this.ComboBox_DefaultPalette.TabIndex = 2;
-            this.ComboBox_DefaultPalette.SelectedValueChanged += new System.EventHandler(this.ComboBox_DefaultPalette_SelectedValueChanged);
-            // 
-            // TextBox_DefaultPrefix
-            // 
-            this.TextBox_DefaultPrefix.Location = new System.Drawing.Point(55, 19);
-            this.TextBox_DefaultPrefix.Name = "TextBox_DefaultPrefix";
-            this.TextBox_DefaultPrefix.Size = new System.Drawing.Size(142, 20);
-            this.TextBox_DefaultPrefix.TabIndex = 1;
-            this.TextBox_DefaultPrefix.Text = "Map";
-            this.TextBox_DefaultPrefix.TextChanged += new System.EventHandler(this.TextBox_DefaultPrefix_TextChanged);
-            // 
-            // Label_Prefix
-            // 
-            this.Label_Prefix.AutoSize = true;
-            this.Label_Prefix.Location = new System.Drawing.Point(6, 22);
-            this.Label_Prefix.Name = "Label_Prefix";
-            this.Label_Prefix.Size = new System.Drawing.Size(33, 13);
-            this.Label_Prefix.TabIndex = 0;
-            this.Label_Prefix.Text = "Prefix";
-            // 
-            // GroupBox_TickInfo
-            // 
-            this.GroupBox_TickInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GroupBox_TickInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.GroupBox_TickInfo.Controls.Add(this.Label_Diseased);
-            this.GroupBox_TickInfo.Controls.Add(this.Label_DeathInformation);
-            this.GroupBox_TickInfo.Controls.Add(this.Label_Infected);
-            this.GroupBox_TickInfo.Location = new System.Drawing.Point(0, 0);
-            this.GroupBox_TickInfo.Name = "GroupBox_TickInfo";
-            this.GroupBox_TickInfo.Size = new System.Drawing.Size(314, 228);
-            this.GroupBox_TickInfo.TabIndex = 0;
-            this.GroupBox_TickInfo.TabStop = false;
-            this.GroupBox_TickInfo.Text = "Tick Information";
-            // 
-            // Label_DeathInformation
-            // 
-            this.Label_DeathInformation.AutoSize = true;
-            this.Label_DeathInformation.Location = new System.Drawing.Point(6, 22);
-            this.Label_DeathInformation.Name = "Label_DeathInformation";
-            this.Label_DeathInformation.Size = new System.Drawing.Size(91, 13);
-            this.Label_DeathInformation.TabIndex = 0;
-            this.Label_DeathInformation.Text = "Death Information";
-            // 
-            // Menu
-            // 
-            this.Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
-            this.Menu.Location = new System.Drawing.Point(0, 0);
-            this.Menu.Name = "Menu";
-            this.Menu.Size = new System.Drawing.Size(957, 24);
-            this.Menu.TabIndex = 8;
-            this.Menu.Text = "Menu";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.ToolStripOpen_Click);
-            // 
-            // FileChooser
-            // 
-            this.FileChooser.FileName = "FileChooser";
-            this.FileChooser.Filter = "\"Simulation-Files (*.sim)|*.sim|All files (*.*)|*.*\"";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(573, 265);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(352, 385);
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
-            // 
             // GroupBox_Settings
             // 
             this.GroupBox_Settings.Controls.Add(this.Btn_ApplySettings);
@@ -683,23 +556,162 @@
             this.Btn_ApplySettings.UseVisualStyleBackColor = true;
             this.Btn_ApplySettings.Click += new System.EventHandler(this.Btn_ApplySettings_Click);
             // 
+            // TextBox_SaveTo
+            // 
+            this.TextBox_SaveTo.Enabled = false;
+            this.TextBox_SaveTo.Location = new System.Drawing.Point(55, 82);
+            this.TextBox_SaveTo.Name = "TextBox_SaveTo";
+            this.TextBox_SaveTo.Size = new System.Drawing.Size(142, 20);
+            this.TextBox_SaveTo.TabIndex = 6;
+            this.TextBox_SaveTo.TextChanged += new System.EventHandler(this.TextBox_SaveTo_TextChanged);
+            // 
+            // Label_Prefix
+            // 
+            this.Label_Prefix.AutoSize = true;
+            this.Label_Prefix.Location = new System.Drawing.Point(6, 22);
+            this.Label_Prefix.Name = "Label_Prefix";
+            this.Label_Prefix.Size = new System.Drawing.Size(33, 13);
+            this.Label_Prefix.TabIndex = 0;
+            this.Label_Prefix.Text = "Prefix";
+            // 
+            // TextBox_DefaultPrefix
+            // 
+            this.TextBox_DefaultPrefix.Location = new System.Drawing.Point(55, 19);
+            this.TextBox_DefaultPrefix.Name = "TextBox_DefaultPrefix";
+            this.TextBox_DefaultPrefix.Size = new System.Drawing.Size(142, 20);
+            this.TextBox_DefaultPrefix.TabIndex = 1;
+            this.TextBox_DefaultPrefix.Text = "Map";
+            this.TextBox_DefaultPrefix.TextChanged += new System.EventHandler(this.TextBox_DefaultPrefix_TextChanged);
+            // 
+            // LabelSaveTo
+            // 
+            this.LabelSaveTo.AutoSize = true;
+            this.LabelSaveTo.Location = new System.Drawing.Point(5, 85);
+            this.LabelSaveTo.Name = "LabelSaveTo";
+            this.LabelSaveTo.Size = new System.Drawing.Size(44, 13);
+            this.LabelSaveTo.TabIndex = 5;
+            this.LabelSaveTo.Text = "Save to";
+            // 
+            // ComboBox_DefaultPalette
+            // 
+            this.ComboBox_DefaultPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_DefaultPalette.FormattingEnabled = true;
+            this.ComboBox_DefaultPalette.Location = new System.Drawing.Point(55, 50);
+            this.ComboBox_DefaultPalette.Name = "ComboBox_DefaultPalette";
+            this.ComboBox_DefaultPalette.Size = new System.Drawing.Size(142, 21);
+            this.ComboBox_DefaultPalette.TabIndex = 2;
+            this.ComboBox_DefaultPalette.SelectedValueChanged += new System.EventHandler(this.ComboBox_DefaultPalette_SelectedValueChanged);
+            // 
+            // Label_Palette
+            // 
+            this.Label_Palette.AutoSize = true;
+            this.Label_Palette.Location = new System.Drawing.Point(5, 53);
+            this.Label_Palette.Name = "Label_Palette";
+            this.Label_Palette.Size = new System.Drawing.Size(40, 13);
+            this.Label_Palette.TabIndex = 3;
+            this.Label_Palette.Text = "Palette";
+            // 
+            // Btn_SaveTo_Browse
+            // 
+            this.Btn_SaveTo_Browse.Location = new System.Drawing.Point(203, 82);
+            this.Btn_SaveTo_Browse.Name = "Btn_SaveTo_Browse";
+            this.Btn_SaveTo_Browse.Size = new System.Drawing.Size(31, 20);
+            this.Btn_SaveTo_Browse.TabIndex = 4;
+            this.Btn_SaveTo_Browse.Text = "->";
+            this.Btn_SaveTo_Browse.UseVisualStyleBackColor = true;
+            this.Btn_SaveTo_Browse.Click += new System.EventHandler(this.Btn_SaveTo_Browse_Click);
+            // 
+            // GroupBox_TickInfo
+            // 
+            this.GroupBox_TickInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GroupBox_TickInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GroupBox_TickInfo.Controls.Add(this.Label_LoadedTick);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_Diseased);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_DeathInformation);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_Infected);
+            this.GroupBox_TickInfo.Location = new System.Drawing.Point(0, 0);
+            this.GroupBox_TickInfo.Name = "GroupBox_TickInfo";
+            this.GroupBox_TickInfo.Size = new System.Drawing.Size(314, 228);
+            this.GroupBox_TickInfo.TabIndex = 0;
+            this.GroupBox_TickInfo.TabStop = false;
+            this.GroupBox_TickInfo.Text = "Tick Information";
+            // 
             // Label_Diseased
             // 
             this.Label_Diseased.AutoSize = true;
-            this.Label_Diseased.Location = new System.Drawing.Point(6, 48);
+            this.Label_Diseased.Location = new System.Drawing.Point(7, 62);
             this.Label_Diseased.Name = "Label_Diseased";
             this.Label_Diseased.Size = new System.Drawing.Size(51, 13);
             this.Label_Diseased.TabIndex = 1;
             this.Label_Diseased.Text = "Diseased";
             // 
+            // Label_DeathInformation
+            // 
+            this.Label_DeathInformation.AutoSize = true;
+            this.Label_DeathInformation.Location = new System.Drawing.Point(7, 36);
+            this.Label_DeathInformation.Name = "Label_DeathInformation";
+            this.Label_DeathInformation.Size = new System.Drawing.Size(91, 13);
+            this.Label_DeathInformation.TabIndex = 0;
+            this.Label_DeathInformation.Text = "Death Information";
+            // 
             // Label_Infected
             // 
             this.Label_Infected.AutoSize = true;
-            this.Label_Infected.Location = new System.Drawing.Point(6, 35);
+            this.Label_Infected.Location = new System.Drawing.Point(7, 49);
             this.Label_Infected.Name = "Label_Infected";
             this.Label_Infected.Size = new System.Drawing.Size(46, 13);
             this.Label_Infected.TabIndex = 2;
             this.Label_Infected.Text = "Infected";
+            // 
+            // Menu
+            // 
+            this.Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.Menu.Location = new System.Drawing.Point(0, 0);
+            this.Menu.Name = "Menu";
+            this.Menu.Size = new System.Drawing.Size(957, 24);
+            this.Menu.TabIndex = 8;
+            this.Menu.Text = "Menu";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.ToolStripOpen_Click);
+            // 
+            // FileChooser
+            // 
+            this.FileChooser.FileName = "FileChooser";
+            this.FileChooser.Filter = "\"Simulation-Files (*.sim)|*.sim|All files (*.*)|*.*\"";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(573, 265);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(352, 385);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // Label_LoadedTick
+            // 
+            this.Label_LoadedTick.AutoSize = true;
+            this.Label_LoadedTick.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_LoadedTick.Location = new System.Drawing.Point(6, 16);
+            this.Label_LoadedTick.Name = "Label_LoadedTick";
+            this.Label_LoadedTick.Size = new System.Drawing.Size(37, 20);
+            this.Label_LoadedTick.TabIndex = 3;
+            this.Label_LoadedTick.Text = "Tick";
             // 
             // ReviewForm
             // 
@@ -726,13 +738,13 @@
             this.GroupBox_S_Create.ResumeLayout(false);
             this.GroupBox_S_Create.PerformLayout();
             this.Page_Defaults.ResumeLayout(false);
+            this.GroupBox_Settings.ResumeLayout(false);
+            this.GroupBox_Settings.PerformLayout();
             this.GroupBox_TickInfo.ResumeLayout(false);
             this.GroupBox_TickInfo.PerformLayout();
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.GroupBox_Settings.ResumeLayout(false);
-            this.GroupBox_Settings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -798,5 +810,6 @@
         private System.Windows.Forms.Button Btn_ApplySettings;
         private System.Windows.Forms.Label Label_Diseased;
         private System.Windows.Forms.Label Label_Infected;
+        private System.Windows.Forms.Label Label_LoadedTick;
     }
 }

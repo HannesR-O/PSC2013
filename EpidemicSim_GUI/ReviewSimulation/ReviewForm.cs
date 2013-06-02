@@ -56,12 +56,15 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 
         private void Btn_LoadTick_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             _manager.LoadTickSnapshot(ComboBox_Entries.Text);
             RefreshTickInformation();
+            Cursor.Current = Cursors.Default;
         }
 
         private void OpenFile(string file)
         {
+            Cursor.Current = Cursors.WaitCursor;
             _manager.OpenSimFile(file);
 
             RefreshSimInformation();
@@ -71,10 +74,12 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             Btn_LoadTick.Enabled = true;
             Btn_Create_S.Enabled = true;
             TabControl_MapCreator.Enabled = true;
+            Cursor.Current = Cursors.Default;
         }
 
         private void RefreshSimInformation()
         {
+            ComboBox_Entries.Items.Clear();
             foreach (string entry in _manager.Entries)
                 ComboBox_Entries.Items.Add(entry);
 
@@ -92,6 +97,7 @@ namespace PSC2013.ES.GUI.ReviewSimulation
             Label_DeathInformation.Text = HumanSnapshotStatistics.DeathInformation(_manager.LoadedSnapshot.Deaths);
             Label_Infected.Text = GeneralStatistics.InfectedCount(_manager.LoadedSnapshot) + " Humans infected";
             Label_Diseased.Text = GeneralStatistics.DiseasedCount(_manager.LoadedSnapshot) + " Humans disease";
+            Label_LoadedTick.Text = "Tick " + _manager.LoadedSnapshot.Tick;
         }
 
         // Create Standard Map
