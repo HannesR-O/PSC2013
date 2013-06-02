@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using PSC2013.ES.Library;
 using PSC2013.ES.Library.Diseases;
 using PSC2013.ES.Library.IO.OutputTargets;
@@ -26,7 +27,7 @@ namespace PSC2013.ES.Cmd
             
             string[] methodnames = { "TestSimulation",
                 "TestStats", "TestMovementComponent", "TestEpidemicSimulator",
-                "TestMemory", "TestSnapshot"};
+                "TestMemory", "TestSnapshot", "TestAllSnapshots"};
             for (int i = 0; i < methodnames.Length; i++)
                 Console.WriteLine("{0} - {1}", i, methodnames[i]);
 
@@ -52,6 +53,9 @@ namespace PSC2013.ES.Cmd
                     break;
                 case 5:
                     TestSnapshot();
+                    break;
+                case 6:
+                    TestAllSnapshots();
                     break;
                 default:
                     Console.WriteLine("wrong input");
@@ -139,24 +143,31 @@ namespace PSC2013.ES.Cmd
                 IncubationPeriod = 10,
                 IdleTime = 3,
                 SpreadingTime = 8,
-                Transferability = 75,
+                Transferability = 50,
                 MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
                 HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
                 ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
             };
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
-                new DebugInfectionComponent(),
                 new AgeingComponent(110),
+                //new DiseaseEffectComponent(),
+                new MindsetComponent(),
                 new MovementComponent(),
-                new InfectionComponent());
+                //new InfectionComponent(),
+                new DebugInfectionComponent());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
             sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), InfectionInitState.Empty);
+
+            var dict = new Dictionary<int, int>();
+            dict.Add(10808574 / 2, 25); // not enough!
+            InfectionInitState iis = new InfectionInitState { DesiredInfection = dict };
+            
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), iis);
         }
 
         public static void TestMovementComponent()
@@ -224,11 +235,14 @@ namespace PSC2013.ES.Cmd
 
                 Dictionary<string, int> am = 
                     GeneralStatistics.AgeGroups(manager.LoadedSnapshot);
-
+                
+                int sum = 0;
                 foreach (string group in am.Keys)
                 {
                     Console.WriteLine(group + ": " + am[group]);
+                    sum += am[group];
                 }
+                Console.WriteLine("Sum: {0}", sum);
 
                 //manager.CreateDeathGraphics(field, pal, prefix);
                 Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
@@ -240,6 +254,53 @@ namespace PSC2013.ES.Cmd
 
                 Console.WriteLine("Finished!");
             }
+        }
+
+        public static void TestAllSnapshots()
+        {
+            var manager = new StatisticsManager();
+
+            Console.WriteLine("Please enter the name of your .sim file:");
+            string file = Console.ReadLine();
+            if (file.EndsWith(".sim")) file = file.Remove(file.Length - 4);
+
+            Console.WriteLine("Please enter target directory (default is Desktop):");
+            string target = Console.ReadLine();
+            if (!Directory.Exists(target))
+                Directory.CreateDirectory(target);
+
+            Console.WriteLine("Please enter number of Field to paint (AllHumans is 255)");
+            int num = int.Parse(Console.ReadLine());
+            EStatField field = (EStatField)num;
+
+            Console.WriteLine("Please type a color scheme (Red, Blue, RedGreen[default]):");
+            string palette = Console.ReadLine();
+            EColorPalette pal = EColorPalette.RedGreen;
+            if (palette.ToLower().Equals("red"))
+                pal = EColorPalette.Red;
+            else if (palette.ToLower().Equals("blue"))
+                pal = EColorPalette.Blue;
+
+            Console.WriteLine("Please insert desired File-Prefix:");
+            string prefix = Console.ReadLine();
+
+            manager.OpenSimFile(
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"
+                + file + ".sim");
+
+            manager.SetNewDestination(target);
+
+            var entries = manager.Entries;
+            int count = entries.Count;
+            int i = 0;
+            foreach (var entry in entries)
+            {
+                manager.LoadTickSnapshot(entry);
+                manager.CreateGraphics(field, pal, prefix);
+                Console.WriteLine("{0,3}/{1} snapshots done...", ++i, count);
+            }
+
+            Console.WriteLine("DONE!");
         }
     }
 }

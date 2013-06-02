@@ -8,7 +8,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         private Human* _ptr;
         private Random _random;
 
-        MindsetComponent() : base(ESimulationStage.BeforeInfectedCalculation)
+        public MindsetComponent() : base(ESimulationStage.BeforeInfectedCalculation)
         {
             _random = new Random();
             _simulationIntervall = 1;
