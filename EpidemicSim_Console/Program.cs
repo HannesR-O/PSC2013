@@ -232,18 +232,7 @@ namespace PSC2013.ES.Cmd
                 string prefix = Console.ReadLine();
 
                 manager.LoadTickSnapshot(name);
-
-                Dictionary<string, int> am = 
-                    GeneralStatistics.AgeGroups(manager.LoadedSnapshot);
-                
-                int sum = 0;
-                foreach (string group in am.Keys)
-                {
-                    Console.WriteLine(group + ": " + am[group]);
-                    sum += am[group];
-                }
-                Console.WriteLine("Sum: {0}", sum);
-
+                                
                 //manager.CreateDeathGraphics(field, pal, prefix);
                 Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
 

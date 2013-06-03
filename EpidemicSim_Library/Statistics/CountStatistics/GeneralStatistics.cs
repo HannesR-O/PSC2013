@@ -25,7 +25,7 @@ namespace PSC2013.ES.Library.Statistics.CountStatistics
             return snap.Deaths.Length;
         }
 
-        public static Dictionary<string, int> AgeGroups(TickSnapshot snap)
+        public static string[] AgeGroups(TickSnapshot snap)
         {
             int[] counts = new int[8];
 
@@ -34,16 +34,16 @@ namespace PSC2013.ES.Library.Statistics.CountStatistics
                 for (int i = 0; i < 8; ++i)
                     counts[i] += cell.Values[i];
             }
-            Dictionary<string, int> output = new Dictionary<string, int>();
+           string[] output = new string[8];
 
-            output.Add("Male Babys", counts[0]);
-            output.Add("Male Children", counts[1]);
-            output.Add("Male Adults", counts[2]);
-            output.Add("Male Seniors", counts[3]);
-            output.Add("Female Babys", counts[4]);
-            output.Add("Female Children", counts[5]);
-            output.Add("Female Adults", counts[6]);
-            output.Add("Female Seniors", counts[7]);
+            output[0] = "Male Babys: " + counts[0];
+            output[1] = "Male Children: " + counts[1];
+            output[2] = "Male Adults: " + counts[2];
+            output[3] = "Male Seniors: " + counts[3];
+            output[4] = "Female Babys: " + counts[4];
+            output[5] = "Female Children: " + counts[5];
+            output[6] = "Female Adults: " + counts[6];
+            output[7] = "Female Seniors: " + counts[7];
 
             return output;
         }

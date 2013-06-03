@@ -94,10 +94,14 @@ namespace PSC2013.ES.GUI.ReviewSimulation
 
         private void RefreshTickInformation()
         {
-            Label_DeathInformation.Text = HumanSnapshotStatistics.DeathInformation(_manager.LoadedSnapshot.Deaths);
-            Label_Infected.Text = GeneralStatistics.InfectedCount(_manager.LoadedSnapshot) + " Humans infected";
-            Label_Diseased.Text = GeneralStatistics.DiseasedCount(_manager.LoadedSnapshot) + " Humans disease";
-            Label_LoadedTick.Text = "Tick " + _manager.LoadedSnapshot.Tick;
+            TickSnapshot temp = _manager.LoadedSnapshot;
+            Label_DeathInformation.Text = HumanSnapshotStatistics.DeathInformation(temp.Deaths);
+            Label_Infected.Text = GeneralStatistics.InfectedCount(temp) + " Humans infected";
+            Label_Diseased.Text = GeneralStatistics.DiseasedCount(temp) + " Humans disease";
+            Label_LoadedTick.Text = "Tick " + temp.Tick;
+            Label_HumanCount.Text = GeneralStatistics.HumanCount(temp) + " Humans in " + GeneralStatistics.CellCount(temp) + " Cells";
+            ListBox_AgeGroups.Items.Clear();
+            ListBox_AgeGroups.Items.AddRange(GeneralStatistics.AgeGroups(temp));
         }
 
         // Create Standard Map

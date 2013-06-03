@@ -76,17 +76,18 @@
             this.ComboBox_DefaultPalette = new System.Windows.Forms.ComboBox();
             this.Label_Palette = new System.Windows.Forms.Label();
             this.Btn_SaveTo_Browse = new System.Windows.Forms.Button();
-            this.GroupBox_TickInfo = new System.Windows.Forms.GroupBox();
-            this.Label_Diseased = new System.Windows.Forms.Label();
-            this.Label_DeathInformation = new System.Windows.Forms.Label();
-            this.Label_Infected = new System.Windows.Forms.Label();
             this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.Menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileChooser = new System.Windows.Forms.OpenFileDialog();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Label_Infected = new System.Windows.Forms.Label();
+            this.Label_DeathInformation = new System.Windows.Forms.Label();
+            this.Label_Diseased = new System.Windows.Forms.Label();
             this.Label_LoadedTick = new System.Windows.Forms.Label();
+            this.Label_HumanCount = new System.Windows.Forms.Label();
+            this.GroupBox_TickInfo = new System.Windows.Forms.GroupBox();
+            this.ListBox_AgeGroups = new System.Windows.Forms.ListBox();
             this.GroupBox_Disease.SuspendLayout();
             this.GroupBox_TickSelections.SuspendLayout();
             this.Panel_leftside.SuspendLayout();
@@ -97,9 +98,8 @@
             this.GroupBox_S_Create.SuspendLayout();
             this.Page_Defaults.SuspendLayout();
             this.GroupBox_Settings.SuspendLayout();
-            this.GroupBox_TickInfo.SuspendLayout();
             this.Menu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.GroupBox_TickInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // ComboBox_Entries
@@ -621,49 +621,6 @@
             this.Btn_SaveTo_Browse.UseVisualStyleBackColor = true;
             this.Btn_SaveTo_Browse.Click += new System.EventHandler(this.Btn_SaveTo_Browse_Click);
             // 
-            // GroupBox_TickInfo
-            // 
-            this.GroupBox_TickInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GroupBox_TickInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.GroupBox_TickInfo.Controls.Add(this.Label_LoadedTick);
-            this.GroupBox_TickInfo.Controls.Add(this.Label_Diseased);
-            this.GroupBox_TickInfo.Controls.Add(this.Label_DeathInformation);
-            this.GroupBox_TickInfo.Controls.Add(this.Label_Infected);
-            this.GroupBox_TickInfo.Location = new System.Drawing.Point(0, 0);
-            this.GroupBox_TickInfo.Name = "GroupBox_TickInfo";
-            this.GroupBox_TickInfo.Size = new System.Drawing.Size(314, 228);
-            this.GroupBox_TickInfo.TabIndex = 0;
-            this.GroupBox_TickInfo.TabStop = false;
-            this.GroupBox_TickInfo.Text = "Tick Information";
-            // 
-            // Label_Diseased
-            // 
-            this.Label_Diseased.AutoSize = true;
-            this.Label_Diseased.Location = new System.Drawing.Point(7, 62);
-            this.Label_Diseased.Name = "Label_Diseased";
-            this.Label_Diseased.Size = new System.Drawing.Size(51, 13);
-            this.Label_Diseased.TabIndex = 1;
-            this.Label_Diseased.Text = "Diseased";
-            // 
-            // Label_DeathInformation
-            // 
-            this.Label_DeathInformation.AutoSize = true;
-            this.Label_DeathInformation.Location = new System.Drawing.Point(7, 36);
-            this.Label_DeathInformation.Name = "Label_DeathInformation";
-            this.Label_DeathInformation.Size = new System.Drawing.Size(91, 13);
-            this.Label_DeathInformation.TabIndex = 0;
-            this.Label_DeathInformation.Text = "Death Information";
-            // 
-            // Label_Infected
-            // 
-            this.Label_Infected.AutoSize = true;
-            this.Label_Infected.Location = new System.Drawing.Point(7, 49);
-            this.Label_Infected.Name = "Label_Infected";
-            this.Label_Infected.Size = new System.Drawing.Size(46, 13);
-            this.Label_Infected.TabIndex = 2;
-            this.Label_Infected.Text = "Infected";
-            // 
             // Menu
             // 
             this.Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -695,13 +652,32 @@
             this.FileChooser.FileName = "FileChooser";
             this.FileChooser.Filter = "\"Simulation-Files (*.sim)|*.sim|All files (*.*)|*.*\"";
             // 
-            // pictureBox1
+            // Label_Infected
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(573, 265);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(352, 385);
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
+            this.Label_Infected.AutoSize = true;
+            this.Label_Infected.Location = new System.Drawing.Point(7, 49);
+            this.Label_Infected.Name = "Label_Infected";
+            this.Label_Infected.Size = new System.Drawing.Size(46, 13);
+            this.Label_Infected.TabIndex = 2;
+            this.Label_Infected.Text = "Infected";
+            // 
+            // Label_DeathInformation
+            // 
+            this.Label_DeathInformation.AutoSize = true;
+            this.Label_DeathInformation.Location = new System.Drawing.Point(7, 36);
+            this.Label_DeathInformation.Name = "Label_DeathInformation";
+            this.Label_DeathInformation.Size = new System.Drawing.Size(91, 13);
+            this.Label_DeathInformation.TabIndex = 0;
+            this.Label_DeathInformation.Text = "Death Information";
+            // 
+            // Label_Diseased
+            // 
+            this.Label_Diseased.AutoSize = true;
+            this.Label_Diseased.Location = new System.Drawing.Point(7, 62);
+            this.Label_Diseased.Name = "Label_Diseased";
+            this.Label_Diseased.Size = new System.Drawing.Size(51, 13);
+            this.Label_Diseased.TabIndex = 1;
+            this.Label_Diseased.Text = "Diseased";
             // 
             // Label_LoadedTick
             // 
@@ -713,12 +689,49 @@
             this.Label_LoadedTick.TabIndex = 3;
             this.Label_LoadedTick.Text = "Tick";
             // 
+            // Label_HumanCount
+            // 
+            this.Label_HumanCount.AutoSize = true;
+            this.Label_HumanCount.Location = new System.Drawing.Point(8, 98);
+            this.Label_HumanCount.Name = "Label_HumanCount";
+            this.Label_HumanCount.Size = new System.Drawing.Size(69, 13);
+            this.Label_HumanCount.TabIndex = 4;
+            this.Label_HumanCount.Text = "HumanCount";
+            // 
+            // GroupBox_TickInfo
+            // 
+            this.GroupBox_TickInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GroupBox_TickInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GroupBox_TickInfo.Controls.Add(this.ListBox_AgeGroups);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_HumanCount);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_LoadedTick);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_Diseased);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_DeathInformation);
+            this.GroupBox_TickInfo.Controls.Add(this.Label_Infected);
+            this.GroupBox_TickInfo.Location = new System.Drawing.Point(0, 0);
+            this.GroupBox_TickInfo.Name = "GroupBox_TickInfo";
+            this.GroupBox_TickInfo.Size = new System.Drawing.Size(314, 228);
+            this.GroupBox_TickInfo.TabIndex = 0;
+            this.GroupBox_TickInfo.TabStop = false;
+            this.GroupBox_TickInfo.Text = "Tick Information";
+            // 
+            // ListBox_AgeGroups
+            // 
+            this.ListBox_AgeGroups.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.ListBox_AgeGroups.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.ListBox_AgeGroups.FormattingEnabled = true;
+            this.ListBox_AgeGroups.Location = new System.Drawing.Point(11, 115);
+            this.ListBox_AgeGroups.Name = "ListBox_AgeGroups";
+            this.ListBox_AgeGroups.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.ListBox_AgeGroups.Size = new System.Drawing.Size(187, 108);
+            this.ListBox_AgeGroups.TabIndex = 5;
+            // 
             // ReviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(957, 662);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Panel_Tick);
             this.Controls.Add(this.Panel_leftside);
             this.Controls.Add(this.Menu);
@@ -740,11 +753,10 @@
             this.Page_Defaults.ResumeLayout(false);
             this.GroupBox_Settings.ResumeLayout(false);
             this.GroupBox_Settings.PerformLayout();
-            this.GroupBox_TickInfo.ResumeLayout(false);
-            this.GroupBox_TickInfo.PerformLayout();
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.GroupBox_TickInfo.ResumeLayout(false);
+            this.GroupBox_TickInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -759,7 +771,6 @@
         private System.Windows.Forms.GroupBox GroupBox_TickSelections;
         private System.Windows.Forms.Panel Panel_leftside;
         private System.Windows.Forms.Panel Panel_Tick;
-        private System.Windows.Forms.GroupBox GroupBox_TickInfo;
         private System.Windows.Forms.TabControl TabControl_MapCreator;
         private System.Windows.Forms.TabPage Page_Standard;
         private System.Windows.Forms.TabPage Page_Death;
@@ -795,12 +806,10 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog FileChooser;
-        private System.Windows.Forms.Label Label_DeathInformation;
         private System.Windows.Forms.Label Incubation;
         private System.Windows.Forms.Label Idle;
         private System.Windows.Forms.Label Transferability;
         private System.Windows.Forms.Label Spreading;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox GroupBox_S_Create;
         private System.Windows.Forms.Label Label_Incubation;
         private System.Windows.Forms.Label Label_Transfer;
@@ -808,8 +817,12 @@
         private System.Windows.Forms.Label Label_Idle;
         private System.Windows.Forms.GroupBox GroupBox_Settings;
         private System.Windows.Forms.Button Btn_ApplySettings;
-        private System.Windows.Forms.Label Label_Diseased;
-        private System.Windows.Forms.Label Label_Infected;
+        private System.Windows.Forms.GroupBox GroupBox_TickInfo;
+        private System.Windows.Forms.Label Label_HumanCount;
         private System.Windows.Forms.Label Label_LoadedTick;
+        private System.Windows.Forms.Label Label_Diseased;
+        private System.Windows.Forms.Label Label_DeathInformation;
+        private System.Windows.Forms.Label Label_Infected;
+        private System.Windows.Forms.ListBox ListBox_AgeGroups;
     }
 }
