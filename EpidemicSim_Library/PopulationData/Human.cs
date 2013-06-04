@@ -57,8 +57,8 @@ namespace PSC2013.ES.Library.PopulationData
             _data0 = 0;
             _data1 = 0;
             _data2 = 0;
-            _counterInfect = 1;
-            _counterSpreading = 2;
+            _counterInfect = 0;
+            _counterSpreading = 0;
             TravellingCounter = 0;
         }
 

@@ -91,7 +91,6 @@ namespace PSC2013.ES.Library.Simulation
 #if DEBUG
             Console.WriteLine("Generating Matrix...");
 #endif
-            // TODO | dj | should be changed back to .GenerateMatrix...
             Cells = new PopulationCell[ImageWidth * ImageHeight];
             MatrixGenerator.GenerateMatrix(Cells, Humans, deps, ImageWidth, ImageHeight);
 #if DEBUG

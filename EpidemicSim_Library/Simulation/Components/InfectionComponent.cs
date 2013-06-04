@@ -62,8 +62,6 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 if(cell.Spreading != 0)
                     chance += (int)(((double)cell.Total / cell.Spreading * (transferability / 100d)) * 100);
-                    
-                //TODO: i think this last 100 is necessary
             }
 
             chance = chance / surroundings.Count();

@@ -183,7 +183,7 @@ namespace PSC2013.ES.Cmd
             {
                 Name = "Inf_Test",
                 IdleTime = 1,
-                IncubationPeriod = 1,
+                IncubationPeriod = 5,
                 SpreadingTime = 6,
                 Transferability = 100,
                 MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
