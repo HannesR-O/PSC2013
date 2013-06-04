@@ -112,5 +112,8 @@ namespace PSC2013.ES.Library
                     return i;
             return -1;
         }
+
+        //TODO: |f| add dicitionary.copy method
+        //public static Dictionary<
     }
 }

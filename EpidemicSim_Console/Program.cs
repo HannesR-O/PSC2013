@@ -330,24 +330,10 @@ namespace PSC2013.ES.Cmd
                 { new AgeingComponent(110), new DiseaseEffectComponent(), new MindsetComponent(), new MovementComponent() };
             var debugComp = new DebugInfectionComponent();
 
-            var infectValues = new Dictionary<int, int>();
-            int start = 10808574 / 2;
-            for (int i = -5; i < 5; i++)
-			{
-                infectValues.Add(start + i, 10);
-			}
-
-            var initialInfection = new InfectionInitState()
-            {
-                DesiredInfection = infectValues
-            };
-
-            
-
             EpidemicSimulator sim;
             Console.WriteLine("Testing all Components seperately");
             Console.WriteLine("Testing InfectionComponent");
-            for (int i = -1; i < components.Length + 1; i++)
+            for (int i = -1; i < components.Length; i++)
             {
                 if (i == -1)
                     sim = EpidemicSimulator.Create(disease, dep, new InfectionComponent());
@@ -362,13 +348,26 @@ namespace PSC2013.ES.Cmd
                 sim.SetSimulationIntervall(1);
                 sim.SetSnapshotIntervall(1);
                 sim.ProcessFinished += FinishedComponentSimulation;
-                sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/componentTests/", initialInfection, 4);
+                sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/componentTests/", GetExampleInitialInfection(), 4);
                 running = true;
 
                 while (running) ;
                 Console.WriteLine("Finished component!");
             }
             Console.WriteLine("All done!");
+        }
+
+        private static InfectionInitState GetExampleInitialInfection()
+        {
+            var infectValues = new Dictionary<int, int>();
+
+            int start = 10808574 / 2;
+            for (int i = -5; i < 5; i++)
+            {
+                infectValues.Add(start + i, 10);
+            }
+
+            return new InfectionInitState() { DesiredInfection = infectValues };
         }
 
         private static void FinishedComponentSimulation(object sender, EventArgs e)
