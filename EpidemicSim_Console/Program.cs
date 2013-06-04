@@ -271,6 +271,7 @@ namespace PSC2013.ES.Cmd
 
             Console.WriteLine("Please enter target directory (default is Desktop):");
             string target = Console.ReadLine();
+            target = target == "" ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : target;
             if (!Directory.Exists(target))
                 Directory.CreateDirectory(target);
 
