@@ -28,7 +28,7 @@ namespace PSC2013.ES.Cmd
             Console.WriteLine("Please select one of the following methods to call:");
             
             string[] methodnames = { "TestSimulation",
-                "TestStats", "TestMovementComponent", "TestEpidemicSimulator",
+                "TestStats", "TestInfectionComponent", "TestEpidemicSimulator",
                 "TestMemory", "TestSnapshot", "TestAllSnapshots", "TestComponents"};
             for (int i = 0; i < methodnames.Length; i++)
                 Console.WriteLine("{0} - {1}", i, methodnames[i]);
@@ -45,7 +45,7 @@ namespace PSC2013.ES.Cmd
                     TestStats();
                     break;
                 case 2:
-                    TestMovementComponent();
+                    TestInfectionComponent();
                     break;
                 case 3:
                     TestEpidemicSimulator();
@@ -175,18 +175,27 @@ namespace PSC2013.ES.Cmd
             sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), iis);
         }
 
-        public static void TestMovementComponent()
+        public static void TestInfectionComponent()
         {
-            //too slow at the moment
-            var data = new SimulationData();
-            var movecmp = new MovementComponent();
-            data.InitializeFromFile("../../../EpidemicSim_InputDataParsers/germany.dep");
+            string dep = "../../../EpidemicSim_InputDataParsers/germany.dep";
 
-            for (int i = 0; i < 48; ++i)
+            var disease = new Disease() 
             {
-                movecmp.PerformSimulationStage(data);
-                data.DoTick(1);
-            }
+                Name = "Inf_Test",
+                IdleTime = 1,
+                IncubationPeriod = 1,
+                SpreadingTime = 6,
+                Transferability = 100,
+                MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
+                HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
+                ResistanceFactor = new FactorContainer(new[] { 0, 0, 0, 0, 0, 0, 0, 0 })
+            };
+
+            var sim = EpidemicSimulator.Create(disease, dep, new InfectionComponent());
+            sim.AddOutputTarget(new ConsoleOutputTarget());
+            sim.SetSimulationIntervall(1);
+            sim.SetSnapshotIntervall(1);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection());
         }
 
         public static void TestStats()

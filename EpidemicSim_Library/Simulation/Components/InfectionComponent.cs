@@ -58,7 +58,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             int chance = 0;
             foreach (PopulationCell cell in surroundings)
             {
-                chance += (int)((cell.Total * 100f) / cell.Spreading * (transferability / 100f));
+                chance += (int)(((float)cell.Total / cell.Spreading * (transferability / 100f)) * 100);     //TODO: i think this last 100 is necessary
             }
 
             chance = chance / surroundings.Count();
@@ -106,10 +106,10 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             int resistance = disease.ResistanceFactor.Data[ageIndex];
 
-            if (resistance < probability) // no infection if resistance to high!?
+            if (resistance < probability)  //TODO: no infection if resistance to high!? |f| questionable
             {
                 int factor = probability - resistance;
-                int rand = _random.Next(100);
+                int rand = _random.Next(100);               //TODO: this is probably too high
                 if (rand <= factor)
                     human->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
             }
