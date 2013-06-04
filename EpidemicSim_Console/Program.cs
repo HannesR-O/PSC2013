@@ -17,6 +17,8 @@ namespace PSC2013.ES.Cmd
 {
     class Program
     {
+        static volatile bool running = false;
+
         static readonly string DESKTOP_PATH = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         static void Main(string[] args)
@@ -27,7 +29,7 @@ namespace PSC2013.ES.Cmd
             
             string[] methodnames = { "TestSimulation",
                 "TestStats", "TestMovementComponent", "TestEpidemicSimulator",
-                "TestMemory", "TestSnapshot", "TestAllSnapshots"};
+                "TestMemory", "TestSnapshot", "TestAllSnapshots", "TestComponents"};
             for (int i = 0; i < methodnames.Length; i++)
                 Console.WriteLine("{0} - {1}", i, methodnames[i]);
 
@@ -56,6 +58,9 @@ namespace PSC2013.ES.Cmd
                     break;
                 case 6:
                     TestAllSnapshots();
+                    break;
+                case 7:
+                    TestComponents();
                     break;
                 default:
                     Console.WriteLine("wrong input");
@@ -301,6 +306,74 @@ namespace PSC2013.ES.Cmd
             }
 
             Console.WriteLine("DONE!");
+        }
+
+        public static void TestComponents()
+        {
+            string dep = "../../../EpidemicSim_InputDataParsers/germany.dep";
+
+            var disease = new Disease() 
+            {
+                Name = "ComponentTest_InfectionComponent",
+                IdleTime = 1,
+                IncubationPeriod = 1,
+                SpreadingTime = 6,
+                Transferability = 100,
+                MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
+                HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
+                ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
+            };
+
+            string[] componentNames = 
+                {"AgeingComponent", "DiseaseEffectComponent", "MindsetComponent", "MovementComponent"};
+            SimulationComponent[] components = 
+                { new AgeingComponent(110), new DiseaseEffectComponent(), new MindsetComponent(), new MovementComponent() };
+            var debugComp = new DebugInfectionComponent();
+
+            var infectValues = new Dictionary<int, int>();
+            int start = 10808574 / 2;
+            for (int i = -5; i < 5; i++)
+			{
+                infectValues.Add(start + i, 10);
+			}
+
+            var initialInfection = new InfectionInitState()
+            {
+                DesiredInfection = infectValues
+            };
+
+            
+
+            EpidemicSimulator sim;
+            Console.WriteLine("Testing all Components seperately");
+            Console.WriteLine("Testing InfectionComponent");
+            for (int i = -1; i < components.Length + 1; i++)
+            {
+                if (i == -1)
+                    sim = EpidemicSimulator.Create(disease, dep, new InfectionComponent());
+                else
+                {
+                    disease.Name = "ComponentTest_" + componentNames[i];
+                    sim = EpidemicSimulator.Create(disease, dep, debugComp);
+                    sim.AddSimulationComponent(components[i]);
+                    Console.WriteLine("Testing " + componentNames[i]);
+                }
+                sim.AddOutputTarget(new ConsoleOutputTarget());
+                sim.SetSimulationIntervall(1);
+                sim.SetSnapshotIntervall(1);
+                sim.ProcessFinished += FinishedComponentSimulation;
+                sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/componentTests/", initialInfection, 4);
+                running = true;
+
+                while (running) ;
+                Console.WriteLine("Finished component!");
+            }
+            Console.WriteLine("All done!");
+        }
+
+        private static void FinishedComponentSimulation(object sender, EventArgs e)
+        {
+            running = false;
         }
     }
 }

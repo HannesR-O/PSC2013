@@ -24,12 +24,17 @@ namespace PSC2013.ES.Library.Simulation.Components
                 {
                     if (!ptr->IsDead())
                     {
-                        // TODO | dj | take hour-tick-time relationship into account...
+                        // TODO | dj & f | take hour-tick-time relationship into account...
                         ptr->DoDiseaseTick((short)disease.SpreadingTime, _simulationIntervall);
                     }
                     // TODO | dj | TEST!!!!
                 }
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public override bool Equals(object obj)
