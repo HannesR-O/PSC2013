@@ -283,7 +283,7 @@ namespace PSC2013.ES.Library
                 {
                     _simData.Humans[i].Infect(infectionTimer, spreadingTimer);
                     initialState.DesiredInfection[cellIndex]--;
-                    _simData.Cells[cellIndex].Infected++;
+                    _simData.Cells[cellIndex].Infecting++;
 
                     if (initialState.DesiredInfection[cellIndex] == 0)
                         initialState.DesiredInfection.Remove(cellIndex);

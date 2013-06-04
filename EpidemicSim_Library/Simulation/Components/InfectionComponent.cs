@@ -12,6 +12,7 @@ namespace PSC2013.ES.Library.Simulation.Components
     {
         private readonly Random _random;
         private int _arrayHeight, _arrayWidth, _arrayMaxIndex;
+        private SimulationData _data;
 
         public InfectionComponent() : base(ESimulationStage.InfectedCalculation)
         {
@@ -20,12 +21,13 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public override unsafe void PerformSimulationStage(SimulationData data)
         {
-            Disease disease = data.DiseaseToSimulate;
+            _data = data;
+            Disease disease = _data.DiseaseToSimulate;
 
             if (_arrayHeight == 0 /* || _arrayWidth == 0 */) //Checking one value should be enough, only happens in first round
             {
-                _arrayHeight = data.ImageHeight;
-                _arrayWidth = data.ImageWidth;
+                _arrayHeight = _data.ImageHeight;
+                _arrayWidth = _data.ImageWidth;
                 _arrayMaxIndex = _arrayHeight * _arrayWidth;
             }
 
@@ -34,31 +36,34 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 PopulationCell cell = data.Cells[index];
                 if (cell != null)
-                    cell.Probability = CalculateProbability(data.Cells, index, disease.Transferability);
+                    cell.Probability = CalculateProbability(index, disease.Transferability);
             }
 
             //Let Humans get Infected by chance
             fixed (Human* humanptr = data.Humans)
             {
-                for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
+                for (Human* ptr = humanptr; ptr < humanptr + _data.Humans.Length; ++ptr)
                 {
                     if (!ptr->IsDead() && !ptr->IsInfected())
                     {
-                        TryInfection(ptr, disease, data.Cells[ptr->CurrentCell].Probability);
+                        TryInfection(ptr, disease, _data.Cells[ptr->CurrentCell].Probability);
                     }
                     // TODO | dj | TEST!!!!
                 }
             }
         }
 
-        private int CalculateProbability(PopulationCell[] cells, int currentCellIndex, int transferability)
+        private int CalculateProbability(int currentCellIndex, int transferability)
         {
-            var surroundings = GetCorrespondingCells(currentCellIndex, cells);
+            var surroundings = GetCorrespondingCells(currentCellIndex);
 
             int chance = 0;
             foreach (PopulationCell cell in surroundings)
             {
-                chance += (int)(((float)cell.Total / cell.Spreading * (transferability / 100f)) * 100);     //TODO: i think this last 100 is necessary
+                if(cell.Spreading != 0)
+                    chance += (int)(((double)cell.Total / cell.Spreading * (transferability / 100d)) * 100);
+                    
+                //TODO: i think this last 100 is necessary
             }
 
             chance = chance / surroundings.Count();
@@ -67,11 +72,11 @@ namespace PSC2013.ES.Library.Simulation.Components
             return chance;
         }
 
-        private IEnumerable<PopulationCell> GetCorrespondingCells(int cell, PopulationCell[] allCells)
+        private IEnumerable<PopulationCell> GetCorrespondingCells(int cell)
         {
             return (from cellIndex in GetSurroundingCellIndices(cell)       //dat LINQ...
-                    where allCells[cellIndex] != null
-                    select allCells[cellIndex]);
+                    where _data.Cells[cellIndex] != null
+                    select _data.Cells[cellIndex]);
         }
 
         private int[] GetSurroundingCellIndices(int cellIndex)
@@ -109,9 +114,12 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (resistance < probability)  //TODO: no infection if resistance to high!? |f| questionable
             {
                 int factor = probability - resistance;
-                int rand = _random.Next(100);               //TODO: this is probably too high
+                int rand = 0;/* _random.Next(100); */              //TODO: this is probably too high
                 if (rand <= factor)
+                {
                     human->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
+                    _data.Cells[human->CurrentCell].Infecting++;
+                }
             }
         }
 

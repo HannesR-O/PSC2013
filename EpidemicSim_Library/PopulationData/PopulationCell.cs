@@ -10,7 +10,7 @@ namespace PSC2013.ES.Library.PopulationData
         public int RefDepartment { get; set; }
 
         //TODO: |f| does this need to be an int? otherwise it can overflow and most likely will
-        public ushort Infected
+        public ushort Infecting
         {
             get { return _data[8]; }
             set { _data[8] = value; }

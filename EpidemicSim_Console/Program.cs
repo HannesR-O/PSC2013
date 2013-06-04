@@ -192,10 +192,11 @@ namespace PSC2013.ES.Cmd
             };
 
             var sim = EpidemicSimulator.Create(disease, dep, new InfectionComponent());
+            sim.AddSimulationComponent(new DiseaseEffectComponent());
             sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection());
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 5);
         }
 
         public static void TestStats()

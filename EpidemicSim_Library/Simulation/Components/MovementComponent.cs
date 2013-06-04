@@ -44,7 +44,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                             _ptr->SetTravelling(false);
 
                             if (_ptr->IsInfected())
-                                ++data.Cells[_ptr->CurrentCell].Infected;
+                                ++data.Cells[_ptr->CurrentCell].Infecting;
 
                             else if (_ptr->IsSpreading())
                                 ++data.Cells[_ptr->CurrentCell].Spreading;
@@ -152,7 +152,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         private void MoveHuman(SimulationData data, int destinationcell)
         {
             if (_ptr->IsInfected())
-                --data.Cells[_ptr->CurrentCell].Infected;
+                --data.Cells[_ptr->CurrentCell].Infecting;
 
             else if (_ptr->IsSpreading())
                 --data.Cells[_ptr->CurrentCell].Spreading;
@@ -193,7 +193,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
 
                 if (_ptr->IsInfected())
-                    ++data.Cells[_ptr->CurrentCell].Infected;
+                    ++data.Cells[_ptr->CurrentCell].Infecting;
 
                 else if (_ptr->IsSpreading())
                     ++data.Cells[_ptr->CurrentCell].Spreading;

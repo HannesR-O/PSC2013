@@ -22,12 +22,39 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
                 {
+                    var spreading = ptr->IsSpreading();
+                    var infecting = ptr->IsInfected();
+                    var diseased = ptr->IsDiseased();
+
                     if (!ptr->IsDead())
                     {
                         // TODO | dj & f | take hour-tick-time relationship into account...
                         ptr->DoDiseaseTick((short)disease.SpreadingTime, _simulationIntervall);
                     }
-                    // TODO | dj | TEST!!!!
+
+                    if (ptr->IsSpreading() != spreading)
+                    {
+                        if (spreading)
+                            data.Cells[ptr->CurrentCell].Spreading--;
+                        else
+                            data.Cells[ptr->CurrentCell].Spreading++;
+                    }
+
+                    if (ptr->IsInfected() != infecting)
+                    {
+                        if (infecting)
+                            data.Cells[ptr->CurrentCell].Infecting--;
+                        else
+                            data.Cells[ptr->CurrentCell].Infecting++;
+                    }
+
+                    if (ptr->IsDiseased() != diseased)
+                    {
+                        if (diseased)
+                            data.Cells[ptr->CurrentCell].Diseased--;
+                        else
+                            data.Cells[ptr->CurrentCell].Diseased++;
+                    }
                 }
             }
         }
