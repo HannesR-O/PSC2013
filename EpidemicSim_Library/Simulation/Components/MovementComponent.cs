@@ -46,10 +46,10 @@ namespace PSC2013.ES.Library.Simulation.Components
                             if (_ptr->IsInfected())
                                 ++data.Cells[_ptr->CurrentCell].Infecting;
 
-                            else if (_ptr->IsSpreading())
+                            if (_ptr->IsSpreading())
                                 ++data.Cells[_ptr->CurrentCell].Spreading;
 
-                            else if (_ptr->IsDiseased())
+                            if (_ptr->IsDiseased())
                                 ++data.Cells[_ptr->CurrentCell].Diseased;
 
 
@@ -154,10 +154,10 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (_ptr->IsInfected())
                 --data.Cells[_ptr->CurrentCell].Infecting;
 
-            else if (_ptr->IsSpreading())
+            if (_ptr->IsSpreading())
                 --data.Cells[_ptr->CurrentCell].Spreading;
 
-            else if (_ptr->IsDiseased())
+            if (_ptr->IsDiseased())
                 --data.Cells[_ptr->CurrentCell].Diseased;
             
 
@@ -195,10 +195,10 @@ namespace PSC2013.ES.Library.Simulation.Components
                 if (_ptr->IsInfected())
                     ++data.Cells[_ptr->CurrentCell].Infecting;
 
-                else if (_ptr->IsSpreading())
+                if (_ptr->IsSpreading())
                     ++data.Cells[_ptr->CurrentCell].Spreading;
 
-                else if (_ptr->IsDiseased())
+                if (_ptr->IsDiseased())
                     ++data.Cells[_ptr->CurrentCell].Diseased;
 
 
