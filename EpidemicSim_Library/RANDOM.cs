@@ -22,14 +22,7 @@ namespace PSC2013.ES.Library
         /// </summary>
         public static int Next(int max)
         {
-            Random inst = _local;
-            if (inst == null)
-            {
-                int seed;
-                lock (_global) seed = _global.Next();
-                _local = inst = new Random(seed);
-            }
-            return inst.Next(max);
+            return Next(0, max);
         }
 
         /// <summary>
