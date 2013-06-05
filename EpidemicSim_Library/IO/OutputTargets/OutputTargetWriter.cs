@@ -25,11 +25,8 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         /// </summary>
         public bool IsWritingEnabled { get; set; }
 
-        private ISet<IOutputTarget> _targets;
-
         protected OutputTargetWriter(string symbol)
         {
-            _targets = new HashSet<IOutputTarget>();
             IsSymbolEnabled = true;
             IsWritingEnabled = true;
 
@@ -37,25 +34,12 @@ namespace PSC2013.ES.Library.IO.OutputTargets
         }
 
         /// <summary>
-        /// Tries to add the target to the writer-list.
-        /// </summary>
-        public bool RegisterTarget(IOutputTarget target)
-        {
-            return _targets.Add(target);
-        }
-
-        /// <summary>
-        /// Tries to remove the target from the writer-list.
-        /// </summary>
-        public bool UnregisterTarget(IOutputTarget target)
-        {
-            return _targets.Remove(target);
-        }
-
-        /// <summary>
-        /// Calls all targets to write the given message.
+        /// Calls the OutputTargetManager to write the
+        /// given message to alla targets.
         /// If IsSymbolEnabled is true, the symbol will
         /// be added to the string.
+        /// Nothing will be written, if IsWritingEnabled
+        /// is false.
         /// </summary>
         protected void WriteMessage(string message)
         {
@@ -65,8 +49,7 @@ namespace PSC2013.ES.Library.IO.OutputTargets
             if (IsSymbolEnabled)
                 message = Symbol + ": " + message;
 
-            foreach (IOutputTarget target in _targets)
-                target.WriteToOutput(message);
+            OutputTargetManager.GetInstance().WriteMessage(message);
         }
     }
 }

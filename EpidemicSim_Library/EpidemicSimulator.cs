@@ -174,8 +174,7 @@ namespace PSC2013.ES.Library
             if (_simulationLock)
                 throw new SimulationException("Could not add a new IOutputTarget. " + ERROR_MESSAGE_SIMULATION_RUNNING);
 
-            RegisterTarget(target);
-            _snapshotMgr.RegisterTarget(target);
+            OutputTargetManager.GetInstance().RegisterTarget(target);
         }
 
         /// <summary>

@@ -48,14 +48,8 @@ namespace PSC2013.ES.Library.Snapshot
             _tick = 0;
 
             _writer = new SnapshotWriter();
-            _writer.SnapshotWritten += OnSnapshotWritten;
             _writer.QueueEmptied += WriterQueueEmpty.Raise;
             TookSnapshot += _writer.Recieve;
-        }
-
-        void OnSnapshotWritten(object sender, SnapshotWrittenEventArgs e)
-        {
-            WriteMessage("Finished writing \"" + e.Head + "\" @ " + e.Time.ToString());
         }
 
         /// <summary>
@@ -86,18 +80,17 @@ namespace PSC2013.ES.Library.Snapshot
         /// <summary>
         /// Nested class for writing the snapshots
         /// </summary>
-        class SnapshotWriter
+        class SnapshotWriter : OutputTargetWriter
         {
             private IBinaryWriter _writer;
             private Task _task;
 
             public event EventHandler<EventArgs> QueueEmptied;
-            public event EventHandler<SnapshotWrittenEventArgs> SnapshotWritten;
 
             /// <summary>
             /// Creates a new Writer and creates an archive at the above given destination
             /// </summary>
-            public SnapshotWriter()
+            public SnapshotWriter() : base("SW")
             {
                 _writer = new ArchiveBinaryWriter();
 
@@ -150,23 +143,11 @@ namespace PSC2013.ES.Library.Snapshot
                     {
                         TickSnapshot temp = _snapshots.Dequeue();
                         _writer.WriteIntoArchive(temp, _target, temp.Head, true);
-                        SnapshotWritten.Raise(this, new SnapshotWrittenEventArgs(temp.Head, DateTime.Now));
+                        WriteMessage("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                     }
                 }
                 _task = null;
                 QueueEmptied.Raise(this, null);
-            }
-        }
-
-        class SnapshotWrittenEventArgs : EventArgs
-        {
-            public string Head { get; set; }
-            public DateTime Time { get; set; }
-
-            public SnapshotWrittenEventArgs(string head, DateTime time)
-            {
-                Head = head;
-                Time = time;
             }
         }
     }

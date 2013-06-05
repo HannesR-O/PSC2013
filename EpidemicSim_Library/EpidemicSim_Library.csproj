@@ -48,6 +48,7 @@
     <Compile Include="IO\OutputTargets\ConsoleOutputTarget.cs" />
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\OutputTargets\IOutputTarget.cs" />
+    <Compile Include="IO\OutputTargets\OutputTargetManager.cs" />
     <Compile Include="IO\OutputTargets\OutputTargetWriter.cs" />
     <Compile Include="IO\Readers\ArchiveReader.cs" />
     <Compile Include="IO\Readers\ContinuationEventArgs.cs" />
