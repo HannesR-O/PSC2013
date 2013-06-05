@@ -94,11 +94,15 @@ namespace PSC2013.ES.Library
         /// </summary>
         /// <param name="disease">The Disease to simulate</param>
         /// <param name="dataFilePath">The file's path containing populational data to simulate on</param>
+        /// <param name="outputTarget">The initial OutputTarget. Can be null.</param>
         /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
         /// <returns>The created instance of EpidemicSimulator</returns>
-        public static EpidemicSimulator Create(Disease disease, string dataFilePath, params SimulationComponent[] components)
+        public static EpidemicSimulator Create(Disease disease, string dataFilePath, IOutputTarget outputTarget, params SimulationComponent[] components)
         {
             var sim = new EpidemicSimulator(disease);
+
+            if (outputTarget != null)
+                sim.AddOutputTarget(outputTarget);
 
             foreach (SimulationComponent component in components)
             {

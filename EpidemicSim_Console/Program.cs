@@ -86,10 +86,10 @@ namespace PSC2013.ES.Cmd
                     Transferability = 75
                 },
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
+                new ConsoleOutputTarget(),
                 new DebugInfectionComponent());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
-            sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.ProcessFinished += (_, __) =>
                 {
                     StatisticsManager sm = new StatisticsManager();
@@ -155,6 +155,7 @@ namespace PSC2013.ES.Cmd
             };
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
+                new ConsoleOutputTarget(),
                 new AgeingComponent(110),
                 //new DiseaseEffectComponent(),
                 new MindsetComponent(),
@@ -163,7 +164,6 @@ namespace PSC2013.ES.Cmd
                 new DebugInfectionComponent());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
-            sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
@@ -191,12 +191,11 @@ namespace PSC2013.ES.Cmd
                 ResistanceFactor = new FactorContainer(new[] { 0, 0, 0, 0, 0, 0, 0, 0 })
             };
 
-            var sim = EpidemicSimulator.Create(disease, dep, new InfectionComponent());
+            var sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), new InfectionComponent());
             sim.AddSimulationComponent(new DiseaseEffectComponent());
-            sim.AddOutputTarget(new ConsoleOutputTarget());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 5);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 3);
         }
 
         public static void TestStats()
@@ -347,15 +346,14 @@ namespace PSC2013.ES.Cmd
             for (int i = -1; i < components.Length; i++)
             {
                 if (i == -1)
-                    sim = EpidemicSimulator.Create(disease, dep, new InfectionComponent());
+                    sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), new InfectionComponent());
                 else
                 {
                     disease.Name = "ComponentTest_" + componentNames[i];
-                    sim = EpidemicSimulator.Create(disease, dep, debugComp);
+                    sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), debugComp);
                     sim.AddSimulationComponent(components[i]);
                     Console.WriteLine("Testing " + componentNames[i]);
                 }
-                sim.AddOutputTarget(new ConsoleOutputTarget());
                 sim.SetSimulationIntervall(1);
                 sim.SetSnapshotIntervall(1);
                 sim.ProcessFinished += FinishedComponentSimulation;

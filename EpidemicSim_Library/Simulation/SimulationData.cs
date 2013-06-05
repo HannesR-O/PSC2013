@@ -86,6 +86,7 @@ namespace PSC2013.ES.Library.Simulation
 
             WriteMessage("Generating Matrix...");   // to display it as an action by the generator,
                                                     // we would have to reassign Symbol before and after...
+            MatrixGenerator.DepartmentCalculationFinished += (_, e) => WriteMessage(e.Message);
             Cells = new PopulationCell[ImageWidth * ImageHeight];
             MatrixGenerator.GenerateMatrix(Cells, Humans, deps, ImageWidth, ImageHeight);
             WriteMessage("...Matrix generated.");

@@ -84,7 +84,7 @@ namespace PSC2013.ES.GUI.NewSimulation
         private void TestSimulation()
         {
             EpidemicSimulator _epidemicSim = EpidemicSimulator.Create(
-                _disease, _depFilePath,
+                _disease, _depFilePath, null,
                 new DebugInfectionComponent(),
                 new AgeingComponent(110),
                 new MovementComponent(),
