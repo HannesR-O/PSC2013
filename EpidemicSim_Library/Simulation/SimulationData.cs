@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using PSC2013.ES.Library.IO.OutputTargets;
 
 namespace PSC2013.ES.Library.Simulation
 {
-    public class SimulationData
+    public class SimulationData : OutputTargetWriter
     {
         private const int ARRAY_DEATHS_DEFAULT_SIZE = 0x8; 
         private const float ARRAY_DEATHS_EXPAND_FACTOR = 1.5f;
@@ -49,7 +50,7 @@ namespace PSC2013.ES.Library.Simulation
             get { return DiseaseToSimulate != null && Cells != null; }
         }
 
-        public SimulationData()
+        public SimulationData() : base("SD")
         {
             Cells = new PopulationCell[0];          //  10808574
             Humans = new Human[0];                  // ~82000000
@@ -73,29 +74,21 @@ namespace PSC2013.ES.Library.Simulation
         {
             var reader = new DepartmentMapReader(filePath);
 
-#if DEBUG
-            Console.WriteLine("Reading File...");
-#endif
             DepartmentInfo[] deps = reader.ReadFile();
             
             Image img = reader.ReadImage();
             ImageWidth = img.Width;
             ImageHeight = img.Height;
 
-#if DEBUG
-            Console.WriteLine("Calculating Total-Population...");
-#endif
+            WriteMessage("Calculating Total-Population...");
             int maxPopulation = deps.Sum(x => x.GetTotal());        // getting maximum population
             Humans = new Human[(int)(maxPopulation * 1.05f)];       // adding 5% :)
 
-#if DEBUG
-            Console.WriteLine("Generating Matrix...");
-#endif
+            WriteMessage("Generating Matrix...");   // to display it as an action by the generator,
+                                                    // we would have to reassign Symbol before and after...
             Cells = new PopulationCell[ImageWidth * ImageHeight];
             MatrixGenerator.GenerateMatrix(Cells, Humans, deps, ImageWidth, ImageHeight);
-#if DEBUG
-            Console.WriteLine("...Matrix generated.");
-#endif
+            WriteMessage("...Matrix generated.");
         }
 
         public void AddDeadPeople(IList<HumanSnapshot> deadPeople)

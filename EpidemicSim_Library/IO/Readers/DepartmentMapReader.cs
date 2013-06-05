@@ -4,10 +4,11 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using PSC2013.ES.Library.AreaData;
+using PSC2013.ES.Library.IO.OutputTargets;
 
 namespace PSC2013.ES.Library.IO.Readers
 {
-    public class DepartmentMapReader
+    public class DepartmentMapReader : OutputTargetWriter
     {
         /// <summary>
         /// The path to the file used by this reader.
@@ -26,7 +27,7 @@ namespace PSC2013.ES.Library.IO.Readers
         /// methods/operations.
         /// </summary>
         /// <param name="path">The (valid) filepath.</param>
-        public DepartmentMapReader(string path)
+        public DepartmentMapReader(string path) : base("DMR")
         {
             if (path == null)
                 throw new ArgumentNullException("path");
@@ -42,6 +43,8 @@ namespace PSC2013.ES.Library.IO.Readers
         /// <returns>The DepartmentInfo-Array.</returns>
         public DepartmentInfo[] ReadFile()
         {
+            WriteMessage("Reading file...");
+
             var depInfList = new List<DepartmentInfo>();
 
             ZipArchive archive = ZipFile.OpenRead(Path);
@@ -81,6 +84,7 @@ namespace PSC2013.ES.Library.IO.Readers
         /// <returns></returns>
         public Image ReadImage()
         {
+            WriteMessage("Reading image...");
             ZipArchive archive = ZipFile.OpenRead(Path);
             Image img;
             using (var stream = archive.GetEntry("image").Open())

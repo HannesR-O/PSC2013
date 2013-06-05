@@ -5,46 +5,23 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PSC2013.ES.Library;
 using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library.AreaData
 {
-    // TODO | dj | maybe we should export this one?
-    public static class RANDOM
+    public class MessageEventArgs : EventArgs
     {
-        private static Random _global = new Random();
-        [ThreadStatic]
-        private static Random _local;
-
-        public static int Next(int max)
-        {
-            Random inst = _local;
-            if (inst == null)
-            {
-                int seed;
-                lock (_global) seed = _global.Next();
-                _local = inst = new Random(seed);
-            }
-            return inst.Next(max);
-        }
-
-        public static int Next(int min, int max)
-        {
-            Random inst = _local;
-            if (inst == null)
-            {
-                int seed;
-                lock (_global) seed = _global.Next();
-                _local = inst = new Random(seed);
-            }
-            return inst.Next(min, max);
-        }
+        public string Message { get; set; }
     }
 
+    // TODO | dj | can't implement OutputTargetWriter as a cause of static...
     public static class MatrixGenerator
     {
         private static int WIDTH = 2814;
         private static int HEIGHT = 3841;
+
+        public static event EventHandler<MessageEventArgs> DepartmentCalculationFinished;
 
         #region DUMMY METHODS
         /// <summary>
@@ -161,13 +138,12 @@ namespace PSC2013.ES.Library.AreaData
                     comb.Enqueue(res, humans);
                     res = null;
                     humans = null;
-#if DEBUG
-                    Console.WriteLine("Finished: {0}", item.Name);
-#endif
+
+                    DepartmentCalculationFinished.Raise(null, new MessageEventArgs
+                    {
+                        Message = "Calculated: " + item.Name
+                    });
                 });
-#if DEBUG
-            Console.WriteLine("Waiting for datatransfer...");
-#endif
             comb.Wait();
             comb.Dispose();
         }
