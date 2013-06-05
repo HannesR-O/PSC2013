@@ -33,8 +33,7 @@ namespace PSC2013.ES.Library.PopulationData
             set 
             { 
                 _currentCell = value;
-                //SetTravelling(!IsAtHome()); //TODO: |f| what exactly is "travlling"
-            } 
+            }
         }
         private int _currentCell;
         public byte TravellingCounter;
@@ -287,7 +286,10 @@ namespace PSC2013.ES.Library.PopulationData
                         SetSpreading(true);
                     }
                     else
+                    {
                         SetSpreading(false);
+                        _counterSpreading = -1;
+                    }
                 }
                 if (_counterInfect == 0)
                     SetDiseased(true);

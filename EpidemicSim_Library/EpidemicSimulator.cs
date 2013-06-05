@@ -273,7 +273,7 @@ namespace PSC2013.ES.Library
 
             //TODO: |f| does not handle weird diseases atm
             short infectionTimer = (short)_simData.DiseaseToSimulate.IncubationPeriod;
-            short spreadingTimer = (short)_simData.DiseaseToSimulate.SpreadingTime;
+            short spreadingTimer = (short)_simData.DiseaseToSimulate.IdleTime;
             
             //TODO: |f| only work on copy of dict
             //var values = initialState.DesiredInfection.
