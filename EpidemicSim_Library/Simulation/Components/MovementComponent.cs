@@ -23,7 +23,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             fixed (Human* humanptr = data.Humans)
             {
-
+                // TODO | dj & h | no parallel possible because of exemplar-variable!
                 for (_ptr = humanptr; _ptr < humanptr + data.Humans.Length; ++_ptr)
                 {
                     //Stationary Mindset implies the human chosen won't move this day regardless of profession

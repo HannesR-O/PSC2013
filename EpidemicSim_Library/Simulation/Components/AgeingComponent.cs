@@ -3,6 +3,7 @@ using PSC2013.ES.Library.Snapshot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
@@ -47,36 +48,43 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             fixed (Human* humanptr = data.Humans)
             {
-                for (Human* human = humanptr; human < humanptr + data.Humans.Length; ++human)
-                {
-                    if (human->IsDead())
-                        continue;
+                Human* startPtr = humanptr;
 
-                    human->DoAgeTick(1);            //TODO: |f| fixme im dirty nonsense
-
-                    if (human->GetAgeInYears() <= AgeLimit) continue;
-
-                    deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human->GetGender(), (byte)human->GetAgeInYears(), (byte)human->GetProfession(),
-                                                                       human->HomeCell, human->CurrentCell, false));
-                    human->KillHuman();
-                    var index = (int)human->GetGender();
-                    index = index == 128 ? 0 : 4;
-                    switch (human->GetAge())
+                Parallel.For(0, data.Humans.Length, Constants.DEFAULT_PARALLELOPTIONS,
+                    index =>
                     {
-                        case EAge.Baby:
-                            break;
-                        case EAge.Child:
-                            index++;
-                            break;
-                        case EAge.Adult:
-                            index += 2;
-                            break;
-                        case EAge.Senior:
-                            index += 3;
-                            break;
-                    }
-                    data.Cells[human->CurrentCell].Data[index]--;
-                }
+                        Human* human = startPtr + index;
+
+                        if (human->IsDead())
+                            return;
+
+                        human->DoAgeTick(1);            //TODO: |f| fixme im dirty nonsense
+
+                        if (human->GetAgeInYears() <= AgeLimit) return;
+
+                        deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human->GetGender(),
+                            (byte)human->GetAgeInYears(), (byte)human->GetProfession(),
+                            human->HomeCell, human->CurrentCell, false));
+
+                        human->KillHuman();
+                        var genderIndex = (int)human->GetGender();
+                        genderIndex = genderIndex == 128 ? 0 : 4;
+                        switch (human->GetAge())
+                        {
+                            case EAge.Baby:
+                                break;
+                            case EAge.Child:
+                                genderIndex++;
+                                break;
+                            case EAge.Adult:
+                                genderIndex += 2;
+                                break;
+                            case EAge.Senior:
+                                genderIndex += 3;
+                                break;
+                        }
+                        data.Cells[human->CurrentCell].Data[genderIndex]--;
+                    });
             }
 
             data.AddDeadPeople(deadPeople);

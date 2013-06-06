@@ -1,16 +1,15 @@
 ﻿using PSC2013.ES.Library.PopulationData;
 using System;
+using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
     public unsafe class MindsetComponent : SimulationComponent
     {
         private Human* _ptr;
-        private Random _random;
 
         public MindsetComponent() : base(ESimulationStage.BeforeInfectedCalculation)
         {
-            _random = new Random();
             _simulationIntervall = 1;
         }
 
@@ -18,6 +17,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             fixed (Human* humanptr = data.Humans)
             {
+                // TODO | dj & h | no parallel possible because of exemplar-variable!
                 for (_ptr = humanptr; _ptr < humanptr + data.Humans.Length; ++_ptr)
                 {
                     if (_ptr->IsAtHome())
@@ -33,7 +33,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                         {
                             if (data.CurrentDay != DayOfWeek.Saturday && data.CurrentDay != DayOfWeek.Sunday)
                             {
-                                if (_random.Next(365) < 20)
+                                if (RANDOM.Next(365) < 20)
                                     _ptr->SetMindset(EMindset.Vacationing);
                                 else
                                     _ptr->SetMindset(EMindset.Working);

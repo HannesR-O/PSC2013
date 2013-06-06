@@ -20,42 +20,46 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             fixed (Human* humanptr = data.Humans)
             {
-                for (Human* ptr = humanptr; ptr < humanptr + data.Humans.Length; ++ptr)
-                {
-                    var spreading = ptr->IsSpreading();
-                    var infecting = ptr->IsInfected();
-                    var diseased = ptr->IsDiseased();
-
-                    if (!ptr->IsDead())
+                Human* startPtr = humanptr;
+                Parallel.For(0, data.Humans.Length, Constants.DEFAULT_PARALLELOPTIONS,
+                    index =>
                     {
-                        // TODO | dj & f | take hour-tick-time relationship into account...
-                        ptr->DoDiseaseTick((short)disease.SpreadingTime, _simulationIntervall);
-                    }
+                        Human* ptr = startPtr + index;
 
-                    if (ptr->IsSpreading() != spreading)
-                    {
-                        if (spreading)
-                            data.Cells[ptr->CurrentCell].Spreading--;
-                        else
-                            data.Cells[ptr->CurrentCell].Spreading++;
-                    }
+                        var spreading = ptr->IsSpreading();
+                        var infecting = ptr->IsInfected();
+                        var diseased = ptr->IsDiseased();
 
-                    if (ptr->IsInfected() != infecting)
-                    {
-                        if (infecting)
-                            data.Cells[ptr->CurrentCell].Infecting--;
-                        else
-                            data.Cells[ptr->CurrentCell].Infecting++;
-                    }
+                        if (!ptr->IsDead())
+                        {
+                            // TODO | dj & f | take hour-tick-time relationship into account...
+                            ptr->DoDiseaseTick((short)disease.SpreadingTime, _simulationIntervall);
+                        }
 
-                    if (ptr->IsDiseased() != diseased)
-                    {
-                        if (diseased)
-                            data.Cells[ptr->CurrentCell].Diseased--;
-                        else
-                            data.Cells[ptr->CurrentCell].Diseased++;
-                    }
-                }
+                        if (ptr->IsSpreading() != spreading)
+                        {
+                            if (spreading)
+                                data.Cells[ptr->CurrentCell].Spreading--;
+                            else
+                                data.Cells[ptr->CurrentCell].Spreading++;
+                        }
+
+                        if (ptr->IsInfected() != infecting)
+                        {
+                            if (infecting)
+                                data.Cells[ptr->CurrentCell].Infecting--;
+                            else
+                                data.Cells[ptr->CurrentCell].Infecting++;
+                        }
+
+                        if (ptr->IsDiseased() != diseased)
+                        {
+                            if (diseased)
+                                data.Cells[ptr->CurrentCell].Diseased--;
+                            else
+                                data.Cells[ptr->CurrentCell].Diseased++;
+                        }
+                    });
             }
         }
 

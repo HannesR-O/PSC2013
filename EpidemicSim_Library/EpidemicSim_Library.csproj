@@ -54,7 +54,7 @@
     <Compile Include="IO\Readers\ContinuationEventArgs.cs" />
     <Compile Include="IO\Readers\DepartmentMapReader.cs" />
     <Compile Include="IO\Writers\ArchiveBinaryWriter.cs" />
-    <Compile Include="RANDOM.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Simulation\Components\AgeingComponent.cs" />
     <Compile Include="Simulation\Components\DebugInfectionComponent.cs" />
     <Compile Include="Simulation\Components\DiseaseEffectComponent.cs" />

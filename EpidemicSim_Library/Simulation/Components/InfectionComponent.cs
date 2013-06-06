@@ -43,12 +43,13 @@ namespace PSC2013.ES.Library.Simulation.Components
             //Let Humans get Infected by chance
             fixed (Human* humanptr = data.Humans)
             {
-                Human* sptr = humanptr;
+                Human* startPtr = humanptr;
 
                 Parallel.For(0, _data.Humans.Length, Constants.DEFAULT_PARALLELOPTIONS,
                     index =>
                     {
-                        Human* ptr = sptr + index;
+                        Human* ptr = startPtr + index;
+
                         if (!ptr->IsDead() && !ptr->IsInfected())
                         {
                             TryInfection(ptr, disease, _data.Cells[ptr->CurrentCell].Probability);
