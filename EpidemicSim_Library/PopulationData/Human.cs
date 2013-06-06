@@ -35,6 +35,8 @@ namespace PSC2013.ES.Library.PopulationData
                 _currentCell = value;
             }
         }
+        public int DesiredCell;
+
         private int _currentCell;
         public byte TravellingCounter;
 
@@ -59,6 +61,7 @@ namespace PSC2013.ES.Library.PopulationData
             _counterInfect = 0;
             _counterSpreading = 0;
             TravellingCounter = 0;
+            DesiredCell = 0;
         }
 
         /// <summary>
