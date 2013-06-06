@@ -131,6 +131,28 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
+        public void CreateMulipleGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
+        {
+            foreach (string entry in entries)
+            {
+                int i = 1;
+                int size = entries.Count;
+                if(Entries.Contains(entry))
+                {
+                    LoadTickSnapshot(entry);
+                    WriteMessage("Loading " + entry + "...");
+                    CreateGraphics(field, colors, namePrefix);
+                    WriteMessage(i + " of " + size + " Finished");
+                    ++i;
+                }
+                else
+                {
+                    WriteMessage(entry + " could not be created");
+                    ++i;
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
