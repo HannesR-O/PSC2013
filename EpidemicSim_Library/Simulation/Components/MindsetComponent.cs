@@ -6,8 +6,6 @@ namespace PSC2013.ES.Library.Simulation.Components
 {
     public unsafe class MindsetComponent : SimulationComponent
     {
-        private Human* _ptr;
-
         public MindsetComponent() : base(ESimulationStage.BeforeInfectedCalculation)
         {
             _simulationIntervall = 1;
@@ -17,34 +15,37 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             fixed (Human* humanptr = data.Humans)
             {
-                // TODO | dj & h | no parallel possible because of exemplar-variable!
-                for (_ptr = humanptr; _ptr < humanptr + data.Humans.Length; ++_ptr)
-                {
-                    if (_ptr->IsAtHome())
+                Human* startPtr = humanptr;
+                Parallel.For(0, data.Humans.Length, Constants.DEFAULT_PARALLELOPTIONS,
+                    index =>
                     {
-                        if (_ptr->IsDiseased())
+                        Human* ptr = startPtr + index;
+
+                        if (ptr->IsAtHome())
                         {
-                            if (_ptr->GetAge() == EAge.Senior || _ptr->GetAge() == EAge.Baby)
-                                _ptr->SetMindset(EMindset.Stationary);
-                            else
-                                _ptr->SetMindset(EMindset.HomeStaying);
-                        }
-                        else
-                        {
-                            if (data.CurrentDay != DayOfWeek.Saturday && data.CurrentDay != DayOfWeek.Sunday)
+                            if (ptr->IsDiseased())
                             {
-                                if (RANDOM.Next(365) < 20)
-                                    _ptr->SetMindset(EMindset.Vacationing);
+                                if (ptr->GetAge() == EAge.Senior || ptr->GetAge() == EAge.Baby)
+                                    ptr->SetMindset(EMindset.Stationary);
                                 else
-                                    _ptr->SetMindset(EMindset.Working);
+                                    ptr->SetMindset(EMindset.HomeStaying);
                             }
                             else
                             {
-                                _ptr->SetMindset(EMindset.DayOff);
+                                if (data.CurrentDay != DayOfWeek.Saturday && data.CurrentDay != DayOfWeek.Sunday)
+                                {
+                                    if (RANDOM.Next(365) < 20)
+                                        ptr->SetMindset(EMindset.Vacationing);
+                                    else
+                                        ptr->SetMindset(EMindset.Working);
+                                }
+                                else
+                                {
+                                    ptr->SetMindset(EMindset.DayOff);
+                                }
                             }
                         }
-                    }
-                }
+                    });
             }
         }
 
