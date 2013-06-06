@@ -112,7 +112,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (resistance < probability)  //TODO: no infection if resistance to high!? |f| questionable
             {
                 int factor = probability - resistance;
-                int rand = 0;/* _random.Next(100); */              //TODO: this is probably too high
+                int rand = /*0;*/ _random.Next(100);               //TODO: this is probably too high
                 if (rand <= factor)
                 {
                     human->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);

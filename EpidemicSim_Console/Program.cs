@@ -148,31 +148,30 @@ namespace PSC2013.ES.Cmd
                 IncubationPeriod = 10,
                 IdleTime = 3,
                 SpreadingTime = 8,
-                Transferability = 50,
-                MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
-                HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
-                ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
+                Transferability = 75,
+                MortalityRate = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0 }),
+                HealingFactor = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0 }),
+                ResistanceFactor = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0})
             };
             var sim = EpidemicSimulator.Create(disease,
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new ConsoleOutputTarget(),
                 new AgeingComponent(110),
-                //new DiseaseEffectComponent(),
+                new DiseaseEffectComponent(),
                 new MindsetComponent(),
                 new MovementComponent(),
-                //new InfectionComponent(),
-                new DebugInfectionComponent());
+                new InfectionComponent()/*,
+                new DebugInfectionComponent()*/
+                );
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
 
-            var dict = new Dictionary<int, int>();
-            dict.Add(10808574 / 2, 25); // not enough!
-            InfectionInitState iis = new InfectionInitState { DesiredInfection = dict };
+            var iis = GetExampleInitialInfection();
             
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), iis);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), iis, 48);
         }
 
         public static void TestInfectionComponent()
