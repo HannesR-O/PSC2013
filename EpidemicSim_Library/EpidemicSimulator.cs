@@ -275,24 +275,24 @@ namespace PSC2013.ES.Library
             short infectionTimer = (short)_simData.DiseaseToSimulate.IncubationPeriod;
             short spreadingTimer = (short)_simData.DiseaseToSimulate.IdleTime;
 
-            var values = initialState.DesiredInfection.DeepCopy<int, int>();
+            var toInfect = initialState.DesiredInfection.DeepCopy<int, int>();
 
-            WriteMessage("Infecting " + initialState.TotalPeopleToInfect + " people!");
+            WriteMessage("Infecting " + toInfect.Values.Sum() + " people!");
             for (int i = 0; i < _simData.Humans.Length; ++i)
             {
                 int cellIndex = _simData.Humans[i].CurrentCell;
-                if (values.ContainsKey(cellIndex))
+                if (toInfect.ContainsKey(cellIndex))
                 {
                     _simData.Humans[i].Infect(infectionTimer, spreadingTimer);
-                   values[cellIndex]--;
+                   toInfect[cellIndex]--;
                     _simData.Cells[cellIndex].Infecting++;
 
-                    if (values[cellIndex] == 0)
-                        values.Remove(cellIndex);
+                    if (toInfect[cellIndex] == 0)
+                        toInfect.Remove(cellIndex);
                 }
             }
             WriteMessage("Finished infecting!");
-            WriteMessage("Could not infect " + initialState.TotalPeopleToInfect + " people!");
+            WriteMessage("Could not infect " + toInfect.Values.Sum() + " people!");
         }
 
         /// <summary>
@@ -392,8 +392,6 @@ namespace PSC2013.ES.Library
         /// Provides a constant value representing an empty InfectionInitState
         /// </summary>
         public static InfectionInitState Empty = new InfectionInitState() { DesiredInfection = null };
-
-        public int TotalPeopleToInfect { get { return DesiredInfection.Values.Sum(); } }
 
         public bool Equals(InfectionInitState other)
         {
