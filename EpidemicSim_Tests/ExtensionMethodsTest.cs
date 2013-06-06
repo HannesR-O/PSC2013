@@ -24,21 +24,52 @@ namespace PSC2013.ES.Tests
         [Fact]
         public void CopyToOtherArrayTest()
         {
-            Random r = new Random();
             var array = new int[10];
 
             for (int i = 0; i < array.Length; i++)
-                array[i] = r.Next();
+                array[i] = RANDOM.Next();
 
             var array2 = new int[10];
 
             foreach (var integer in array2)
                 Assert.Equal(0, integer);
 
-            array.CopyToOtherArray(array2);           //TODO: does not recognize ExtensionMethods whatsoever dunno why =(
+            array.CopyToOtherArray(array2);
 
             for (int i = 0; i < array.Length; i++)
-                Assert.Equal(array[i], array2[i]);      //Will obviously fail right now since the method does not get called =(
+                Assert.Equal(array[i], array2[i]);
+        }
+
+        [Fact]
+        public void DeepCopyTest()
+        {
+            var dict_int = new Dictionary<int, int>();
+
+            for (int i = 0; i < 25; i++)
+            {
+                dict_int.Add(RANDOM.Next(), RANDOM.Next());
+            }
+
+            var copy_int = dict_int.DeepCopy<int, int>();
+
+            foreach (var pair in dict_int)
+            {
+                Assert.Contains<KeyValuePair<int, int>>(pair, copy_int);
+            }
+
+            var dict_float = new Dictionary<float, float>();
+
+            for (int i = 0; i < 25; i++)
+            {
+                dict_float.Add(RANDOM.Next(), RANDOM.Next());
+            }
+
+            var copy_float = dict_float.DeepCopy<float, float>();
+
+            foreach (var pair in dict_float)
+            {
+                Assert.Contains<KeyValuePair<float, float>>(pair, copy_float);
+            }
         }
     }
 }

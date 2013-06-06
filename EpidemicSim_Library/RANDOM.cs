@@ -18,7 +18,16 @@ namespace PSC2013.ES.Library
 
         /// <summary>
         /// Like the built-in one:
-        /// Random integer in [0,max).
+        /// Random integer in [0,int.MaxValue).
+        /// </summary>
+        public static int Next()
+        {
+            return Next(0, int.MaxValue);
+        }
+
+        /// <summary>
+        /// Like the built-in one:
+        /// Random integer in [0, max).
         /// </summary>
         public static int Next(int max)
         {

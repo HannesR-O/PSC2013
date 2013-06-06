@@ -38,7 +38,7 @@ namespace PSC2013.ES.Tests.PopulationData
             Assert.Equal(EAge.Adult, h1.GetAge());
             Assert.Equal(EAge.Child, h2.GetAge());
 
-            int age = r.Next(110);
+            int age = r.Next(110) + 1;
             var human = Human.Create(EGender.Female, age, r.Next());
             EAge expected = EAge.Baby;
 

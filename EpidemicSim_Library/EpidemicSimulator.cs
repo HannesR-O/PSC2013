@@ -274,22 +274,21 @@ namespace PSC2013.ES.Library
             //TODO: |f| does not handle weird diseases atm
             short infectionTimer = (short)_simData.DiseaseToSimulate.IncubationPeriod;
             short spreadingTimer = (short)_simData.DiseaseToSimulate.IdleTime;
-            
-            //TODO: |f| only work on copy of dict
-            //var values = initialState.DesiredInfection.
+
+            var values = initialState.DesiredInfection.DeepCopy<int, int>();
 
             WriteMessage("Infecting " + initialState.TotalPeopleToInfect + " people!");
             for (int i = 0; i < _simData.Humans.Length; ++i)
             {
                 int cellIndex = _simData.Humans[i].CurrentCell;
-                if (initialState.DesiredInfection.ContainsKey(cellIndex))
+                if (values.ContainsKey(cellIndex))
                 {
                     _simData.Humans[i].Infect(infectionTimer, spreadingTimer);
-                    initialState.DesiredInfection[cellIndex]--;
+                   values[cellIndex]--;
                     _simData.Cells[cellIndex].Infecting++;
 
-                    if (initialState.DesiredInfection[cellIndex] == 0)
-                        initialState.DesiredInfection.Remove(cellIndex);
+                    if (values[cellIndex] == 0)
+                        values.Remove(cellIndex);
                 }
             }
             WriteMessage("Finished infecting!");

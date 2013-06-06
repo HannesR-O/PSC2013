@@ -110,7 +110,25 @@ namespace PSC2013.ES.Library
             return -1;
         }
 
-        //TODO: |f| add dicitionary.copy method
-        //public static Dictionary<
+        /// <summary>
+        /// Creates a deep copy of the given Dictionary only containing structs as keys AND values.
+        /// </summary>
+        /// <typeparam name="T1">Key's type</typeparam>
+        /// <typeparam name="T2">Value's type</typeparam>
+        /// <param name="dict">Dictionary to create a deep copy of</param>
+        /// <returns>The deep copy of the Dictionary</returns>
+        public static Dictionary<T1, T2> DeepCopy<T1, T2>(this Dictionary<T1, T2> dict) 
+            where T1 : struct 
+            where T2 : struct
+        {
+            var copy = new Dictionary<T1, T2>();
+
+            foreach (var pair in dict)
+            {
+                copy.Add(pair.Key, pair.Value);
+            }
+
+            return copy;
+        }
     }
 }
