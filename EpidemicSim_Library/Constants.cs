@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library
 {
+    public static class Constants
+    {
+        public static readonly ParallelOptions DEFAULT_PARALLELOPTIONS =
+            new ParallelOptions()
+            {
+                MaxDegreeOfParallelism = (int)Math.Max(1, Environment.ProcessorCount * 0.75)
+            };
+    }
+
     /// <summary>
     /// Static threadsafe Random-class.
     /// Please use this one instead of the built-in Random.

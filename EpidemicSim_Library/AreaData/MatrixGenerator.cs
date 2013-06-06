@@ -127,11 +127,7 @@ namespace PSC2013.ES.Library.AreaData
             Combiner comb = new Combiner(populationArray, humanArray);
 
             // the parallel call.
-            int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
-            degree = Math.Max(1, degree);                       // but minimum of 1
-            //degree = -1;
-            //degree = 1;
-            Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
+            Parallel.ForEach(rawData, Constants.DEFAULT_PARALLELOPTIONS,
                 (item) => {
                     Human[] humans;
                     var res = Populate(item, out humans);         // populate the department.

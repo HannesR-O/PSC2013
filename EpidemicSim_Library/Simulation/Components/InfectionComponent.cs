@@ -5,6 +5,7 @@ using PSC2013.ES.Library.PopulationData;
 using System;
 using System.Drawing;
 using PSC2013.ES.Library.Diseases;
+using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
@@ -42,13 +43,24 @@ namespace PSC2013.ES.Library.Simulation.Components
             //Let Humans get Infected by chance
             fixed (Human* humanptr = data.Humans)
             {
-                for (Human* ptr = humanptr; ptr < humanptr + _data.Humans.Length; ++ptr)
-                {
-                    if (!ptr->IsDead() && !ptr->IsInfected())
+                Human* sptr = humanptr;
+
+                Parallel.For(0, _data.Humans.Length, Constants.DEFAULT_PARALLELOPTIONS,
+                    index =>
                     {
-                        TryInfection(ptr, disease, _data.Cells[ptr->CurrentCell].Probability);
-                    }
-                }
+                        Human* ptr = sptr + index;
+                        if (!ptr->IsDead() && !ptr->IsInfected())
+                        {
+                            TryInfection(ptr, disease, _data.Cells[ptr->CurrentCell].Probability);
+                        }
+                    });
+                //for (Human* ptr = humanptr; ptr < humanptr + _data.Humans.Length; ++ptr)
+                //{
+                //    if (!ptr->IsDead() && !ptr->IsInfected())
+                //    {
+                //        TryInfection(ptr, disease, _data.Cells[ptr->CurrentCell].Probability);
+                //    }
+                //}
             }
         }
 
