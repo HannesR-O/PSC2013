@@ -271,6 +271,8 @@ namespace PSC2013.ES.Cmd
 
         public static void TestAllSnapshots()
         {
+            OutputTargetManager.GetInstance().RegisterTarget(new ConsoleOutputTarget());
+
             var manager = new StatisticsManager();
 
             Console.WriteLine("Please enter the name of your .sim file:");
@@ -304,15 +306,7 @@ namespace PSC2013.ES.Cmd
 
             manager.SetNewDestination(target);
 
-            var entries = manager.Entries;
-            int count = entries.Count;
-            int i = 0;
-            foreach (var entry in entries)
-            {
-                manager.LoadTickSnapshot(entry);
-                manager.CreateGraphics(field, pal, prefix);
-                Console.WriteLine("{0,3}/{1} snapshots done...", ++i, count);
-            }
+            manager.CreateMulipleGraphics(manager.Entries, field, pal, prefix);
 
             Console.WriteLine("DONE!");
         }

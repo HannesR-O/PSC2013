@@ -133,16 +133,16 @@ namespace PSC2013.ES.Library.Statistics
 
         public void CreateMulipleGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
         {
+            int i = 1;
+            int size = entries.Count;
             foreach (string entry in entries)
             {
-                int i = 1;
-                int size = entries.Count;
                 if(Entries.Contains(entry))
                 {
-                    LoadTickSnapshot(entry);
                     WriteMessage("Loading " + entry + "...");
+                    LoadTickSnapshot(entry);
                     CreateGraphics(field, colors, namePrefix);
-                    WriteMessage(i + " of " + size + " Finished");
+                    WriteMessage(String.Format("{0,3} of {1} graphics finished.", i, size));
                     ++i;
                 }
                 else
