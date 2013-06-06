@@ -26,6 +26,8 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         Human* ptr = startPtr + index;
 
+                        PopulationCell currentCell = data.Cells[ptr->CurrentCell];
+
                         var spreading = ptr->IsSpreading();
                         var infecting = ptr->IsInfected();
                         var diseased = ptr->IsDiseased();
@@ -39,25 +41,25 @@ namespace PSC2013.ES.Library.Simulation.Components
                         if (ptr->IsSpreading() != spreading)
                         {
                             if (spreading)
-                                data.Cells[ptr->CurrentCell].Spreading--;
+                                lock (currentCell) currentCell.Spreading--;
                             else
-                                data.Cells[ptr->CurrentCell].Spreading++;
+                                lock (currentCell) currentCell.Spreading++;
                         }
 
                         if (ptr->IsInfected() != infecting)
                         {
                             if (infecting)
-                                data.Cells[ptr->CurrentCell].Infecting--;
+                                lock (currentCell) currentCell.Infecting--;
                             else
-                                data.Cells[ptr->CurrentCell].Infecting++;
+                                lock (currentCell) currentCell.Infecting++;
                         }
 
                         if (ptr->IsDiseased() != diseased)
                         {
                             if (diseased)
-                                data.Cells[ptr->CurrentCell].Diseased--;
+                                lock (currentCell) currentCell.Diseased--;
                             else
-                                data.Cells[ptr->CurrentCell].Diseased++;
+                                lock (currentCell) currentCell.Diseased++;
                         }
                     });
             }

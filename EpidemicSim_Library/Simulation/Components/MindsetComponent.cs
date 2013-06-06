@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Simulation.Components
 {
-    public unsafe class MindsetComponent : SimulationComponent
+    public class MindsetComponent : SimulationComponent
     {
         public MindsetComponent() : base(ESimulationStage.BeforeInfectedCalculation)
         {

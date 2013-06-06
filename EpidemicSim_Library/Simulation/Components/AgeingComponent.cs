@@ -83,7 +83,8 @@ namespace PSC2013.ES.Library.Simulation.Components
                                 genderIndex += 3;
                                 break;
                         }
-                        data.Cells[human->CurrentCell].Data[genderIndex]--;
+                        PopulationCell currentCell = data.Cells[human->CurrentCell];
+                        lock (currentCell) currentCell.Data[genderIndex]--;
                     });
             }
 
