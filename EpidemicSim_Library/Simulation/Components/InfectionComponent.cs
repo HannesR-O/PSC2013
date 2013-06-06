@@ -48,7 +48,6 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         TryInfection(ptr, disease, _data.Cells[ptr->CurrentCell].Probability);
                     }
-                    // TODO | dj | TEST!!!!
                 }
             }
         }
@@ -57,17 +56,17 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             var surroundings = GetCorrespondingCells(currentCellIndex);
 
-            int chance = 0;
+            double chance = 0;
             foreach (PopulationCell cell in surroundings)
             {
                 if(cell.Spreading != 0)
-                    chance += (int)(((double)cell.Total / cell.Spreading * (transferability / 100d)) * 100);
+                    chance += ((cell.Total * 100d / cell.Spreading * (transferability / 100d)));
             }
 
             chance = chance / surroundings.Count();
 
             // now the current cell is equally treated like the surrounding...
-            return chance;
+            return (int)chance;
         }
 
         private IEnumerable<PopulationCell> GetCorrespondingCells(int cell)
@@ -86,19 +85,18 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 for (int j = -1; j < 2; j++)
                 {
-                    Point newCellPoint = new Point(indexPoint.X + i, indexPoint.Y + j);
-                    if (CheckPoint(newCellPoint))
-                        indices.Add(newCellPoint.Flatten(_arrayWidth));
+                    if (CheckPoint(indexPoint.X + i, indexPoint.Y + j))
+                        indices.Add(indexPoint.X + i + ((indexPoint.Y + j) * _arrayWidth));
                 }
             }
 
             return indices.ToArray();
         }
 
-        private bool CheckPoint(Point point)
+        private bool CheckPoint(int x, int y)
         {
-            return point.X >= 0 && point.X < _arrayWidth
-                && point.Y >= 0 && point.X < _arrayHeight;
+            return x >= 0 && x < _arrayWidth
+                && y >= 0 && y < _arrayHeight;
         }
 
         private unsafe void TryInfection(Human* human, Disease disease, int probability)

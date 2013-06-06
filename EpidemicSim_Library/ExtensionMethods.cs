@@ -92,9 +92,6 @@ namespace PSC2013.ES.Library
         internal static IEnumerable<T> NotNullIterator<T>(this T[] cells) where T : class
         {
             return cells.Where(item => item != null);
-            // ?? // |t| Does this Comment belong HERE? Not where it's used?
-            // 10 min with foreach
-            // 12 min with parallel.foreach
         }
 
         /// <summary>
