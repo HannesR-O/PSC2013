@@ -19,6 +19,15 @@ namespace PSC2013.ES.GUI.Components
         Transferability,
         HealingFactors,
         MortalityFactors,
-        Resistance
+        Resistance,
+
+        MaleBaby,
+        MaleChild,
+        MaleAdult,
+        MaleSenior,
+        FemaleBaby,
+        FemaleChild,
+        FemaleAdult,
+        FemaleSenior
     }
 }

@@ -44,17 +44,19 @@ namespace PSC2013.ES.GUI.Components
         /// <summary>
         /// Sets the text of the label.
         /// </summary>
-        public void SetText(string text)
+        public string LabelText
         {
-            Label.Text = text;
+            get { return Label.Text; }
+            set { Label.Text = value; }
         }
 
         /// <summary>
         /// Sets the text of the tooltip.
         /// </summary>
-        public void SetToolTip(string tooltip)
+        public string ToolTip
         {
-            ToolTip.SetToolTip(_ctrl, tooltip);
+            get { return ToolTipControl.GetToolTip(_ctrl); }
+            set { ToolTipControl.SetToolTip(_ctrl, value); }
         }
 
         /// <summary>

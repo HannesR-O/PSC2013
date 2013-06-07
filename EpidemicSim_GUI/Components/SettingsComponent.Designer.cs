@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.Label = new System.Windows.Forms.Label();
-            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ToolTipControl = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // Label
@@ -61,6 +61,6 @@
         #endregion
 
         private System.Windows.Forms.Label Label;
-        private System.Windows.Forms.ToolTip ToolTip;
+        private System.Windows.Forms.ToolTip ToolTipControl;
     }
 }

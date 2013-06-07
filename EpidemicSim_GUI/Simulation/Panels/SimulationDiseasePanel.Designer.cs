@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
-            this.Comp_DiseaseName = new PSC2013.ES.GUI.Components.TextComponent();
-            this.Comp_IncubationPeriod = new PSC2013.ES.GUI.Components.IntComponent();
-            this.Comp_IdleTime = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_SpreadingTime = new PSC2013.ES.GUI.Components.IntComponent();
+            this.Comp_IdleTime = new PSC2013.ES.GUI.Components.IntComponent();
+            this.Comp_IncubationPeriod = new PSC2013.ES.GUI.Components.IntComponent();
+            this.Comp_DiseaseName = new PSC2013.ES.GUI.Components.TextComponent();
             this.GrpBox_Main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,53 +51,61 @@
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Disease";
             // 
-            // Comp_DiseaseName
+            // Comp_SpreadingTime
             // 
-            this.Comp_DiseaseName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.Comp_SpreadingTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_DiseaseName.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_DiseaseName.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.NONE;
-            this.Comp_DiseaseName.Location = new System.Drawing.Point(6, 19);
-            this.Comp_DiseaseName.Name = "Comp_DiseaseName";
-            this.Comp_DiseaseName.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_DiseaseName.Size = new System.Drawing.Size(261, 24);
-            this.Comp_DiseaseName.TabIndex = 0;
-            // 
-            // Comp_IncubationPeriod
-            // 
-            this.Comp_IncubationPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_IncubationPeriod.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_IncubationPeriod.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.NONE;
-            this.Comp_IncubationPeriod.Location = new System.Drawing.Point(6, 49);
-            this.Comp_IncubationPeriod.Name = "Comp_IncubationPeriod";
-            this.Comp_IncubationPeriod.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_IncubationPeriod.Size = new System.Drawing.Size(261, 24);
-            this.Comp_IncubationPeriod.TabIndex = 1;
+            this.Comp_SpreadingTime.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_SpreadingTime.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.SpreadingTime;
+            this.Comp_SpreadingTime.LabelText = "Spreading time:";
+            this.Comp_SpreadingTime.Location = new System.Drawing.Point(6, 109);
+            this.Comp_SpreadingTime.Name = "Comp_SpreadingTime";
+            this.Comp_SpreadingTime.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_SpreadingTime.Size = new System.Drawing.Size(261, 24);
+            this.Comp_SpreadingTime.TabIndex = 3;
+            this.Comp_SpreadingTime.ToolTip = "The hours a subject is spreading the disease.";
             // 
             // Comp_IdleTime
             // 
             this.Comp_IdleTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Comp_IdleTime.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_IdleTime.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.NONE;
+            this.Comp_IdleTime.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.IdleTime;
+            this.Comp_IdleTime.LabelText = "Idle time:";
             this.Comp_IdleTime.Location = new System.Drawing.Point(6, 79);
             this.Comp_IdleTime.Name = "Comp_IdleTime";
             this.Comp_IdleTime.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_IdleTime.Size = new System.Drawing.Size(261, 24);
             this.Comp_IdleTime.TabIndex = 2;
+            this.Comp_IdleTime.ToolTip = "The hours until a subject spreads the disease after being infected.";
             // 
-            // Comp_SpreadingTime
+            // Comp_IncubationPeriod
             // 
-            this.Comp_SpreadingTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.Comp_IncubationPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_SpreadingTime.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_SpreadingTime.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.NONE;
-            this.Comp_SpreadingTime.Location = new System.Drawing.Point(6, 109);
-            this.Comp_SpreadingTime.Name = "Comp_SpreadingTime";
-            this.Comp_SpreadingTime.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_SpreadingTime.Size = new System.Drawing.Size(261, 24);
-            this.Comp_SpreadingTime.TabIndex = 3;
+            this.Comp_IncubationPeriod.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_IncubationPeriod.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.IncubationPeriod;
+            this.Comp_IncubationPeriod.LabelText = "Incubation period:";
+            this.Comp_IncubationPeriod.Location = new System.Drawing.Point(6, 49);
+            this.Comp_IncubationPeriod.Name = "Comp_IncubationPeriod";
+            this.Comp_IncubationPeriod.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_IncubationPeriod.Size = new System.Drawing.Size(261, 24);
+            this.Comp_IncubationPeriod.TabIndex = 1;
+            this.Comp_IncubationPeriod.ToolTip = "The incubation time of the disease in hours.";
+            // 
+            // Comp_DiseaseName
+            // 
+            this.Comp_DiseaseName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_DiseaseName.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_DiseaseName.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.DiseaseName;
+            this.Comp_DiseaseName.LabelText = "Disease name:";
+            this.Comp_DiseaseName.Location = new System.Drawing.Point(6, 19);
+            this.Comp_DiseaseName.Name = "Comp_DiseaseName";
+            this.Comp_DiseaseName.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_DiseaseName.Size = new System.Drawing.Size(261, 24);
+            this.Comp_DiseaseName.TabIndex = 0;
+            this.Comp_DiseaseName.ToolTip = "The name of the disease.";
             // 
             // SimulationDiseasePanel
             // 
