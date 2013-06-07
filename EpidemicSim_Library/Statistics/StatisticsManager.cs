@@ -110,19 +110,28 @@ namespace PSC2013.ES.Library.Statistics
         }
 
         /// <summary>
+        /// Returns the Caption of the last created Picture
+        /// </summary>
+        /// <returns>The Caption, null, if no Pic was created so far</returns>
+        public Dictionary<string, Color> GetCaption()
+        {            
+            return _creator.GetCaption();
+        }
+
+        /// <summary>
         /// Creates a Graphic of the loaded Snapshot with the given parameters
         /// </summary>
         /// <param name="field">A concatenation of EStatfields to be used</param>
         /// <param name="colors">The Colorpalette to be used</param>
         /// <param name="namePrefix">The Prefix the data shall be named with</param>
         /// <returns></returns>
-        public Dictionary<String, Color> CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
+        public void CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
             {
                 if (LoadedSnapshot != null)
                 {
-                    return _creator.GetMap(LoadedSnapshot, field, colors, namePrefix);
+                    _creator.GetMap(LoadedSnapshot, field, colors, namePrefix);
                 }
                 else
                 {

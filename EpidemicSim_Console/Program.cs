@@ -258,7 +258,7 @@ namespace PSC2013.ES.Cmd
                 Console.WriteLine("Sum: {0}", sum);
 
                 //manager.CreateDeathGraphics(field, pal, prefix);
-                Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
+                Dictionary<string, Color> legend = manager.GetCaption();
 
                 foreach (string str in legend.Keys)
                 {

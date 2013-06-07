@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Imaging;
 using PSC2013.ES.Library.Snapshot;
+using PSC2013.ES.Library;
 using System.Drawing;
 using System.Linq;
 using System;
@@ -11,6 +12,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
     {
         private int _max = 0;
         private int[] _steps;
+        private Dictionary<string, Color> _caption;
 
         private int X = 2814; // Now default
         private int Y = 3841; // Here as well...
@@ -58,7 +60,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="snapshot">The Snapshot to be mapped</param>
         /// <param name="field">The Field to be visualised</param>
         /// <param name="palette">The Color Palette to be used</param>
-        public Dictionary<String, Color> GetMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
+        public void GetMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
         {
             Color[] pal = GetPalette(palette);
 
@@ -96,8 +98,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             }
             map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
-
-            return GenerateLegend(_steps, pal);            
+            GenerateCaption(_steps, pal);
         }
 
         /// <summary>
@@ -123,6 +124,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             }
 
             map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            GenerateCaption(_steps, pal);
         }
 
         /// <summary>
@@ -131,7 +133,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="steps">The Steps</param>
         /// <param name="palette">The Color Palette</param>
         /// <returns>Dictionary of Range and Color</returns>
-        private static Dictionary<string, Color> GenerateLegend(int[] steps, Color[] palette)
+        private void GenerateCaption(int[] steps, Color[] palette)
         {
             if (steps.Length != palette.Length)
                 throw new ArgumentException("Both Arrays have to be same Length");
@@ -139,26 +141,31 @@ namespace PSC2013.ES.Library.Statistics.Pictures
             if (!(steps.Length > 1 && palette.Length > 1))
                 throw new ArgumentException("Steps or Palette need to have at least 2 Values each");
             
-            Dictionary<string, Color> legend = new Dictionary<string, Color>();
+            Dictionary<string, Color> caption = new Dictionary<string, Color>();
 
             if (steps[0] > 0)
             {
-                legend.Add(steps[0] + " - " + (steps[1] + 1), palette[0]); // This one has always to be there
+                caption.Add(steps[0] + " - " + (steps[1] + 1), palette[0]); // This one has always to be there
 
                 int i = 1;
                 for (; i < steps.Length - 1; ++i)
                 {
                     string range = steps[i] + " - " + (steps[i + 1] + 1);
-                    if (!legend.ContainsKey(range) && !(steps[i] > 1) && !(steps[i + 1] > 0))
+                    if (!caption.ContainsKey(range) && !(steps[i] > 1) && !(steps[i + 1] > 0))
                         break;
-                    legend.Add(range, palette[i]);
+                    caption.Add(range, palette[i]);
                 }
 
-                legend.Add(steps[i] + " - 1", palette[i]); // Always the last one
+                caption.Add(steps[i] + " - 1", palette[i]); // Always the last one
             }
-            legend.Add("0", Color.Black);
+            caption.Add("0", Color.Black);
 
-            return legend;
+            _caption = caption;
+        }
+
+        public Dictionary<string, Color> GetCaption()
+        {
+            return _caption;
         }
 
         /// <summary>

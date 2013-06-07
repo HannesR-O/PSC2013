@@ -21,7 +21,7 @@ namespace PSC2013.ES.GUI.ReviewSimulation
         private string _defaultPrefix = "Map";
         private EColorPalette _defaultPalette = EColorPalette.Red;
 
-        private Dictionary<string, Color> _currentLegend;
+        private Dictionary<string, Color> _currentCaption;
 
         /// <summary>
         /// Creates a new ReviewForm and opens the Given File
@@ -106,10 +106,11 @@ namespace PSC2013.ES.GUI.ReviewSimulation
         {
             if ((int)EnumFromSelection() > 0)
             {
-                _currentLegend = _manager.CreateGraphics(
+                _manager.CreateGraphics(
                     EnumFromSelection(),
                     (CheckBox_S_IndPalette.Checked ? (EColorPalette)ComboBox_S_IndPalette.SelectedItem : _defaultPalette),
                     (CheckBox_S_IndPredix.Checked ? TextBox_S_Prefix.Text : _defaultPrefix));
+                _currentCaption = _manager.GetCaption();
             }        
         }
 
