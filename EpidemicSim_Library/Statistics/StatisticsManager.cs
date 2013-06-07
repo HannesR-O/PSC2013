@@ -190,6 +190,35 @@ namespace PSC2013.ES.Library.Statistics
         }
 
         /// <summary>
+        /// Creates DeathGraphics with the same Parameters for multiple Snapshots
+        /// </summary>
+        /// <param name="entries">The List of Snapshots</param>
+        /// <param name="field">The desired Field</param>
+        /// <param name="colors">The desired ColorPalette</param>
+        /// <param name="namePrefix">The desired Prefix</param>
+        public void CreateMultipleDeathGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
+        {
+            int i = 1;
+            int size = entries.Count;
+            foreach (string entry in entries)
+            {
+                if (Entries.Contains(entry))
+                {
+                    WriteMessage("Loading " + entry + "...");
+                    LoadTickSnapshot(entry);
+                    CreateDeathGraphics(field, colors, namePrefix);
+                    WriteMessage(String.Format("{0,3} of {1} graphics finished.", i, size));
+                    ++i;
+                }
+                else
+                {
+                    WriteMessage(entry + " could not be created");
+                    ++i;
+                }
+            }
+        }
+
+        /// <summary>
         /// SimFile is Corrupted, if something is missing inside a .Sim. Doesn't consider
         /// whether archive itself is corrupt
         /// </summary>
