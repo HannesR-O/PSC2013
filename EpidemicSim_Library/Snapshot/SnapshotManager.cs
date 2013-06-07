@@ -139,9 +139,11 @@ namespace PSC2013.ES.Library.Snapshot
                      *      // ...the writing stuff here.
                      * }
                      */
-                    lock (_snapshots)
+                    TickSnapshot temp;
+                    lock (_snapshots) { temp = _snapshots.Dequeue(); }
+                    if (temp != null)
                     {
-                        TickSnapshot temp = _snapshots.Dequeue();
+                        //TickSnapshot temp = _snapshots.Dequeue();
                         _writer.WriteIntoArchive(temp, _target, temp.Head, true);
                         WriteMessage("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                     }

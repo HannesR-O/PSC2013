@@ -83,6 +83,10 @@ namespace PSC2013.ES.Library.Statistics
             LoadedSnapshot = tick; // First Snaphsot stays loaded
         }
 
+        /// <summary>
+        /// Changes the Directory where Pictures are stored
+        /// </summary>
+        /// <param name="destination">The new Destination</param>
         public void SetNewDestination(string destination)
         {
             if (Directory.Exists(destination))
@@ -131,6 +135,13 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
+        /// <summary>
+        /// Creates Graphics with the same Parameters for multiple Snapshots
+        /// </summary>
+        /// <param name="entries">The List of Snapshots</param>
+        /// <param name="field">The desired Field</param>
+        /// <param name="colors">The desired ColorPalette</param>
+        /// <param name="namePrefix">The desired Prefix</param>
         public void CreateMulipleGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
         {
             int i = 1;
@@ -178,7 +189,11 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
-        public class SimFileCorruptException : Exception
+        /// <summary>
+        /// SimFile is Corrupted, if something is missing inside a .Sim. Doesn't consider
+        /// whether archive itself is corrupt
+        /// </summary>
+        public sealed class SimFileCorruptException : Exception
         {
             public SimFileCorruptException() { }
             public SimFileCorruptException(string Massage) { }
