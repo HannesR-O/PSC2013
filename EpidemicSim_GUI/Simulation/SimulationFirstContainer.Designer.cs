@@ -1,4 +1,5 @@
-﻿namespace PSC2013.ES.GUI.Simulation
+﻿using PSC2013.ES.GUI.Simulation.Panels;
+namespace PSC2013.ES.GUI.Simulation
 {
     partial class SimulationFirstContainer
     {
@@ -29,7 +30,8 @@
         private void InitializeComponent()
         {
             this.WorkFlow = new System.Windows.Forms.FlowLayoutPanel();
-            this.settingsPanel = new PSC2013.ES.GUI.Simulation.SimulationSettingsPanel();
+            this.settingsPanel = new PSC2013.ES.GUI.Simulation.Panels.SimulationSettingsPanel();
+            this.simulationDiseasePanel1 = new PSC2013.ES.GUI.Simulation.Panels.SimulationDiseasePanel();
             this.WorkFlow.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -37,6 +39,7 @@
             // 
             this.WorkFlow.BackColor = System.Drawing.SystemColors.Control;
             this.WorkFlow.Controls.Add(this.settingsPanel);
+            this.WorkFlow.Controls.Add(this.simulationDiseasePanel1);
             this.WorkFlow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WorkFlow.Location = new System.Drawing.Point(0, 0);
             this.WorkFlow.Margin = new System.Windows.Forms.Padding(0);
@@ -53,6 +56,14 @@
             this.settingsPanel.Name = "settingsPanel";
             this.settingsPanel.Size = new System.Drawing.Size(276, 420);
             this.settingsPanel.TabIndex = 0;
+            // 
+            // simulationDiseasePanel1
+            // 
+            this.simulationDiseasePanel1.BackColor = System.Drawing.Color.Transparent;
+            this.simulationDiseasePanel1.Location = new System.Drawing.Point(288, 6);
+            this.simulationDiseasePanel1.Name = "simulationDiseasePanel1";
+            this.simulationDiseasePanel1.Size = new System.Drawing.Size(275, 420);
+            this.simulationDiseasePanel1.TabIndex = 1;
             // 
             // SimulationFirstContainer
             // 
@@ -71,5 +82,6 @@
 
         private System.Windows.Forms.FlowLayoutPanel WorkFlow;
         private SimulationSettingsPanel settingsPanel;
+        private SimulationDiseasePanel simulationDiseasePanel1;
     }
 }

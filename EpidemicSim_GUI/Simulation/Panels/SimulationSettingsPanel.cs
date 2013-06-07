@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSC2013.ES.GUI.Components;
 
-namespace PSC2013.ES.GUI.Simulation
+namespace PSC2013.ES.GUI.Simulation.Panels
 {
     public partial class SimulationSettingsPanel : UserControl
     {
