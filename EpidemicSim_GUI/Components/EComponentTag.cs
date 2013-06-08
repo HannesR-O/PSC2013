@@ -8,7 +8,15 @@ namespace PSC2013.ES.GUI.Components
 {
     public enum EComponentTag
     {
-        NONE,
+        MaleBaby        = 0,
+        MaleChild       = 1,
+        MaleAdult       = 2,
+        MaleSenior      = 3,
+        FemaleBaby      = 4,
+        FemaleChild     = 5,
+        FemaleAdult     = 6,
+        FemaleSenior    = 7,
+        
         SimulationDuration,
         SimulationIntervall,
         SnapshotIntervall,
@@ -19,15 +27,6 @@ namespace PSC2013.ES.GUI.Components
         Transferability,
         HealingFactors,
         MortalityFactors,
-        Resistance,
-
-        MaleBaby,
-        MaleChild,
-        MaleAdult,
-        MaleSenior,
-        FemaleBaby,
-        FemaleChild,
-        FemaleAdult,
-        FemaleSenior
+        Resistance
     }
 }

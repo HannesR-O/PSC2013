@@ -22,5 +22,10 @@ namespace PSC2013.ES.GUI.Components
         {
             return _textBox.Text;
         }
+
+        public override void SetValue(string value)
+        {
+            _textBox.Text = value;
+        }
     }
 }

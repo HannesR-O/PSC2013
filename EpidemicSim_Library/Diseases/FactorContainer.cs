@@ -50,9 +50,7 @@ namespace PSC2013.ES.Library.Diseases
         {
             get
             {
-                int[] returnArray = new int[8];
-                _data.CopyToOtherArray(returnArray);
-                return returnArray;
+                return _data;
             }
         }
 

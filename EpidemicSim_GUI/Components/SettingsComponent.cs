@@ -63,5 +63,10 @@ namespace PSC2013.ES.GUI.Components
         /// Returns the value of this component.
         /// </summary>
         public abstract T GetValue();
+
+        /// <summary>
+        /// Sets the value iof this components
+        /// </summary>
+        public abstract void SetValue(T value);
     }
 }

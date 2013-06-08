@@ -21,5 +21,10 @@ namespace PSC2013.ES.GUI.Components
         {
             return (long)_numBox.Value;
         }
+
+        public override void SetValue(long value)
+        {
+            _numBox.Value = value;
+        }
     }
 }

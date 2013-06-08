@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PSC2013.ES.GUI.Simulation;
 using PSC2013.ES.Library.Diseases;
 
 namespace PSC2013.ES.GUI.Components
@@ -26,12 +27,20 @@ namespace PSC2013.ES.GUI.Components
 
         void Specify_Click(object sender, EventArgs e)
         {
-            // TODO | dj | implement
+            FactorContainerForm fcf = new FactorContainerForm(_container);
+            DialogResult dr = fcf.ShowDialog();
+            if (dr == DialogResult.OK)
+                _container = fcf.Factors;
         }
 
         public override FactorContainer GetValue()
         {
             return _container;
+        }
+
+        public override void SetValue(FactorContainer value)
+        {
+            _container = value;
         }
     }
 }

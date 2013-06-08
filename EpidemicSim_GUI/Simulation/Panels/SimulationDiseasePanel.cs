@@ -16,6 +16,8 @@ namespace PSC2013.ES.GUI.Simulation.Panels
         public SimulationDiseasePanel()
         {
             InitializeComponent();
+            this.Comp_Transferability.ToolTip += Environment.NewLine + "(e.g. a disease being transferred per air might" +
+                Environment.NewLine + "get a higher value than one per contact)";
         }
     }
 }

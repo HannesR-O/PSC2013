@@ -32,13 +32,18 @@
             this.Btn_Cancel = new System.Windows.Forms.Button();
             this.Accept = new System.Windows.Forms.Button();
             this.GrpBox_Male = new System.Windows.Forms.GroupBox();
-            this.GrpBox_Female = new System.Windows.Forms.GroupBox();
             this.Comp_MaleSenior = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_MaleAdult = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_MaleChild = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_MaleBaby = new PSC2013.ES.GUI.Components.IntComponent();
+            this.GrpBox_Female = new System.Windows.Forms.GroupBox();
+            this.Comp_FemaleSenior = new PSC2013.ES.GUI.Components.IntComponent();
+            this.Comp_FemaleAdult = new PSC2013.ES.GUI.Components.IntComponent();
+            this.Comp_FemaleBaby = new PSC2013.ES.GUI.Components.IntComponent();
+            this.Comp_FemaleChild = new PSC2013.ES.GUI.Components.IntComponent();
             this.FlowPanel_BottomButtons.SuspendLayout();
             this.GrpBox_Male.SuspendLayout();
+            this.GrpBox_Female.SuspendLayout();
             this.SuspendLayout();
             // 
             // FlowPanel_BottomButtons
@@ -62,6 +67,7 @@
             this.Btn_Cancel.TabIndex = 1;
             this.Btn_Cancel.Text = "Cancel";
             this.Btn_Cancel.UseVisualStyleBackColor = true;
+            this.Btn_Cancel.Click += new System.EventHandler(this.Btn_Cancel_Click);
             // 
             // Accept
             // 
@@ -72,6 +78,7 @@
             this.Accept.TabIndex = 0;
             this.Accept.Text = "Accept";
             this.Accept.UseVisualStyleBackColor = true;
+            this.Accept.Click += new System.EventHandler(this.Accept_Click);
             // 
             // GrpBox_Male
             // 
@@ -85,15 +92,6 @@
             this.GrpBox_Male.TabIndex = 0;
             this.GrpBox_Male.TabStop = false;
             this.GrpBox_Male.Text = "Male";
-            // 
-            // GrpBox_Female
-            // 
-            this.GrpBox_Female.Location = new System.Drawing.Point(195, 2);
-            this.GrpBox_Female.Name = "GrpBox_Female";
-            this.GrpBox_Female.Size = new System.Drawing.Size(185, 174);
-            this.GrpBox_Female.TabIndex = 1;
-            this.GrpBox_Female.TabStop = false;
-            this.GrpBox_Female.Text = "Female";
             // 
             // Comp_MaleSenior
             // 
@@ -151,6 +149,75 @@
             this.Comp_MaleBaby.TabIndex = 0;
             this.Comp_MaleBaby.ToolTip = "";
             // 
+            // GrpBox_Female
+            // 
+            this.GrpBox_Female.Controls.Add(this.Comp_FemaleSenior);
+            this.GrpBox_Female.Controls.Add(this.Comp_FemaleAdult);
+            this.GrpBox_Female.Controls.Add(this.Comp_FemaleBaby);
+            this.GrpBox_Female.Controls.Add(this.Comp_FemaleChild);
+            this.GrpBox_Female.Location = new System.Drawing.Point(195, 2);
+            this.GrpBox_Female.Name = "GrpBox_Female";
+            this.GrpBox_Female.Size = new System.Drawing.Size(185, 174);
+            this.GrpBox_Female.TabIndex = 1;
+            this.GrpBox_Female.TabStop = false;
+            this.GrpBox_Female.Text = "Female";
+            // 
+            // Comp_FemaleSenior
+            // 
+            this.Comp_FemaleSenior.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_FemaleSenior.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_FemaleSenior.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.FemaleSenior;
+            this.Comp_FemaleSenior.LabelText = "Senior:";
+            this.Comp_FemaleSenior.Location = new System.Drawing.Point(6, 109);
+            this.Comp_FemaleSenior.Name = "Comp_FemaleSenior";
+            this.Comp_FemaleSenior.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_FemaleSenior.Size = new System.Drawing.Size(173, 24);
+            this.Comp_FemaleSenior.TabIndex = 7;
+            this.Comp_FemaleSenior.ToolTip = "";
+            // 
+            // Comp_FemaleAdult
+            // 
+            this.Comp_FemaleAdult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_FemaleAdult.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_FemaleAdult.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.FemaleAdult;
+            this.Comp_FemaleAdult.LabelText = "Adult:";
+            this.Comp_FemaleAdult.Location = new System.Drawing.Point(6, 79);
+            this.Comp_FemaleAdult.Name = "Comp_FemaleAdult";
+            this.Comp_FemaleAdult.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_FemaleAdult.Size = new System.Drawing.Size(173, 24);
+            this.Comp_FemaleAdult.TabIndex = 6;
+            this.Comp_FemaleAdult.ToolTip = "";
+            // 
+            // Comp_FemaleBaby
+            // 
+            this.Comp_FemaleBaby.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_FemaleBaby.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_FemaleBaby.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.FemaleBaby;
+            this.Comp_FemaleBaby.LabelText = "Baby:";
+            this.Comp_FemaleBaby.Location = new System.Drawing.Point(6, 19);
+            this.Comp_FemaleBaby.Name = "Comp_FemaleBaby";
+            this.Comp_FemaleBaby.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_FemaleBaby.Size = new System.Drawing.Size(173, 24);
+            this.Comp_FemaleBaby.TabIndex = 4;
+            this.Comp_FemaleBaby.ToolTip = "";
+            // 
+            // Comp_FemaleChild
+            // 
+            this.Comp_FemaleChild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_FemaleChild.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_FemaleChild.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.FemaleChild;
+            this.Comp_FemaleChild.LabelText = "Child:";
+            this.Comp_FemaleChild.Location = new System.Drawing.Point(6, 49);
+            this.Comp_FemaleChild.Name = "Comp_FemaleChild";
+            this.Comp_FemaleChild.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_FemaleChild.Size = new System.Drawing.Size(173, 24);
+            this.Comp_FemaleChild.TabIndex = 5;
+            this.Comp_FemaleChild.ToolTip = "";
+            // 
             // FactorContainerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -165,6 +232,7 @@
             this.Text = "FactorContainerForm";
             this.FlowPanel_BottomButtons.ResumeLayout(false);
             this.GrpBox_Male.ResumeLayout(false);
+            this.GrpBox_Female.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -180,6 +248,10 @@
         private Components.IntComponent Comp_MaleSenior;
         private Components.IntComponent Comp_MaleAdult;
         private Components.IntComponent Comp_MaleChild;
+        private Components.IntComponent Comp_FemaleSenior;
+        private Components.IntComponent Comp_FemaleAdult;
+        private Components.IntComponent Comp_FemaleBaby;
+        private Components.IntComponent Comp_FemaleChild;
 
 
 
