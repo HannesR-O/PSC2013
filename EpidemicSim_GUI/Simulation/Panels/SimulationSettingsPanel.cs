@@ -16,6 +16,11 @@ namespace PSC2013.ES.GUI.Simulation.Panels
         public SimulationSettingsPanel()
         {
             InitializeComponent();
+            this.Comp_EnableAgeing.SetValue(true);
+            this.Comp_EnableInfection.SetValue(true);
+            this.Comp_EnableDiseaseEffect.SetValue(true);
+            this.Comp_EnableMindset.SetValue(true);
+            this.Comp_EnableMovement.SetValue(true);
         }
     }
 }

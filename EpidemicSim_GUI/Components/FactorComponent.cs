@@ -28,6 +28,7 @@ namespace PSC2013.ES.GUI.Components
         void Specify_Click(object sender, EventArgs e)
         {
             FactorContainerForm fcf = new FactorContainerForm(_container);
+            fcf.Text = this.LabelText;
             DialogResult dr = fcf.ShowDialog();
             if (dr == DialogResult.OK)
                 _container = fcf.Factors;

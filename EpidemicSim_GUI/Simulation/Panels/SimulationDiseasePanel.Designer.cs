@@ -29,20 +29,22 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
+            this.seperator1 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
+            this.Comp_ResistanceFactors = new PSC2013.ES.GUI.Components.FactorComponent();
+            this.Comp_MortalityRates = new PSC2013.ES.GUI.Components.FactorComponent();
+            this.Comp_HealingFactors = new PSC2013.ES.GUI.Components.FactorComponent();
             this.Comp_Transferability = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_SpreadingTime = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_IdleTime = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_IncubationPeriod = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_DiseaseName = new PSC2013.ES.GUI.Components.TextComponent();
-            this.Comp_HealingFactors = new PSC2013.ES.GUI.Components.FactorComponent();
-            this.Comp_MortalityRates = new PSC2013.ES.GUI.Components.FactorComponent();
-            this.Comp_ResistanceFactors = new PSC2013.ES.GUI.Components.FactorComponent();
             this.GrpBox_Main.SuspendLayout();
             this.SuspendLayout();
             // 
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.seperator1);
             this.GrpBox_Main.Controls.Add(this.Comp_ResistanceFactors);
             this.GrpBox_Main.Controls.Add(this.Comp_MortalityRates);
             this.GrpBox_Main.Controls.Add(this.Comp_HealingFactors);
@@ -58,6 +60,58 @@
             this.GrpBox_Main.TabIndex = 0;
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Disease";
+            // 
+            // seperator1
+            // 
+            this.seperator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seperator1.BackColor = System.Drawing.Color.Transparent;
+            this.seperator1.Location = new System.Drawing.Point(6, 268);
+            this.seperator1.Name = "seperator1";
+            this.seperator1.Size = new System.Drawing.Size(261, 5);
+            this.seperator1.TabIndex = 8;
+            // 
+            // Comp_ResistanceFactors
+            // 
+            this.Comp_ResistanceFactors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_ResistanceFactors.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_ResistanceFactors.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.ResistanceFactors;
+            this.Comp_ResistanceFactors.LabelText = "Resistancefactors";
+            this.Comp_ResistanceFactors.Location = new System.Drawing.Point(6, 235);
+            this.Comp_ResistanceFactors.Name = "Comp_ResistanceFactors";
+            this.Comp_ResistanceFactors.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_ResistanceFactors.Size = new System.Drawing.Size(261, 27);
+            this.Comp_ResistanceFactors.TabIndex = 7;
+            this.Comp_ResistanceFactors.ToolTip = "Specifies the chances for each agegroup not to be infected.";
+            // 
+            // Comp_MortalityRates
+            // 
+            this.Comp_MortalityRates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_MortalityRates.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_MortalityRates.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MortalityFactors;
+            this.Comp_MortalityRates.LabelText = "Mortalityrates:";
+            this.Comp_MortalityRates.Location = new System.Drawing.Point(6, 202);
+            this.Comp_MortalityRates.Name = "Comp_MortalityRates";
+            this.Comp_MortalityRates.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_MortalityRates.Size = new System.Drawing.Size(261, 27);
+            this.Comp_MortalityRates.TabIndex = 6;
+            this.Comp_MortalityRates.ToolTip = "Specifies the chances for each agegroup dieing as a result of the disease.";
+            // 
+            // Comp_HealingFactors
+            // 
+            this.Comp_HealingFactors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_HealingFactors.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_HealingFactors.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.HealingFactors;
+            this.Comp_HealingFactors.LabelText = "Healingfactors:";
+            this.Comp_HealingFactors.Location = new System.Drawing.Point(6, 169);
+            this.Comp_HealingFactors.Name = "Comp_HealingFactors";
+            this.Comp_HealingFactors.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_HealingFactors.Size = new System.Drawing.Size(261, 27);
+            this.Comp_HealingFactors.TabIndex = 5;
+            this.Comp_HealingFactors.ToolTip = "Specifies the chances for each agegroup being healed over time.";
             // 
             // Comp_Transferability
             // 
@@ -129,48 +183,6 @@
             this.Comp_DiseaseName.TabIndex = 0;
             this.Comp_DiseaseName.ToolTip = "The name of the disease.";
             // 
-            // Comp_HealingFactors
-            // 
-            this.Comp_HealingFactors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_HealingFactors.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_HealingFactors.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.HealingFactors;
-            this.Comp_HealingFactors.LabelText = "Healingfactors:";
-            this.Comp_HealingFactors.Location = new System.Drawing.Point(6, 169);
-            this.Comp_HealingFactors.Name = "Comp_HealingFactors";
-            this.Comp_HealingFactors.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_HealingFactors.Size = new System.Drawing.Size(261, 27);
-            this.Comp_HealingFactors.TabIndex = 5;
-            this.Comp_HealingFactors.ToolTip = "Specifies the chances for each agegroup being healed over time.";
-            // 
-            // Comp_MortalityRates
-            // 
-            this.Comp_MortalityRates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_MortalityRates.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_MortalityRates.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MortalityFactors;
-            this.Comp_MortalityRates.LabelText = "Mortalityrates:";
-            this.Comp_MortalityRates.Location = new System.Drawing.Point(6, 202);
-            this.Comp_MortalityRates.Name = "Comp_MortalityRates";
-            this.Comp_MortalityRates.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_MortalityRates.Size = new System.Drawing.Size(261, 27);
-            this.Comp_MortalityRates.TabIndex = 6;
-            this.Comp_MortalityRates.ToolTip = "Specifies the chances for each agegroup dieing as a result of the disease.";
-            // 
-            // Comp_ResistanceFactors
-            // 
-            this.Comp_ResistanceFactors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_ResistanceFactors.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_ResistanceFactors.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.Resistance;
-            this.Comp_ResistanceFactors.LabelText = "Resistancefactors";
-            this.Comp_ResistanceFactors.Location = new System.Drawing.Point(6, 235);
-            this.Comp_ResistanceFactors.Name = "Comp_ResistanceFactors";
-            this.Comp_ResistanceFactors.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_ResistanceFactors.Size = new System.Drawing.Size(261, 27);
-            this.Comp_ResistanceFactors.TabIndex = 7;
-            this.Comp_ResistanceFactors.ToolTip = "Specifies the chances for each agegroup not to be infected.";
-            // 
             // SimulationDiseasePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,5 +207,6 @@
         private Components.FactorComponent Comp_HealingFactors;
         private Components.FactorComponent Comp_MortalityRates;
         private Components.FactorComponent Comp_ResistanceFactors;
+        private Miscellaneous.Seperator seperator1;
     }
 }

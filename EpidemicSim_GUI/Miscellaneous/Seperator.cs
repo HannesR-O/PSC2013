@@ -33,7 +33,7 @@ namespace PSC2013.ES.GUI.Miscellaneous
             Pen gray = new Pen(Color.LightGray);
 
             g.DrawRectangle(black, x, y, w, 0.75f);
-            g.DrawRectangle(gray, x, y + 0.75f, w, 0.75f);
+            g.DrawRectangle(gray, x, y + 0.5f, w, 0.5f);
         }
     }
 }

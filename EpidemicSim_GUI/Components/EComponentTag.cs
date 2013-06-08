@@ -20,6 +20,7 @@ namespace PSC2013.ES.GUI.Components
         SimulationDuration,
         SimulationIntervall,
         SnapshotIntervall,
+        
         DiseaseName,
         IncubationPeriod,
         IdleTime,
@@ -27,6 +28,12 @@ namespace PSC2013.ES.GUI.Components
         Transferability,
         HealingFactors,
         MortalityFactors,
-        Resistance
+        ResistanceFactors,
+
+        AgeingComponent,
+        InfectionComponent,
+        DiseaseEffectComponent,
+        MindsetComponent,
+        MovementComponent
     }
 }

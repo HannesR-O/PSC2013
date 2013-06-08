@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\BoolComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Components\EComponentTag.cs" />
     <Compile Include="Components\FactorComponent.cs">
       <SubType>UserControl</SubType>

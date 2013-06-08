@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
+            this.seperator_2 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
+            this.Comp_EnableMovement = new PSC2013.ES.GUI.Components.BoolComponent();
+            this.Comp_EnableMindset = new PSC2013.ES.GUI.Components.BoolComponent();
+            this.Comp_EnableDiseaseEffect = new PSC2013.ES.GUI.Components.BoolComponent();
+            this.Comp_EnableInfection = new PSC2013.ES.GUI.Components.BoolComponent();
+            this.Comp_EnableAgeing = new PSC2013.ES.GUI.Components.BoolComponent();
             this.seperator_1 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
             this.Comp_SnapshotIntervall = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_SimulationIntervall = new PSC2013.ES.GUI.Components.IntComponent();
@@ -39,6 +45,12 @@
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.seperator_2);
+            this.GrpBox_Main.Controls.Add(this.Comp_EnableMovement);
+            this.GrpBox_Main.Controls.Add(this.Comp_EnableMindset);
+            this.GrpBox_Main.Controls.Add(this.Comp_EnableDiseaseEffect);
+            this.GrpBox_Main.Controls.Add(this.Comp_EnableInfection);
+            this.GrpBox_Main.Controls.Add(this.Comp_EnableAgeing);
             this.GrpBox_Main.Controls.Add(this.seperator_1);
             this.GrpBox_Main.Controls.Add(this.Comp_SnapshotIntervall);
             this.GrpBox_Main.Controls.Add(this.Comp_SimulationIntervall);
@@ -50,6 +62,87 @@
             this.GrpBox_Main.TabIndex = 0;
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Simulation";
+            // 
+            // seperator_2
+            // 
+            this.seperator_2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seperator_2.BackColor = System.Drawing.Color.Transparent;
+            this.seperator_2.Location = new System.Drawing.Point(6, 270);
+            this.seperator_2.Name = "seperator_2";
+            this.seperator_2.Size = new System.Drawing.Size(264, 5);
+            this.seperator_2.TabIndex = 9;
+            // 
+            // Comp_EnableMovement
+            // 
+            this.Comp_EnableMovement.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_EnableMovement.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_EnableMovement.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MovementComponent;
+            this.Comp_EnableMovement.LabelText = "Enable movement:";
+            this.Comp_EnableMovement.Location = new System.Drawing.Point(6, 240);
+            this.Comp_EnableMovement.Name = "Comp_EnableMovement";
+            this.Comp_EnableMovement.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_EnableMovement.Size = new System.Drawing.Size(264, 24);
+            this.Comp_EnableMovement.TabIndex = 8;
+            this.Comp_EnableMovement.ToolTip = "If enabled humans move around (fancy as f*ck).";
+            // 
+            // Comp_EnableMindset
+            // 
+            this.Comp_EnableMindset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_EnableMindset.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_EnableMindset.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MindsetComponent;
+            this.Comp_EnableMindset.LabelText = "Enable mindsets:";
+            this.Comp_EnableMindset.Location = new System.Drawing.Point(6, 210);
+            this.Comp_EnableMindset.Name = "Comp_EnableMindset";
+            this.Comp_EnableMindset.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_EnableMindset.Size = new System.Drawing.Size(264, 24);
+            this.Comp_EnableMindset.TabIndex = 7;
+            this.Comp_EnableMindset.ToolTip = "If enabled humans mindsets can change if affected by the disease.";
+            // 
+            // Comp_EnableDiseaseEffect
+            // 
+            this.Comp_EnableDiseaseEffect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_EnableDiseaseEffect.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_EnableDiseaseEffect.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.DiseaseEffectComponent;
+            this.Comp_EnableDiseaseEffect.LabelText = "Enable disease-effects:";
+            this.Comp_EnableDiseaseEffect.Location = new System.Drawing.Point(6, 180);
+            this.Comp_EnableDiseaseEffect.Name = "Comp_EnableDiseaseEffect";
+            this.Comp_EnableDiseaseEffect.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_EnableDiseaseEffect.Size = new System.Drawing.Size(264, 24);
+            this.Comp_EnableDiseaseEffect.TabIndex = 6;
+            this.Comp_EnableDiseaseEffect.ToolTip = "If enabled all effects of the disease (e.g. idle, spreading, diseased, death) can" +
+    " take action.";
+            // 
+            // Comp_EnableInfection
+            // 
+            this.Comp_EnableInfection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_EnableInfection.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_EnableInfection.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.InfectionComponent;
+            this.Comp_EnableInfection.LabelText = "Enable infecting:";
+            this.Comp_EnableInfection.Location = new System.Drawing.Point(6, 150);
+            this.Comp_EnableInfection.Name = "Comp_EnableInfection";
+            this.Comp_EnableInfection.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_EnableInfection.Size = new System.Drawing.Size(264, 24);
+            this.Comp_EnableInfection.TabIndex = 5;
+            this.Comp_EnableInfection.ToolTip = "We admit: if disabled this whole thing does not make sense.";
+            // 
+            // Comp_EnableAgeing
+            // 
+            this.Comp_EnableAgeing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_EnableAgeing.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_EnableAgeing.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.AgeingComponent;
+            this.Comp_EnableAgeing.LabelText = "Enable ageing:";
+            this.Comp_EnableAgeing.Location = new System.Drawing.Point(6, 120);
+            this.Comp_EnableAgeing.Name = "Comp_EnableAgeing";
+            this.Comp_EnableAgeing.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_EnableAgeing.Size = new System.Drawing.Size(264, 24);
+            this.Comp_EnableAgeing.TabIndex = 4;
+            this.Comp_EnableAgeing.ToolTip = "If enabled (checked) humans age when years pass.";
             // 
             // seperator_1
             // 
@@ -123,5 +216,11 @@
         private Components.IntComponent Comp_SimulationIntervall;
         private Components.IntComponent Comp_SnapshotIntervall;
         private Miscellaneous.Seperator seperator_1;
+        private Components.BoolComponent Comp_EnableAgeing;
+        private Components.BoolComponent Comp_EnableInfection;
+        private Components.BoolComponent Comp_EnableDiseaseEffect;
+        private Components.BoolComponent Comp_EnableMindset;
+        private Miscellaneous.Seperator seperator_2;
+        private Components.BoolComponent Comp_EnableMovement;
     }
 }
