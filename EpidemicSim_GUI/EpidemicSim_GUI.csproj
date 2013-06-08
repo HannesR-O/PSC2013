@@ -98,6 +98,12 @@
     <Compile Include="Simulation\Panels\SimulationDiseasePanel.Designer.cs">
       <DependentUpon>SimulationDiseasePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Simulation\Panels\SimulationStartlocationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Simulation\Panels\SimulationStartlocationPanel.Designer.cs">
+      <DependentUpon>SimulationStartlocationPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Simulation\SimulationFirstContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Simulation\Panels\SimulationDiseasePanel.resx">
       <DependentUpon>SimulationDiseasePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Simulation\Panels\SimulationStartlocationPanel.resx">
+      <DependentUpon>SimulationStartlocationPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Simulation\SimulationFirstContainer.resx">
       <DependentUpon>SimulationFirstContainer.cs</DependentUpon>

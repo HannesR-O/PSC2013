@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
+            this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
+            this.Btn_Next = new System.Windows.Forms.Button();
+            this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.seperator1 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
             this.Comp_ResistanceFactors = new PSC2013.ES.GUI.Components.FactorComponent();
             this.Comp_MortalityRates = new PSC2013.ES.GUI.Components.FactorComponent();
@@ -39,11 +42,14 @@
             this.Comp_IncubationPeriod = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_DiseaseName = new PSC2013.ES.GUI.Components.TextComponent();
             this.GrpBox_Main.SuspendLayout();
+            this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
+            this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
             this.GrpBox_Main.Controls.Add(this.seperator1);
             this.GrpBox_Main.Controls.Add(this.Comp_ResistanceFactors);
             this.GrpBox_Main.Controls.Add(this.Comp_MortalityRates);
@@ -60,6 +66,41 @@
             this.GrpBox_Main.TabIndex = 0;
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Disease";
+            // 
+            // FlowPanel_Bottom
+            // 
+            this.FlowPanel_Bottom.AutoSize = true;
+            this.FlowPanel_Bottom.Controls.Add(this.Btn_Next);
+            this.FlowPanel_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.FlowPanel_Bottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 413);
+            this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
+            this.FlowPanel_Bottom.Size = new System.Drawing.Size(267, 29);
+            this.FlowPanel_Bottom.TabIndex = 9;
+            // 
+            // Btn_Next
+            // 
+            this.Btn_Next.Location = new System.Drawing.Point(189, 3);
+            this.Btn_Next.Name = "Btn_Next";
+            this.Btn_Next.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Next.TabIndex = 0;
+            this.Btn_Next.Text = "Next >";
+            this.Btn_Next.UseVisualStyleBackColor = true;
+            // 
+            // TextBox_Hint
+            // 
+            this.TextBox_Hint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TextBox_Hint.Location = new System.Drawing.Point(10, 279);
+            this.TextBox_Hint.Multiline = true;
+            this.TextBox_Hint.Name = "TextBox_Hint";
+            this.TextBox_Hint.ReadOnly = true;
+            this.TextBox_Hint.Size = new System.Drawing.Size(253, 128);
+            this.TextBox_Hint.TabIndex = 10;
+            this.TextBox_Hint.Text = "Hint: guess what?";
             // 
             // seperator1
             // 
@@ -192,6 +233,8 @@
             this.Name = "SimulationDiseasePanel";
             this.Size = new System.Drawing.Size(273, 445);
             this.GrpBox_Main.ResumeLayout(false);
+            this.GrpBox_Main.PerformLayout();
+            this.FlowPanel_Bottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -208,5 +251,8 @@
         private Components.FactorComponent Comp_MortalityRates;
         private Components.FactorComponent Comp_ResistanceFactors;
         private Miscellaneous.Seperator seperator1;
+        private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
+        private System.Windows.Forms.Button Btn_Next;
+        private System.Windows.Forms.TextBox TextBox_Hint;
     }
 }

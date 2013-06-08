@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PSC2013.ES.GUI.Miscellaneous;
 
 namespace PSC2013.ES.GUI.Simulation
 {
@@ -23,7 +24,7 @@ namespace PSC2013.ES.GUI.Simulation
         {
             foreach (Control item in WorkFlow.Controls)
             {
-                item.Width = WorkFlow.Width / 3 - 2 * WorkFlow.Padding.Left;
+                item.Width = WorkFlow.Width / 3 - 3 * WorkFlow.Padding.Left;
                 item.Height = WorkFlow.Height - 3 * WorkFlow.Padding.Top;
             }
         }

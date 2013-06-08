@@ -34,6 +34,7 @@ namespace PSC2013.ES.GUI
         {
             InitializeComponent();
             
+            // TODO | dj | this is just as dummy here.
             ShowFirstSimulationPage();
         }
 

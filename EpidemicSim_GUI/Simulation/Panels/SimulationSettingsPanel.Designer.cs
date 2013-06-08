@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
+            this.TextBox_Hint = new System.Windows.Forms.TextBox();
+            this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
+            this.Btn_Next = new System.Windows.Forms.Button();
             this.seperator_2 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
             this.Comp_EnableMovement = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_EnableMindset = new PSC2013.ES.GUI.Components.BoolComponent();
@@ -40,11 +43,14 @@
             this.Comp_SimulationIntervall = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_SimulationDuration = new PSC2013.ES.GUI.Components.LongComponent();
             this.GrpBox_Main.SuspendLayout();
+            this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
+            this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
             this.GrpBox_Main.Controls.Add(this.seperator_2);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableMovement);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableMindset);
@@ -62,6 +68,41 @@
             this.GrpBox_Main.TabIndex = 0;
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Simulation";
+            // 
+            // TextBox_Hint
+            // 
+            this.TextBox_Hint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TextBox_Hint.Location = new System.Drawing.Point(10, 281);
+            this.TextBox_Hint.Multiline = true;
+            this.TextBox_Hint.Name = "TextBox_Hint";
+            this.TextBox_Hint.ReadOnly = true;
+            this.TextBox_Hint.Size = new System.Drawing.Size(256, 101);
+            this.TextBox_Hint.TabIndex = 11;
+            this.TextBox_Hint.Text = "Hint: HERE SHOULD be some important hints to the settings from above";
+            // 
+            // FlowPanel_Bottom
+            // 
+            this.FlowPanel_Bottom.AutoSize = true;
+            this.FlowPanel_Bottom.Controls.Add(this.Btn_Next);
+            this.FlowPanel_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.FlowPanel_Bottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 388);
+            this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
+            this.FlowPanel_Bottom.Size = new System.Drawing.Size(270, 29);
+            this.FlowPanel_Bottom.TabIndex = 10;
+            // 
+            // Btn_Next
+            // 
+            this.Btn_Next.Location = new System.Drawing.Point(192, 3);
+            this.Btn_Next.Name = "Btn_Next";
+            this.Btn_Next.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Next.TabIndex = 0;
+            this.Btn_Next.Text = "Next >";
+            this.Btn_Next.UseVisualStyleBackColor = true;
             // 
             // seperator_2
             // 
@@ -205,6 +246,8 @@
             this.Name = "SimulationSettingsPanel";
             this.Size = new System.Drawing.Size(276, 420);
             this.GrpBox_Main.ResumeLayout(false);
+            this.GrpBox_Main.PerformLayout();
+            this.FlowPanel_Bottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -222,5 +265,8 @@
         private Components.BoolComponent Comp_EnableMindset;
         private Miscellaneous.Seperator seperator_2;
         private Components.BoolComponent Comp_EnableMovement;
+        private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
+        private System.Windows.Forms.Button Btn_Next;
+        private System.Windows.Forms.TextBox TextBox_Hint;
     }
 }
