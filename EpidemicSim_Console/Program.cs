@@ -181,9 +181,9 @@ namespace PSC2013.ES.Cmd
             var disease = new Disease() 
             {
                 Name = "Inf_Test",
-                IdleTime = 1,
-                IncubationPeriod = 5,
-                SpreadingTime = 6,
+                IdleTime = 6,
+                IncubationPeriod = 6,
+                SpreadingTime = 12,
                 Transferability = 100,
                 MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
                 HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
@@ -192,9 +192,9 @@ namespace PSC2013.ES.Cmd
 
             var sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), new InfectionComponent());
             sim.AddSimulationComponent(new DiseaseEffectComponent());
-            sim.SetSimulationIntervall(1);
-            sim.SetSnapshotIntervall(1);
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 5);
+            sim.SetSimulationIntervall(3);
+            sim.SetSnapshotIntervall(3);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 24);
         }
 
         public static void TestStats()
