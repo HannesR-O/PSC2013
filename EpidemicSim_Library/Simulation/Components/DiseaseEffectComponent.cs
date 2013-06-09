@@ -10,58 +10,69 @@ namespace PSC2013.ES.Library.Simulation.Components
 {
     public class DiseaseEffectComponent : SimulationComponent
     {
-        public DiseaseEffectComponent() : base(ESimulationStage.AfterInfectedCalculation)
+        private SimulationData _data;
+
+        public DiseaseEffectComponent()
+            : base(ESimulationStage.AfterInfectedCalculation)
         {
         }
 
         public unsafe override void PerformSimulationStage(SimulationData data)
         {
-            Disease disease = data.DiseaseToSimulate;
+            _data = data;
 
             fixed (Human* humanptr = data.Humans)
             {
                 Human* startPtr = humanptr;
-                Parallel.For(0, data.Humans.Length, Constants.DEFAULT_PARALLELOPTIONS,
+                Parallel.For(0, _data.Humans.Length, Constants.DEFAULT_PARALLELOPTIONS,
                     index =>
                     {
                         Human* ptr = startPtr + index;
 
-                        PopulationCell currentCell = data.Cells[ptr->CurrentCell];
+                        if (ptr->IsDead())
+                            return;
 
-                        var spreading = ptr->IsSpreading();
-                        var infecting = ptr->IsInfected();
-                        var diseased = ptr->IsDiseased();
-
-                        if (!ptr->IsDead())
+                        // Do the appropiate tick "_simulationIntervall-times" to secure correct counters
+                        for (int i = 0; i < _simulationIntervall; i++)
                         {
-                            // TODO | dj & f | take hour-tick-time relationship into account...
-                            ptr->DoDiseaseTick((short)disease.SpreadingTime, _simulationIntervall);
-                        }
-
-                        if (ptr->IsSpreading() != spreading)
-                        {
-                            if (spreading)
-                                lock (currentCell) currentCell.Spreading--;
-                            else
-                                lock (currentCell) currentCell.Spreading++;
-                        }
-
-                        if (ptr->IsInfected() != infecting)
-                        {
-                            if (infecting)
-                                lock (currentCell) currentCell.Infecting--;
-                            else
-                                lock (currentCell) currentCell.Infecting++;
-                        }
-
-                        if (ptr->IsDiseased() != diseased)
-                        {
-                            if (diseased)
-                                lock (currentCell) currentCell.Diseased--;
-                            else
-                                lock (currentCell) currentCell.Diseased++;
+                            HandleHuman(ptr);                            
                         }
                     });
+            }
+        }
+
+        private unsafe void HandleHuman(Human* human)
+        {
+            PopulationCell currentCell = _data.Cells[human->CurrentCell];
+
+            var spreading = human->IsSpreading();
+            var infecting = human->IsInfected();
+            var diseased = human->IsDiseased();
+
+            human->DoDiseaseTick((short)_data.DiseaseToSimulate.SpreadingTime);
+
+            if (human->IsSpreading() != spreading)
+            {
+                if (spreading)
+                    lock (currentCell) currentCell.Spreading--;
+                else
+                    lock (currentCell) currentCell.Spreading++;
+            }
+
+            if (human->IsInfected() != infecting)
+            {
+                if (infecting)
+                    lock (currentCell) currentCell.Infecting--;
+                else
+                    lock (currentCell) currentCell.Infecting++;
+            }
+
+            if (human->IsDiseased() != diseased)
+            {
+                if (diseased)
+                    lock (currentCell) currentCell.Diseased--;
+                else
+                    lock (currentCell) currentCell.Diseased++;
             }
         }
 
@@ -81,7 +92,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (otherComponent == null)
                 return false;
 
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

@@ -271,9 +271,11 @@ namespace PSC2013.ES.Library.PopulationData
         /// <summary>
         /// Performes a disease-tick on the human and increases his counters if appropiate
         /// </summary>
-        public void DoDiseaseTick(short spreadingTime, int count)
+        /// <param name="spreadingTime">Disease's spreading time. Needs to get passed, so Human doesn't need another field.</param>
+        public void DoDiseaseTick(short spreadingTime)
         {
             //TODO: Are the checks correct? does counterInfect get updated when human is infected?
+            // |f| I think they are, since David fixed the method some time ago..
             if (IsInfected())
             {
                 if (_counterInfect > 0)
