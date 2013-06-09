@@ -135,6 +135,12 @@
     <Compile Include="Simulation\Panels\SimulationSettingsPanel.Designer.cs">
       <DependentUpon>SimulationSettingsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Simulation\SimulationSecondContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Simulation\SimulationSecondContainer.Designer.cs">
+      <DependentUpon>SimulationSecondContainer.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Components\SettingsComponent.resx">
       <DependentUpon>SettingsComponent.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Simulation\Panels\SimulationSettingsPanel.resx">
       <DependentUpon>SimulationSettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Simulation\SimulationSecondContainer.resx">
+      <DependentUpon>SimulationSecondContainer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

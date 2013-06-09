@@ -20,12 +20,14 @@ namespace PSC2013.ES.GUI.Components
             
             _button = new Button();
             _button.Text = "Browse...";
+            _button.TabIndex = _textBox.TabIndex;
             _button.Click += OnBrowseClick;
             SetValueControl(_button);
             _button.Top = _textBox.Top + _textBox.Height + 3;
 
             SetValueControl(_textBox);
             _textBox.Anchor |= AnchorStyles.Left;
+            _textBox.TabIndex++;
 
             this.Height += _button.Height + 3;
         }
