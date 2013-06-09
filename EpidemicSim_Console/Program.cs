@@ -157,7 +157,7 @@ namespace PSC2013.ES.Cmd
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new ConsoleOutputTarget(),
                 new AgeingComponent(110),
-                new DiseaseEffectComponent(),
+                new DiseaseTickComponent(),
                 new MindsetComponent(),
                 new MovementComponent(),
                 new InfectionComponent()/*,
@@ -191,7 +191,7 @@ namespace PSC2013.ES.Cmd
             };
 
             var sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), new InfectionComponent());
-            sim.AddSimulationComponent(new DiseaseEffectComponent());
+            sim.AddSimulationComponent(new DiseaseTickComponent());
             sim.SetSimulationIntervall(3);
             sim.SetSnapshotIntervall(3);
             sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 24);
@@ -330,7 +330,7 @@ namespace PSC2013.ES.Cmd
             string[] componentNames = 
                 {"AgeingComponent", "DiseaseEffectComponent", "MindsetComponent", "MovementComponent"};
             SimulationComponent[] components = 
-                { new AgeingComponent(110), new DiseaseEffectComponent(), new MindsetComponent(), new MovementComponent() };
+                { new AgeingComponent(110), new DiseaseTickComponent(), new MindsetComponent(), new MovementComponent() };
             var debugComp = new DebugInfectionComponent();
 
             EpidemicSimulator sim;
