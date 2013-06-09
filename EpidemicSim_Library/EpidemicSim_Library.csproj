@@ -59,6 +59,7 @@
     <Compile Include="Simulation\Components\DebugInfectionComponent.cs" />
     <Compile Include="Simulation\Components\DiseaseDeathComponent.cs" />
     <Compile Include="Simulation\Components\DiseaseEffectComponent.cs" />
+    <Compile Include="Simulation\Components\DiseaseHealingComponent.cs" />
     <Compile Include="Simulation\Components\DiseaseTickComponent.cs" />
     <Compile Include="Simulation\Components\InfectionComponent.cs" />
     <Compile Include="Simulation\Components\MindsetComponent.cs" />

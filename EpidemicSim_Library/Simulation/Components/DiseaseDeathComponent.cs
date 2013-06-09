@@ -15,7 +15,18 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         protected override unsafe void HandleHuman(Human* human)
         {
-            throw new NotImplementedException();
+            if(!human->IsInfected())
+                return;
+
+            //TODO: |f| pretty basic stuff right here might wanna spice this up a little
+            var rand = RANDOM.Next(100);
+            int ageGroup = (int)human->GetAge() / 32;
+
+            if (human->GetGender() == EGender.Female)
+                ageGroup += 4;
+
+            if (rand <= _data.DiseaseToSimulate.MortalityRate[ageGroup])
+                human->KillHuman();
         }
 
         public override bool Equals(SimulationComponent other)

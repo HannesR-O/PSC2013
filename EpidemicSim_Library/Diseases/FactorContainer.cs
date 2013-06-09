@@ -56,6 +56,19 @@ namespace PSC2013.ES.Library.Diseases
             }
         }
 
+        /// <summary>
+        /// Provides comfortable access to the FactirContainer's values
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public int this[int index] 
+        {
+            get 
+            { 
+                return _data[index];
+            }
+        }
+
         private int[] _data;
 
         /// <summary>
