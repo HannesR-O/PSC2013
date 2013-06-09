@@ -21,7 +21,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
                 Environment.NewLine + "get a higher value than one per contact)";
         }
 
-        public Button NextButton
+        public Button TheButton
         {
             get { return this.Btn_Next; }
         }

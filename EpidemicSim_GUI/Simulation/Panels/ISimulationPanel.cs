@@ -12,7 +12,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
         /// <summary>
         /// The Next-button in the panel.
         /// </summary>
-        Button NextButton { get; }
+        Button TheButton { get; }
 
         /// <summary>
         /// The information, the panel is holding.

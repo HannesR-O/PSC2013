@@ -18,7 +18,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             InitializeComponent();
         }
 
-        public Button NextButton
+        public Button TheButton
         {
             get { return this.Btn_Next; }
         }

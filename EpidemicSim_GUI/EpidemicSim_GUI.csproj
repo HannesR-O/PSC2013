@@ -82,6 +82,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Miscellaneous\ListBoxOutputTarget.cs" />
     <Compile Include="Miscellaneous\Separator.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -109,6 +110,12 @@
     </Compile>
     <Compile Include="Simulation\Panels\SimulationFinalSettingsPanel.Designer.cs">
       <DependentUpon>SimulationFinalSettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Simulation\Panels\SimulationOutputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Simulation\Panels\SimulationOutputPanel.Designer.cs">
+      <DependentUpon>SimulationOutputPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Simulation\Panels\SimulationStartlocationPanel.cs">
       <SubType>UserControl</SubType>
@@ -155,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Simulation\Panels\SimulationFinalSettingsPanel.resx">
       <DependentUpon>SimulationFinalSettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Simulation\Panels\SimulationOutputPanel.resx">
+      <DependentUpon>SimulationOutputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Simulation\Panels\SimulationStartlocationPanel.resx">
       <DependentUpon>SimulationStartlocationPanel.cs</DependentUpon>

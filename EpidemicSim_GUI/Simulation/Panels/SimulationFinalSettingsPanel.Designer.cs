@@ -30,12 +30,16 @@
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
             this.Comp_Destination = new PSC2013.ES.GUI.Components.PathComponent();
+            this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
+            this.Btn_Start = new System.Windows.Forms.Button();
             this.GrpBox_Main.SuspendLayout();
+            this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
             this.GrpBox_Main.Controls.Add(this.Comp_Destination);
             this.GrpBox_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrpBox_Main.Location = new System.Drawing.Point(0, 0);
@@ -51,6 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Comp_Destination.BackColor = System.Drawing.Color.Transparent;
             this.Comp_Destination.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.None;
+            this.Comp_Destination.Dialog = null;
             this.Comp_Destination.LabelText = "Destination:";
             this.Comp_Destination.Location = new System.Drawing.Point(6, 19);
             this.Comp_Destination.Name = "Comp_Destination";
@@ -58,7 +63,26 @@
             this.Comp_Destination.Size = new System.Drawing.Size(260, 50);
             this.Comp_Destination.TabIndex = 0;
             this.Comp_Destination.ToolTip = "Path where to save the simulation.";
-            this.Comp_Destination.Dialog = null;
+            // 
+            // FlowPanel_Bottom
+            // 
+            this.FlowPanel_Bottom.AutoSize = true;
+            this.FlowPanel_Bottom.Controls.Add(this.Btn_Start);
+            this.FlowPanel_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.FlowPanel_Bottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 389);
+            this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
+            this.FlowPanel_Bottom.Size = new System.Drawing.Size(266, 29);
+            this.FlowPanel_Bottom.TabIndex = 1;
+            // 
+            // Btn_Start
+            // 
+            this.Btn_Start.Location = new System.Drawing.Point(188, 3);
+            this.Btn_Start.Name = "Btn_Start";
+            this.Btn_Start.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Start.TabIndex = 0;
+            this.Btn_Start.Text = "Start";
+            this.Btn_Start.UseVisualStyleBackColor = true;
             // 
             // SimulationFinalSettingsPanel
             // 
@@ -69,6 +93,8 @@
             this.Name = "SimulationFinalSettingsPanel";
             this.Size = new System.Drawing.Size(272, 421);
             this.GrpBox_Main.ResumeLayout(false);
+            this.GrpBox_Main.PerformLayout();
+            this.FlowPanel_Bottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -77,5 +103,7 @@
 
         private System.Windows.Forms.GroupBox GrpBox_Main;
         private Components.PathComponent Comp_Destination;
+        private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
+        private System.Windows.Forms.Button Btn_Start;
     }
 }
