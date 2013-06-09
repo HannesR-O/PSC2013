@@ -226,7 +226,7 @@ namespace PSC2013.ES.Library.PopulationData
             return (EProfession)(_data2 >> 4);
         }
 
-        private void SetProfession(EProfession profession)
+        public void SetProfession(EProfession profession)
         {
             _data2 = (byte)(_data2 & ~MASK_PROFESSION + ((byte)profession) << 4);
         }
