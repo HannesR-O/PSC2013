@@ -52,7 +52,7 @@
             this.MenuStrip_Main.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip_Main.Name = "MenuStrip_Main";
             this.MenuStrip_Main.Padding = new System.Windows.Forms.Padding(2, 2, 0, 2);
-            this.MenuStrip_Main.Size = new System.Drawing.Size(684, 24);
+            this.MenuStrip_Main.Size = new System.Drawing.Size(834, 24);
             this.MenuStrip_Main.TabIndex = 0;
             // 
             // MenuStrip_Main_File
@@ -120,24 +120,24 @@
             this.OpenSimFileDialog.Filter = "Simulation File (*.sim)|*.sim|All files (*.*)|*.*";
             this.OpenSimFileDialog.Title = "Open Simulation file (.sim)";
             // 
-            // WorkPanel
+            // _workPanel
             // 
             this._workPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._workPanel.Location = new System.Drawing.Point(0, 24);
             this._workPanel.Margin = new System.Windows.Forms.Padding(0);
-            this._workPanel.Name = "WorkPanel";
-            this._workPanel.Size = new System.Drawing.Size(684, 438);
+            this._workPanel.Name = "_workPanel";
+            this._workPanel.Size = new System.Drawing.Size(834, 538);
             this._workPanel.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 462);
+            this.ClientSize = new System.Drawing.Size(834, 562);
             this.Controls.Add(this._workPanel);
             this.Controls.Add(this.MenuStrip_Main);
             this.MainMenuStrip = this.MenuStrip_Main;
-            this.MinimumSize = new System.Drawing.Size(650, 450);
+            this.MinimumSize = new System.Drawing.Size(700, 450);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Epidemic Simulator";

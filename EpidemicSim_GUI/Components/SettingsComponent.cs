@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PSC2013.ES.GUI.Components
 {
-    public abstract partial class SettingsComponent<T> : UserControl
+    public abstract partial class SettingsComponent<T> : UserControl, ISettingsComponent
 
     {
         public const int DEFAULT_CONTROL_WIDTH = 100;

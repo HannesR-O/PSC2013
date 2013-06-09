@@ -8,14 +8,16 @@ namespace PSC2013.ES.GUI.Components
 {
     public enum EComponentTag
     {
-        MaleBaby        = 0,
-        MaleChild       = 1,
-        MaleAdult       = 2,
-        MaleSenior      = 3,
-        FemaleBaby      = 4,
-        FemaleChild     = 5,
-        FemaleAdult     = 6,
-        FemaleSenior    = 7,
+        None,
+
+        MaleBaby        = 1,
+        MaleChild       = 2,
+        MaleAdult       = 3,
+        MaleSenior      = 4,
+        FemaleBaby      = 5,
+        FemaleChild     = 6,
+        FemaleAdult     = 7,
+        FemaleSenior    = 8,
         
         SimulationDuration,
         SimulationIntervall,

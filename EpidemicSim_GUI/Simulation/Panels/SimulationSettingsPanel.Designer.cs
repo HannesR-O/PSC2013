@@ -76,6 +76,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TextBox_Hint.Enabled = false;
             this.TextBox_Hint.Location = new System.Drawing.Point(10, 281);
             this.TextBox_Hint.Multiline = true;
             this.TextBox_Hint.Name = "TextBox_Hint";

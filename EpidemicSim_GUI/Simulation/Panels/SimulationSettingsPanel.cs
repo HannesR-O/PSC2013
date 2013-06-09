@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSC2013.ES.GUI.Components;
+using PSC2013.ES.GUI.Miscellaneous;
 
 namespace PSC2013.ES.GUI.Simulation.Panels
 {
-    public partial class SimulationSettingsPanel : UserControl
+    public partial class SimulationSettingsPanel : UserControl, ISimulationPanel<SettingsContainer>
     {
         public SimulationSettingsPanel()
         {
@@ -21,6 +16,56 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             this.Comp_EnableDiseaseEffect.SetValue(true);
             this.Comp_EnableMindset.SetValue(true);
             this.Comp_EnableMovement.SetValue(true);
+        }
+
+        public Button NextButton
+        {
+            get { return this.Btn_Next; }
+        }
+
+        public SettingsContainer ContentInformation
+        {
+            get { return GatherInformation(); }
+        }
+
+        private SettingsContainer GatherInformation()
+        {
+            SettingsContainer sc = new SettingsContainer();
+            List<EComponentTag> comps = new List<EComponentTag>();
+
+            foreach (Control item in this.GrpBox_Main.Controls)
+            {
+                ISettingsComponent comp = item as ISettingsComponent;
+                if (comp != null)
+                {
+                    switch (comp.ComponentTag)
+                    {
+                        case EComponentTag.SimulationDuration:
+                            sc.SimulationDuration = (comp as SettingsComponent<long>).GetValue();
+                            break;
+                        case EComponentTag.SimulationIntervall:
+                            sc.SimulationIntervall = (comp as SettingsComponent<int>).GetValue();
+                            break;
+                        case EComponentTag.SnapshotIntervall:
+                            sc.SnapshotIntervall = (comp as SettingsComponent<int>).GetValue();
+                            break;
+                        case EComponentTag.AgeingComponent:
+                        case EComponentTag.InfectionComponent:
+                        case EComponentTag.DiseaseEffectComponent:
+                        case EComponentTag.MindsetComponent:
+                        case EComponentTag.MovementComponent:
+                            if ((comp as SettingsComponent<bool>).GetValue())
+                                comps.Add(comp.ComponentTag);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            sc.Components = comps.ToArray();
+
+            return sc;
         }
     }
 }

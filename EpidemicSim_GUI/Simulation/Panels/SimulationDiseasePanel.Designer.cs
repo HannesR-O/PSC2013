@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
+            this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
-            this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.seperator1 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
             this.Comp_ResistanceFactors = new PSC2013.ES.GUI.Components.FactorComponent();
             this.Comp_MortalityRates = new PSC2013.ES.GUI.Components.FactorComponent();
@@ -67,6 +67,22 @@
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Disease";
             // 
+            // TextBox_Hint
+            // 
+            this.TextBox_Hint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TextBox_Hint.Enabled = false;
+            this.TextBox_Hint.Location = new System.Drawing.Point(10, 279);
+            this.TextBox_Hint.Multiline = true;
+            this.TextBox_Hint.Name = "TextBox_Hint";
+            this.TextBox_Hint.ReadOnly = true;
+            this.TextBox_Hint.Size = new System.Drawing.Size(253, 128);
+            this.TextBox_Hint.TabIndex = 10;
+            this.TextBox_Hint.Text = "Hint: guess what?";
+            // 
             // FlowPanel_Bottom
             // 
             this.FlowPanel_Bottom.AutoSize = true;
@@ -86,21 +102,6 @@
             this.Btn_Next.TabIndex = 0;
             this.Btn_Next.Text = "Next >";
             this.Btn_Next.UseVisualStyleBackColor = true;
-            // 
-            // TextBox_Hint
-            // 
-            this.TextBox_Hint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.TextBox_Hint.Location = new System.Drawing.Point(10, 279);
-            this.TextBox_Hint.Multiline = true;
-            this.TextBox_Hint.Name = "TextBox_Hint";
-            this.TextBox_Hint.ReadOnly = true;
-            this.TextBox_Hint.Size = new System.Drawing.Size(253, 128);
-            this.TextBox_Hint.TabIndex = 10;
-            this.TextBox_Hint.Text = "Hint: guess what?";
             // 
             // seperator1
             // 
