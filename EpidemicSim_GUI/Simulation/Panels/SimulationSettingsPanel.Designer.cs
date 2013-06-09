@@ -32,13 +32,13 @@
             this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
-            this.seperator_2 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
+            this.separator_2 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_EnableMovement = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_EnableMindset = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_EnableDiseaseEffect = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_EnableInfection = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_EnableAgeing = new PSC2013.ES.GUI.Components.BoolComponent();
-            this.seperator_1 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
+            this.separator_1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_SnapshotIntervall = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_SimulationIntervall = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_SimulationDuration = new PSC2013.ES.GUI.Components.LongComponent();
@@ -51,13 +51,13 @@
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
             this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
             this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
-            this.GrpBox_Main.Controls.Add(this.seperator_2);
+            this.GrpBox_Main.Controls.Add(this.separator_2);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableMovement);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableMindset);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableDiseaseEffect);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableInfection);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableAgeing);
-            this.GrpBox_Main.Controls.Add(this.seperator_1);
+            this.GrpBox_Main.Controls.Add(this.separator_1);
             this.GrpBox_Main.Controls.Add(this.Comp_SnapshotIntervall);
             this.GrpBox_Main.Controls.Add(this.Comp_SimulationIntervall);
             this.GrpBox_Main.Controls.Add(this.Comp_SimulationDuration);
@@ -105,15 +105,15 @@
             this.Btn_Next.Text = "Next >";
             this.Btn_Next.UseVisualStyleBackColor = true;
             // 
-            // seperator_2
+            // separator_2
             // 
-            this.seperator_2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.separator_2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.seperator_2.BackColor = System.Drawing.Color.Transparent;
-            this.seperator_2.Location = new System.Drawing.Point(6, 270);
-            this.seperator_2.Name = "seperator_2";
-            this.seperator_2.Size = new System.Drawing.Size(264, 5);
-            this.seperator_2.TabIndex = 9;
+            this.separator_2.BackColor = System.Drawing.Color.Transparent;
+            this.separator_2.Location = new System.Drawing.Point(6, 270);
+            this.separator_2.Name = "separator_2";
+            this.separator_2.Size = new System.Drawing.Size(264, 5);
+            this.separator_2.TabIndex = 9;
             // 
             // Comp_EnableMovement
             // 
@@ -186,15 +186,15 @@
             this.Comp_EnableAgeing.TabIndex = 4;
             this.Comp_EnableAgeing.ToolTip = "If enabled (checked) humans age when years pass.";
             // 
-            // seperator_1
+            // separator_1
             // 
-            this.seperator_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.separator_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.seperator_1.BackColor = System.Drawing.Color.Transparent;
-            this.seperator_1.Location = new System.Drawing.Point(6, 109);
-            this.seperator_1.Name = "seperator_1";
-            this.seperator_1.Size = new System.Drawing.Size(264, 5);
-            this.seperator_1.TabIndex = 3;
+            this.separator_1.BackColor = System.Drawing.Color.Transparent;
+            this.separator_1.Location = new System.Drawing.Point(6, 109);
+            this.separator_1.Name = "separator_1";
+            this.separator_1.Size = new System.Drawing.Size(264, 5);
+            this.separator_1.TabIndex = 3;
             // 
             // Comp_SnapshotIntervall
             // 
@@ -259,12 +259,12 @@
         private Components.LongComponent Comp_SimulationDuration;
         private Components.IntComponent Comp_SimulationIntervall;
         private Components.IntComponent Comp_SnapshotIntervall;
-        private Miscellaneous.Seperator seperator_1;
+        private Miscellaneous.Separator separator_1;
         private Components.BoolComponent Comp_EnableAgeing;
         private Components.BoolComponent Comp_EnableInfection;
         private Components.BoolComponent Comp_EnableDiseaseEffect;
         private Components.BoolComponent Comp_EnableMindset;
-        private Miscellaneous.Seperator seperator_2;
+        private Miscellaneous.Separator separator_2;
         private Components.BoolComponent Comp_EnableMovement;
         private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
         private System.Windows.Forms.Button Btn_Next;

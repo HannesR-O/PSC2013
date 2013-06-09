@@ -1,6 +1,6 @@
 ﻿namespace PSC2013.ES.GUI.Miscellaneous
 {
-    partial class Seperator
+    partial class Separator
     {
         /// <summary> 
         /// Required designer variable.

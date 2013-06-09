@@ -4,11 +4,12 @@ using System.Windows.Forms;
 
 namespace PSC2013.ES.GUI.Miscellaneous
 {
-    public partial class Seperator : UserControl
+    public partial class Separator : UserControl
     {
-        public Seperator()
+        public Separator()
         {
             InitializeComponent();
+            SetStyle(ControlStyles.Selectable, false);
             this.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
         }
 

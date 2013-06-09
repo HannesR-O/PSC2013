@@ -30,18 +30,18 @@ namespace PSC2013.ES.GUI.Simulation
         private void InitializeComponent()
         {
             this.WorkFlow = new System.Windows.Forms.FlowLayoutPanel();
-            this.settingsPanel = new PSC2013.ES.GUI.Simulation.Panels.SimulationSettingsPanel();
+            this.simulationSettingsPanel = new PSC2013.ES.GUI.Simulation.Panels.SimulationSettingsPanel();
             this.simulationDiseasePanel = new PSC2013.ES.GUI.Simulation.Panels.SimulationDiseasePanel();
-            this.simulationStartlocationPanel1 = new PSC2013.ES.GUI.Simulation.Panels.SimulationStartlocationPanel();
+            this.simulationStartlocationPanel = new PSC2013.ES.GUI.Simulation.Panels.SimulationStartlocationPanel();
             this.WorkFlow.SuspendLayout();
             this.SuspendLayout();
             // 
             // WorkFlow
             // 
             this.WorkFlow.BackColor = System.Drawing.SystemColors.Control;
-            this.WorkFlow.Controls.Add(this.settingsPanel);
+            this.WorkFlow.Controls.Add(this.simulationSettingsPanel);
             this.WorkFlow.Controls.Add(this.simulationDiseasePanel);
-            this.WorkFlow.Controls.Add(this.simulationStartlocationPanel1);
+            this.WorkFlow.Controls.Add(this.simulationStartlocationPanel);
             this.WorkFlow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WorkFlow.Location = new System.Drawing.Point(0, 0);
             this.WorkFlow.Margin = new System.Windows.Forms.Padding(0);
@@ -50,13 +50,13 @@ namespace PSC2013.ES.GUI.Simulation
             this.WorkFlow.Size = new System.Drawing.Size(852, 434);
             this.WorkFlow.TabIndex = 0;
             // 
-            // settingsPanel
+            // simulationSettingsPanel
             // 
-            this.settingsPanel.BackColor = System.Drawing.Color.Transparent;
-            this.settingsPanel.Location = new System.Drawing.Point(6, 6);
-            this.settingsPanel.Name = "settingsPanel";
-            this.settingsPanel.Size = new System.Drawing.Size(276, 420);
-            this.settingsPanel.TabIndex = 0;
+            this.simulationSettingsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.simulationSettingsPanel.Location = new System.Drawing.Point(6, 6);
+            this.simulationSettingsPanel.Name = "simulationSettingsPanel";
+            this.simulationSettingsPanel.Size = new System.Drawing.Size(276, 420);
+            this.simulationSettingsPanel.TabIndex = 0;
             // 
             // simulationDiseasePanel
             // 
@@ -66,13 +66,13 @@ namespace PSC2013.ES.GUI.Simulation
             this.simulationDiseasePanel.Size = new System.Drawing.Size(275, 420);
             this.simulationDiseasePanel.TabIndex = 1;
             // 
-            // simulationStartlocationPanel1
+            // simulationStartlocationPanel
             // 
-            this.simulationStartlocationPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.simulationStartlocationPanel1.Location = new System.Drawing.Point(569, 6);
-            this.simulationStartlocationPanel1.Name = "simulationStartlocationPanel1";
-            this.simulationStartlocationPanel1.Size = new System.Drawing.Size(269, 420);
-            this.simulationStartlocationPanel1.TabIndex = 2;
+            this.simulationStartlocationPanel.BackColor = System.Drawing.Color.Transparent;
+            this.simulationStartlocationPanel.Location = new System.Drawing.Point(569, 6);
+            this.simulationStartlocationPanel.Name = "simulationStartlocationPanel";
+            this.simulationStartlocationPanel.Size = new System.Drawing.Size(269, 420);
+            this.simulationStartlocationPanel.TabIndex = 2;
             // 
             // SimulationFirstContainer
             // 
@@ -90,8 +90,8 @@ namespace PSC2013.ES.GUI.Simulation
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel WorkFlow;
-        private SimulationSettingsPanel settingsPanel;
+        private SimulationSettingsPanel simulationSettingsPanel;
         private SimulationDiseasePanel simulationDiseasePanel;
-        private SimulationStartlocationPanel simulationStartlocationPanel1;
+        private SimulationStartlocationPanel simulationStartlocationPanel;
     }
 }

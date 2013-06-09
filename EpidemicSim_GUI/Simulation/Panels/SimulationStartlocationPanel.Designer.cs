@@ -34,7 +34,7 @@
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
             this.TextBox_Hint = new System.Windows.Forms.TextBox();
-            this.seperator1 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
+            this.separator1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_InfectedCount = new PSC2013.ES.GUI.Components.IntComponent();
             this.GrpBox_Main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictBox_SelectedDepartments)).BeginInit();
@@ -46,7 +46,7 @@
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
             this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
             this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
-            this.GrpBox_Main.Controls.Add(this.seperator1);
+            this.GrpBox_Main.Controls.Add(this.separator1);
             this.GrpBox_Main.Controls.Add(this.Comp_InfectedCount);
             this.GrpBox_Main.Controls.Add(this.PictBox_SelectedDepartments);
             this.GrpBox_Main.Controls.Add(this.ListBox_Departments);
@@ -120,15 +120,15 @@
     "mans occur. The \"Infected\"-field indicates how many people are there to be infec" +
     "ted.";
             // 
-            // seperator1
+            // separator1
             // 
-            this.seperator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.separator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.seperator1.BackColor = System.Drawing.Color.Transparent;
-            this.seperator1.Location = new System.Drawing.Point(6, 337);
-            this.seperator1.Name = "seperator1";
-            this.seperator1.Size = new System.Drawing.Size(262, 5);
-            this.seperator1.TabIndex = 3;
+            this.separator1.BackColor = System.Drawing.Color.Transparent;
+            this.separator1.Location = new System.Drawing.Point(6, 337);
+            this.separator1.Name = "separator1";
+            this.separator1.Size = new System.Drawing.Size(262, 5);
+            this.separator1.TabIndex = 3;
             // 
             // Comp_InfectedCount
             // 
@@ -168,7 +168,7 @@
         private Components.IntComponent Comp_InfectedCount;
         private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
         private System.Windows.Forms.Button Btn_Next;
-        private Miscellaneous.Seperator seperator1;
+        private Miscellaneous.Separator separator1;
         private System.Windows.Forms.TextBox TextBox_Hint;
     }
 }

@@ -32,7 +32,7 @@
             this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
-            this.seperator1 = new PSC2013.ES.GUI.Miscellaneous.Seperator();
+            this.separator1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_ResistanceFactors = new PSC2013.ES.GUI.Components.FactorComponent();
             this.Comp_MortalityRates = new PSC2013.ES.GUI.Components.FactorComponent();
             this.Comp_HealingFactors = new PSC2013.ES.GUI.Components.FactorComponent();
@@ -50,7 +50,7 @@
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
             this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
             this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
-            this.GrpBox_Main.Controls.Add(this.seperator1);
+            this.GrpBox_Main.Controls.Add(this.separator1);
             this.GrpBox_Main.Controls.Add(this.Comp_ResistanceFactors);
             this.GrpBox_Main.Controls.Add(this.Comp_MortalityRates);
             this.GrpBox_Main.Controls.Add(this.Comp_HealingFactors);
@@ -103,15 +103,15 @@
             this.Btn_Next.Text = "Next >";
             this.Btn_Next.UseVisualStyleBackColor = true;
             // 
-            // seperator1
+            // separator1
             // 
-            this.seperator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.separator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.seperator1.BackColor = System.Drawing.Color.Transparent;
-            this.seperator1.Location = new System.Drawing.Point(6, 268);
-            this.seperator1.Name = "seperator1";
-            this.seperator1.Size = new System.Drawing.Size(261, 5);
-            this.seperator1.TabIndex = 8;
+            this.separator1.BackColor = System.Drawing.Color.Transparent;
+            this.separator1.Location = new System.Drawing.Point(6, 268);
+            this.separator1.Name = "separator1";
+            this.separator1.Size = new System.Drawing.Size(261, 5);
+            this.separator1.TabIndex = 8;
             // 
             // Comp_ResistanceFactors
             // 
@@ -251,7 +251,7 @@
         private Components.FactorComponent Comp_HealingFactors;
         private Components.FactorComponent Comp_MortalityRates;
         private Components.FactorComponent Comp_ResistanceFactors;
-        private Miscellaneous.Seperator seperator1;
+        private Miscellaneous.Separator separator1;
         private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
         private System.Windows.Forms.Button Btn_Next;
         private System.Windows.Forms.TextBox TextBox_Hint;
