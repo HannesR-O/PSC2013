@@ -158,20 +158,19 @@ namespace PSC2013.ES.Cmd
                 new ConsoleOutputTarget(),
                 new AgeingComponent(110),
                 new DiseaseTickComponent(),
+                new DiseaseDeathComponent(),
+                /*new DiseaseHealingComponent(),*/
                 new MindsetComponent(),
                 new MovementComponent(),
-                new InfectionComponent()/*,
-                new DebugInfectionComponent()*/
+                new InfectionComponent()
                 );
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
-
-            var iis = GetExampleInitialInfection();
             
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), iis, 48);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 48);
         }
 
         public static void TestInfectionComponent()
