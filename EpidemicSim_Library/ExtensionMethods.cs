@@ -14,7 +14,7 @@ namespace PSC2013.ES.Library
         /// <param name="eventHandler">EventHandler of the event to raise</param>
         /// <param name="sender">Sender of the event to raise</param>
         /// <param name="e">EventArgs of the event to raise</param>
-        internal static void Raise<T>(this EventHandler<T> eventHandler, Object sender, T e) where T : EventArgs
+        public static void Raise<T>(this EventHandler<T> eventHandler, Object sender, T e) where T : EventArgs
         {
             if (eventHandler != null)
             {

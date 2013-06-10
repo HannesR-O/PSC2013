@@ -18,6 +18,21 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             InitializeComponent();
         }
 
+        public void SetProgressBarStyle(ProgressBarStyle style)
+        {
+            ProgressBar_Main.Style = style;
+        }
+
+        public void SetImage(Image img)
+        {
+            PictBox_SelectedDepartments.Image = img;
+        }
+
+        public ListBox TheListBox
+        {
+            get { return ListBox_Departments; }
+        }
+
         public Button TheButton
         {
             get { return this.Btn_Next; }

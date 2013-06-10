@@ -82,6 +82,8 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Miscellaneous\IContainer.cs" />
+    <Compile Include="Miscellaneous\IService.cs" />
     <Compile Include="Miscellaneous\ListBoxOutputTarget.cs" />
     <Compile Include="Miscellaneous\Separator.cs">
       <SubType>UserControl</SubType>
@@ -123,6 +125,7 @@
     <Compile Include="Simulation\Panels\SimulationStartlocationPanel.Designer.cs">
       <DependentUpon>SimulationStartlocationPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Simulation\Services\SimulationService.cs" />
     <Compile Include="Simulation\SimulationFirstContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>

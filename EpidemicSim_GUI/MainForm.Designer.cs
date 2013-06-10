@@ -73,6 +73,7 @@
             this.MenuStrip_Main_File_NewSim.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.MenuStrip_Main_File_NewSim.Size = new System.Drawing.Size(215, 22);
             this.MenuStrip_Main_File_NewSim.Text = "&New Simulation...";
+            this.MenuStrip_Main_File_NewSim.Click += new System.EventHandler(this.MenuStrip_Main_File_NewSim_Click);
             // 
             // toolStripSeparator1
             // 
@@ -112,7 +113,7 @@
             // 
             // OpenDepFileDialog
             // 
-            this.OpenDepFileDialog.Filter = "Department File (*.dep)|*.sim|All Files (*.*)|*.*";
+            this.OpenDepFileDialog.Filter = "Department File (*.dep)|*.dep|All Files (*.*)|*.*";
             this.OpenDepFileDialog.Title = "Open Department file (.dep)";
             // 
             // OpenSimFileDialog

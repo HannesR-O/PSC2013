@@ -61,6 +61,7 @@ namespace PSC2013.ES.GUI.Simulation
             // simulationDiseasePanel
             // 
             this.simulationDiseasePanel.BackColor = System.Drawing.Color.Transparent;
+            this.simulationDiseasePanel.Enabled = false;
             this.simulationDiseasePanel.Location = new System.Drawing.Point(288, 6);
             this.simulationDiseasePanel.Name = "simulationDiseasePanel";
             this.simulationDiseasePanel.Size = new System.Drawing.Size(275, 420);
@@ -69,6 +70,7 @@ namespace PSC2013.ES.GUI.Simulation
             // simulationStartlocationPanel
             // 
             this.simulationStartlocationPanel.BackColor = System.Drawing.Color.Transparent;
+            this.simulationStartlocationPanel.Enabled = false;
             this.simulationStartlocationPanel.Location = new System.Drawing.Point(569, 6);
             this.simulationStartlocationPanel.Name = "simulationStartlocationPanel";
             this.simulationStartlocationPanel.Size = new System.Drawing.Size(269, 420);

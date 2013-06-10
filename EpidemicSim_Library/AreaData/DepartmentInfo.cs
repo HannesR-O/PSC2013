@@ -1,9 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Linq;
 
 namespace PSC2013.ES.Library.AreaData
 {
-    public class DepartmentInfo
+    public class DepartmentInfo : IFormattable
     {
         /// <summary>
         /// The name of the department.
@@ -33,6 +34,42 @@ namespace PSC2013.ES.Library.AreaData
         public int GetTotal()
         {
             return Population.Sum();
+        }
+
+        public string ToString(string format)
+        {
+            return ToString(format, System.Globalization.CultureInfo.CurrentCulture);
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            if (String.IsNullOrEmpty(format))
+                format = "N";
+            if (formatProvider == null)
+                formatProvider = System.Globalization.CultureInfo.CurrentCulture;
+
+            string result = "";
+
+            foreach (char c in format)
+            {
+                switch (c)
+                {
+                    case 'N':
+                        result += Name;
+                        break;
+                    case 'T':
+                        result += GetTotal().ToString(formatProvider);
+                        break;
+                    case 'A':
+                        result += Coordinates.Count().ToString(formatProvider);
+                        break;
+                    default:
+                        result += c;
+                        break;
+                }
+            }
+
+            return result;
         }
     }
 }
