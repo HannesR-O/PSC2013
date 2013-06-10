@@ -13,6 +13,7 @@ namespace PSC2013.ES.GUI.Simulation
             this.WorkFlow.Padding = new Padding(PSC2013.ES.GUI.MainForm.PADDING);
         }
 
+        #region resize
         private void ResizeComponents()
         {
             int height = WorkFlow.Height - 3 * WorkFlow.Padding.Top;
@@ -30,6 +31,7 @@ namespace PSC2013.ES.GUI.Simulation
             base.OnResize(e);
             ResizeComponents();
         }
+        #endregion
 
         public EContainer ContainerType
         {

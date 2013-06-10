@@ -11,15 +11,19 @@ namespace PSC2013.ES.GUI.Simulation.Services
     {
         public event EventHandler<ServiceEventArgs> ChangeWorkingArea;
 
-        private DepartmentMapReader _mapReader;
         private SimulationFirstContainer _firstContainer;
         private SimulationSecondContainer _secondContainer;
+
+        private string _depPath;
+        private DepartmentMapReader _mapReader;
+        private EpidemicSimulator _simulator;
 
         private Task _runningTask;
 
         public SimulationService(string path)
         {
-            _mapReader = new DepartmentMapReader(path);
+            _depPath = path;
+            _mapReader = new DepartmentMapReader(_depPath);
             _mapReader.IsWritingEnabled = false;
         }
 
@@ -33,6 +37,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
             _firstContainer.StartlocationPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
             _runningTask = Task.Run(() => LoadMap());
 
+            _firstContainer.FinalClick += FirstContainer_FinalClick;
         }
 
         public void ReactToAnswer(IContainer container)
@@ -48,6 +53,28 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 default:
                     break;
             }
+        }
+
+        private void FirstContainer_FinalClick(object sender, EventArgs e)
+        {
+            // Map-Task still running.
+            if (_runningTask.Status == TaskStatus.Running)
+            {
+                MessageBox.Show("Waiting for a background-task to finish.", "Task still running...");
+                return;
+            }
+
+            // everything's fine.
+            NextContainer();
+        }
+
+        private void NextContainer()
+        {
+            ChangeWorkingArea.Raise(this,
+                new ServiceEventArgs {
+                    RequestedContainer = EContainer.SimulationSecondContainer
+                });
+
         }
 
         private void LoadMap()

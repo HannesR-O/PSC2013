@@ -47,8 +47,7 @@ namespace PSC2013.ES.GUI.Simulation
         {
             simulationSettingsPanel.TheButton.Click += OnPanelDone;
             simulationDiseasePanel.TheButton.Click += OnPanelDone;
-            simulationStartlocationPanel.TheButton.Click += OnPanelDone;
-            simulationStartlocationPanel.TheButton.Click += FinalClick.Raise;
+            simulationStartlocationPanel.TheButton.Click += (s, e) => FinalClick.Raise(s, e); // TODO | dj | damnit why?
         }
 
         private void OnPanelDone(object sender, EventArgs e)
