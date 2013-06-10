@@ -145,11 +145,11 @@ namespace PSC2013.ES.Cmd
             var disease = new Disease
             {
                 Name = "Dat",
-                IncubationPeriod = 10,
-                IdleTime = 3,
-                SpreadingTime = 8,
-                Transferability = 75,
-                MortalityRate = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0 }),
+                IncubationPeriod = 1,
+                IdleTime = 1,
+                SpreadingTime = 12,
+                Transferability = 100,
+                MortalityRate = new FactorContainer(new[] { 10, 20, 20, 10, 10, 20, 20, 10 }),
                 HealingFactor = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0 }),
                 ResistanceFactor = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0})
             };

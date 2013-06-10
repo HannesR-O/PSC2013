@@ -1,4 +1,5 @@
 ﻿using PSC2013.ES.Library.PopulationData;
+using PSC2013.ES.Library.Snapshot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,19 @@ namespace PSC2013.ES.Library.Simulation.Components
                 ageGroup += 4;
 
             if (rand <= _data.DiseaseToSimulate.MortalityRate[ageGroup])
+            {
                 human->KillHuman();
+                _data.AddDeadPeople(new List<HumanSnapshot>()
+                {
+                    HumanSnapshot.InitializeFromRuntime(
+                    (byte)human->GetGender(), 
+                    (byte)human->GetAgeInYears(), 
+                    (byte)human->GetProfession(), 
+                    human->HomeCell, 
+                    human->CurrentCell, 
+                    true)
+                });
+            }
         }
 
         public override bool Equals(SimulationComponent other)
