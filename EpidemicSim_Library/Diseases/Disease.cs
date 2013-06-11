@@ -1,13 +1,14 @@
 ﻿namespace PSC2013.ES.Library.Diseases
 {
     /// <summary>
-    /// Describes a disease with all relevant
-    /// factors/properties. This is used in the
+    /// Describes a disease with all its relevant
+    /// factors/properties. It is used in the
     /// calculation-process of the simulation.
     /// </summary>
     public class Disease
     {
         // TODO | dj | types might be changed...
+        public const int SIZE = 2; // minimal Byte-Size of the Disease, not 
 
         /// <summary>
         /// Name of the Disease
@@ -55,5 +56,25 @@
         /// May be increased by successful healings.
         /// </summary>
         public FactorContainer ResistanceFactor { get; set; }
+
+        // Disease "IO"-Methods
+
+        /// <summary>
+        /// Returns a Byte[] Representation of the Disease
+        /// </summary>
+        /// <returns>A Byte[] Representation of the Disease</returns>
+        public byte[] GetBytes()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Returns a new Disease from an Byte[]
+        /// </summary>
+        /// <param name="bytes">The [] containing the diseases information</param>
+        public static Disease FromBytes(byte[] bytes)
+        {
+            return new Disease();
+        }
     }
 }
