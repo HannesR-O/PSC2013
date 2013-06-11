@@ -35,13 +35,15 @@
             this.separator_2 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_EnableMovement = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_EnableMindset = new PSC2013.ES.GUI.Components.BoolComponent();
-            this.Comp_EnableDiseaseEffect = new PSC2013.ES.GUI.Components.BoolComponent();
+            this.Comp_EnableDiseaseTick = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_EnableInfection = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_EnableAgeing = new PSC2013.ES.GUI.Components.BoolComponent();
             this.separator_1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_SnapshotIntervall = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_SimulationIntervall = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_SimulationDuration = new PSC2013.ES.GUI.Components.LongComponent();
+            this.Comp_EnableDiseaseDeath = new PSC2013.ES.GUI.Components.BoolComponent();
+            this.Comp_EnableDiseaseHealing = new PSC2013.ES.GUI.Components.BoolComponent();
             this.GrpBox_Main.SuspendLayout();
             this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -49,12 +51,14 @@
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.Comp_EnableDiseaseHealing);
+            this.GrpBox_Main.Controls.Add(this.Comp_EnableDiseaseDeath);
             this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
             this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
             this.GrpBox_Main.Controls.Add(this.separator_2);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableMovement);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableMindset);
-            this.GrpBox_Main.Controls.Add(this.Comp_EnableDiseaseEffect);
+            this.GrpBox_Main.Controls.Add(this.Comp_EnableDiseaseTick);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableInfection);
             this.GrpBox_Main.Controls.Add(this.Comp_EnableAgeing);
             this.GrpBox_Main.Controls.Add(this.separator_1);
@@ -64,7 +68,7 @@
             this.GrpBox_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrpBox_Main.Location = new System.Drawing.Point(0, 0);
             this.GrpBox_Main.Name = "GrpBox_Main";
-            this.GrpBox_Main.Size = new System.Drawing.Size(276, 420);
+            this.GrpBox_Main.Size = new System.Drawing.Size(276, 446);
             this.GrpBox_Main.TabIndex = 0;
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Simulation";
@@ -77,12 +81,12 @@
             this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.TextBox_Hint.Enabled = false;
-            this.TextBox_Hint.Location = new System.Drawing.Point(10, 281);
+            this.TextBox_Hint.Location = new System.Drawing.Point(10, 341);
             this.TextBox_Hint.Multiline = true;
             this.TextBox_Hint.Name = "TextBox_Hint";
             this.TextBox_Hint.ReadOnly = true;
-            this.TextBox_Hint.Size = new System.Drawing.Size(256, 101);
-            this.TextBox_Hint.TabIndex = 11;
+            this.TextBox_Hint.Size = new System.Drawing.Size(256, 67);
+            this.TextBox_Hint.TabIndex = 12;
             this.TextBox_Hint.Text = "Hint: HERE SHOULD be some important hints to the settings from above";
             // 
             // FlowPanel_Bottom
@@ -91,10 +95,10 @@
             this.FlowPanel_Bottom.Controls.Add(this.Btn_Next);
             this.FlowPanel_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.FlowPanel_Bottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 388);
+            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 414);
             this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
             this.FlowPanel_Bottom.Size = new System.Drawing.Size(270, 29);
-            this.FlowPanel_Bottom.TabIndex = 10;
+            this.FlowPanel_Bottom.TabIndex = 13;
             // 
             // Btn_Next
             // 
@@ -110,10 +114,10 @@
             this.separator_2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.separator_2.BackColor = System.Drawing.Color.Transparent;
-            this.separator_2.Location = new System.Drawing.Point(6, 270);
+            this.separator_2.Location = new System.Drawing.Point(6, 330);
             this.separator_2.Name = "separator_2";
             this.separator_2.Size = new System.Drawing.Size(264, 5);
-            this.separator_2.TabIndex = 9;
+            this.separator_2.TabIndex = 11;
             // 
             // Comp_EnableMovement
             // 
@@ -122,11 +126,11 @@
             this.Comp_EnableMovement.BackColor = System.Drawing.Color.Transparent;
             this.Comp_EnableMovement.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MovementComponent;
             this.Comp_EnableMovement.LabelText = "Enable movement:";
-            this.Comp_EnableMovement.Location = new System.Drawing.Point(6, 240);
+            this.Comp_EnableMovement.Location = new System.Drawing.Point(6, 300);
             this.Comp_EnableMovement.Name = "Comp_EnableMovement";
             this.Comp_EnableMovement.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_EnableMovement.Size = new System.Drawing.Size(264, 24);
-            this.Comp_EnableMovement.TabIndex = 8;
+            this.Comp_EnableMovement.TabIndex = 10;
             this.Comp_EnableMovement.ToolTip = "If enabled humans move around (fancy as f*ck).";
             // 
             // Comp_EnableMindset
@@ -136,27 +140,26 @@
             this.Comp_EnableMindset.BackColor = System.Drawing.Color.Transparent;
             this.Comp_EnableMindset.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MindsetComponent;
             this.Comp_EnableMindset.LabelText = "Enable mindsets:";
-            this.Comp_EnableMindset.Location = new System.Drawing.Point(6, 210);
+            this.Comp_EnableMindset.Location = new System.Drawing.Point(6, 270);
             this.Comp_EnableMindset.Name = "Comp_EnableMindset";
             this.Comp_EnableMindset.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_EnableMindset.Size = new System.Drawing.Size(264, 24);
-            this.Comp_EnableMindset.TabIndex = 7;
+            this.Comp_EnableMindset.TabIndex = 9;
             this.Comp_EnableMindset.ToolTip = "If enabled humans mindsets can change if affected by the disease.";
             // 
-            // Comp_EnableDiseaseEffect
+            // Comp_EnableDiseaseTick
             // 
-            this.Comp_EnableDiseaseEffect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.Comp_EnableDiseaseTick.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_EnableDiseaseEffect.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_EnableDiseaseEffect.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.DiseaseEffectComponent;
-            this.Comp_EnableDiseaseEffect.LabelText = "Enable disease-effects:";
-            this.Comp_EnableDiseaseEffect.Location = new System.Drawing.Point(6, 180);
-            this.Comp_EnableDiseaseEffect.Name = "Comp_EnableDiseaseEffect";
-            this.Comp_EnableDiseaseEffect.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_EnableDiseaseEffect.Size = new System.Drawing.Size(264, 24);
-            this.Comp_EnableDiseaseEffect.TabIndex = 6;
-            this.Comp_EnableDiseaseEffect.ToolTip = "If enabled all effects of the disease (e.g. idle, spreading, diseased, death) can" +
-    " take action.";
+            this.Comp_EnableDiseaseTick.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_EnableDiseaseTick.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.DiseaseTickComponent;
+            this.Comp_EnableDiseaseTick.LabelText = "Enable disease-effect:";
+            this.Comp_EnableDiseaseTick.Location = new System.Drawing.Point(6, 180);
+            this.Comp_EnableDiseaseTick.Name = "Comp_EnableDiseaseTick";
+            this.Comp_EnableDiseaseTick.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_EnableDiseaseTick.Size = new System.Drawing.Size(264, 24);
+            this.Comp_EnableDiseaseTick.TabIndex = 6;
+            this.Comp_EnableDiseaseTick.ToolTip = "If enabled the disease can take action (i.e. spreading, diseased).";
             // 
             // Comp_EnableInfection
             // 
@@ -238,6 +241,35 @@
             this.Comp_SimulationDuration.TabIndex = 0;
             this.Comp_SimulationDuration.ToolTip = "The hours, the simulation shall emulate.";
             // 
+            // Comp_EnableDiseaseDeath
+            // 
+            this.Comp_EnableDiseaseDeath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_EnableDiseaseDeath.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_EnableDiseaseDeath.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.DiseaseDeathComponent;
+            this.Comp_EnableDiseaseDeath.LabelText = "Enable death:";
+            this.Comp_EnableDiseaseDeath.Location = new System.Drawing.Point(6, 210);
+            this.Comp_EnableDiseaseDeath.Name = "Comp_EnableDiseaseDeath";
+            this.Comp_EnableDiseaseDeath.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_EnableDiseaseDeath.Size = new System.Drawing.Size(264, 24);
+            this.Comp_EnableDiseaseDeath.TabIndex = 7;
+            this.Comp_EnableDiseaseDeath.ToolTip = "If enabled humans can die as cause of the disease (does not affect death through " +
+    "ageing).";
+            // 
+            // Comp_EnableDiseaseHealing
+            // 
+            this.Comp_EnableDiseaseHealing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_EnableDiseaseHealing.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_EnableDiseaseHealing.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.DiseaseHealingComponent;
+            this.Comp_EnableDiseaseHealing.LabelText = "Enable healing:";
+            this.Comp_EnableDiseaseHealing.Location = new System.Drawing.Point(6, 240);
+            this.Comp_EnableDiseaseHealing.Name = "Comp_EnableDiseaseHealing";
+            this.Comp_EnableDiseaseHealing.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_EnableDiseaseHealing.Size = new System.Drawing.Size(264, 24);
+            this.Comp_EnableDiseaseHealing.TabIndex = 8;
+            this.Comp_EnableDiseaseHealing.ToolTip = "If enabled humans can be healed.";
+            // 
             // SimulationSettingsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -245,7 +277,7 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.GrpBox_Main);
             this.Name = "SimulationSettingsPanel";
-            this.Size = new System.Drawing.Size(276, 420);
+            this.Size = new System.Drawing.Size(276, 446);
             this.GrpBox_Main.ResumeLayout(false);
             this.GrpBox_Main.PerformLayout();
             this.FlowPanel_Bottom.ResumeLayout(false);
@@ -262,12 +294,14 @@
         private Miscellaneous.Separator separator_1;
         private Components.BoolComponent Comp_EnableAgeing;
         private Components.BoolComponent Comp_EnableInfection;
-        private Components.BoolComponent Comp_EnableDiseaseEffect;
+        private Components.BoolComponent Comp_EnableDiseaseTick;
         private Components.BoolComponent Comp_EnableMindset;
         private Miscellaneous.Separator separator_2;
         private Components.BoolComponent Comp_EnableMovement;
         private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
         private System.Windows.Forms.Button Btn_Next;
         private System.Windows.Forms.TextBox TextBox_Hint;
+        private Components.BoolComponent Comp_EnableDiseaseDeath;
+        private Components.BoolComponent Comp_EnableDiseaseHealing;
     }
 }

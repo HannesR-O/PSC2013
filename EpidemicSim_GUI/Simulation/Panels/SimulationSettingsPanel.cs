@@ -11,9 +11,13 @@ namespace PSC2013.ES.GUI.Simulation.Panels
         public SimulationSettingsPanel()
         {
             InitializeComponent();
+            this.Comp_SimulationIntervall.SetValue(1);
+            this.Comp_SnapshotIntervall.SetValue(1);
             this.Comp_EnableAgeing.SetValue(true);
             this.Comp_EnableInfection.SetValue(true);
-            this.Comp_EnableDiseaseEffect.SetValue(true);
+            this.Comp_EnableDiseaseTick.SetValue(true);
+            this.Comp_EnableDiseaseDeath.SetValue(true);
+            this.Comp_EnableDiseaseHealing.SetValue(true);
             this.Comp_EnableMindset.SetValue(true);
             this.Comp_EnableMovement.SetValue(true);
         }
@@ -51,7 +55,9 @@ namespace PSC2013.ES.GUI.Simulation.Panels
                             break;
                         case EComponentTag.AgeingComponent:
                         case EComponentTag.InfectionComponent:
-                        case EComponentTag.DiseaseEffectComponent:
+                        case EComponentTag.DiseaseTickComponent:
+                        case EComponentTag.DiseaseDeathComponent:
+                        case EComponentTag.DiseaseHealingComponent:
                         case EComponentTag.MindsetComponent:
                         case EComponentTag.MovementComponent:
                             if ((comp as SettingsComponent<bool>).GetValue())

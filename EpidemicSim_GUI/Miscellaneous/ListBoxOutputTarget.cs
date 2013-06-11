@@ -26,7 +26,11 @@ namespace PSC2013.ES.GUI.Miscellaneous
             if (message == null)
                 throw new ArgumentNullException("message", "Given message to write cannot be null!");
 
-            _listBox.Items.Add(message);
+            _listBox.Invoke(new Action(() =>
+                {
+                    _listBox.Items.Add(message);
+                    _listBox.TopIndex = _listBox.Items.Count - _listBox.ClientSize.Height / _listBox.ItemHeight + 1;
+                }));
         }
 
         public bool Equals(IOutputTarget other)

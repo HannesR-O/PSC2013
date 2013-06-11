@@ -30,7 +30,8 @@ namespace PSC2013.ES.GUI.Simulation.Panels
 
         public void IncreaseProgressBarValue()
         {
-            ProgressBar_Main.Value++;
+            if (ProgressBar_Main.Value + 1 <= ProgressBar_Main.Maximum)
+                ProgressBar_Main.Value++;
         }
 
         public int GetProgressBarMax()

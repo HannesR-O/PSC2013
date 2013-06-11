@@ -34,7 +34,9 @@ namespace PSC2013.ES.GUI.Components
 
         AgeingComponent,
         InfectionComponent,
-        DiseaseEffectComponent,
+        DiseaseTickComponent,
+        DiseaseDeathComponent,
+        DiseaseHealingComponent,
         MindsetComponent,
         MovementComponent
     }

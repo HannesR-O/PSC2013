@@ -41,7 +41,7 @@ namespace PSC2013.ES.GUI.Simulation
             {
                 this.simulationFinalSettingsPanel.Enabled = false;
                 this.simulationOutputPanel.Enabled = true;
-                StartClick.Raise(sender, e);        // let the outersider react :P
+                StartClick.Raise(sender, e);        // let the outsider react :P
             }
             else
             {

@@ -81,7 +81,8 @@
             this.TextBox_Hint.ReadOnly = true;
             this.TextBox_Hint.Size = new System.Drawing.Size(253, 128);
             this.TextBox_Hint.TabIndex = 10;
-            this.TextBox_Hint.Text = "Hint: guess what?";
+            this.TextBox_Hint.Text = "Hint: All factors (as well as the transferability) have to be set as percentages." +
+    " So for example a transferability of \'50%\' would be set as a simple \'50\'.";
             // 
             // FlowPanel_Bottom
             // 
@@ -216,7 +217,7 @@
             this.Comp_DiseaseName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Comp_DiseaseName.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_DiseaseName.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.FemaleBaby;
+            this.Comp_DiseaseName.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.DiseaseName;
             this.Comp_DiseaseName.LabelText = "Disease name:";
             this.Comp_DiseaseName.Location = new System.Drawing.Point(6, 19);
             this.Comp_DiseaseName.Name = "Comp_DiseaseName";

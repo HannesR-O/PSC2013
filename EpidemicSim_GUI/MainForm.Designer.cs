@@ -138,7 +138,7 @@
             this.Controls.Add(this._workPanel);
             this.Controls.Add(this.MenuStrip_Main);
             this.MainMenuStrip = this.MenuStrip_Main;
-            this.MinimumSize = new System.Drawing.Size(700, 450);
+            this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Epidemic Simulator";

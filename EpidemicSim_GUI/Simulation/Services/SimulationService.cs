@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Windows.Forms;
-using PSC2013.ES.GUI.Miscellaneous;
-using PSC2013.ES.Library.IO.Readers;
-using PSC2013.ES.Library;
+using System.Threading;
 using System.Threading.Tasks;
-using PSC2013.ES.Library.Simulation.Components;
+using System.Windows.Forms;
 using PSC2013.ES.GUI.Components;
-using PSC2013.ES.Library.Simulation;
+using PSC2013.ES.GUI.Miscellaneous;
+using PSC2013.ES.Library;
 using PSC2013.ES.Library.AreaData;
+using PSC2013.ES.Library.IO.Readers;
+using PSC2013.ES.Library.Simulation;
+using PSC2013.ES.Library.Simulation.Components;
 
 namespace PSC2013.ES.GUI.Simulation.Services
 {
@@ -24,12 +25,14 @@ namespace PSC2013.ES.GUI.Simulation.Services
         private bool _firstDepartment;
 
         private Task _runningTask;
+        private CancellationTokenSource _cancellationTokenSource;
 
         public SimulationService(string path)
         {
             _depPath = path;
             _mapReader = new DepartmentMapReader(_depPath);
             _mapReader.IsWritingEnabled = false;
+            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         public void StartService()
@@ -85,17 +88,27 @@ namespace PSC2013.ES.GUI.Simulation.Services
                     RequestedContainer = EContainer.SimulationSecondContainer
                 });
 
+            _secondContainer.Focus();
             _secondContainer.StartClick += SecondContainer_StartClick;
             _secondContainer.OuputPanel.TheButton.Click += SecondContainer_AbortClick;
         }
 
         private void SecondContainer_AbortClick(object sender, EventArgs e)
         {
-            _simulator.StopSimulation();
+            if (_simulator != null)
+                _simulator.StopSimulation();
+            else // TODO | dj | really with else?
+                _cancellationTokenSource.Cancel(); // TODO | dj | does not work
             SetProgressBarToFinished();
         }
 
         private void SecondContainer_StartClick(object sender, EventArgs e)
+        {
+            // start the simulation-construction in an extra task.
+            _runningTask = Task.Run(() => StartSim(), _cancellationTokenSource.Token);
+        }
+
+        private void StartSim()
         {
             ListBoxOutputTarget lbot = new ListBoxOutputTarget(
                 _secondContainer.OuputPanel.GetOutputListBox());
@@ -107,6 +120,8 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 _depPath,
                 lbot,
                 GetSimComponents(sc.Components));
+            _simulator.AddOutputTarget(new PSC2013.ES.Library.IO.OutputTargets.ConsoleOutputTarget());
+
             _simulator.SetSimulationIntervall(sc.SimulationIntervall);
             _simulator.SetSnapshotIntervall(sc.SnapshotIntervall);
 
@@ -124,16 +139,19 @@ namespace PSC2013.ES.GUI.Simulation.Services
 
         private void OnSimulationStarted(object sender, SimulationEventArgs e)
         {
-            if(_simulator.SimulationDuration == 0)
-                _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
-            else
-                 _secondContainer.OuputPanel.SetProgressBarMax((int)(
-                     _simulator.SimulationDuration + 
-                     _simulator.SimulationIntervall / _simulator.SnapshotIntervall +
-                     3)); /* Started: 1
-                           * Ended: 1
-                           * Finished: 1
-                           */
+            _secondContainer.OuputPanel.Invoke(new Action(() =>
+            {
+                if(_simulator.SimulationDuration == 0)
+                        _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
+                else
+                     _secondContainer.OuputPanel.SetProgressBarMax((int)(
+                         _simulator.SimulationDuration +
+                         _simulator.SimulationIntervall / _simulator.SnapshotIntervall +
+                         3)); /* Started: 1
+                               * Ended: 1
+                               * Finished: 1
+                               */
+            }));
             _firstDepartment = true;
         }
 
@@ -146,8 +164,11 @@ namespace PSC2013.ES.GUI.Simulation.Services
         {
             if (_firstDepartment)
             {
-                int val = _secondContainer.OuputPanel.GetProgressBarMax();
-                _secondContainer.OuputPanel.SetProgressBarMax(val + e.Total);
+                _secondContainer.OuputPanel.Invoke(new Action(() =>
+                    {
+                        int val = _secondContainer.OuputPanel.GetProgressBarMax();
+                        _secondContainer.OuputPanel.SetProgressBarMax(val + e.Total);
+                    }));
                 _firstDepartment = false;
             }
             IncreaseProgressBar();
@@ -170,13 +191,16 @@ namespace PSC2013.ES.GUI.Simulation.Services
 
         private void IncreaseProgressBar()
         {
-            _secondContainer.OuputPanel.IncreaseProgressBarValue();
+            _secondContainer.OuputPanel.Invoke(new Action(() => _secondContainer.OuputPanel.IncreaseProgressBarValue()));
         }
 
         private void SetProgressBarToFinished()
         {
-            _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Continuous);
-            _secondContainer.OuputPanel.SetProgressBarToMaxValue();
+            _secondContainer.OuputPanel.Invoke(new Action(() =>
+                {
+                    _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Continuous);
+                    _secondContainer.OuputPanel.SetProgressBarToMaxValue();
+                }));
         }
 
         private void LoadMap()
@@ -207,8 +231,14 @@ namespace PSC2013.ES.GUI.Simulation.Services
                     case EComponentTag.InfectionComponent:
                         c = new InfectionComponent();
                         break;
-                    case EComponentTag.DiseaseEffectComponent:
+                    case EComponentTag.DiseaseTickComponent:
                         c = new DiseaseTickComponent();
+                        break;
+                    case EComponentTag.DiseaseDeathComponent:
+                        c = new DiseaseDeathComponent();
+                        break;
+                    case EComponentTag.DiseaseHealingComponent:
+                        c = new DiseaseHealingComponent();
                         break;
                     case EComponentTag.MindsetComponent:
                         c = new MindsetComponent();
