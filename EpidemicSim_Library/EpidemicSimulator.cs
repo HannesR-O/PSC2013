@@ -313,6 +313,8 @@ namespace PSC2013.ES.Library
                 throw new SimulationException(ERROR_MESSAGE_STOPPING_SIMULATION + ERROR_MESSAGE_NO_SIMULATION_RUNNING);
 
             _simulationLock = false;
+
+            PerformSimulationStop(); // TODO | dj | is this good? It does not tell whether everything went fine or not...
         }
 
         private void PerformSimulation()

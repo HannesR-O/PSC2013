@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.GUI.Components;
 using PSC2013.ES.Library.Simulation;
+using PSC2013.ES.Library.AreaData;
 
 namespace PSC2013.ES.GUI.Simulation.Services
 {
@@ -20,6 +21,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
         private string _depPath;
         private DepartmentMapReader _mapReader;
         private EpidemicSimulator _simulator;
+        private bool _firstDepartment;
 
         private Task _runningTask;
 
@@ -111,26 +113,64 @@ namespace PSC2013.ES.GUI.Simulation.Services
             _simulator.SimulationStarted += OnSimulationStarted;
             _simulator.TickFinished += OnTickFinished;
             _simulator.SimulationEnded += OnSimulationEnded;
-            // TODO | dj | more
+            _simulator.ProcessFinished += OnProcessFinished;
+            _simulator.DepartmentCalculated += OnDepartmentCalculated;
+            _simulator.SnapshotWritten += OnSnapshotWritten;
+            // TODO | dj | more?
+
+            _simulator.StartSimulation(_secondContainer.InfoDestination,
+                _firstContainer.InfoStartlocations, sc.SimulationDuration);
         }
 
         private void OnSimulationStarted(object sender, SimulationEventArgs e)
         {
-            // if(e.SimulationIntervall == 0)
-            //   _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
-            // else
-            //   _secondContainer.OuputPanel.SetProgressBarMax(
-            //          e.SimulationIntervall + e.SimulationIntervall / e.SnapshotIntervall + 3); //?
+            if(_simulator.SimulationDuration == 0)
+                _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
+            else
+                 _secondContainer.OuputPanel.SetProgressBarMax((int)(
+                     _simulator.SimulationDuration + 
+                     _simulator.SimulationIntervall / _simulator.SnapshotIntervall +
+                     3)); /* Started: 1
+                           * Ended: 1
+                           * Finished: 1
+                           */
+            _firstDepartment = true;
         }
 
         private void OnTickFinished(object sender, SimulationEventArgs e)
         {
-            _secondContainer.OuputPanel.IncreaseProgressBarValue();
+            IncreaseProgressBar();
+        }
+
+        private void OnDepartmentCalculated(object sender, GeneratorEvent e)
+        {
+            if (_firstDepartment)
+            {
+                int val = _secondContainer.OuputPanel.GetProgressBarMax();
+                _secondContainer.OuputPanel.SetProgressBarMax(val + e.Total);
+                _firstDepartment = false;
+            }
+            IncreaseProgressBar();
+        }
+
+        private void OnSnapshotWritten(object sender, EventArgs e)
+        {
+            IncreaseProgressBar();
         }
 
         private void OnSimulationEnded(object sender, SimulationEventArgs e)
         {
-            // TODO | dj | do we have to react on this? maybe one step forward...
+            IncreaseProgressBar();
+        }
+
+        private void OnProcessFinished(object sender, EventArgs e)
+        {
+            SetProgressBarToFinished();
+        }
+
+        private void IncreaseProgressBar()
+        {
+            _secondContainer.OuputPanel.IncreaseProgressBarValue();
         }
 
         private void SetProgressBarToFinished()
