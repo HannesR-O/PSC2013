@@ -35,6 +35,17 @@ namespace PSC2013.ES.GUI
 
         // EVENTS \\
 
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            if (_service == null || _service.CanClose)
+                base.OnClosing(e);
+            else
+            {
+                MessageBox.Show("The window can not be closed yet. There is still something running.", "Nope. Not yet.");
+                e.Cancel = true;
+            }
+        }
+
         private void MenuStrip_Main_File_NewSim_Click(object sender, EventArgs e)
         {
             DialogResult dr = OpenDepFileDialog.ShowDialog();

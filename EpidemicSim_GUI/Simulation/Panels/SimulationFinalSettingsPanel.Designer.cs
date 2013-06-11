@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
-            this.Comp_Destination = new PSC2013.ES.GUI.Components.PathComponent();
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Start = new System.Windows.Forms.Button();
+            this.Comp_Destination = new PSC2013.ES.GUI.Components.PathComponent();
+            this.SaveSimFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.GrpBox_Main.SuspendLayout();
             this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -48,21 +49,6 @@
             this.GrpBox_Main.TabIndex = 0;
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Final settings";
-            // 
-            // Comp_Destination
-            // 
-            this.Comp_Destination.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_Destination.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_Destination.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.None;
-            this.Comp_Destination.Dialog = null;
-            this.Comp_Destination.LabelText = "Destination:";
-            this.Comp_Destination.Location = new System.Drawing.Point(6, 19);
-            this.Comp_Destination.Name = "Comp_Destination";
-            this.Comp_Destination.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_Destination.Size = new System.Drawing.Size(260, 50);
-            this.Comp_Destination.TabIndex = 0;
-            this.Comp_Destination.ToolTip = "Path where to save the simulation.";
             // 
             // FlowPanel_Bottom
             // 
@@ -83,6 +69,25 @@
             this.Btn_Start.TabIndex = 0;
             this.Btn_Start.Text = "Start";
             this.Btn_Start.UseVisualStyleBackColor = true;
+            // 
+            // Comp_Destination
+            // 
+            this.Comp_Destination.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_Destination.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_Destination.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.None;
+            this.Comp_Destination.Dialog = this.SaveSimFileDialog;
+            this.Comp_Destination.LabelText = "Destination:";
+            this.Comp_Destination.Location = new System.Drawing.Point(6, 19);
+            this.Comp_Destination.Name = "Comp_Destination";
+            this.Comp_Destination.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_Destination.Size = new System.Drawing.Size(260, 50);
+            this.Comp_Destination.TabIndex = 0;
+            this.Comp_Destination.ToolTip = "Path where to save the simulation.";
+            // 
+            // SaveSimFileDialog
+            // 
+            this.SaveSimFileDialog.Filter = "Simulation file (*.sim)|*.sim|All files (*.*)|*.*";
             // 
             // SimulationFinalSettingsPanel
             // 
@@ -105,5 +110,6 @@
         private Components.PathComponent Comp_Destination;
         private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
         private System.Windows.Forms.Button Btn_Start;
+        private System.Windows.Forms.SaveFileDialog SaveSimFileDialog;
     }
 }

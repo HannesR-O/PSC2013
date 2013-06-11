@@ -33,6 +33,11 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             ProgressBar_Main.Value++;
         }
 
+        public void SetProgressBarToMaxValue()
+        {
+            ProgressBar_Main.Value = ProgressBar_Main.Maximum;
+        }
+
         public void SetProgressBarValue(int i)
         {
             ProgressBar_Main.Value = i;

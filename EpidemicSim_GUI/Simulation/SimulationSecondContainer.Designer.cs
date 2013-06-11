@@ -58,6 +58,7 @@
             // simulationOutputPanel
             // 
             this.simulationOutputPanel.BackColor = System.Drawing.Color.Transparent;
+            this.simulationOutputPanel.Enabled = false;
             this.simulationOutputPanel.Location = new System.Drawing.Point(284, 6);
             this.simulationOutputPanel.Name = "simulationOutputPanel";
             this.simulationOutputPanel.Size = new System.Drawing.Size(443, 421);

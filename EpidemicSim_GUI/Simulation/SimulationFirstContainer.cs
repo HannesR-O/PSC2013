@@ -61,6 +61,7 @@ namespace PSC2013.ES.GUI.Simulation
             var nextControl = GetNextControl(senderControl, true);
             if (nextControl == null) return;
             nextControl.Enabled = true;
+            nextControl.Focus();
             
             this.ResumeLayout();
         }

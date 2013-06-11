@@ -17,11 +17,6 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             InitializeComponent();
         }
 
-        public void SetDialog(CommonDialog dialog)
-        {
-            Comp_Destination.Dialog = dialog;
-        }
-
         public Button TheButton
         {
             get { return Btn_Start; }

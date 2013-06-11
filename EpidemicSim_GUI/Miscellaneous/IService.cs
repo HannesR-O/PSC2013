@@ -24,6 +24,12 @@ namespace PSC2013.ES.GUI.Miscellaneous
         /// Let the service react to the given "answer".
         /// </summary>
         void ReactToAnswer(IContainer container);
+
+        /// <summary>
+        /// Returns whether the service can be shut
+        /// down or not.
+        /// </summary>
+        bool CanClose { get; }
     }
 
     public class ServiceEventArgs : EventArgs
