@@ -10,7 +10,7 @@ namespace PSC2013.ES.Library.IO
 {
     public static class DiseaseIO
     {
-        public const string FILEEXTENSION = "dis";
+        public const string FILEEXTENSION = ".dis";
 
         /// <summary>
         /// Saves a Disease to the given Location if it exists and the file not exists
@@ -19,7 +19,7 @@ namespace PSC2013.ES.Library.IO
         /// <param name="destination">The Destination for the File</param>
         public static void Save(Disease disease, string destination)
         {
-            string filePath = Path.Combine(destination, disease.Name + "." + FILEEXTENSION);
+            string filePath = Path.Combine(destination, disease.Name + FILEEXTENSION);
             if (!Directory.Exists(destination))
                 throw new ArgumentException("Directory doesn't exist (" + destination + ")");
             if (File.Exists(filePath))
@@ -40,10 +40,10 @@ namespace PSC2013.ES.Library.IO
         /// <returns></returns>
         public static Disease Load(string path)
         {
-            if (File.Exists(path))
+            if (!File.Exists(path))
                 throw new ArgumentException("File already exists at " + path);
-            if (!path.EndsWith("." + FILEEXTENSION))
-                throw new ArgumentException("File is not a Disease File. Should be \"." + FILEEXTENSION + "\"");
+            if (!path.EndsWith(FILEEXTENSION))
+                throw new ArgumentException("File is not a Disease File. Should be \"" + FILEEXTENSION + "\"");
 
             Disease disease = new Disease();
 
