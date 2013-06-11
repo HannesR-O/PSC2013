@@ -97,15 +97,9 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 _writer = new ArchiveBinaryWriter();
 
-                if (!File.Exists(_target + ".sim") && !Directory.Exists(_target))
-                {
-                    Directory.CreateDirectory(_target);
-                    ZipFile.CreateFromDirectory(_target, _target + ".sim", CompressionLevel.Optimal, false);
-                    Directory.Delete(_target, true);
-                    _target = _target + ".sim";
-                }
-                else
-                    throw new ArgumentException("Path or .sim File at Path exists!"); //TODO Please Catch me...
+                _target += ".sim";
+                if (File.Exists(_target))
+                    throw new ArgumentException("Specified .sim file already exists!"); //TODO Please Catch me...
 
                 _writer.WriteIntoArchive(_simInfo, _target, "header", true);
             }

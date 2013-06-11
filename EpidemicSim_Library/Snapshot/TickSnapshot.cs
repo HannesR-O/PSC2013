@@ -7,7 +7,7 @@ namespace PSC2013.ES.Library.Snapshot
     /// <summary>
     /// A Snapshot, taken during one tick of the simulation
     /// </summary>
-    public class TickSnapshot : IBinaryFile
+    public class TickSnapshot : IBinaryObject
     {
         private const byte CONSTLENGTH = 17; // Header 1, DoTick 8, countCells = 4, countDeaths = 4; => 17
 

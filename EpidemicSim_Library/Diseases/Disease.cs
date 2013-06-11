@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using PSC2013.ES.Library.IO.Files;
 namespace PSC2013.ES.Library.Diseases
 {
     /// <summary>
@@ -8,7 +9,7 @@ namespace PSC2013.ES.Library.Diseases
     /// factors/properties. It is used in the
     /// calculation-process of the simulation.
     /// </summary>
-    public class Disease
+    public class Disease : IBinaryObject        //TODO: |f| make use of this through implementing a generic writer (and reader aswell?)
     {
         public int ByteSize  // Byte-Size of the Disease
         {

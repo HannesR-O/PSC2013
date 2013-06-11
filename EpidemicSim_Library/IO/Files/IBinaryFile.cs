@@ -1,14 +1,15 @@
 ﻿namespace PSC2013.ES.Library.IO.Files
 {
     /// <summary>
-    /// Interface for classes containing large amounts of data thus are persisted as binaries
+    /// Types can implement this Interface to provide a binary representation of themselves.
+    /// This is mainly used for serialization of these types.
     /// </summary>
-    public interface IBinaryFile
+    public interface IBinaryObject
     {
         /// <summary>
-        /// Returns a binary representation of the IBinaryFile
+        /// Returns a binary representation of the IBinaryObject
         /// </summary>
-        /// <returns>A byte[] containing all data of the IBinaryFile</returns>
+        /// <returns>A byte[] containing all of the IBinaryObject's data</returns>
         byte[] GetBytes();
     }
 }
