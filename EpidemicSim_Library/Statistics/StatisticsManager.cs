@@ -226,16 +226,5 @@ namespace PSC2013.ES.Library.Statistics
                 }
             }
         }
-
-        /// <summary>
-        /// SimFile is Corrupted, if something is missing inside a .Sim. Doesn't consider
-        /// whether archive itself is corrupt
-        /// </summary>
-        public sealed class SimFileCorruptException : Exception
-        {
-            public SimFileCorruptException() { }
-            public SimFileCorruptException(string Massage) { }
-            public SimFileCorruptException(string message, System.Exception innerException) { }
-        }
     }
 }
