@@ -119,9 +119,14 @@ namespace PSC2013.ES.Library.Snapshot
 
             int offset = cellCount * CellSnapshot.LENGTH + CONSTLENGTH;
             for (int j = 0; j < deathCount; ++j)
+            {
+                if (Deaths[j] != null)
+                {
                 Array.Copy(Deaths[j].getBytes(), 0, output,
                     (j * HumanSnapshot.LENGTH) + offset,
                     HumanSnapshot.LENGTH);
+                }
+            }
 
             return output;
         }

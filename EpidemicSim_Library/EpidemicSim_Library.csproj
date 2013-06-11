@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions.cs" />
+    <Compile Include="IO\DiseaseIO.cs" />
     <Compile Include="IO\OutputTargets\ConsoleOutputTarget.cs" />
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\OutputTargets\IOutputTarget.cs" />
