@@ -57,7 +57,10 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Simulation\Components\AgeingComponent.cs" />
     <Compile Include="Simulation\Components\DebugInfectionComponent.cs" />
+    <Compile Include="Simulation\Components\DiseaseDeathComponent.cs" />
     <Compile Include="Simulation\Components\DiseaseEffectComponent.cs" />
+    <Compile Include="Simulation\Components\DiseaseHealingComponent.cs" />
+    <Compile Include="Simulation\Components\DiseaseTickComponent.cs" />
     <Compile Include="Simulation\Components\InfectionComponent.cs" />
     <Compile Include="Simulation\Components\MindsetComponent.cs" />
     <Compile Include="Simulation\Components\MovementComponent.cs" />
@@ -96,9 +99,7 @@
     <Compile Include="Statistics\Pictures\EStatField.cs" />
     <Compile Include="Statistics\StatisticsManager.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Statistics\Diagrams\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -32,7 +32,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                 _arrayMaxIndex = _arrayHeight * _arrayWidth;
             }
 
-            //Let each Cell calculate its probability (currently Total/Spreading)
+            //Let each Cell calculate its probability
             for (int index = 0; index < data.Cells.Length; ++index)
             {
                 PopulationCell cell = data.Cells[index];
@@ -55,6 +55,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                             TryInfection(ptr, disease, _data.Cells[ptr->CurrentCell].Probability);
                         }
                     });
+                //TODO: Old code for speed boost reference.. DELETE when done
                 //for (Human* ptr = humanptr; ptr < humanptr + _data.Humans.Length; ++ptr)
                 //{
                 //    if (!ptr->IsDead() && !ptr->IsInfected())

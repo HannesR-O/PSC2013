@@ -83,6 +83,10 @@ namespace PSC2013.ES.Library.Statistics
             LoadedSnapshot = tick; // First Snaphsot stays loaded
         }
 
+        /// <summary>
+        /// Changes the Directory where Pictures are stored
+        /// </summary>
+        /// <param name="destination">The new Destination</param>
         public void SetNewDestination(string destination)
         {
             if (Directory.Exists(destination))
@@ -106,19 +110,28 @@ namespace PSC2013.ES.Library.Statistics
         }
 
         /// <summary>
+        /// Returns the Caption of the last created Picture
+        /// </summary>
+        /// <returns>The Caption, null, if no Pic was created so far</returns>
+        public Dictionary<string, Color> GetCaption()
+        {            
+            return _creator.GetCaption();
+        }
+
+        /// <summary>
         /// Creates a Graphic of the loaded Snapshot with the given parameters
         /// </summary>
         /// <param name="field">A concatenation of EStatfields to be used</param>
         /// <param name="colors">The Colorpalette to be used</param>
         /// <param name="namePrefix">The Prefix the data shall be named with</param>
         /// <returns></returns>
-        public Dictionary<String, Color> CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
+        public void CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
             {
                 if (LoadedSnapshot != null)
                 {
-                    return _creator.GetMap(LoadedSnapshot, field, colors, namePrefix);
+                    _creator.GetMap(LoadedSnapshot, field, colors, namePrefix);
                 }
                 else
                 {
@@ -131,6 +144,13 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
+        /// <summary>
+        /// Creates Graphics with the same Parameters for multiple Snapshots
+        /// </summary>
+        /// <param name="entries">The List of Snapshots</param>
+        /// <param name="field">The desired Field</param>
+        /// <param name="colors">The desired ColorPalette</param>
+        /// <param name="namePrefix">The desired Prefix</param>
         public void CreateMulipleGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
         {
             int i = 1;
@@ -178,7 +198,40 @@ namespace PSC2013.ES.Library.Statistics
             }
         }
 
-        public class SimFileCorruptException : Exception
+        /// <summary>
+        /// Creates DeathGraphics with the same Parameters for multiple Snapshots
+        /// </summary>
+        /// <param name="entries">The List of Snapshots</param>
+        /// <param name="field">The desired Field</param>
+        /// <param name="colors">The desired ColorPalette</param>
+        /// <param name="namePrefix">The desired Prefix</param>
+        public void CreateMultipleDeathGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
+        {
+            int i = 1;
+            int size = entries.Count;
+            foreach (string entry in entries)
+            {
+                if (Entries.Contains(entry))
+                {
+                    WriteMessage("Loading " + entry + "...");
+                    LoadTickSnapshot(entry);
+                    CreateDeathGraphics(field, colors, namePrefix);
+                    WriteMessage(String.Format("{0,3} of {1} graphics finished.", i, size));
+                    ++i;
+                }
+                else
+                {
+                    WriteMessage(entry + " could not be created");
+                    ++i;
+                }
+            }
+        }
+
+        /// <summary>
+        /// SimFile is Corrupted, if something is missing inside a .Sim. Doesn't consider
+        /// whether archive itself is corrupt
+        /// </summary>
+        public sealed class SimFileCorruptException : Exception
         {
             public SimFileCorruptException() { }
             public SimFileCorruptException(string Massage) { }

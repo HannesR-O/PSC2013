@@ -11,7 +11,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         protected int _simulationIntervall = 1;
         protected ESimulationStage _simulationStages;
 
-        public SimulationComponent(ESimulationStage stages)
+        protected SimulationComponent(ESimulationStage stages)
         {
             _simulationStages = stages;
         }
@@ -20,7 +20,7 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// The main operation which gets called by EpidemicSimulator during each tick.
         /// </summary>
         /// <param name="data">The data for the simulation to work with</param>
-        public abstract void PerformSimulationStage(SimulationData simData);
+        public abstract void PerformSimulationStage(SimulationData data);
 
         /// <summary>
         /// Sets the amount of hours passing in one simulation tick.

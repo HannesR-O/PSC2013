@@ -26,7 +26,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="profession">The profession</param>
         /// <param name="homeCell">The HomeCell</param>
         /// <param name="deathCell">The DeathCell</param>
-        /// <param name="cause">The CauseOfDeath</param>
+        /// <param name="cause">The CauseOfDeath. false = Natural, true = Disease</param>
         private HumanSnapshot(byte gender, byte age,
             byte profession, int homeCell, int deathCell, bool cause)
         {
@@ -46,7 +46,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="profession">The dead humans profession</param>
         /// <param name="homeCell">The dead humans homecell</param>
         /// <param name="deathCell">The dead humans deathcell</param>
-        /// <param name="cause">The dead humans deathcause</param>
+        /// <param name="cause">The dead humans deathcause. false = Natural, true = Disease</param>
         /// <returns></returns>
         public static HumanSnapshot InitializeFromRuntime(byte gender, byte age,
             byte profession, int homeCell, int deathCell, bool cause)

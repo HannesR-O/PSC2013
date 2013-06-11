@@ -145,11 +145,11 @@ namespace PSC2013.ES.Cmd
             var disease = new Disease
             {
                 Name = "Dat",
-                IncubationPeriod = 10,
-                IdleTime = 3,
-                SpreadingTime = 8,
-                Transferability = 75,
-                MortalityRate = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0 }),
+                IncubationPeriod = 1,
+                IdleTime = 1,
+                SpreadingTime = 12,
+                Transferability = 100,
+                MortalityRate = new FactorContainer(new[] { 10, 20, 20, 10, 10, 20, 20, 10 }),
                 HealingFactor = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0 }),
                 ResistanceFactor = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0})
             };
@@ -157,21 +157,20 @@ namespace PSC2013.ES.Cmd
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new ConsoleOutputTarget(),
                 new AgeingComponent(110),
-                new DiseaseEffectComponent(),
+                new DiseaseTickComponent(),
+                new DiseaseDeathComponent(),
+                /*new DiseaseHealingComponent(),*/
                 new MindsetComponent(),
                 new MovementComponent(),
-                new InfectionComponent()/*,
-                new DebugInfectionComponent()*/
+                new InfectionComponent()
                 );
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
-
-            var iis = GetExampleInitialInfection();
             
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), iis, 48);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 48);
         }
 
         public static void TestInfectionComponent()
@@ -181,9 +180,9 @@ namespace PSC2013.ES.Cmd
             var disease = new Disease() 
             {
                 Name = "Inf_Test",
-                IdleTime = 1,
-                IncubationPeriod = 5,
-                SpreadingTime = 6,
+                IdleTime = 6,
+                IncubationPeriod = 6,
+                SpreadingTime = 12,
                 Transferability = 100,
                 MortalityRate = new FactorContainer(new []{ 1, 2, 14, 151, 11515, 123, 123, 120}),
                 HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
@@ -191,10 +190,10 @@ namespace PSC2013.ES.Cmd
             };
 
             var sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), new InfectionComponent());
-            sim.AddSimulationComponent(new DiseaseEffectComponent());
-            sim.SetSimulationIntervall(1);
-            sim.SetSnapshotIntervall(1);
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 5);
+            sim.AddSimulationComponent(new DiseaseTickComponent());
+            sim.SetSimulationIntervall(3);
+            sim.SetSnapshotIntervall(3);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 24);
         }
 
         public static void TestStats()
@@ -258,7 +257,7 @@ namespace PSC2013.ES.Cmd
                 Console.WriteLine("Sum: {0}", sum);
 
                 //manager.CreateDeathGraphics(field, pal, prefix);
-                Dictionary<string, Color> legend = manager.CreateGraphics(field, pal, prefix);
+                Dictionary<string, Color> legend = manager.GetCaption();
 
                 foreach (string str in legend.Keys)
                 {
@@ -330,7 +329,7 @@ namespace PSC2013.ES.Cmd
             string[] componentNames = 
                 {"AgeingComponent", "DiseaseEffectComponent", "MindsetComponent", "MovementComponent"};
             SimulationComponent[] components = 
-                { new AgeingComponent(110), new DiseaseEffectComponent(), new MindsetComponent(), new MovementComponent() };
+                { new AgeingComponent(110), new DiseaseTickComponent(), new MindsetComponent(), new MovementComponent() };
             var debugComp = new DebugInfectionComponent();
 
             EpidemicSimulator sim;

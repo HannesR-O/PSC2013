@@ -49,7 +49,7 @@ namespace PSC2013.ES.InputDataParsers.IO
             sw.Start();
             int n = 0;
 #endif
-            using (StreamWriter writer = new StreamWriter(tpl.Item1))
+            using (StreamWriter writer = new StreamWriter(tpl.Item1, Encoding.UTF8))
             {
                 foreach (RegionPopulationInfo rpi in data)
                 {

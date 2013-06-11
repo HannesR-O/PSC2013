@@ -19,6 +19,9 @@ namespace PSC2013.ES.Library.Simulation
 
         private DateTime _time;
 
+        // Event
+        public event EventHandler<GeneratorEvent> DepartmentCalculated;
+
         //IOData
         public int ImageWidth { get; private set; }
         public int ImageHeight { get; private set; }
@@ -84,11 +87,13 @@ namespace PSC2013.ES.Library.Simulation
             int maxPopulation = deps.Sum(x => x.GetTotal());        // getting maximum population
             Humans = new Human[(int)(maxPopulation * 1.05f)];       // adding 5% :)
 
-            WriteMessage("Generating Matrix...");   // to display it as an action by the generator,
-                                                    // we would have to reassign Symbol before and after...
-            MatrixGenerator.DepartmentCalculationFinished += (_, e) => WriteMessage(e.Message);
-            Cells = new PopulationCell[ImageWidth * ImageHeight];
-            MatrixGenerator.GenerateMatrix(Cells, Humans, deps, ImageWidth, ImageHeight);
+            WriteMessage("Generating Matrix...");
+            Cells = new PopulationCell[ImageWidth * ImageHeight]; 
+
+            MatrixGenerator mg = new MatrixGenerator(false);
+            mg.DepartmentCalculationFinished += DepartmentCalculated.Raise;
+            mg.GenerateMatrix(Cells, Humans, deps, ImageWidth, ImageHeight);
+
             WriteMessage("...Matrix generated.");
         }
 

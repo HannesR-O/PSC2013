@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -21,7 +22,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
 
             List<Tuple<string, Point>> list = new List<Tuple<string, Point>>();
 
-            using (StreamReader dataFile = new StreamReader(file))
+            using (StreamReader dataFile = new StreamReader(file, Encoding.UTF8))
             {
                 string line;
                 while ((line = dataFile.ReadLine()) != null)

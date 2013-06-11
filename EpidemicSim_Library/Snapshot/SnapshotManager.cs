@@ -29,6 +29,7 @@ namespace PSC2013.ES.Library.Snapshot
         private SnapshotWriter _writer;
 
         public event EventHandler<EventArgs> WriterQueueEmpty;
+        public event EventHandler<EventArgs> SnapshotWritten;
 
         public SnapshotManager() : base("SNM")
         { }
@@ -49,6 +50,7 @@ namespace PSC2013.ES.Library.Snapshot
 
             _writer = new SnapshotWriter();
             _writer.QueueEmptied += WriterQueueEmpty.Raise;
+            _writer.SnapshotWritten += SnapshotWritten.Raise;
             TookSnapshot += _writer.Recieve;
         }
 
@@ -86,6 +88,7 @@ namespace PSC2013.ES.Library.Snapshot
             private Task _task;
 
             public event EventHandler<EventArgs> QueueEmptied;
+            public event EventHandler<EventArgs> SnapshotWritten;
 
             /// <summary>
             /// Creates a new Writer and creates an archive at the above given destination
@@ -126,24 +129,13 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 while (_snapshots.Count > 0)
                 {
-                    // TODO | dj | maybe we should copy the queue?
-                    // because IF the IO is a/the bottleneck then locking
-                    // the queue would cause the manager itself being blocked
-                    // and not being able to enqueue a new snapshot until
-                    // the IO is finished.
-                    /* other possibility for this:
-                     * TickSnapshot tmp;
-                     * lock(_snapshots) { tmp = _snapshots.Dequeue(); }
-                     * if (tmp != null)
-                     * {
-                     *      // ...the writing stuff here.
-                     * }
-                     */
-                    lock (_snapshots)
+                    TickSnapshot temp;
+                    lock (_snapshots) { temp = _snapshots.Dequeue(); }
+                    if (temp != null)
                     {
-                        TickSnapshot temp = _snapshots.Dequeue();
                         _writer.WriteIntoArchive(temp, _target, temp.Head, true);
                         WriteMessage("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
+                        SnapshotWritten.Raise(this, null);
                     }
                 }
                 _task = null;

@@ -6,111 +6,53 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using PSC2013.ES.Library;
+using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library.AreaData
 {
-    public class MessageEventArgs : EventArgs
+    public class GeneratorEvent : EventArgs
     {
-        public string Message { get; set; }
+        public string Name { get; set; }
+        public int Total { get; set; }
     }
 
     // TODO | dj | can't implement OutputTargetWriter as a cause of static...
-    public static class MatrixGenerator
+    public class MatrixGenerator : OutputTargetWriter
     {
-        private static int WIDTH = 2814;
-        private static int HEIGHT = 3841;
+        private int WIDTH = 2814;
+        private int HEIGHT = 3841;
 
-        public static event EventHandler<MessageEventArgs> DepartmentCalculationFinished;
+        private bool _dummy;
 
-        #region DUMMY METHODS
-        /// <summary>
-        /// Generates a Dummy-Matrix. All cells will
-        /// be department-wide even filled.
-        /// 
-        /// For parameters see GenerateMatrix.
-        /// </summary>
-        public static void GenerateDummyMatrix(
-            PopulationCell[] populationArray,
-            Human[] humanArray,
-            IEnumerable<DepartmentInfo> rawData,
-            int width, int height)
+        public event EventHandler<GeneratorEvent> DepartmentCalculationFinished;
+
+        public MatrixGenerator() : base("MG")
         {
-            WIDTH = width;
-            HEIGHT = height;
-
-            Combiner comb = new Combiner(populationArray, humanArray);
-
-            int degree = (Environment.ProcessorCount >> 1);     // half of processors (we don't wanna kill it :P)
-            degree = Math.Max(1, degree);                       // but minimum of 1
-            //degree = -1;
-            Parallel.ForEach(rawData, new ParallelOptions() { MaxDegreeOfParallelism = degree },
-                (item) =>
-                {
-                    Human[] humans;
-                    var res = DummyPopulate(item, out humans);
-                    comb.Enqueue(res, humans);
-
-                    res = null;
-                });
-            comb.Wait();
-            comb.Dispose();
+            _dummy = false;
         }
 
-        private static Tuple<int, PopulationCell>[] DummyPopulate(DepartmentInfo depInfo, out Human[] humanArray)
+        public MatrixGenerator(bool dummy) : this()
         {
-            int areaSize = depInfo.Coordinates.Length;
-
-            Tuple<int, PopulationCell>[] tmpArray = new Tuple<int, PopulationCell>[areaSize];
-            int tmpCounter = 0;
-            humanArray = new Human[depInfo.GetTotal()];
-            int humanCounter = 0;
-            
-            int[] popsPerPoint = depInfo.Population.Select(x => x / areaSize).ToArray();
-
-            foreach (Point point in depInfo.Coordinates)
-            {
-                PopulationCell cell = new PopulationCell();
-
-                for (int i = 0; i < 8; i++)
-                {
-                    EGender gender = (i < 4) ? EGender.Male : EGender.Female;
-
-                    var bounds = GetAgeBounds(i);
-                    int lowerAgeBound = bounds.Item1;
-                    int upperAgeBound = bounds.Item2;
-
-                    for (int n = 0; n < popsPerPoint[i]; n++)
-                    {
-                        int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
-                        humanArray[humanCounter++] = Human.Create(gender, thisAge, point.Flatten(WIDTH));
-                        cell.Data[i]++;
-                    }
-                }
-
-                tmpArray[tmpCounter++] = new Tuple<int, PopulationCell>(point.Flatten(WIDTH), cell);
-
-            }
-
-            return tmpArray;
+            _dummy = dummy;
         }
-        #endregion DUMMY METHODS
+
 
         /// <summary>
-        /// Generates the ultimative matrix. It
-        /// spreads the people ALLL over their departments.
-        /// Might also include Department[].
+        /// Generates the ultimative matrix. It spreads
+        /// the people ALLL over their departments.
         /// 
         /// **In-Place**
         /// </summary>
         /// <param name="populationArray">The already initialized
         /// PopulationCell-matrix which will be used for most stuff.
         /// This array will be modified!</param>
+        /// <param name="humanArray">The array of Humans. This array will be modified!</param>
         /// <param name="rawData">The raw DepartmentInfos. This array will be modified!</param>
         /// <param name="width">width of the populationArray (used for offsets)</param>
         /// <param name="height">height of the populationArray (used for offsets)</param>
         /// <returns>The input-populationCell-array (modified).</returns>
-        public static void GenerateMatrix(
+        public void GenerateMatrix(
             PopulationCell[] populationArray,
             Human[] humanArray,
             IEnumerable<DepartmentInfo> rawData,
@@ -125,26 +67,33 @@ namespace PSC2013.ES.Library.AreaData
                     "populationArray");
 
             Combiner comb = new Combiner(populationArray, humanArray);
+            int departmentsCount = rawData.Count();
 
             // the parallel call.
             Parallel.ForEach(rawData, Constants.DEFAULT_PARALLELOPTIONS,
                 (item) => {
                     Human[] humans;
-                    var res = Populate(item, out humans);         // populate the department.
+                    var res = _dummy? DummyPopulate(item, out humans)
+                                    : Populate(item, out humans);         // populate the department.
                     comb.Enqueue(res, humans);
                     res = null;
                     humans = null;
-
-                    DepartmentCalculationFinished.Raise(null, new MessageEventArgs
+                    
+                    DepartmentCalculationFinished.Raise(this, new GeneratorEvent
                     {
-                        Message = "Calculated: " + item.Name
+                        Name = item.Name,
+                        Total = departmentsCount
                     });
+                    WriteMessage("Calculated: " + item.Name);
                 });
             comb.Wait();
             comb.Dispose();
         }
 
-        private static Tuple<int, PopulationCell>[] Populate(DepartmentInfo depInfo, out Human[] humanArray)
+        /// <summary>
+        /// The standard method to populate.
+        /// </summary>
+        private Tuple<int, PopulationCell>[] Populate(DepartmentInfo depInfo, out Human[] humanArray)
         {
             // the count of cells.
             int areaSize = depInfo.Coordinates.Length;
@@ -263,9 +212,52 @@ namespace PSC2013.ES.Library.AreaData
         }
 
         /// <summary>
+        /// The Dummy-implementation.
+        /// </summary>
+        private Tuple<int, PopulationCell>[] DummyPopulate(DepartmentInfo depInfo, out Human[] humanArray)
+        {
+            int areaSize = depInfo.Coordinates.Length;
+
+            Tuple<int, PopulationCell>[] tmpArray = new Tuple<int, PopulationCell>[areaSize];
+            int tmpCounter = 0;
+            humanArray = new Human[depInfo.GetTotal()];
+            int humanCounter = 0;
+
+            int[] popsPerPoint = depInfo.Population.Select(x => x / areaSize).ToArray();
+
+            foreach (Point point in depInfo.Coordinates)
+            {
+                PopulationCell cell = new PopulationCell();
+
+                for (int i = 0; i < 8; i++)
+                {
+                    EGender gender = (i < 4) ? EGender.Male : EGender.Female;
+
+                    var bounds = GetAgeBounds(i);
+                    int lowerAgeBound = bounds.Item1;
+                    int upperAgeBound = bounds.Item2;
+
+                    for (int n = 0; n < popsPerPoint[i]; n++)
+                    {
+                        int thisAge = RANDOM.Next(lowerAgeBound, upperAgeBound + 1);
+                        humanArray[humanCounter++] = Human.Create(gender, thisAge, point.Flatten(WIDTH));
+                        cell.Data[i]++;
+                    }
+                }
+
+                tmpArray[tmpCounter++] = new Tuple<int, PopulationCell>(point.Flatten(WIDTH), cell);
+
+            }
+
+            return tmpArray;
+        }
+
+        # region OBSOLETE
+        /// <summary>
         /// Populate the given department.
         /// </summary>
-        private static Tuple<int, PopulationCell>[] PopulateDepartment(DepartmentInfo depInfo, out Human[] humanArray)
+        [Obsolete] // just here because it is a cool one :P
+        private Tuple<int, PopulationCell>[] PopulateDepartment(DepartmentInfo depInfo, out Human[] humanArray)
         {
             List<Human> humanList = new List<Human>(depInfo.GetTotal());
 
@@ -333,11 +325,13 @@ namespace PSC2013.ES.Library.AreaData
             humanList = null;
             return resultArray;
         }
+        #endregion
 
+        #region Help methods
         /// <summary>
         /// Returns the age-boundaries for the given age-group.
         /// </summary>
-        private static Tuple<int, int> GetAgeBounds(int i)
+        private Tuple<int, int> GetAgeBounds(int i)
         {
             int lower = 1;
             int upper = 110;
@@ -363,7 +357,7 @@ namespace PSC2013.ES.Library.AreaData
         /// Returns the initial System.Drawing.Point of the
         /// given DepartmentInfo
         /// </summary>
-        private static Point CalculateInitialPoint(Point[] coords)
+        private Point CalculateInitialPoint(Point[] coords)
         {
             int minX = WIDTH;
             int minY = HEIGHT;
@@ -392,6 +386,7 @@ namespace PSC2013.ES.Library.AreaData
                 initialPoint = coords[0];
             return initialPoint;
         }
+        #endregion
     }
 
     class Combiner

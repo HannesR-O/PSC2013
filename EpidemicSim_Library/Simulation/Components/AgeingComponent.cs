@@ -58,7 +58,11 @@ namespace PSC2013.ES.Library.Simulation.Components
                         if (human->IsDead())
                             return;
 
+                        EAge previousAgegroup = human->GetAge();
+
                         human->DoAgeTick(1);            //TODO: |f| fixme im dirty nonsense
+
+                        AssignProfession(human, previousAgegroup);
 
                         if (human->GetAgeInYears() <= AgeLimit) return;
 
@@ -93,6 +97,56 @@ namespace PSC2013.ES.Library.Simulation.Components
             Console.WriteLine("Dead people this Iteration: " + deadPeople.Count);
             Console.WriteLine("Total dead people: " + data.DeathCount);
 #endif
+        }
+
+        private unsafe void AssignProfession(Human* hptr, EAge previousAgegroup)
+        {
+            EAge newAgegroup = hptr->GetAge();
+
+            if (newAgegroup != previousAgegroup)
+            {
+                if (newAgegroup == EAge.Child)
+                {
+                    hptr->SetProfession(EProfession.Pupil);
+                }
+                else if (newAgegroup == EAge.Adult)
+                {
+                    int choice = RANDOM.Next(6);
+                    switch (choice)
+                    {
+                        case 0: hptr->SetProfession(EProfession.Student); break;
+                        case 1: hptr->SetProfession(EProfession.Plumber); break;
+                        case 2: hptr->SetProfession(EProfession.Commuter); break;
+                        case 3: hptr->SetProfession(EProfession.DeskJobber); break;
+                        case 4: hptr->SetProfession(EProfession.TravellingSalesman); break;
+                        case 5: hptr->SetProfession(EProfession.Housewife); break;
+                    }
+                }
+                else if (newAgegroup == EAge.Senior)
+                {
+                    hptr->SetProfession(EProfession.Housewife);
+                }
+                else
+                {
+                    throw new Exception("Someone seemed to have found the fountain of Youth" +
+                    "atleast he wasn't a baby before this Agetick and now he is. MAGIC!");
+                }
+            }
+            else
+            {
+                if (hptr->GetProfession() == EProfession.Student && hptr->GetAgeInYears() >= 30)
+                {
+                    int choice = RANDOM.Next(5);
+                    switch (choice)
+                    {
+                        case 0: hptr->SetProfession(EProfession.Plumber); break;
+                        case 1: hptr->SetProfession(EProfession.Commuter); break;
+                        case 2: hptr->SetProfession(EProfession.DeskJobber); break;
+                        case 3: hptr->SetProfession(EProfession.TravellingSalesman); break;
+                        case 4: hptr->SetProfession(EProfession.Housewife); break;
+                    }
+                }
+            }
         }
 
         private void UpdateTicksPerYear()
