@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.PopulationData;
+using PSC2013.ES.Library.AreaData;
 
 namespace PSC2013.ES.Library
 {
@@ -70,20 +71,28 @@ namespace PSC2013.ES.Library
         }
         public bool IsSimulating { get { return _simulationLock; } }
 
+        public long SimulationDuration { get { return _simulationLimit; } }
+        public int SimulationIntervall { get { return _simulationIntervall; } }
+        public int SnapshotIntervall { get { return _snapshotIntervall; } }
+
         // Events
         public event EventHandler<SimulationEventArgs> SimulationStarted;
         public event EventHandler<SimulationEventArgs> SimulationEnded;
         public event EventHandler<SimulationEventArgs> TickFinished;
         public event EventHandler<EventArgs> ProcessFinished;
+        public event EventHandler<EventArgs> SnapshotWritten;
+        public event EventHandler<GeneratorEvent> DepartmentCalculated;
         //TODO: |f| do we also want StageFinished ?
         #endregion
 
         private EpidemicSimulator(Disease disease) : base("ES")
         {
             _simData = new SimulationData { DiseaseToSimulate = disease };
+            _simData.DepartmentCalculated += DepartmentCalculated.Raise;
 
             _snapshotMgr = new SnapshotManager();                           // Needs to be initialized before using
             _snapshotMgr.WriterQueueEmpty += OnWriterQueueEmpty;
+            _snapshotMgr.SnapshotWritten += SnapshotWritten;
 
             _before = new HashSet<SimulationComponent>();
             _after = new HashSet<SimulationComponent>();
