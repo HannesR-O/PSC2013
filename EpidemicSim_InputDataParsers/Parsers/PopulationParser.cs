@@ -23,7 +23,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
         }
 
         /// <summary>
-        /// Parses a population file (*.csv) from "Statistesches Bundesamt"
+        /// Parses a population file (*.csv) from "Statistisches Bundesamt"
         /// </summary>
         /// <param name="populationFile">The file to parse</param>
         /// <returns>A list of all RegionPopulationInfo with population numbers only </returns>
@@ -32,7 +32,7 @@ namespace PSC2013.ES.InputDataParsers.Parsers
             if (!File.Exists(populationFile))
                 throw new FileNotFoundException("File could not be found", populationFile);
 
-            _lines = File.ReadAllText(populationFile).Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            _lines = File.ReadAllText(populationFile, Encoding.UTF8).Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 
             return FindCities();
         }
