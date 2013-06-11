@@ -168,7 +168,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
                         c = new InfectionComponent();
                         break;
                     case EComponentTag.DiseaseEffectComponent:
-                        c = new DiseaseEffectComponent();
+                        c = new DiseaseTickComponent();
                         break;
                     case EComponentTag.MindsetComponent:
                         c = new MindsetComponent();
