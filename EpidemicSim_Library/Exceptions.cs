@@ -13,8 +13,8 @@ namespace PSC2013.ES.Library
     public sealed class SimFileCorruptException : Exception
     {
         public SimFileCorruptException() { }
-        public SimFileCorruptException(string Massage) { }
-        public SimFileCorruptException(string message, System.Exception innerException) { }
+        public SimFileCorruptException(string message) : base(message) { }
+        public SimFileCorruptException(string message, System.Exception innerException) : base(message, innerException) { }
     }
 
     /// <summary>
@@ -23,8 +23,8 @@ namespace PSC2013.ES.Library
     public sealed class HeaderCorruptException : Exception
     {
         public HeaderCorruptException() { }
-        public HeaderCorruptException(string Massage) { }
-        public HeaderCorruptException(string message, System.Exception innerException) { }
+        public HeaderCorruptException(string message) : base(message) { }
+        public HeaderCorruptException(string message, System.Exception innerException) : base(message, innerException) { }
     }
 
     public sealed class SimulationException : Exception
