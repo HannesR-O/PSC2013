@@ -45,7 +45,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                             if (ptr->TravellingCounter == 0)
                             {
                                 ptr->SetTravelling(false);
-                                ptr->CurrentCell = ptr->DesiredCell;
+                                MoveHuman(ptr, ptr->DesiredCell);
                             }
                             else
                             {
@@ -112,7 +112,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                                 else
                                 {
                                     if (RANDOM.Next(5) == 0)
-                                        MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 2, 75));
+                                        LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 2, 75));
                                 }
                             }
                             else if (_data.CurrentHour == 19)
@@ -130,7 +130,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                         {
                             if (_data.CurrentHour == 8 && ptr->IsAtHome())
                             {
-                                MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 400, 800));
+                                LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 400, 800));
                             }
                             else if (_data.CurrentHour == 6)
                             {
@@ -269,7 +269,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Pupil should be in school from 7-10
                     else if (_data.CurrentHour == 7)
                     {
-                        MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 2, 125));
+                        LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 2, 125));
                     }
                     else if (_data.CurrentHour < 11)
                     {
@@ -299,7 +299,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (_data.CurrentHour == 15)
                     {
                         if (RANDOM.Next(2) == 1)
-                            MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 2, 25));
+                            LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 2, 25));
                         else
                             return;
                     }
@@ -323,7 +323,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     if (_data.CurrentHour < 7)
                         return;
                     else if (_data.CurrentHour < 18)
-                        MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 0, 25));
+                        LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 0, 25));
                     else if (_data.CurrentHour == 18 && !ptr->IsAtHome())
                         LetHumanTravelHome(ptr);
                     else
@@ -348,7 +348,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                         {
                             //chance to go to university
                             if (RANDOM.Next(3) == 2)
-                                MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 3, 75));
+                                LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 3, 75));
                             else
                                 return;
                         }
@@ -384,7 +384,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         if (ptr->IsAtHome() && RANDOM.Next(6) == 5)
                         {
-                            MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 0, 74));
+                            LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 0, 74));
                         }
                     }
                     else if (_data.CurrentHour == 19 && !ptr->IsAtHome())
@@ -394,7 +394,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (_data.CurrentHour == 22 && RANDOM.Next(2) == 1)
                     {
                         //Party
-                        MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 25, 75));
+                        LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 25, 75));
                     }
                     else
                         return;
@@ -412,7 +412,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                 case PopulationData.EMindset.Working:
                     if (_data.CurrentHour > 7 && _data.CurrentHour < 18)
                     {
-                        MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 5, 74));
+                        LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 5, 74));
                     }
                     //return home at 18 o'clock
                     else if (_data.CurrentHour == 18)
@@ -436,7 +436,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (_data.CurrentHour < 20 && ptr->IsAtHome())
                     {
                         if (RANDOM.Next(20) == 19)
-                            MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 10, 50));
+                            LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 10, 50));
                     }
                     else if (_data.CurrentHour == 20 && !ptr->IsAtHome())
                         LetHumanTravelHome(ptr);
@@ -457,7 +457,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //Go to work
                     if (_data.CurrentHour == 9)
                     {
-                        MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 0, 75));
+                        LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 0, 75));
                     }
                     //Go home
                     else if (_data.CurrentHour == 18)
@@ -480,7 +480,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (_data.CurrentHour < 20 && ptr->IsAtHome())
                     {
                         if (RANDOM.Next(20) == 19)
-                            MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 10, 50));
+                            LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 10, 50));
                     }
                     else if (_data.CurrentHour == 20 && !ptr->IsAtHome())
                     {
@@ -505,7 +505,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     if (_data.CurrentHour > 6 && _data.CurrentHour < 20)
                     {
                         //chance to go shopping/visit friends/work
-                        MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 0, 5));
+                        LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 0, 5));
                     }
                     //return home at 20 o'clock
                     else if (_data.CurrentHour == 20)
@@ -541,7 +541,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         if (_data.CurrentHour == 4)
                         {
-                            MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 400, 800));
+                            LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 400, 800));
                         }
                         else
                             return;
@@ -558,7 +558,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (_data.CurrentHour < 20 && ptr->IsAtHome())
                     {
                         if (RANDOM.Next(20) == 19)
-                            MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 10, 50));
+                            LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 10, 50));
                     }
                     else if (_data.CurrentHour == 20 && !ptr->IsAtHome())
                     {
@@ -581,7 +581,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     //travel to distant workplace
                     if (_data.CurrentHour == 6)
                     {
-                        MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 125, 400));
+                        LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 125, 400));
                     }
                     //return home
                     else if (_data.CurrentHour == 17)
@@ -603,7 +603,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     else if (_data.CurrentHour < 20 && ptr->IsAtHome())
                     {
                         if (RANDOM.Next(20) == 19)
-                            MoveHuman(ptr, FindCellInReach(ptr->CurrentCell, 10, 50));
+                            LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 10, 50));
                     }
                     else if (_data.CurrentHour == 20 && !ptr->IsAtHome())
                     {
