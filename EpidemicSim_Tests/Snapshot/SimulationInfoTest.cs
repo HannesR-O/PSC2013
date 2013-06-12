@@ -29,7 +29,7 @@ namespace PSC2013.ES.Tests.Snapshot
         public void SimInfoInitializeFromRuntimeTest()
         {
             Start();
-            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease, 0, 0);
+            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease, 0, 0, 0, 0, 0);
 
             Assert.Equal(sim.Disease, _disease);
             Assert.Equal(sim.Name, _name);
@@ -39,7 +39,7 @@ namespace PSC2013.ES.Tests.Snapshot
         public void SimInfoInitializeFromFileTest()
         {
             Start();
-            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease, 0, 0);
+            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease, 0, 0, 0, 0, 0);
             byte[] name = System.Text.Encoding.UTF8.GetBytes(_name);
             byte[] comp = new byte[121 + name.Length];
             Array.Copy(BitConverter.GetBytes(238475), 0, comp, 1, 4);
@@ -88,7 +88,7 @@ namespace PSC2013.ES.Tests.Snapshot
         public void SimInfoGetBytesTest()
         {
             Start();
-            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease, 0, 0);
+            SimulationInfo sim = SimulationInfo.InitializeFromRuntime(_disease, 0, 0, 0, 0, 0);
 
             byte[] testing = sim.GetBytes();
             byte[] name = System.Text.Encoding.UTF8.GetBytes(_disease.Name);

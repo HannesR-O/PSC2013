@@ -39,9 +39,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         /// <param name="destination">Where to save the data</param>
         /// <param name="disease">The Disease used in the Simulation</param>
-        public void Initialize(string destination, Disease disease, int mapX, int mapY)
+        public void Initialize(string destination, Disease disease, int mapX, int mapY, int simintervall, int snapintervall, long duration)
         {
-            _simInfo = SimulationInfo.InitializeFromRuntime(disease, mapX, mapY);
+            _simInfo = SimulationInfo.InitializeFromRuntime(disease, mapX, mapY, simintervall, snapintervall, duration);
 
             _target = Path.Combine(destination, disease.Name);
             _snapshots = new Queue<TickSnapshot>();
