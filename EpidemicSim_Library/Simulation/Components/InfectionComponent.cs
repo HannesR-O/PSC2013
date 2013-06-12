@@ -4,7 +4,7 @@ using System.Linq;
 using PSC2013.ES.Library.PopulationData;
 using System;
 using System.Drawing;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library.Simulation.Components

@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions.cs" />
-    <Compile Include="IO\Writers\DiseaseWriter.cs" />
+    <Compile Include="IO\DiseaseIOService.cs" />
     <Compile Include="IO\OutputTargets\ConsoleOutputTarget.cs" />
     <Compile Include="EpidemicSimulator.cs" />
     <Compile Include="IO\OutputTargets\IOutputTarget.cs" />
@@ -73,8 +73,8 @@
     <Compile Include="Snapshot\HumanSnapshot.cs" />
     <Compile Include="Snapshot\SimulationInfo.cs" />
     <Compile Include="Snapshot\TickSnapshot.cs" />
-    <Compile Include="Diseases\Disease.cs" />
-    <Compile Include="Diseases\FactorContainer.cs" />
+    <Compile Include="DiseaseData\Disease.cs" />
+    <Compile Include="DiseaseData\FactorContainer.cs" />
     <Compile Include="IO\IBinaryObject.cs" />
     <Compile Include="IO\Writers\IBinaryWriter.cs" />
     <Compile Include="PopulationData\EAge.cs" />

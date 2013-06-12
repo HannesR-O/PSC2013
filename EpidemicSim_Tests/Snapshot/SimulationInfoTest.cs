@@ -1,6 +1,6 @@
 ﻿using System;
 using PSC2013.ES.Library.Snapshot;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 using Xunit;
 
 namespace PSC2013.ES.Tests.Snapshot

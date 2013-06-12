@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PSC2013.ES.Library.Diseases
+namespace PSC2013.ES.Library.DiseaseData
 {
     /// <summary>
     /// A container to hold the

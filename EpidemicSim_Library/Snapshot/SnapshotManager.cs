@@ -1,6 +1,6 @@
 ﻿using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.PopulationData;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 using PSC2013.ES.Library.IO.Writers;
 using PSC2013.ES.Library.Simulation;
 using System;

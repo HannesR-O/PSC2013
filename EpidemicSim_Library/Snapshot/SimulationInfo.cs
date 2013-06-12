@@ -1,6 +1,6 @@
 ﻿using System;
 using PSC2013.ES.Library.IO;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 
 namespace PSC2013.ES.Library.Snapshot
 {

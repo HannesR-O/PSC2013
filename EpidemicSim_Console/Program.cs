@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using PSC2013.ES.Library;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
@@ -12,7 +12,7 @@ using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics;
 using PSC2013.ES.Library.Statistics.CountStatistics;
 using PSC2013.ES.Library.Statistics.Pictures;
-using PSC2013.ES.Library.IO.Writers;
+using PSC2013.ES.Library.IO;
 
 namespace PSC2013.ES.Cmd
 {
@@ -130,9 +130,9 @@ namespace PSC2013.ES.Cmd
                     HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
                     ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
                 };
-            DiseaseWriter.Save(disease, Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            DiseaseIOService.Save(disease, Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
 
-            var dis = DiseaseWriter.Load(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Test_Disease.dis"));
+            var dis = DiseaseIOService.Load(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Test_Disease.dis"));
             Console.WriteLine("Done");
         }
 
