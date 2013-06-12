@@ -85,9 +85,9 @@ namespace PSC2013.ES.Library
         //TODO: |f| do we also want StageFinished ?
         #endregion
 
-        private EpidemicSimulator(Disease disease) : base("ES")
+        private EpidemicSimulator(Disease disease, DateTime startTime) : base("ES")
         {
-            _simData = new SimulationData { DiseaseToSimulate = disease };
+            _simData = new SimulationData(startTime) { DiseaseToSimulate = disease };
             _simData.DepartmentCalculated += DepartmentCalculated.Raise;
 
             _snapshotMgr = new SnapshotManager();                           // Needs to be initialized before using
@@ -106,9 +106,9 @@ namespace PSC2013.ES.Library
         /// <param name="outputTarget">The initial OutputTarget. Can be null.</param>
         /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
         /// <returns>The created instance of EpidemicSimulator</returns>
-        public static EpidemicSimulator Create(Disease disease, string dataFilePath, IOutputTarget outputTarget, params SimulationComponent[] components)
+        public static EpidemicSimulator Create(Disease disease, string dataFilePath, IOutputTarget outputTarget, DateTime startTime, params SimulationComponent[] components)
         {
-            var sim = new EpidemicSimulator(disease);
+            var sim = new EpidemicSimulator(disease, startTime);
 
             if (outputTarget != null)
                 sim.AddOutputTarget(outputTarget);

@@ -120,6 +120,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 _firstContainer.InfoDisease,
                 _depPath,
                 lbot,
+                DateTime.Now,
                 GetSimComponents(sc.Components));
             _simulator.AddOutputTarget(new PSC2013.ES.Library.IO.OutputTargets.ConsoleOutputTarget());
 

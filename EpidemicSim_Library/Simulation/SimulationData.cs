@@ -53,7 +53,7 @@ namespace PSC2013.ES.Library.Simulation
             get { return DiseaseToSimulate != null && Cells != null; }
         }
 
-        public SimulationData() : base("SD")
+        public SimulationData(DateTime startTime) : base("SD")
         {
             Cells = new PopulationCell[0];          //  10808574
             Humans = new Human[0];                  // ~82000000
@@ -63,7 +63,7 @@ namespace PSC2013.ES.Library.Simulation
             FederalStates = new FederalState[0];    // 16
             Departments = new Department[0];        // 401
 
-            _time = DateTime.Now;
+            _time = startTime;
         }
 
         /// <summary>

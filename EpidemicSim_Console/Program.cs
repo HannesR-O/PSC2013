@@ -88,6 +88,7 @@ namespace PSC2013.ES.Cmd
                 },
                 "../../../EpidemicSim_InputDataParsers/germany.dep",
                 new ConsoleOutputTarget(),
+                DateTime.Now,
                 new DebugInfectionComponent());
             sim.SetSimulationIntervall(1);
             sim.SetSnapshotIntervall(1);
@@ -138,7 +139,7 @@ namespace PSC2013.ES.Cmd
 
         public static void TestMemory()
         {
-            var simData = new SimulationData();
+            var simData = new SimulationData(DateTime.Now);
             Console.WriteLine("Current size in MB: " + Process.GetCurrentProcess().PrivateMemorySize64 / (1024 * 1024));
             Console.WriteLine("Total Humancount in 1000: " + simData.Cells.Length * 8 / 1000);
         }
@@ -157,8 +158,9 @@ namespace PSC2013.ES.Cmd
                 ResistanceFactor = new FactorContainer(new[] { 0, 5, 5, 0, 0, 3, 3, 0})
             };
             var sim = EpidemicSimulator.Create(disease,
-                "../../../EpidemicSim_InputDataParsers/germany.dep",
+                "../../../EpidemicSim_InputDataParsers/germany.dep",  
                 new ConsoleOutputTarget(),
+                DateTime.Now,
                 new AgeingComponent(110),
                 new DiseaseTickComponent(),
                 new DiseaseDeathComponent(),
@@ -192,7 +194,7 @@ namespace PSC2013.ES.Cmd
                 ResistanceFactor = new FactorContainer(new[] { 0, 0, 0, 0, 0, 0, 0, 0 })
             };
 
-            var sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), new InfectionComponent());
+            var sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), DateTime.Now, new InfectionComponent());
             sim.AddSimulationComponent(new DiseaseTickComponent());
             sim.SetSimulationIntervall(3);
             sim.SetSnapshotIntervall(3);
@@ -342,11 +344,11 @@ namespace PSC2013.ES.Cmd
             for (int i = -1; i < components.Length; i++)
             {
                 if (i == -1)
-                    sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), new InfectionComponent());
+                    sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), DateTime.Now, new InfectionComponent());
                 else
                 {
                     disease.Name = "ComponentTest_" + componentNames[i];
-                    sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), debugComp);
+                    sim = EpidemicSimulator.Create(disease, dep, new ConsoleOutputTarget(), DateTime.Now, debugComp);
                     sim.AddSimulationComponent(components[i]);
                     Console.WriteLine("Testing " + componentNames[i]);
                 }
