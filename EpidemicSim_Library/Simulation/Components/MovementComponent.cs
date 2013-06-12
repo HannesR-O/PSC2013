@@ -132,7 +132,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                             {
                                 LetHumanTravel(ptr, FindCellInReach(ptr->CurrentCell, 400, 800));
                             }
-                            else if (_data.CurrentHour == 6)
+                            else if (_data.CurrentHour == 6 && !ptr->IsAtHome())
                             {
                                 if (RANDOM.Next(14) == 13)
                                 {

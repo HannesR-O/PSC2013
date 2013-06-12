@@ -74,13 +74,59 @@ namespace PSC2013.ES.Library.PopulationData
         public static Human Create(EGender gender, int age, int homeCell)
         {
             var human = new Human(homeCell);
-            Random random = new Random();
 
             human.SetGender(gender);
             human.SetAge(age);
             human.SetDeath(false);
-            human.SetProfession((EProfession)random.Next(8));
-            human.SetMindset((EMindset)random.Next(6));
+            if (human.GetAge() == EAge.Baby)
+            {
+                human.SetMindset(EMindset.Stationary);
+            }
+            else if (human.GetAge() == EAge.Child)
+            {
+                human.SetProfession(EProfession.Pupil);
+                human.SetMindset(EMindset.Working);
+            }
+            else if (human.GetAge() == EAge.Adult)
+            {
+                int result = RANDOM.Next(100);
+                if (result < 10)
+                {
+                    human.SetProfession(EProfession.Student); //10%
+                    human.SetMindset(EMindset.Working);
+                }
+                else if (result < 35)
+                {
+                    human.SetProfession(EProfession.Plumber); //25%
+                    human.SetMindset(EMindset.Working);
+                }
+                else if (result < 60)
+                {
+                    human.SetProfession(EProfession.DeskJobber); //25%
+                    human.SetMindset(EMindset.Working);
+                }
+                else if (result < 80)
+                {
+                    human.SetProfession(EProfession.Commuter); //20%
+                    human.SetMindset(EMindset.Working);
+                }
+                else if (result < 90)
+                {
+                    human.SetProfession(EProfession.TravellingSalesman);//10%
+                    human.SetMindset(EMindset.Working);
+                }
+                else
+                {
+                    human.SetProfession(EProfession.Housewife); //10%
+                    human.SetMindset(EMindset.Working);
+                }
+            }
+            else if (human.GetAge() == EAge.Senior)
+            {
+                human.SetProfession(EProfession.Unemployed);
+                human.SetMindset(EMindset.HomeStaying);
+            }
+
 
             return human;
         }

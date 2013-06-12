@@ -6,6 +6,8 @@ namespace PSC2013.ES.Library.Simulation.Components
 {
     public class MindsetComponent : SimulationComponent
     {
+        private DayOfWeek _currentDay;
+
         public MindsetComponent() : base(ESimulationStage.BeforeInfectedCalculation)
         {
             _simulationIntervall = 1;
@@ -13,6 +15,12 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public unsafe override void PerformSimulationStage(SimulationData data)
         {
+            if (_currentDay == null || _currentDay != data.CurrentDay)
+                _currentDay = data.CurrentDay;
+            else
+                return;
+
+
             fixed (Human* humanptr = data.Humans)
             {
                 Human* startPtr = humanptr;
@@ -21,13 +29,15 @@ namespace PSC2013.ES.Library.Simulation.Components
                     {
                         Human* ptr = startPtr + index;
 
+                        if (ptr->IsDead() || ptr->IsTravelling() || ptr->GetAge() == EAge.Senior || ptr->GetAge() == EAge.Baby)
+                        {
+                            return;
+                        }
+
                         if (ptr->IsAtHome())
                         {
                             if (ptr->IsDiseased())
                             {
-                                if (ptr->GetAge() == EAge.Senior || ptr->GetAge() == EAge.Baby)
-                                    ptr->SetMindset(EMindset.Stationary);
-                                else
                                     ptr->SetMindset(EMindset.HomeStaying);
                             }
                             else
@@ -41,10 +51,14 @@ namespace PSC2013.ES.Library.Simulation.Components
                                 }
                                 else
                                 {
-                                    ptr->SetMindset(EMindset.DayOff);
+                                    if (RANDOM.Next(365) < 20)
+                                        ptr->SetMindset(EMindset.Vacationing);
+                                    else
+                                        ptr->SetMindset(EMindset.DayOff);
                                 }
                             }
                         }
+                        
                     });
             }
         }
