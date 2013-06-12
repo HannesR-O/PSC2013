@@ -60,7 +60,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
-            _tick++;
+            _tick++; // <-
             int cellCount = simData.Cells.Count(x => x != null);
             CellSnapshot[] cells = new CellSnapshot[cellCount];
 
@@ -69,11 +69,11 @@ namespace PSC2013.ES.Library.Snapshot
             foreach (PopulationCell cell in simData.Cells)
             {
                 if (cell != null)
-                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
-                ++pos;
+                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos++); // Should still work
+                // ++pos;
             }
 
-            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
+            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths); // <-
 
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);            
