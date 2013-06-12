@@ -65,8 +65,8 @@ namespace PSC2013.ES.Library.Snapshot
             foreach (PopulationCell cell in simData.Cells)
             {
                 if (cell != null)
-                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos++); // Should still work
-                // ++pos;
+                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
+                ++pos;
             }
 
             TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(tick, cells, simData.Deaths); // <-
