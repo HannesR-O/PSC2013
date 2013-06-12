@@ -142,12 +142,28 @@ namespace PSC2013.ES.Library
             if (archive.Mode != ZipArchiveMode.Update)
                 throw new IOException("In order to clear a ZipArchive its mode must be set to ZipArchiveMode.Update!");
 
-            foreach (var entry in archive.Entries)
+            for (int i = 0; i < archive.Entries.Count; i++)
             {
+                var entry = archive.Entries[i];
                 /* It seems this is needed as pointed out here: 
                  *  http://social.msdn.microsoft.com/Forums/en-US/winappswithcsharp/thread/bc055e3f-0b3e-4ef2-961b-27ecc99555bd/ */
                 if (entry != null)
                     entry.Delete();
+            }
+        }
+
+        /// <summary>
+        /// Converts a Zipentry to a Stream
+        /// </summary>
+        /// <param name="entry">The ArchiveEntry</param>
+        /// <returns>A byte[] with its contents</returns>
+        public static byte[] ToByteArray(this ZipArchiveEntry entry)
+        {
+            using (Stream stream = entry.Open())
+            {
+                var memStream = new MemoryStream();
+                stream.CopyTo(memStream);
+                return memStream.ToArray();
             }
         }
     }

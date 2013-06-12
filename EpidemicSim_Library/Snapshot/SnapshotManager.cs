@@ -84,7 +84,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         class SnapshotWriter : OutputTargetWriter
         {
-            private IBinaryWriter _writer;
+            private ArchiveBinaryWriter _writer;
             private Task _task;
 
             public event EventHandler<EventArgs> QueueEmptied;

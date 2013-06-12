@@ -95,4 +95,10 @@ namespace PSC2013.ES.Library.IO.Readers
             return img;
         }
     }
+
+    public class ContinuationEventArgs : EventArgs
+    {
+        public bool Continuing { get; set; }
+        public bool Finished { get; set; }
+    }
 }

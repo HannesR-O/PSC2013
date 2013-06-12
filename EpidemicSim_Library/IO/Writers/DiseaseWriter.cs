@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.IO;
 using PSC2013.ES.Library.Diseases;
 
-namespace PSC2013.ES.Library.IO
+namespace PSC2013.ES.Library.IO.Writers
 {
-    public static class DiseaseIO
+    public static class DiseaseWriter
     {
         public const string FILEEXTENSION = ".dis";
 

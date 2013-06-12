@@ -12,7 +12,7 @@ using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics;
 using PSC2013.ES.Library.Statistics.CountStatistics;
 using PSC2013.ES.Library.Statistics.Pictures;
-using PSC2013.ES.Library.IO;
+using PSC2013.ES.Library.IO.Writers;
 
 namespace PSC2013.ES.Cmd
 {
@@ -130,9 +130,9 @@ namespace PSC2013.ES.Cmd
                     HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
                     ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
                 };
-            DiseaseIO.Save(disease, Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            DiseaseWriter.Save(disease, Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 
-            var dis = DiseaseIO.Load(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Test_Disease.dis"));
+            var dis = DiseaseWriter.Load(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Test_Disease.dis"));
             Console.WriteLine("Done");
         }
 

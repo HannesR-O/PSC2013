@@ -1,4 +1,4 @@
-﻿namespace PSC2013.ES.Library.IO.Files
+﻿namespace PSC2013.ES.Library.IO
 {
     /// <summary>
     /// Types can implement this Interface to provide a binary representation of themselves.

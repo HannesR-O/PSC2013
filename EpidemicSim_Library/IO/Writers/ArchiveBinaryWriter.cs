@@ -1,5 +1,4 @@
-﻿using PSC2013.ES.Library.IO.Files;
-using System;
+﻿using System;
 using System.IO;
 using System.IO.Compression;
 
@@ -7,7 +6,7 @@ namespace PSC2013.ES.Library.IO.Writers
 {
     public class ArchiveBinaryWriter : IBinaryWriter
     {
-        void IBinaryWriter.WriteIntoArchive(IBinaryObject file, string archivePath, string fileName, bool overwrite)
+        public void WriteIntoArchive(IBinaryObject file, string archivePath, string fileName, bool overwrite)
         {
             if (archivePath.LastIndexOf('.') != archivePath.Length - 4)
                 throw new ArgumentException("Archive file's extension's length must be 3 for now!", archivePath);
@@ -21,11 +20,15 @@ namespace PSC2013.ES.Library.IO.Writers
             }
             else
             {
-                var di = new DirectoryInfo("" + RANDOM.Next());
+                DirectoryInfo di;
 
-                if (di.Exists)
-                    throw new Exception("This should not happen... Randomfoldername already existed..");        //TODO: |f| find a prettier solution
+                do
+                {
+                    //To secure no directory gets overriden
+                    di = new DirectoryInfo("" + RANDOM.Next());
+                } while (di.Exists);
 
+                di.Create();
                 ZipFile.CreateFromDirectory(di.FullName, archivePath, CompressionLevel.Optimal, false);
                 di.Delete();
             }
@@ -41,6 +44,12 @@ namespace PSC2013.ES.Library.IO.Writers
                 stream.Write(bytes, 0, bytes.Length);
             }
             archive.Dispose();
+        }
+
+        void IBinaryWriter.WriteToFile(IBinaryObject obj, string filePath, bool overwrite)
+        {
+            //TODO: 
+            WriteIntoArchive(obj, filePath, filePath.Substring(filePath.LastIndexOf('/')), overwrite);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using PSC2013.ES.Library.IO.Files;
+using PSC2013.ES.Library.IO;
 using PSC2013.ES.Library.Diseases;
 
 namespace PSC2013.ES.Library.Snapshot

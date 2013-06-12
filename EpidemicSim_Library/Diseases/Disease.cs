@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using PSC2013.ES.Library.IO.Files;
+using PSC2013.ES.Library.IO;
 namespace PSC2013.ES.Library.Diseases
 {
     /// <summary>
