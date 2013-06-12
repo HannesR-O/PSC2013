@@ -23,7 +23,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
 
         public bool ValidateData()
         {
-            throw new NotImplementedException();
+            return GatherInformation() != null;
         }
 
         public void SetProgressBarStyle(ProgressBarStyle style)

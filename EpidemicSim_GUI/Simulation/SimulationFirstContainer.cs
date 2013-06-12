@@ -47,15 +47,16 @@ namespace PSC2013.ES.GUI.Simulation
         {
             simulationSettingsPanel.TheButton.Click += OnPanelDone;
             simulationDiseasePanel.TheButton.Click += OnPanelDone;
-            //simulationStartlocationPanel.TheButton.Click += OnPanelDone;
-            simulationStartlocationPanel.TheButton.Click += (s, e) => FinalClick.Raise(s, e); // TODO | dj | damnit why?
+            simulationStartlocationPanel.TheButton.Click += OnPanelDone;
         }
 
         private void OnPanelDone(object sender, EventArgs e)
         {
             IRawSimulationPanel panel = (IRawSimulationPanel)(sender as Button).Parent.Parent.Parent;
             if (panel.ValidateData())
-                PanelDone(sender as Control);
+                PanelDone(panel as Control);
+            if (panel == simulationStartlocationPanel)
+                FinalClick.Raise(this, e);
         }
 
         private void PanelDone(Control control)

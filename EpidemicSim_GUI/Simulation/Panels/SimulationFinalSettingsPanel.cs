@@ -19,7 +19,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
 
         public bool ValidateData()
         {
-            throw new NotImplementedException();
+            return !String.IsNullOrEmpty(ContentInformation);
         }
 
         public Button TheButton

@@ -72,7 +72,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
         private void FirstContainer_FinalClick(object sender, EventArgs e)
         {
             // Map-Task still running.
-            if (_runningTask.Status == TaskStatus.Running)
+            if (CanClose)
             {
                 MessageBox.Show("Waiting for a background-task to finish.", "Task still running...");
                 return;

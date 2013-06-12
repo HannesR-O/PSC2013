@@ -19,7 +19,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
 
         public bool ValidateData()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException("This method is not supported in this panel!");
         }
 
         public ListBox GetOutputListBox()

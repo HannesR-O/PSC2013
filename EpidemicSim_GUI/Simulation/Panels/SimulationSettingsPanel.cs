@@ -24,7 +24,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
 
         public bool ValidateData()
         {
-            SettingsContainer sc = GatherInformation();
+            SettingsContainer sc = ContentInformation;
 
             return sc.SimulationDuration >= 0 &&
                 sc.SnapshotIntervall % sc.SimulationIntervall == 0;

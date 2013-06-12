@@ -23,7 +23,9 @@ namespace PSC2013.ES.GUI.Simulation.Panels
 
         public bool ValidateData()
         {
-            throw new NotImplementedException();
+            Disease dis = ContentInformation;
+
+            return !String.IsNullOrEmpty(dis.Name);
         }
 
         public Button TheButton
