@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using PSC2013.ES.GUI.Miscellaneous;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 using PSC2013.ES.Library;
 using PSC2013.ES.GUI.Simulation.Panels;
 
@@ -54,7 +54,7 @@ namespace PSC2013.ES.GUI.Simulation
         private void OnPanelDone(object sender, EventArgs e)
         {
             IRawSimulationPanel panel = (IRawSimulationPanel)(sender as Button).Parent.Parent.Parent;
-            if (panel.Validate())
+            if (panel.ValidateData())
                 PanelDone(sender as Control);
         }
 

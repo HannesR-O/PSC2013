@@ -21,6 +21,11 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             InitializeComponent();
         }
 
+        public bool ValidateData()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetProgressBarStyle(ProgressBarStyle style)
         {
             ProgressBar_Main.Style = style;

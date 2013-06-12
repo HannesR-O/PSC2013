@@ -17,6 +17,6 @@ namespace PSC2013.ES.GUI.Simulation.Panels
         /// <summary>
         /// Validates the input.
         /// </summary>
-        bool Validate();
+        bool ValidateData();
     }
 }

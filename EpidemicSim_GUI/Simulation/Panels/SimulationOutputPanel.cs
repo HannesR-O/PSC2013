@@ -17,6 +17,11 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             InitializeComponent();
         }
 
+        public bool ValidateData()
+        {
+            throw new NotImplementedException();
+        }
+
         public ListBox GetOutputListBox()
         {
             return ListBox_Output;

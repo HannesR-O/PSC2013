@@ -22,11 +22,11 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             this.Comp_EnableMovement.SetValue(true);
         }
 
-        public bool Validate()
+        public bool ValidateData()
         {
             SettingsContainer sc = GatherInformation();
 
-            return sc.SimulationDuration > 0 &&
+            return sc.SimulationDuration >= 0 &&
                 sc.SnapshotIntervall % sc.SimulationIntervall == 0;
         }
 

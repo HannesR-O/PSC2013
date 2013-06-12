@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSC2013.ES.GUI.Components;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 
 namespace PSC2013.ES.GUI.Simulation.Panels
 {
@@ -19,6 +19,11 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             InitializeComponent();
             this.Comp_Transferability.ToolTip += Environment.NewLine + "(e.g. a disease being transferred per air might" +
                 Environment.NewLine + "get a higher value than one per contact)";
+        }
+
+        public bool ValidateData()
+        {
+            throw new NotImplementedException();
         }
 
         public Button TheButton
