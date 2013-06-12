@@ -22,7 +22,6 @@ namespace PSC2013.ES.Library.Snapshot
 
         private static SimulationInfo _simInfo;
         private static string _target;
-        private static long _tick;
         private static Queue<TickSnapshot> _snapshots;
 
         private event EventHandler TookSnapshot;
@@ -46,8 +45,6 @@ namespace PSC2013.ES.Library.Snapshot
             _target = Path.Combine(destination, disease.Name);
             _snapshots = new Queue<TickSnapshot>();
 
-            _tick = 0;
-
             _writer = new SnapshotWriter();
             _writer.QueueEmptied += WriterQueueEmpty.Raise;
             _writer.SnapshotWritten += SnapshotWritten.Raise;
@@ -58,9 +55,8 @@ namespace PSC2013.ES.Library.Snapshot
         /// Takes a Snapshot of the current state and starts to write all Snapshots that are left
         /// </summary>
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
-        public void TakeSnapshot(SimulationData simData)
+        public void TakeSnapshot(SimulationData simData, long tick)
         {
-            _tick++; // <-
             int cellCount = simData.Cells.Count(x => x != null);
             CellSnapshot[] cells = new CellSnapshot[cellCount];
 
@@ -73,7 +69,7 @@ namespace PSC2013.ES.Library.Snapshot
                 // ++pos;
             }
 
-            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths); // <-
+            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(tick, cells, simData.Deaths); // <-
 
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);            

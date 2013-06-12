@@ -345,7 +345,7 @@ namespace PSC2013.ES.Library
 
                 long round = Interlocked.Increment(ref _simulationRound);
                 if (round % _ticksPerSnapshot == 0)
-                    _snapshotMgr.TakeSnapshot(_simData);
+                    _snapshotMgr.TakeSnapshot(_simData, round);
                 _simulationLock = round != _simulationLimit;
 #if DEBUG
                 _watch.Stop();
