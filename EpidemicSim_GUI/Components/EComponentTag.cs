@@ -38,6 +38,8 @@ namespace PSC2013.ES.GUI.Components
         DiseaseDeathComponent,
         DiseaseHealingComponent,
         MindsetComponent,
-        MovementComponent
+        MovementComponent,
+
+        StartTime
     }
 }

@@ -19,15 +19,22 @@ namespace PSC2013.ES.GUI.Simulation
             InitEvents();
         }
 
-        public string InfoDestination
-        {
-            get { return this.simulationFinalSettingsPanel.ContentInformation; }
-        }
-
         public SimulationOutputPanel OuputPanel
         {
             get { return this.simulationOutputPanel; }
         }
+
+        #region info
+        public string InfoDestination
+        {
+            get { return this.simulationFinalSettingsPanel.ContentInformation.Destination; }
+        }
+
+        public DateTime InfoStartTime
+        {
+            get { return this.simulationFinalSettingsPanel.ContentInformation.StartTime; }
+        }
+        #endregion
 
         #region button
         public void InitEvents()

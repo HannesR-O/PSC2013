@@ -72,7 +72,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
         private void FirstContainer_FinalClick(object sender, EventArgs e)
         {
             // Map-Task still running.
-            if (CanClose)
+            if (!CanClose)
             {
                 MessageBox.Show("Waiting for a background-task to finish.", "Task still running...");
                 return;
@@ -120,9 +120,9 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 _firstContainer.InfoDisease,
                 _depPath,
                 lbot,
-                DateTime.Now,
+                _secondContainer.InfoStartTime,
                 GetSimComponents(sc.Components));
-            _simulator.AddOutputTarget(new PSC2013.ES.Library.IO.OutputTargets.ConsoleOutputTarget());
+            _simulator.AddOutputTarget(new PSC2013.ES.Library.IO.OutputTargets.ConsoleOutputTarget()); // TODO | dj | remove!
 
             _simulator.SetSimulationIntervall(sc.SimulationIntervall);
             _simulator.SetSnapshotIntervall(sc.SnapshotIntervall);

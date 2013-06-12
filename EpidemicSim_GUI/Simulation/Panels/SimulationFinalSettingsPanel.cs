@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PSC2013.ES.GUI.Miscellaneous;
 
 namespace PSC2013.ES.GUI.Simulation.Panels
 {
-    public partial class SimulationFinalSettingsPanel : UserControl, ISimulationPanel<string>
+    public partial class SimulationFinalSettingsPanel : UserControl, ISimulationPanel<FinalSettingsContainer>
     {
         public SimulationFinalSettingsPanel()
         {
@@ -19,7 +20,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
 
         public bool ValidateData()
         {
-            return !String.IsNullOrEmpty(ContentInformation);
+            return !String.IsNullOrEmpty(Comp_Destination.GetValue());
         }
 
         public Button TheButton
@@ -27,9 +28,18 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             get { return Btn_Start; }
         }
 
-        public string ContentInformation
+        public FinalSettingsContainer ContentInformation
         {
-            get { return Comp_Destination.GetValue(); }
+            get { return GatherInformation(); }
+        }
+
+        private FinalSettingsContainer GatherInformation()
+        {
+            return new FinalSettingsContainer
+                {
+                    Destination = Comp_Destination.GetValue(),
+                    StartTime = Comp_Starttime.GetValue()
+                };
         }
     }
 }
