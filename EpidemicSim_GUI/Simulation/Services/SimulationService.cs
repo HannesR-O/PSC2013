@@ -96,7 +96,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
 
         private void SecondContainer_AbortClick(object sender, EventArgs e)
         {
-            if (_simulator != null)
+            if (_simulator != null && _simulator.IsSimulating)
                 _simulator.StopSimulation();
             else
                 _cancellationTokenSource.Cancel(); // TODO | dj | does not work
@@ -111,15 +111,21 @@ namespace PSC2013.ES.GUI.Simulation.Services
 
         private void StartSim()
         {
+            _firstDepartment = true;
+
             ListBoxOutputTarget lbot = new ListBoxOutputTarget(
                 _secondContainer.OuputPanel.GetOutputListBox());
 
             SettingsContainer sc = _firstContainer.InfoSettings;
 
+            SetStartProgressBarMax(sc);
+
             _simulator = EpidemicSimulator.Create(
                 _firstContainer.InfoDisease,
                 _depPath,
                 lbot,
+                OnReaderIterationPassed,
+                OnDepartmentCalculated,
                 _secondContainer.InfoStartTime,
                 GetSimComponents(sc.Components));
             _simulator.AddOutputTarget(new PSC2013.ES.Library.IO.OutputTargets.ConsoleOutputTarget()); // TODO | dj | remove!
@@ -131,12 +137,27 @@ namespace PSC2013.ES.GUI.Simulation.Services
             _simulator.TickFinished += OnTickFinished;
             _simulator.SimulationEnded += OnSimulationEnded;
             _simulator.ProcessFinished += OnProcessFinished;
-            _simulator.DepartmentCalculated += OnDepartmentCalculated;
             _simulator.SnapshotWritten += OnSnapshotWritten;
-            // TODO | dj | more?
 
             _simulator.StartSimulation(_secondContainer.InfoDestination,
                 _firstContainer.InfoStartlocations, sc.SimulationDuration);
+        }
+
+        private void SetStartProgressBarMax(SettingsContainer sc)
+        {
+            _secondContainer.OuputPanel.Invoke(new Action(() =>
+                {
+                    if (sc.SimulationDuration == 0)
+                        _secondContainer.OuputPanel.SetProgressBarMax(0);
+                    else
+                        _secondContainer.OuputPanel.SetProgressBarMax((int)
+                            (sc.SimulationDuration +
+                            (sc.SimulationIntervall / sc.SnapshotIntervall) * sc.SimulationDuration +
+                            3)); /* Start: 1
+                                  * Ended: 1
+                                  * Finished: 1
+                                  */
+                }));
         }
 
         #region OnEventMethods
@@ -146,16 +167,8 @@ namespace PSC2013.ES.GUI.Simulation.Services
             {
                 if(_simulator.SimulationDuration == 0)
                         _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
-                else
-                     _secondContainer.OuputPanel.SetProgressBarMax((int)(
-                         _simulator.SimulationDuration +
-                         _simulator.SimulationIntervall / _simulator.SnapshotIntervall +
-                         3)); /* Started: 1
-                               * Ended: 1
-                               * Finished: 1
-                               */
             }));
-            _firstDepartment = true;
+            IncreaseProgressBar();
         }
 
         private void OnTickFinished(object sender, SimulationEventArgs e)
@@ -163,7 +176,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
             IncreaseProgressBar();
         }
 
-        private void OnDepartmentCalculated(object sender, GeneratorEvent e)
+        private void OnDepartmentCalculated(object sender, GeneratorEventArgs e)
         {
             if (_firstDepartment)
             {
@@ -171,10 +184,22 @@ namespace PSC2013.ES.GUI.Simulation.Services
                     {
                         int val = _secondContainer.OuputPanel.GetProgressBarMax();
                         _secondContainer.OuputPanel.SetProgressBarMax(val + e.Total);
+                        Console.WriteLine(val + " | " + e.Total + " | " + val + e.Total);
                     }));
                 _firstDepartment = false;
             }
             IncreaseProgressBar();
+        }
+
+        private void OnReaderIterationPassed(object sender, ContinuationEventArgs e)
+        {
+            _secondContainer.OuputPanel.Invoke(new Action(() =>
+                {
+                    if (e.Continuing)
+                        _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
+                    else if (e.Finished)
+                        _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Continuous);
+                }));
         }
 
         private void OnSnapshotWritten(object sender, EventArgs e)

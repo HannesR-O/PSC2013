@@ -12,7 +12,7 @@ namespace PSC2013.ES.GUI.Components
             _dateTimePicker = new DateTimePicker();
             _dateTimePicker.Width = DEFAULT_CONTROL_WIDTH;
             _dateTimePicker.Format = DateTimePickerFormat.Custom;
-            _dateTimePicker.CustomFormat = "yyyy, MM, dd # hh";
+            _dateTimePicker.CustomFormat = "yyyy, MM, dd # HH";
             SetValueControl(_dateTimePicker);
             _dateTimePicker.Anchor |= AnchorStyles.Left;
         }

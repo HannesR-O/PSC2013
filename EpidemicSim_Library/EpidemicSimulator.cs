@@ -12,6 +12,7 @@ using System.Threading;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.AreaData;
+using PSC2013.ES.Library.IO.Readers;
 
 namespace PSC2013.ES.Library
 {
@@ -81,14 +82,12 @@ namespace PSC2013.ES.Library
         public event EventHandler<SimulationEventArgs> TickFinished;
         public event EventHandler<EventArgs> ProcessFinished;
         public event EventHandler<EventArgs> SnapshotWritten;
-        public event EventHandler<GeneratorEvent> DepartmentCalculated;
         //TODO: |f| do we also want StageFinished ?
         #endregion
 
         private EpidemicSimulator(Disease disease, DateTime startTime) : base("ES")
         {
             _simData = new SimulationData(startTime) { DiseaseToSimulate = disease };
-            _simData.DepartmentCalculated += DepartmentCalculated.Raise;
 
             _snapshotMgr = new SnapshotManager();                           // Needs to be initialized before using
             _snapshotMgr.WriterQueueEmpty += OnWriterQueueEmpty;
@@ -104,11 +103,38 @@ namespace PSC2013.ES.Library
         /// <param name="disease">The Disease to simulate</param>
         /// <param name="dataFilePath">The file's path containing populational data to simulate on</param>
         /// <param name="outputTarget">The initial OutputTarget. Can be null.</param>
+        /// <param name="startTime">The starttime for movements.</param>
         /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
         /// <returns>The created instance of EpidemicSimulator</returns>
         public static EpidemicSimulator Create(Disease disease, string dataFilePath, IOutputTarget outputTarget, DateTime startTime, params SimulationComponent[] components)
         {
+            return Create(disease, dataFilePath, outputTarget, null, null, startTime, components);
+        }
+
+        /// <summary>
+        /// Creates a new EpidemicSimulator with the given ISimulationComponents
+        /// </summary>
+        /// <param name="disease">The Disease to simulate</param>
+        /// <param name="dataFilePath">The file's path containing populational data to simulate on</param>
+        /// <param name="outputTarget">The initial OutputTarget. Can be null.</param>
+        /// <param name="readerIterationPassed">The action for the ReadFileIterationPassed-event. Can be null.</param>
+        /// <param name="generatorDepartmentCalculated">The action fo the GeneratorDepartmentCalculated-event. Can be null.</param>
+        /// <param name="startTime">The starttime for movements.</param>
+        /// <param name="components">The initial ISimulationComponents to add to the EpidemicSimulator</param>
+        /// <returns>The created instance of EpidemicSimulator</returns>
+        public static EpidemicSimulator Create(Disease disease, string dataFilePath,
+            IOutputTarget outputTarget, 
+            Action<object, ContinuationEventArgs> readerIterationPassed, 
+            Action<object, GeneratorEventArgs> generatorDepartmentCalculated,
+            DateTime startTime,
+            params SimulationComponent[] components)
+        {
             var sim = new EpidemicSimulator(disease, startTime);
+
+            if (readerIterationPassed != null)
+                sim._simData.ReadFileIterationPassed += readerIterationPassed.Invoke;
+            if (generatorDepartmentCalculated != null)
+                sim._simData.DepartmentCalculated += generatorDepartmentCalculated.Invoke;
 
             if (outputTarget != null)
                 sim.AddOutputTarget(outputTarget);

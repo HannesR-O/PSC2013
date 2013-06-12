@@ -11,7 +11,7 @@ using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library.AreaData
 {
-    public class GeneratorEvent : EventArgs
+    public class GeneratorEventArgs : EventArgs
     {
         public string Name { get; set; }
         public int Total { get; set; }
@@ -25,7 +25,7 @@ namespace PSC2013.ES.Library.AreaData
 
         private bool _dummy;
 
-        public event EventHandler<GeneratorEvent> DepartmentCalculationFinished;
+        public event EventHandler<GeneratorEventArgs> DepartmentCalculationFinished;
 
         public MatrixGenerator() : base("MG")
         {
@@ -79,7 +79,7 @@ namespace PSC2013.ES.Library.AreaData
                     res = null;
                     humans = null;
                     
-                    DepartmentCalculationFinished.Raise(this, new GeneratorEvent
+                    DepartmentCalculationFinished.Raise(this, new GeneratorEventArgs
                     {
                         Name = item.Name,
                         Total = departmentsCount

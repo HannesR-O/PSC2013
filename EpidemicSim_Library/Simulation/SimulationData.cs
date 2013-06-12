@@ -20,7 +20,8 @@ namespace PSC2013.ES.Library.Simulation
         private DateTime _time;
 
         // Event
-        public event EventHandler<GeneratorEvent> DepartmentCalculated;
+        public event EventHandler<GeneratorEventArgs> DepartmentCalculated;
+        public event EventHandler<ContinuationEventArgs> ReadFileIterationPassed;
 
         //IOData
         public int ImageWidth { get; private set; }
@@ -76,6 +77,7 @@ namespace PSC2013.ES.Library.Simulation
         public void InitializeFromFile(string filePath)
         {
             var reader = new DepartmentMapReader(filePath);
+            reader.IterationPassed += ReadFileIterationPassed.Raise;
 
             DepartmentInfo[] deps = reader.ReadFile();
             
