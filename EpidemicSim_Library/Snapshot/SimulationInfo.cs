@@ -70,7 +70,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns>Simulations Infos as byte[]</returns>
         public byte[] GetBytes()
         {
-            var output = new byte[Disease.ByteSize + 9];
+            var output = new byte[Disease.ByteSize + 25];
             output[0] = HEADER;
             Array.Copy(BitConverter.GetBytes(MapX), 0, output, 1, 4);
             Array.Copy(BitConverter.GetBytes(MapY), 0, output, 5, 4);
