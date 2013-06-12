@@ -35,11 +35,11 @@ namespace PSC2013.ES.Library.IO.Writers
             var archive = ZipFile.Open(archivePath, ZipArchiveMode.Update);
 
             archive.CreateEntry(fileName);
-            
-            var stream = archive.GetEntry(fileName).Open();
 
-            stream.Write(bytes, 0, bytes.Length);
-            stream.Close();
+            using (Stream stream = archive.GetEntry(fileName).Open())
+            {
+                stream.Write(bytes, 0, bytes.Length);
+            }
             archive.Dispose();
         }
     }
