@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using PSC2013.ES.Library;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
@@ -12,6 +12,7 @@ using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics;
 using PSC2013.ES.Library.Statistics.CountStatistics;
 using PSC2013.ES.Library.Statistics.Pictures;
+using PSC2013.ES.Library.IO;
 
 namespace PSC2013.ES.Cmd
 {
@@ -29,7 +30,7 @@ namespace PSC2013.ES.Cmd
             
             string[] methodnames = { "TestSimulation",
                 "TestStats", "TestInfectionComponent", "TestEpidemicSimulator",
-                "TestMemory", "TestSnapshot", "TestAllSnapshots", "TestComponents"};
+                "TestMemory", "TestDiseaseIO", "TestAllSnapshots", "TestComponents"};
             for (int i = 0; i < methodnames.Length; i++)
                 Console.WriteLine("{0} - {1}", i, methodnames[i]);
 
@@ -54,7 +55,7 @@ namespace PSC2013.ES.Cmd
                     TestMemory();
                     break;
                 case 5:
-                    TestSnapshot();
+                    TestDiseaseIO();
                     break;
                 case 6:
                     TestAllSnapshots();
@@ -116,7 +117,7 @@ namespace PSC2013.ES.Cmd
             Console.WriteLine("Received SimulationEnded event");
         }
 
-        public static void TestSnapshot()
+        public static void TestDiseaseIO()
         {
             var disease = new Disease
                 {
@@ -129,8 +130,10 @@ namespace PSC2013.ES.Cmd
                     HealingFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 }),
                     ResistanceFactor = new FactorContainer(new[] { 1, 2, 14, 151, 11515, 123, 123, 120 })
                 };
-            var mgr = new SnapshotManager();
-            mgr.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), disease, 0, 0); // Uses Default MapSize
+            DiseaseIOService.Save(disease, Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
+
+            var dis = DiseaseIOService.Load(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Test_Disease.dis"));
+            Console.WriteLine("Done");
         }
 
         public static void TestMemory()
@@ -257,6 +260,7 @@ namespace PSC2013.ES.Cmd
                 Console.WriteLine("Sum: {0}", sum);
 
                 //manager.CreateDeathGraphics(field, pal, prefix);
+                manager.CreateGraphics(field, pal, prefix);
                 Dictionary<string, Color> legend = manager.GetCaption();
 
                 foreach (string str in legend.Keys)

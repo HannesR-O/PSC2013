@@ -1,4 +1,4 @@
-﻿using PSC2013.ES.Library.IO.Files;
+﻿using System;
 using System.IO;
 using System.IO.Compression;
 
@@ -6,24 +6,50 @@ namespace PSC2013.ES.Library.IO.Writers
 {
     public class ArchiveBinaryWriter : IBinaryWriter
     {
-        void IBinaryWriter.WriteIntoArchive(IBinaryFile file, string archivePath, string filename, bool overwrite)
+        public void WriteIntoArchive(IBinaryObject file, string archivePath, string fileName, bool overwrite)
         {
+            if (archivePath.LastIndexOf('.') != archivePath.Length - 4)
+                throw new ArgumentException("Archive file's extension's length must be 3 for now!", archivePath);
+
+            if (File.Exists(archivePath))
+            {
+                if (!overwrite)
+                    throw new ArgumentException("Archive already existing and overwrite flag not set!", archivePath);
+
+                ZipFile.Open(archivePath, ZipArchiveMode.Update).ClearArchive();
+            }
+            else
+            {
+                DirectoryInfo di;
+
+                do
+                {
+                    //To secure no directory gets overriden
+                    di = new DirectoryInfo("" + RANDOM.Next());
+                } while (di.Exists);
+
+                di.Create();
+                ZipFile.CreateFromDirectory(di.FullName, archivePath, CompressionLevel.Optimal, false);
+                di.Delete();
+            }
+                
             var bytes = file.GetBytes();
 
-            if (!File.Exists(archivePath))
-                throw new FileNotFoundException("Archive not found!", archivePath);
+            var archive = ZipFile.Open(archivePath, ZipArchiveMode.Update);
 
-            ZipArchiveMode mode = overwrite? ZipArchiveMode.Update : ZipArchiveMode.Create;
+            archive.CreateEntry(fileName);
 
-            ZipArchive archive = ZipFile.Open(archivePath, mode);
-
-            archive.CreateEntry(filename);
-            
-            var stream = archive.GetEntry(filename).Open();
-
-            stream.Write(bytes, 0, bytes.Length);
-            stream.Close();
+            using (Stream stream = archive.GetEntry(fileName).Open())
+            {
+                stream.Write(bytes, 0, bytes.Length);
+            }
             archive.Dispose();
+        }
+
+        public void WriteToFile(IBinaryObject obj, string filePath, bool overwrite)
+        {
+            //TODO: decide which filename (in the archive) to use
+            WriteIntoArchive(obj, filePath, filePath.Substring(filePath.LastIndexOf('/')), overwrite);
         }
     }
 }

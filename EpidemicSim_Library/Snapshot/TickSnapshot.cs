@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using PSC2013.ES.Library.IO.Files;
+using PSC2013.ES.Library.IO;
 
 namespace PSC2013.ES.Library.Snapshot
 {
     /// <summary>
     /// A Snapshot, taken during one tick of the simulation
     /// </summary>
-    public class TickSnapshot : IBinaryFile
+    public class TickSnapshot : IBinaryObject
     {
         private const byte CONSTLENGTH = 17; // Header 1, DoTick 8, countCells = 4, countDeaths = 4; => 17
 
@@ -54,6 +54,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns>A new Snapshot</returns>
         public static TickSnapshot InitializeFromFile(byte[] bytes)
         {
+            if (bytes[0] != HEADER)
+                throw new HeaderCorruptException("Header damaged, should " + HEADER);
+
             long tick = BitConverter.ToInt64(bytes, 1);
             int cellCount = BitConverter.ToInt32(bytes, 9);
 
@@ -116,9 +119,14 @@ namespace PSC2013.ES.Library.Snapshot
 
             int offset = cellCount * CellSnapshot.LENGTH + CONSTLENGTH;
             for (int j = 0; j < deathCount; ++j)
+            {
+                if (Deaths[j] != null)
+                {
                 Array.Copy(Deaths[j].getBytes(), 0, output,
                     (j * HumanSnapshot.LENGTH) + offset,
                     HumanSnapshot.LENGTH);
+                }
+            }
 
             return output;
         }

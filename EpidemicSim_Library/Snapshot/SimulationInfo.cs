@@ -1,26 +1,33 @@
-﻿using PSC2013.ES.Library.IO.Files;
-using System;
-using PSC2013.ES.Library.Diseases;
+﻿using System;
+using PSC2013.ES.Library.IO;
+using PSC2013.ES.Library.DiseaseData;
 
 namespace PSC2013.ES.Library.Snapshot
 {
     /// <summary>
     /// Head-Data for Simulation infos, Contains Dates, Refs etc.
     /// </summary>
-    public class SimulationInfo : IBinaryFile
+    public class SimulationInfo : IBinaryObject
     {
         private const byte HEADER = 0x1;
+
         public Disease Disease { get; private set; }
         public string Name { get; private set; }
         public int MapX { get; private set; }
         public int MapY { get; private set; }
+        public int SimulationInvervall { get; private set; }
+        public int SnapshotIntervall { get; private set; }
+        public long SimulationDuration { get; private set; }
 
-        private SimulationInfo(Disease disease, int mapX, int mapY)
+        private SimulationInfo(Disease disease, int mapX, int mapY, int simintervall, int snapintervall, long duration)
         {
             Disease = disease;
             Name = Disease.Name;
             MapX = mapX;
             MapY = mapY;
+            SimulationInvervall = simintervall;
+            SnapshotIntervall = snapintervall;
+            SimulationDuration = duration;
         }
 
         /// <summary>
@@ -29,9 +36,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="name">The Simulations Name</param>
         /// <param name="disease">The used Disease</param>
         /// <returns></returns>
-        public static SimulationInfo InitializeFromRuntime(Disease disease, int x, int y)
+        public static SimulationInfo InitializeFromRuntime(Disease disease, int x, int y, int simintervall, int snapintervall, long duration)
         {
-            return new SimulationInfo(disease, x, y);
+            return new SimulationInfo(disease, x, y, simintervall, snapintervall, duration);
         }
 
         /// <summary>
@@ -41,60 +48,20 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns>A new SimulationInfo</returns>
         public static SimulationInfo InitializeFromFile(byte[] bytes)
         {
-            Disease disease = new Disease();
-            disease.IncubationPeriod = BitConverter.ToInt32(bytes, 1);
-            disease.IdleTime = BitConverter.ToInt32(bytes, 5);
-            disease.SpreadingTime = BitConverter.ToInt32(bytes, 9);
-            disease.Transferability = BitConverter.ToInt32(bytes, 13);
+            if (bytes[0] != HEADER)
+                throw new HeaderCorruptException("Header damaged, should be " + HEADER);
+            int x = BitConverter.ToInt32(bytes, 1);
+            int y = BitConverter.ToInt32(bytes, 5);
+            int simintervall = BitConverter.ToInt32(bytes, 9);
+            int snapintervall = BitConverter.ToInt32(bytes, 13);
+            long duration = BitConverter.ToInt64(bytes, 17);
 
-            int mortMaleBaby = BitConverter.ToInt32(bytes, 17);
-            int mortMaleChild = BitConverter.ToInt32(bytes, 21);
-            int mortMaleAdult = BitConverter.ToInt32(bytes, 25);
-            int mortMaleSenior = BitConverter.ToInt32(bytes, 29);
-            int mortFemaleBaby = BitConverter.ToInt32(bytes, 33);
-            int mortFemaleChild = BitConverter.ToInt32(bytes, 37);
-            int mortFemaleAdult = BitConverter.ToInt32(bytes, 41);
-            int mortFemaleSenior = BitConverter.ToInt32(bytes, 45);
+            int diseaseSize = bytes.Length - 25; // What's left of the array
+            byte[] temp = new byte[diseaseSize];
+            Array.Copy(bytes, 25, temp, 0, diseaseSize);
+            Disease disease = Disease.FromBytes(temp);
 
-            disease.MortalityRate = 
-                new FactorContainer ( new[] {
-                mortMaleBaby, mortMaleChild, mortMaleAdult, mortMaleSenior, 
-                mortFemaleBaby, mortFemaleChild, mortFemaleAdult, mortFemaleSenior });
-
-            int healMaleBaby = BitConverter.ToInt32(bytes, 49);
-            int healMaleChild = BitConverter.ToInt32(bytes, 53);
-            int healMaleAdult = BitConverter.ToInt32(bytes, 57);
-            int healMaleSenior = BitConverter.ToInt32(bytes, 61);
-            int healFemaleBaby = BitConverter.ToInt32(bytes, 65);
-            int healFemaleChild = BitConverter.ToInt32(bytes, 69);
-            int healFemaleAdult = BitConverter.ToInt32(bytes, 73);
-            int healFemaleSenior = BitConverter.ToInt32(bytes, 77);
-
-            disease.HealingFactor =
-                new FactorContainer(new[] {
-                healMaleBaby, healMaleChild, healMaleAdult, healMaleSenior, 
-                healFemaleBaby, healFemaleChild, healFemaleAdult, healFemaleSenior });
-
-            int restMaleBaby = BitConverter.ToInt32(bytes, 81);
-            int restMaleChild = BitConverter.ToInt32(bytes, 85);
-            int restMaleAdult = BitConverter.ToInt32(bytes, 89);
-            int restMaleSenior = BitConverter.ToInt32(bytes, 93);
-            int restFemaleBaby = BitConverter.ToInt32(bytes, 97);
-            int restFemaleChild = BitConverter.ToInt32(bytes, 101);
-            int restFemaleAdult = BitConverter.ToInt32(bytes, 105);
-            int restFemaleSenior = BitConverter.ToInt32(bytes, 109);
-
-            disease.ResistanceFactor =
-                new FactorContainer(new[] {
-                restMaleBaby, restMaleChild, restMaleAdult, restMaleSenior, 
-                restFemaleBaby, restFemaleChild, restFemaleAdult, restFemaleSenior });
-
-            int x = BitConverter.ToInt32(bytes, 113);
-            int y = BitConverter.ToInt32(bytes, 117);
-
-            string name = System.Text.Encoding.UTF8.GetString(bytes, 121, bytes.Length - 121);
-            disease.Name = name;
-            return new SimulationInfo(disease, x, y);
+            return new SimulationInfo(disease, x, y, simintervall, snapintervall, duration);
         }
 
         /// <summary>
@@ -103,40 +70,14 @@ namespace PSC2013.ES.Library.Snapshot
         /// <returns>Simulations Infos as byte[]</returns>
         public byte[] GetBytes()
         {
-            byte[] t = System.Text.Encoding.UTF8.GetBytes(Disease.Name);
-            var output = new byte[121 + t.Length];
+            var output = new byte[Disease.ByteSize + 9];
             output[0] = HEADER;
-            Array.Copy(BitConverter.GetBytes(Disease.IncubationPeriod), 0, output, 1, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.IdleTime), 0, output, 5, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.SpreadingTime), 0, output, 9, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.Transferability), 0, output, 13, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.MortalityRate.Male_Baby), 0, output, 17, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.MortalityRate.Male_Child), 0, output, 21, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.MortalityRate.Male_Adult), 0, output, 25, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.MortalityRate.Male_Senior), 0, output, 29, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.MortalityRate.Female_Baby), 0, output, 33, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.MortalityRate.Female_Child), 0, output, 37, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.MortalityRate.Female_Adult), 0, output, 41, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.MortalityRate.Female_Senior), 0, output, 45, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.HealingFactor.Male_Baby), 0, output, 49, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.HealingFactor.Male_Child), 0, output, 53, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.HealingFactor.Male_Adult), 0, output, 57, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.HealingFactor.Male_Senior), 0, output, 61, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.HealingFactor.Female_Baby), 0, output, 65, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.HealingFactor.Female_Child), 0, output, 69, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.HealingFactor.Female_Adult), 0, output, 73, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.HealingFactor.Female_Senior), 0, output, 77, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Male_Baby), 0, output, 81, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Male_Child), 0, output, 85, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Male_Adult), 0, output, 89, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Male_Senior), 0, output, 93, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Female_Baby), 0, output, 97, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Female_Child), 0, output, 101, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Female_Adult), 0, output, 105, 4);
-            Array.Copy(BitConverter.GetBytes(Disease.ResistanceFactor.Female_Senior), 0, output, 109, 4);
-            Array.Copy(BitConverter.GetBytes(MapX), 0, output, 113, 4);
-            Array.Copy(BitConverter.GetBytes(MapY), 0, output, 117, 4);
-            Array.Copy(t, 0, output, 121, t.Length);
+            Array.Copy(BitConverter.GetBytes(MapX), 0, output, 1, 4);
+            Array.Copy(BitConverter.GetBytes(MapY), 0, output, 5, 4);
+            Array.Copy(BitConverter.GetBytes(SimulationInvervall), 0, output, 9, 4);
+            Array.Copy(BitConverter.GetBytes(SnapshotIntervall), 0, output, 13, 4);
+            Array.Copy(BitConverter.GetBytes(SimulationDuration), 0, output, 17, 8);
+            Array.Copy(Disease.GetBytes(), 0, output, 25, Disease.ByteSize);
             return output;
         }
     }

@@ -14,6 +14,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpidemicSim_Tests", "EpidemicSim_Tests\EpidemicSim_Tests.csproj", "{1F220690-4B19-4415-A45C-E735B79B4456}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpidemicSim_GUI", "EpidemicSim_GUI\EpidemicSim_GUI.csproj", "{0FA42F3A-BCD6-4342-BDFB-6E18B45248B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

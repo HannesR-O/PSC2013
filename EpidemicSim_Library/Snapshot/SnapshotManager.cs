@@ -1,6 +1,6 @@
 ﻿using PSC2013.ES.Library.IO.OutputTargets;
 using PSC2013.ES.Library.PopulationData;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 using PSC2013.ES.Library.IO.Writers;
 using PSC2013.ES.Library.Simulation;
 using System;
@@ -39,9 +39,9 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         /// <param name="destination">Where to save the data</param>
         /// <param name="disease">The Disease used in the Simulation</param>
-        public void Initialize(string destination, Disease disease, int mapX, int mapY)
+        public void Initialize(string destination, Disease disease, int mapX, int mapY, int simintervall, int snapintervall, long duration)
         {
-            _simInfo = SimulationInfo.InitializeFromRuntime(disease, mapX, mapY);
+            _simInfo = SimulationInfo.InitializeFromRuntime(disease, mapX, mapY, simintervall, snapintervall, duration);
 
             _target = Path.Combine(destination, disease.Name);
             _snapshots = new Queue<TickSnapshot>();
@@ -60,7 +60,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// <param name="simData">Current SimulationData to take a Snapshot of</param>
         public void TakeSnapshot(SimulationData simData)
         {
-            _tick++;
+            _tick++; // <-
             int cellCount = simData.Cells.Count(x => x != null);
             CellSnapshot[] cells = new CellSnapshot[cellCount];
 
@@ -69,11 +69,11 @@ namespace PSC2013.ES.Library.Snapshot
             foreach (PopulationCell cell in simData.Cells)
             {
                 if (cell != null)
-                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
-                ++pos;
+                    cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos++); // Should still work
+                // ++pos;
             }
 
-            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths);
+            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(_tick, cells, simData.Deaths); // <-
 
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);            
@@ -84,7 +84,7 @@ namespace PSC2013.ES.Library.Snapshot
         /// </summary>
         class SnapshotWriter : OutputTargetWriter
         {
-            private IBinaryWriter _writer;
+            private ArchiveBinaryWriter _writer;
             private Task _task;
 
             public event EventHandler<EventArgs> QueueEmptied;
@@ -97,15 +97,9 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 _writer = new ArchiveBinaryWriter();
 
-                if (!File.Exists(_target + ".sim") && !Directory.Exists(_target))
-                {
-                    Directory.CreateDirectory(_target);
-                    ZipFile.CreateFromDirectory(_target, _target + ".sim", CompressionLevel.Optimal, false);
-                    Directory.Delete(_target, true);
-                    _target = _target + ".sim";
-                }
-                else
-                    throw new ArgumentException("Path or .sim File at Path exists!"); //TODO Please Catch me...
+                _target += ".sim";
+                if (File.Exists(_target))
+                    throw new ArgumentException("Specified .sim file already exists!"); //TODO Please Catch me...
 
                 _writer.WriteIntoArchive(_simInfo, _target, "header", true);
             }

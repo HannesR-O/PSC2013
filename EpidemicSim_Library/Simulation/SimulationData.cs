@@ -1,5 +1,5 @@
 ﻿using PSC2013.ES.Library.AreaData;
-using PSC2013.ES.Library.Diseases;
+using PSC2013.ES.Library.DiseaseData;
 using PSC2013.ES.Library.IO.Readers;
 using PSC2013.ES.Library.PopulationData;
 using PSC2013.ES.Library.Snapshot;

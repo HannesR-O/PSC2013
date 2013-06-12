@@ -1,4 +1,4 @@
-﻿using PSC2013.ES.Library.Diseases;
+﻿using PSC2013.ES.Library.DiseaseData;
 using PSC2013.ES.Library.PopulationData;
 using System;
 using System.Collections.Generic;

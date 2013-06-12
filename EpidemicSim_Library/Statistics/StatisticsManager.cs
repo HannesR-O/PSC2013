@@ -60,7 +60,7 @@ namespace PSC2013.ES.Library.Statistics
 
             try // If there's no header, the file is corrupt // yeah, with two r's 
             {
-                byte[] file = ArchiveReader.ToByteArray(_currentArchive.GetEntry("header")); // Reading Header                
+                byte[] file = _currentArchive.GetEntry("header").ToByteArray(); // Reading Header                
                 SimInfo = SimulationInfo.InitializeFromFile(file);
             }
             catch (Exception e)
@@ -76,7 +76,7 @@ namespace PSC2013.ES.Library.Statistics
             if (first == null) // If there's no first Snapshot, the file corrupt, no sense in empty logs
                 throw new SimFileCorruptException("No first Snapshot found!");
             
-            byte[] temp = ArchiveReader.ToByteArray(first);// Reading first Snap to initialize Maxima
+            byte[] temp = first.ToByteArray();// Reading first Snap to initialize Maxima
             TickSnapshot tick = TickSnapshot.InitializeFromFile(temp);
             _creator.InitializeMaxima(tick);
             WriteMessage(first.Name + " is first. Initializing...");
@@ -103,7 +103,7 @@ namespace PSC2013.ES.Library.Statistics
         {
             if (!name.StartsWith(LoadedSnapshot.Tick + "_"))
             {
-                byte[] temp = ArchiveReader.ToByteArray(_currentArchive.GetEntry(name));
+                byte[] temp = _currentArchive.GetEntry(name).ToByteArray();
 
                 LoadedSnapshot = TickSnapshot.InitializeFromFile(temp);
             }
@@ -225,17 +225,6 @@ namespace PSC2013.ES.Library.Statistics
                     ++i;
                 }
             }
-        }
-
-        /// <summary>
-        /// SimFile is Corrupted, if something is missing inside a .Sim. Doesn't consider
-        /// whether archive itself is corrupt
-        /// </summary>
-        public sealed class SimFileCorruptException : Exception
-        {
-            public SimFileCorruptException() { }
-            public SimFileCorruptException(string Massage) { }
-            public SimFileCorruptException(string message, System.Exception innerException) { }
         }
     }
 }
