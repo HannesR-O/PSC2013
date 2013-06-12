@@ -7,11 +7,16 @@ using System.Windows.Forms;
 
 namespace PSC2013.ES.GUI.Simulation.Panels
 {
-    public interface ISimulationPanel<T> : IRawSimulationPanel
+    public interface IRawSimulationPanel
     {
         /// <summary>
-        /// The information, the panel is holding.
+        /// The Next-button in the panel.
         /// </summary>
-        T ContentInformation { get; }
+        Button TheButton { get; }
+
+        /// <summary>
+        /// Validates the input.
+        /// </summary>
+        bool Validate();
     }
 }

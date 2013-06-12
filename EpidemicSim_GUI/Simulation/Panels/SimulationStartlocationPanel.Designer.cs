@@ -33,10 +33,10 @@
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
             this.ProgressBar_Main = new System.Windows.Forms.ProgressBar();
-            this.PictBox_SelectedDepartments = new System.Windows.Forms.PictureBox();
-            this.ListBox_Departments = new System.Windows.Forms.ListBox();
             this.separator1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_InfectedCount = new PSC2013.ES.GUI.Components.IntComponent();
+            this.PictBox_SelectedDepartments = new System.Windows.Forms.PictureBox();
+            this.ListBox_Departments = new System.Windows.Forms.ListBox();
             this.GrpBox_Main.SuspendLayout();
             this.FlowPanel_Bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictBox_SelectedDepartments)).BeginInit();
@@ -108,6 +108,30 @@
             this.ProgressBar_Main.TabIndex = 1;
             this.ProgressBar_Main.Value = 1;
             // 
+            // separator1
+            // 
+            this.separator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.separator1.BackColor = System.Drawing.Color.Transparent;
+            this.separator1.Location = new System.Drawing.Point(6, 337);
+            this.separator1.Name = "separator1";
+            this.separator1.Size = new System.Drawing.Size(262, 5);
+            this.separator1.TabIndex = 3;
+            // 
+            // Comp_InfectedCount
+            // 
+            this.Comp_InfectedCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_InfectedCount.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_InfectedCount.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.None;
+            this.Comp_InfectedCount.LabelText = "Infected:";
+            this.Comp_InfectedCount.Location = new System.Drawing.Point(6, 307);
+            this.Comp_InfectedCount.Name = "Comp_InfectedCount";
+            this.Comp_InfectedCount.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_InfectedCount.Size = new System.Drawing.Size(262, 24);
+            this.Comp_InfectedCount.TabIndex = 2;
+            this.Comp_InfectedCount.ToolTip = "Indicates how many humans shall be infected at the beginning.";
+            // 
             // PictBox_SelectedDepartments
             // 
             this.PictBox_SelectedDepartments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -135,30 +159,7 @@
             this.ListBox_Departments.Size = new System.Drawing.Size(262, 125);
             this.ListBox_Departments.Sorted = true;
             this.ListBox_Departments.TabIndex = 0;
-            // 
-            // separator1
-            // 
-            this.separator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.separator1.BackColor = System.Drawing.Color.Transparent;
-            this.separator1.Location = new System.Drawing.Point(6, 337);
-            this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(262, 5);
-            this.separator1.TabIndex = 3;
-            // 
-            // Comp_InfectedCount
-            // 
-            this.Comp_InfectedCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_InfectedCount.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_InfectedCount.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.None;
-            this.Comp_InfectedCount.LabelText = "Infected:";
-            this.Comp_InfectedCount.Location = new System.Drawing.Point(6, 307);
-            this.Comp_InfectedCount.Name = "Comp_InfectedCount";
-            this.Comp_InfectedCount.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_InfectedCount.Size = new System.Drawing.Size(262, 24);
-            this.Comp_InfectedCount.TabIndex = 2;
-            this.Comp_InfectedCount.ToolTip = "Indicates how many humans shall be infected at the beginning.";
+            this.ListBox_Departments.SelectedIndexChanged += new System.EventHandler(this.ListBox_Departments_SelectedIndexChanged);
             // 
             // SimulationStartlocationPanel
             // 

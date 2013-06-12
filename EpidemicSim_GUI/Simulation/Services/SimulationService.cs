@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -97,7 +98,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
         {
             if (_simulator != null)
                 _simulator.StopSimulation();
-            else // TODO | dj | really with else?
+            else
                 _cancellationTokenSource.Cancel(); // TODO | dj | does not work
             SetProgressBarToFinished();
         }
@@ -137,6 +138,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 _firstContainer.InfoStartlocations, sc.SimulationDuration);
         }
 
+        #region OnEventMethods
         private void OnSimulationStarted(object sender, SimulationEventArgs e)
         {
             _secondContainer.OuputPanel.Invoke(new Action(() =>
@@ -188,6 +190,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
         {
             SetProgressBarToFinished();
         }
+        #endregion
 
         private void IncreaseProgressBar()
         {
@@ -250,8 +253,16 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 comps[i] = c;
             }
 
-            // if no component given: debug-infection
-            if (comps.Length == 0) comps = new SimulationComponent[1] { new DebugInfectionComponent() };
+            // if no (diseasetick-)component given: debug-infection
+            //if (comps.Length == 0) comps = new SimulationComponent[1] { new DebugInfectionComponent() };
+            if (!comps.Any(x => x is DiseaseTickComponent))
+            {
+                SimulationComponent[] temp = new SimulationComponent[comps.Length + 1];
+                comps.CopyToOtherArray(temp);
+                temp[comps.Length] = new DebugInfectionComponent();
+                comps = temp;
+                temp = null;
+            }
             return comps;
         }
     }

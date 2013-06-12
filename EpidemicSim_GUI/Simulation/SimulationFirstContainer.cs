@@ -47,22 +47,29 @@ namespace PSC2013.ES.GUI.Simulation
         {
             simulationSettingsPanel.TheButton.Click += OnPanelDone;
             simulationDiseasePanel.TheButton.Click += OnPanelDone;
+            //simulationStartlocationPanel.TheButton.Click += OnPanelDone;
             simulationStartlocationPanel.TheButton.Click += (s, e) => FinalClick.Raise(s, e); // TODO | dj | damnit why?
         }
 
         private void OnPanelDone(object sender, EventArgs e)
         {
+            IRawSimulationPanel panel = (IRawSimulationPanel)(sender as Button).Parent.Parent.Parent;
+            if (panel.Validate())
+                PanelDone(sender as Control);
+        }
+
+        private void PanelDone(Control control)
+        {
             this.SuspendLayout();
-            
-            var senderControl = (sender as Button).Parent.Parent.Parent;
-            if (senderControl == null) return;
-            senderControl.Enabled = false;
-            
-            var nextControl = GetNextControl(senderControl, true);
-            if (nextControl == null) return;
-            nextControl.Enabled = true;
-            nextControl.Focus();
-            
+
+            if (control == null) return;
+            control.Enabled = false;
+
+            Control nxtCtrl = GetNextControl(control, true);
+            if (nxtCtrl == null) return;
+            nxtCtrl.Enabled = true;
+            nxtCtrl.Focus();
+
             this.ResumeLayout();
         }
         #endregion
