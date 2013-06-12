@@ -91,8 +91,11 @@ namespace PSC2013.ES.Library.Statistics
         {
             if (Directory.Exists(destination))
                 _creator.setTarget(destination);
-            else 
-                throw new FileNotFoundException("Destination at " + destination + " could not be found");
+            else
+            {
+                Directory.CreateDirectory(destination);
+                _creator.setTarget(destination);
+            }
         }
 
         /// <summary>

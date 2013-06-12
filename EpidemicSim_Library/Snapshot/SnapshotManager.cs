@@ -42,7 +42,7 @@ namespace PSC2013.ES.Library.Snapshot
         {
             _simInfo = SimulationInfo.InitializeFromRuntime(disease, mapX, mapY, simintervall, snapintervall, duration);
 
-            _target = Path.Combine(destination, disease.Name);
+            _target = destination;
             _snapshots = new Queue<TickSnapshot>();
 
             _writer = new SnapshotWriter();
@@ -93,7 +93,8 @@ namespace PSC2013.ES.Library.Snapshot
             {
                 _writer = new ArchiveBinaryWriter();
 
-                _target += ".sim";
+                if (!_target.EndsWith(".sim"))
+                    _target += ".sim";
                 if (File.Exists(_target))
                     throw new ArgumentException("Specified .sim file already exists!"); //TODO Please Catch me...
 
