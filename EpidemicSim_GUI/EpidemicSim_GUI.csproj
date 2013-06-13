@@ -56,6 +56,12 @@
     <Compile Include="Components\DateTimeComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Components\DiseaseComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Components\DiseaseComponent.Designer.cs">
+      <DependentUpon>DiseaseComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Components\EComponentTag.cs" />
     <Compile Include="Components\FactorComponent.cs">
       <SubType>UserControl</SubType>
@@ -149,6 +155,9 @@
     <Compile Include="Simulation\SimulationSecondContainer.Designer.cs">
       <DependentUpon>SimulationSecondContainer.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Components\DiseaseComponent.resx">
+      <DependentUpon>DiseaseComponent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Components\SettingsComponent.resx">
       <DependentUpon>SettingsComponent.cs</DependentUpon>
     </EmbeddedResource>

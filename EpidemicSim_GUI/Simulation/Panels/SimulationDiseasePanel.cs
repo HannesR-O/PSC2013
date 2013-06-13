@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSC2013.ES.GUI.Components;
 using PSC2013.ES.Library.DiseaseData;
+using PSC2013.ES.Library.IO;
 
 namespace PSC2013.ES.GUI.Simulation.Panels
 {
@@ -19,6 +20,9 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             InitializeComponent();
             this.Comp_Transferability.ToolTip += Environment.NewLine + "(e.g. a disease being transferred per air might" +
                 Environment.NewLine + "get a higher value than one per contact)";
+
+            this.Comp_ImExPort.Export += OnExportDisease;
+            this.Comp_ImExPort.Import += OnImportDisease;
         }
 
         public bool ValidateData()
@@ -42,10 +46,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
         {
             Disease disease = new Disease();
 
-            foreach (Control item in this.GrpBox_Main.Controls)
-            {
-                ISettingsComponent comp = item as ISettingsComponent;
-                if (comp != null)
+            ForeachComponent((comp) =>
                 {
                     switch (comp.ComponentTag)
                     {
@@ -76,10 +77,66 @@ namespace PSC2013.ES.GUI.Simulation.Panels
                         default:
                             break;
                     }
-                }
-            }
+                });
 
             return disease;
+        }
+
+        private void OnExportDisease(object sender, EventArgs e)
+        {
+            string path = this.Comp_ImExPort.Path;
+            DiseaseIOService.Save(ContentInformation, path, true);
+        }
+
+        private void OnImportDisease(object sender, EventArgs e)
+        {
+            string path = this.Comp_ImExPort.Path;
+            Disease dis = DiseaseIOService.Load(path);
+
+            ForeachComponent((comp) =>
+                {
+                    switch (comp.ComponentTag)
+                    {
+                        case EComponentTag.DiseaseName:
+                            (comp as SettingsComponent<string>).SetValue(dis.Name);
+                            break;
+                        case EComponentTag.IncubationPeriod:
+                            (comp as SettingsComponent<int>).SetValue(dis.IncubationPeriod);
+                            break;
+                        case EComponentTag.IdleTime:
+                            (comp as SettingsComponent<int>).SetValue(dis.IdleTime);
+                            break;
+                        case EComponentTag.SpreadingTime:
+                            (comp as SettingsComponent<int>).SetValue(dis.SpreadingTime);
+                            break;
+                        case EComponentTag.Transferability:
+                            (comp as SettingsComponent<int>).SetValue(dis.Transferability);
+                            break;
+                        case EComponentTag.HealingFactors:
+                            (comp as SettingsComponent<FactorContainer>).SetValue(dis.HealingFactor);
+                            break;
+                        case EComponentTag.MortalityFactors:
+                            (comp as SettingsComponent<FactorContainer>).SetValue(dis.MortalityRate);
+                            break;
+                        case EComponentTag.ResistanceFactors:
+                            (comp as SettingsComponent<FactorContainer>).SetValue(dis.ResistanceFactor);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+        }
+
+        private void ForeachComponent(Action<ISettingsComponent> action)
+        {
+            foreach (var item in this.GrpBox_Main.Controls)
+            {
+                ISettingsComponent comp = item as ISettingsComponent;
+                if (comp != null)
+                {
+                    action.Invoke(comp);
+                }
+            }
         }
     }
 }

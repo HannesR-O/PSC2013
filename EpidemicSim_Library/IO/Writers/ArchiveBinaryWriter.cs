@@ -49,7 +49,7 @@ namespace PSC2013.ES.Library.IO.Writers
         public void WriteToFile(IBinaryObject obj, string filePath, bool overwrite)
         {
             //TODO: decide which filename (in the archive) to use
-            WriteIntoArchive(obj, filePath, filePath.Substring(filePath.LastIndexOf('/')), overwrite);
+            WriteIntoArchive(obj, filePath, Path.GetFileNameWithoutExtension(filePath), overwrite);
         }
     }
 }

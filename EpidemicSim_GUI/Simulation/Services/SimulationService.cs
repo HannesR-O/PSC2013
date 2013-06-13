@@ -118,8 +118,6 @@ namespace PSC2013.ES.GUI.Simulation.Services
 
             SettingsContainer sc = _firstContainer.InfoSettings;
 
-            SetStartProgressBarMax(sc);
-
             _simulator = EpidemicSimulator.Create(
                 _firstContainer.InfoDisease,
                 _depPath,
@@ -143,30 +141,24 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 _firstContainer.InfoStartlocations, sc.SimulationDuration);
         }
 
-        private void SetStartProgressBarMax(SettingsContainer sc)
-        {
-            _secondContainer.OuputPanel.Invoke(new Action(() =>
-                {
-                    if (sc.SimulationDuration == 0)
-                        _secondContainer.OuputPanel.SetProgressBarMax(0);
-                    else
-                        _secondContainer.OuputPanel.SetProgressBarMax((int)
-                            (sc.SimulationDuration +
-                            (sc.SimulationIntervall / sc.SnapshotIntervall) * sc.SimulationDuration +
-                            3)); /* Start: 1
-                                  * Ended: 1
-                                  * Finished: 1
-                                  */
-                }));
-        }
-
         #region OnEventMethods
         private void OnSimulationStarted(object sender, SimulationEventArgs e)
         {
             _secondContainer.OuputPanel.Invoke(new Action(() =>
             {
-                if(_simulator.SimulationDuration == 0)
-                        _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
+                if (_simulator.SimulationDuration == 0)
+                    _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
+                else
+                {
+                    _secondContainer.OuputPanel.SetProgressBarValue(0);
+                    _secondContainer.OuputPanel.SetProgressBarMax((int)
+                           (_simulator.SimulationDuration +
+                           (_simulator.SimulationIntervall / _simulator.SnapshotIntervall) * _simulator.SimulationDuration +
+                           3)); /* Start: 1
+                                  * Ended: 1
+                                  * Finished: 1
+                                  */
+                }
             }));
             IncreaseProgressBar();
         }
@@ -182,8 +174,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
             {
                 _secondContainer.OuputPanel.Invoke(new Action(() =>
                     {
-                        int val = _secondContainer.OuputPanel.GetProgressBarMax();
-                        _secondContainer.OuputPanel.SetProgressBarMax(val + e.Total);
+                        _secondContainer.OuputPanel.SetProgressBarMax(e.Total);
                     }));
                 _firstDepartment = false;
             }

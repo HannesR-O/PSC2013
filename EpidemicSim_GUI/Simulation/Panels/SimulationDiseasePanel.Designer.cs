@@ -32,7 +32,7 @@
             this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
-            this.separator1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
+            this.separator_1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_ResistanceFactors = new PSC2013.ES.GUI.Components.FactorComponent();
             this.Comp_MortalityRates = new PSC2013.ES.GUI.Components.FactorComponent();
             this.Comp_HealingFactors = new PSC2013.ES.GUI.Components.FactorComponent();
@@ -41,6 +41,7 @@
             this.Comp_IdleTime = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_IncubationPeriod = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_DiseaseName = new PSC2013.ES.GUI.Components.TextComponent();
+            this.Comp_ImExPort = new PSC2013.ES.GUI.Components.DiseaseComponent();
             this.GrpBox_Main.SuspendLayout();
             this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -48,9 +49,10 @@
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.Comp_ImExPort);
             this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
             this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
-            this.GrpBox_Main.Controls.Add(this.separator1);
+            this.GrpBox_Main.Controls.Add(this.separator_1);
             this.GrpBox_Main.Controls.Add(this.Comp_ResistanceFactors);
             this.GrpBox_Main.Controls.Add(this.Comp_MortalityRates);
             this.GrpBox_Main.Controls.Add(this.Comp_HealingFactors);
@@ -75,11 +77,11 @@
             this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.TextBox_Hint.Enabled = false;
-            this.TextBox_Hint.Location = new System.Drawing.Point(10, 279);
+            this.TextBox_Hint.Location = new System.Drawing.Point(10, 314);
             this.TextBox_Hint.Multiline = true;
             this.TextBox_Hint.Name = "TextBox_Hint";
             this.TextBox_Hint.ReadOnly = true;
-            this.TextBox_Hint.Size = new System.Drawing.Size(253, 128);
+            this.TextBox_Hint.Size = new System.Drawing.Size(253, 93);
             this.TextBox_Hint.TabIndex = 10;
             this.TextBox_Hint.Text = "Hint: All factors (as well as the transferability) have to be set as percentages." +
     " So for example a transferability of \'50%\' would be set as a simple \'50\'.";
@@ -93,7 +95,7 @@
             this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 413);
             this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
             this.FlowPanel_Bottom.Size = new System.Drawing.Size(267, 29);
-            this.FlowPanel_Bottom.TabIndex = 9;
+            this.FlowPanel_Bottom.TabIndex = 11;
             // 
             // Btn_Next
             // 
@@ -104,15 +106,15 @@
             this.Btn_Next.Text = "Next >";
             this.Btn_Next.UseVisualStyleBackColor = true;
             // 
-            // separator1
+            // separator_1
             // 
-            this.separator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.separator_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.separator1.BackColor = System.Drawing.Color.Transparent;
-            this.separator1.Location = new System.Drawing.Point(6, 268);
-            this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(261, 5);
-            this.separator1.TabIndex = 8;
+            this.separator_1.BackColor = System.Drawing.Color.Transparent;
+            this.separator_1.Location = new System.Drawing.Point(6, 303);
+            this.separator_1.Name = "separator_1";
+            this.separator_1.Size = new System.Drawing.Size(261, 5);
+            this.separator_1.TabIndex = 9;
             // 
             // Comp_ResistanceFactors
             // 
@@ -226,6 +228,16 @@
             this.Comp_DiseaseName.TabIndex = 0;
             this.Comp_DiseaseName.ToolTip = "The name of the disease.";
             // 
+            // Comp_ImExPort
+            // 
+            this.Comp_ImExPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_ImExPort.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_ImExPort.Location = new System.Drawing.Point(6, 268);
+            this.Comp_ImExPort.Name = "Comp_ImExPort";
+            this.Comp_ImExPort.Size = new System.Drawing.Size(261, 29);
+            this.Comp_ImExPort.TabIndex = 8;
+            // 
             // SimulationDiseasePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,9 +264,10 @@
         private Components.FactorComponent Comp_HealingFactors;
         private Components.FactorComponent Comp_MortalityRates;
         private Components.FactorComponent Comp_ResistanceFactors;
-        private Miscellaneous.Separator separator1;
+        private Miscellaneous.Separator separator_1;
         private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
         private System.Windows.Forms.Button Btn_Next;
         private System.Windows.Forms.TextBox TextBox_Hint;
+        private Components.DiseaseComponent Comp_ImExPort;
     }
 }

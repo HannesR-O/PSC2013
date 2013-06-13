@@ -109,3 +109,5 @@ UpgradeLog*.XML
 
 # Own ignores
 *.dep
+*.sim
+*.dis
