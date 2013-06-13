@@ -92,7 +92,8 @@ namespace PSC2013.ES.Library.Simulation.Components
                     });
             }
 
-            data.AddDeadPeople(deadPeople);
+            lock (data.Deaths)
+                data.AddDeadPeople(deadPeople);
 #if DEBUG
             Console.WriteLine("Dead people this Iteration: " + deadPeople.Count);
             Console.WriteLine("Total dead people: " + data.DeathCount);
