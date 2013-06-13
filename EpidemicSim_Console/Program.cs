@@ -100,7 +100,7 @@ namespace PSC2013.ES.Cmd
                     sm.CreateGraphics((EStatField)255, EColorPalette.Red, "testmap");
                     Console.WriteLine("DONE!");
                 };
-            sim.StartSimulation(DESKTOP_PATH, InfectionInitState.Empty, 1);
+            sim.StartSimulation(DESKTOP_PATH + "\\dat.sim", InfectionInitState.Empty, 1);
         }
 
         public static void OnSimStartEvent(object sender, SimulationEventArgs e)
@@ -174,8 +174,8 @@ namespace PSC2013.ES.Cmd
             sim.SimulationStarted += OnSimStartEvent;
             sim.TickFinished += OnTickfinishedEvent;
             sim.SimulationEnded += OnSimEndedEvent;
-            
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 48);
+
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\dat.sim", GetExampleInitialInfection(), 48);
         }
 
         public static void TestInfectionComponent()
@@ -198,7 +198,7 @@ namespace PSC2013.ES.Cmd
             sim.AddSimulationComponent(new DiseaseTickComponent());
             sim.SetSimulationIntervall(3);
             sim.SetSnapshotIntervall(3);
-            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), GetExampleInitialInfection(), 24);
+            sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\dat.sim", GetExampleInitialInfection(), 24);
         }
 
         public static void TestStats()
@@ -355,7 +355,7 @@ namespace PSC2013.ES.Cmd
                 sim.SetSimulationIntervall(1);
                 sim.SetSnapshotIntervall(1);
                 sim.ProcessFinished += FinishedComponentSimulation;
-                sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/componentTests/", GetExampleInitialInfection(), 4);
+                sim.StartSimulation(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/componentTests/" + "\\dat.sim", GetExampleInitialInfection(), 4);
                 running = true;
 
                 while (running) ;
