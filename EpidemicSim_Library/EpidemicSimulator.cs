@@ -265,25 +265,25 @@ namespace PSC2013.ES.Library
         /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to 
         /// have an ISimulationComponent set for the Infection calculation.
         /// </summary>
-        /// <param name="saveFilePath">The directory to save the snapshots in</param>
-        public void StartSimulation(string saveDirectory, InfectionInitState initialState)
+        /// <param name="saveFileName">The directory to save the snapshots in</param>
+        public void StartSimulation(string saveFileName, InfectionInitState initialState)
         {
-            StartSimulation(saveDirectory, initialState, SIMULATION_DEFAULT_LIMIT);
+            StartSimulation(saveFileName, initialState, SIMULATION_DEFAULT_LIMIT);
         }
 
         /// <summary>
         /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to 
         /// have an ISimulationComponent set for the Infection calculation.
         /// </summary>
-        /// <param name="saveFilePath">The directory to save the snapshots in</param>
+        /// <param name="saveFileName">The directory to save the snapshots in</param>
         /// <param name="limit">The limit of simulation rounds to perform</param>
-        public void StartSimulation(string saveFilePath, InfectionInitState initialState, long limit)
+        public void StartSimulation(string saveFileName, InfectionInitState initialState, long limit)
         {
             if (!CanStartSimulation)
                 throw new SimulationException(ERROR_MESSAGE_STARTING_SIMULATION + 
                     "Not all mandatory settings are set up correctly. Check Intervalls!");
 
-            if (saveFilePath == null || File.Exists(saveFilePath))
+            if (saveFileName == null || File.Exists(saveFileName))
                 throw new ArgumentException(ERROR_MESSAGE_STARTING_SIMULATION + "The given file is invalid!", "saveFilePath");
 
             if (limit < 0)
@@ -296,7 +296,7 @@ namespace PSC2013.ES.Library
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
             _snapshotMgr.Initialize(
-                saveFilePath, _simData.DiseaseToSimulate, 
+                saveFileName, _simData.DiseaseToSimulate, 
                 _simData.ImageWidth, _simData.ImageHeight, 
                 SimulationIntervall, SnapshotIntervall, SimulationDuration);
 
