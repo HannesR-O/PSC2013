@@ -32,6 +32,8 @@
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Start = new System.Windows.Forms.Button();
             this.SaveSimFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.TextBox_Hint = new System.Windows.Forms.TextBox();
+            this.separator_1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_Starttime = new PSC2013.ES.GUI.Components.DateTimeComponent();
             this.Comp_Destination = new PSC2013.ES.GUI.Components.PathComponent();
             this.GrpBox_Main.SuspendLayout();
@@ -41,6 +43,8 @@
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
+            this.GrpBox_Main.Controls.Add(this.separator_1);
             this.GrpBox_Main.Controls.Add(this.Comp_Starttime);
             this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
             this.GrpBox_Main.Controls.Add(this.Comp_Destination);
@@ -75,6 +79,33 @@
             // SaveSimFileDialog
             // 
             this.SaveSimFileDialog.Filter = "Simulation file (*.sim)|*.sim|All files (*.*)|*.*";
+            // 
+            // TextBox_Hint
+            // 
+            this.TextBox_Hint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TextBox_Hint.Enabled = false;
+            this.TextBox_Hint.Location = new System.Drawing.Point(10, 116);
+            this.TextBox_Hint.Multiline = true;
+            this.TextBox_Hint.Name = "TextBox_Hint";
+            this.TextBox_Hint.ReadOnly = true;
+            this.TextBox_Hint.Size = new System.Drawing.Size(252, 267);
+            this.TextBox_Hint.TabIndex = 4;
+            this.TextBox_Hint.Text = "Hint: The starttime defines at which time the simulation virtually starts. Differ" +
+    "ent components are affected by this date/time.";
+            // 
+            // separator_1
+            // 
+            this.separator_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.separator_1.BackColor = System.Drawing.Color.Transparent;
+            this.separator_1.Location = new System.Drawing.Point(6, 105);
+            this.separator_1.Name = "separator_1";
+            this.separator_1.Size = new System.Drawing.Size(260, 5);
+            this.separator_1.TabIndex = 3;
             // 
             // Comp_Starttime
             // 
@@ -129,5 +160,7 @@
         private System.Windows.Forms.Button Btn_Start;
         private System.Windows.Forms.SaveFileDialog SaveSimFileDialog;
         private Components.DateTimeComponent Comp_Starttime;
+        private System.Windows.Forms.TextBox TextBox_Hint;
+        private Miscellaneous.Separator separator_1;
     }
 }

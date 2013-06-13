@@ -72,7 +72,9 @@ namespace PSC2013.ES.GUI.Simulation.Panels
                 foreach (var p in item.Coordinates)
                 {
                     int index = p.Flatten(_origImg.Width);
-                    dict.Add(index, (int)(item.GetTotal() * factor / coords--));
+                    int toInfect = (int)(item.GetTotal() * factor / coords--);
+                    if (toInfect > 0)
+                        dict.Add(index, toInfect);
                 }
             }
 
