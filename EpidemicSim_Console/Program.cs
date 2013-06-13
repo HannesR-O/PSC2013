@@ -94,7 +94,7 @@ namespace PSC2013.ES.Cmd
             sim.SetSnapshotIntervall(1);
             sim.ProcessFinished += (_, __) =>
                 {
-                    StatisticsManager sm = new StatisticsManager();
+                    ReviewManager sm = new ReviewManager();
                     sm.OpenSimFile(DESKTOP_PATH + "\\TestDisease.sim");
                     sm.LoadTickSnapshot(sm.Entries[0]);
                     sm.CreateGraphics((EStatField)255, EColorPalette.Red, "testmap");
@@ -203,7 +203,7 @@ namespace PSC2013.ES.Cmd
 
         public static void TestStats()
         {
-            var manager = new StatisticsManager();
+            var manager = new ReviewManager();
 
             Console.WriteLine("Please enter the name of your .sim file:");
 
@@ -261,7 +261,7 @@ namespace PSC2013.ES.Cmd
                 }
                 Console.WriteLine("Sum: {0}", sum);
 
-                //manager.CreateDeathGraphics(field, pal, prefix);
+                manager.CreateDeathGraphics(field, pal, prefix);
                 manager.CreateGraphics(field, pal, prefix);
                 Dictionary<string, Color> legend = manager.GetCaption();
 
@@ -278,7 +278,7 @@ namespace PSC2013.ES.Cmd
         {
             OutputTargetManager.GetInstance().RegisterTarget(new ConsoleOutputTarget());
 
-            var manager = new StatisticsManager();
+            var manager = new ReviewManager();
 
             Console.WriteLine("Please enter the name of your .sim file:");
             string file = Console.ReadLine();

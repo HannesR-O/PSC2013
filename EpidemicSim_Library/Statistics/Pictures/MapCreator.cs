@@ -97,7 +97,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
 
             }
-            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_" + field + ".png", ImageFormat.Png);
+            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_S-" + field + ".png", ImageFormat.Png);
             GenerateCaption(_steps, pal);
         }
 
@@ -123,7 +123,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 map.SetPixel(p.X, p.Y, pal[0]);
             }
 
-            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_" + field + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_D-" + field + ".png", System.Drawing.Imaging.ImageFormat.Png);
             GenerateCaption(_steps, pal);
         }
 

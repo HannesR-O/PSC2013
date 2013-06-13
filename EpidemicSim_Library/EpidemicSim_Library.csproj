@@ -96,6 +96,7 @@
     <Compile Include="Statistics\Pictures\EColorPalette.cs" />
     <Compile Include="Statistics\Pictures\MapCreator.cs" />
     <Compile Include="Statistics\Pictures\EStatField.cs" />
+    <Compile Include="Statistics\ReviewManager.cs" />
     <Compile Include="Statistics\StatisticsManager.cs" />
   </ItemGroup>
   <ItemGroup />
