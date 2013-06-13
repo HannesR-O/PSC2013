@@ -99,7 +99,7 @@ namespace PSC2013.ES.Library.Statistics
         }
 
         /// <summary>
-        /// Loads a Ticksnapshot to Runtime, when loaded, i can be used to create graphics
+        /// Loads a Ticksnapshot to Runtime, when loaded, it can be used to create graphics
         /// </summary>
         /// <param name="name">The Entries name</param>
         public void LoadTickSnapshot(String name)
@@ -127,7 +127,6 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="field">A concatenation of EStatfields to be used</param>
         /// <param name="colors">The Colorpalette to be used</param>
         /// <param name="namePrefix">The Prefix the data shall be named with</param>
-        /// <returns></returns>
         public void CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
@@ -177,11 +176,11 @@ namespace PSC2013.ES.Library.Statistics
         }
 
         /// <summary>
-        /// 
+        /// Creates a Graphic of the dead Humans
         /// </summary>
-        /// <param name="colors"></param>
-        /// <param name="field"></param>
-        /// <param name="namePrefix"></param>
+        /// <param name="field">The desired Field</param>
+        /// <param name="colors">The desired ColorPalette</param>
+        /// <param name="namePrefix">The desired Prefix</param>
         public void CreateDeathGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)

@@ -118,13 +118,20 @@ namespace PSC2013.ES.Library.Snapshot
                 4); // Writing count of deaths, necessary for reading again
 
             int offset = cellCount * CellSnapshot.LENGTH + CONSTLENGTH;
+#if DEBUG   // Checking, whether count of dead people fits real count of humans != null
+            if (deathCount != Deaths.Count(x => x != null))
+            {
+                Console.WriteLine("Deathcount does not match count of actual dead humans!"); // And no, that doesn't need to be an outputtarget
+                //throw new ArgumentNullException("Deathcount does not match count of actual dead humans!");
+            }
+#endif
             for (int j = 0; j < deathCount; ++j)
             {
                 if (Deaths[j] != null)
                 {
-                Array.Copy(Deaths[j].getBytes(), 0, output,
-                    (j * HumanSnapshot.LENGTH) + offset,
-                    HumanSnapshot.LENGTH);
+                    Array.Copy(Deaths[j].getBytes(), 0, output,
+                        (j * HumanSnapshot.LENGTH) + offset,
+                        HumanSnapshot.LENGTH);
                 }
             }
 

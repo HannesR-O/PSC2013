@@ -97,7 +97,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 }
 
             }
-            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_" + (int)field + ".png", ImageFormat.Png);
+            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_" + field + ".png", ImageFormat.Png);
             GenerateCaption(_steps, pal);
         }
 
@@ -123,8 +123,17 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 map.SetPixel(p.X, p.Y, pal[0]);
             }
 
-            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_" + field + ".png", System.Drawing.Imaging.ImageFormat.Png);
             GenerateCaption(_steps, pal);
+        }
+
+        /// <summary>
+        /// Returns the last used Dict of Color Ranges (String) and a Color
+        /// </summary>
+        /// <returns>The Last used Caption</returns>
+        public Dictionary<string, Color> GetCaption()
+        {
+            return _caption;
         }
 
         /// <summary>
@@ -162,12 +171,7 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             _caption = caption;
         }
-
-        public Dictionary<string, Color> GetCaption()
-        {
-            return _caption;
-        }
-
+        
         /// <summary>
         /// Calculates a Range of Values from a given int up to ColorPalette.RANGE Steps
         /// </summary>
