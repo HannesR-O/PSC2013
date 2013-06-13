@@ -184,7 +184,6 @@ namespace PSC2013.ES.GUI.Simulation.Services
                     {
                         int val = _secondContainer.OuputPanel.GetProgressBarMax();
                         _secondContainer.OuputPanel.SetProgressBarMax(val + e.Total);
-                        Console.WriteLine(val + " | " + e.Total + " | " + val + e.Total);
                     }));
                 _firstDepartment = false;
             }

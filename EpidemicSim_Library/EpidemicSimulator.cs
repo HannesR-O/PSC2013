@@ -265,7 +265,7 @@ namespace PSC2013.ES.Library
         /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to 
         /// have an ISimulationComponent set for the Infection calculation.
         /// </summary>
-        /// <param name="saveDirectory">The directory to save the snapshots in</param>
+        /// <param name="saveFilePath">The directory to save the snapshots in</param>
         public void StartSimulation(string saveDirectory, InfectionInitState initialState)
         {
             StartSimulation(saveDirectory, initialState, SIMULATION_DEFAULT_LIMIT);
@@ -275,16 +275,16 @@ namespace PSC2013.ES.Library
         /// Starts a Simulation with the previously set ISimulationComponents. EpidemicSimulator needs to 
         /// have an ISimulationComponent set for the Infection calculation.
         /// </summary>
-        /// <param name="saveDirectory">The directory to save the snapshots in</param>
+        /// <param name="saveFilePath">The directory to save the snapshots in</param>
         /// <param name="limit">The limit of simulation rounds to perform</param>
-        public void StartSimulation(string saveDirectory, InfectionInitState initialState, long limit)
+        public void StartSimulation(string saveFilePath, InfectionInitState initialState, long limit)
         {
             if (!CanStartSimulation)
                 throw new SimulationException(ERROR_MESSAGE_STARTING_SIMULATION + 
                     "Not all mandatory settings are set up correctly. Check Intervalls!");
 
-            if (saveDirectory == null || !Directory.Exists(saveDirectory) && !Directory.CreateDirectory(saveDirectory).Exists)
-                throw new ArgumentException(ERROR_MESSAGE_STARTING_SIMULATION + "Could not create given directory!", "saveDirectory");
+            if (saveFilePath == null || File.Exists(saveFilePath))
+                throw new ArgumentException(ERROR_MESSAGE_STARTING_SIMULATION + "The given file is invalid!", "saveFilePath");
 
             if (limit < 0)
                 throw new ArgumentException(ERROR_MESSAGE_STARTING_SIMULATION + "Simulationround limit must be greater than 0!", "limit");
@@ -296,7 +296,7 @@ namespace PSC2013.ES.Library
             OnSimulationStarted(new SimulationEventArgs() { SimulationRunning = true });
             _simulationLock = true;
             _snapshotMgr.Initialize(
-                saveDirectory, _simData.DiseaseToSimulate, 
+                saveFilePath, _simData.DiseaseToSimulate, 
                 _simData.ImageWidth, _simData.ImageHeight, 
                 SimulationIntervall, SnapshotIntervall, SimulationDuration);
 
