@@ -16,7 +16,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         protected override unsafe void HandleHuman(Human* human)
         {
-            if(!human->IsInfected())
+            if(!human->IsDiseased())
                 return;
 
             //TODO: |f| pretty basic stuff right here might wanna spice this up a little
@@ -29,6 +29,14 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (rand <= _data.DiseaseToSimulate.MortalityRate[ageGroup])
             {
                 human->KillHuman();
+                lock (_data.Cells[human->CurrentCell])
+                {
+                    if(human->IsSpreading())
+                        --_data.Cells[human->CurrentCell].Spreading;
+                    --_data.Cells[human->CurrentCell].Infecting;
+                    --_data.Cells[human->CurrentCell].Diseased;
+                }
+
                 lock (_data.Deaths)
                     _data.AddDeadPeople(new List<HumanSnapshot>()
                     {

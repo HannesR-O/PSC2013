@@ -355,6 +355,16 @@ namespace PSC2013.ES.Library.PopulationData
             SetDeath(true);
         }
 
+        /// <summary>
+        /// Heals the Human, Praise the lord...
+        /// </summary>
+        public void HealHuman()
+        {
+            SetInfected(false);
+            SetDiseased(false);
+            SetSpreading(false);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Human))

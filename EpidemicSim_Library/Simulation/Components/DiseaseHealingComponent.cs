@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSC2013.ES.Library.PopulationData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,28 @@ namespace PSC2013.ES.Library.Simulation.Components
 {
     public class DiseaseHealingComponent : DiseaseEffectComponent
     {
-        protected override unsafe void HandleHuman(PopulationData.Human* human)
+        protected override unsafe void HandleHuman(Human* human)
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            if (!human->IsInfected())
+                return;
+
+            var rand = RANDOM.Next(100);
+            int ageGroup = (int)human->GetAge() / 32;
+
+            if (human->GetGender() == EGender.Female)
+                ageGroup += 4;
+
+            if (rand <= _data.DiseaseToSimulate.HealingFactor[ageGroup])
+            {
+                human->HealHuman();
+                lock (_data.Cells[human->CurrentCell])
+                {
+                    if (human->IsSpreading())
+                        --_data.Cells[human->CurrentCell].Spreading;
+                    --_data.Cells[human->CurrentCell].Diseased;
+                    --_data.Cells[human->CurrentCell].Infecting;
+                }
+            }
         }
         
         public override bool Equals(SimulationComponent other)

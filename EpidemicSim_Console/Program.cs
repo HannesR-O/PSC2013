@@ -164,7 +164,7 @@ namespace PSC2013.ES.Cmd
                 new AgeingComponent(110),
                 new DiseaseTickComponent(),
                 new DiseaseDeathComponent(),
-                /*new DiseaseHealingComponent(),*/
+                new DiseaseHealingComponent(),
                 new MindsetComponent(),
                 new MovementComponent(),
                 new InfectionComponent()
