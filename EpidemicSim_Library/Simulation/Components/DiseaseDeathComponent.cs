@@ -29,16 +29,17 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (rand <= _data.DiseaseToSimulate.MortalityRate[ageGroup])
             {
                 human->KillHuman();
-                _data.AddDeadPeople(new List<HumanSnapshot>()
-                {
-                    HumanSnapshot.InitializeFromRuntime(
-                    (byte)human->GetGender(), 
-                    (byte)human->GetAgeInYears(), 
-                    (byte)human->GetProfession(), 
-                    human->HomeCell, 
-                    human->CurrentCell, 
-                    true)
-                });
+                lock (_data.Deaths)
+                    _data.AddDeadPeople(new List<HumanSnapshot>()
+                    {
+                        HumanSnapshot.InitializeFromRuntime(
+                        (byte)human->GetGender(), 
+                        (byte)human->GetAgeInYears(), 
+                        (byte)human->GetProfession(), 
+                        human->HomeCell, 
+                        human->CurrentCell, 
+                        true)
+                    });
             }
         }
 

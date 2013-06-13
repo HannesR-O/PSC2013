@@ -99,6 +99,10 @@ namespace PSC2013.ES.Library.Simulation
             WriteMessage("...Matrix generated.");
         }
 
+        /// <summary>
+        /// Adds the given list of humansnapshots to the simulationdata
+        /// </summary>
+        /// <param name="deadPeople">The list of dead people to add</param>
         public void AddDeadPeople(IList<HumanSnapshot> deadPeople)
         {
             while (DeathCount + deadPeople.Count > Deaths.Length)
