@@ -21,10 +21,11 @@ namespace PSC2013.ES.Library.Simulation.Components
         /// Creates a new AgeingSimulationComponent and sets the "hour-value" of one tick.
         /// </summary>
         /// <param name="ageLimit">A value specifying at what age Humans should die of aging</param>
-        public AgeingComponent(int ageLimit) : base(ESimulationStage.AfterInfectedCalculation)
+        public AgeingComponent(int ageLimit)
+            : base(ESimulationStage.AfterInfectedCalculation)
         {
             AgeLimit = ageLimit;
-            UpdateTicksPerYear();        
+            UpdateTicksPerYear();
             _counter = 0;
         }
 
@@ -58,11 +59,12 @@ namespace PSC2013.ES.Library.Simulation.Components
                         if (human->IsDead())
                             return;
 
-                        EAge previousAgegroup = human->GetAge();
+                        EAge previousAge = human->GetAge();
 
                         human->DoAgeTick(1);            //TODO: |f| fixme im dirty nonsense
 
-                        AssignProfession(human, previousAgegroup);
+                        UpdateHumanChangeToCell(human, data, previousAge);
+                        AssignProfession(human, previousAge);
 
                         if (human->GetAgeInYears() <= AgeLimit) return;
 
@@ -88,7 +90,19 @@ namespace PSC2013.ES.Library.Simulation.Components
                                 break;
                         }
                         PopulationCell currentCell = data.Cells[human->CurrentCell];
-                        lock (currentCell) currentCell.Data[genderIndex]--;
+                        lock (currentCell)
+                        {
+                            currentCell.Data[genderIndex]--;
+                            if (human->IsInfected())
+                            {
+                                --currentCell.Infecting;
+
+                                if (human->IsSpreading())
+                                    --currentCell.Spreading;
+                                if (human->IsDiseased())
+                                    --currentCell.Diseased;
+                            }
+                        }
                     });
             }
 
@@ -100,11 +114,11 @@ namespace PSC2013.ES.Library.Simulation.Components
 #endif
         }
 
-        private unsafe void AssignProfession(Human* hptr, EAge previousAgegroup)
+        private unsafe void AssignProfession(Human* hptr, EAge previousAge)
         {
             EAge newAgegroup = hptr->GetAge();
 
-            if (newAgegroup != previousAgegroup)
+            if (newAgegroup != previousAge)
             {
                 if (newAgegroup == EAge.Child)
                 {
@@ -145,6 +159,55 @@ namespace PSC2013.ES.Library.Simulation.Components
                         case 2: hptr->SetProfession(EProfession.DeskJobber); break;
                         case 3: hptr->SetProfession(EProfession.TravellingSalesman); break;
                         case 4: hptr->SetProfession(EProfession.Housewife); break;
+                    }
+                }
+            }
+        }
+
+        private unsafe void UpdateHumanChangeToCell(Human* hptr, SimulationData data, EAge previousAge)
+        {
+            EAge newAge = hptr->GetAge();
+
+            if (previousAge != newAge)
+            {
+                PopulationCell currentcell = data.Cells[hptr->CurrentCell];
+                lock (currentcell)
+                {
+                    if (hptr->GetGender() == EGender.Female)
+                    {
+                        if (newAge == EAge.Child)
+                        {
+                            --currentcell.FemaleBabies;
+                            ++currentcell.FemaleChildren;
+                        }
+                        else if (newAge == EAge.Adult)
+                        {
+                            --currentcell.FemaleChildren;
+                            ++currentcell.FemaleAdults;
+                        }
+                        else if (newAge == EAge.Senior)
+                        {
+                            --currentcell.FemaleAdults;
+                            ++currentcell.FemaleSeniors;
+                        }
+                    }
+                    else
+                    {
+                        if (newAge == EAge.Child)
+                        {
+                            --currentcell.MaleBabies;
+                            ++currentcell.MaleChildren;
+                        }
+                        else if (newAge == EAge.Adult)
+                        {
+                            --currentcell.MaleChildren;
+                            ++currentcell.MaleAdults;
+                        }
+                        else if (newAge == EAge.Senior)
+                        {
+                            --currentcell.MaleAdults;
+                            ++currentcell.MaleSeniors;
+                        }
                     }
                 }
             }
