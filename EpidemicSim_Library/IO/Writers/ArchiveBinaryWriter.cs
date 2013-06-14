@@ -16,7 +16,9 @@ namespace PSC2013.ES.Library.IO.Writers
                 if (!overwrite)
                     throw new ArgumentException("Archive already existing and overwrite flag not set!", archivePath);
 
-                ZipFile.Open(archivePath, ZipArchiveMode.Update).ClearArchive();
+                var tmpArch = ZipFile.Open(archivePath, ZipArchiveMode.Update);
+                tmpArch.ClearArchive();
+                tmpArch.Dispose();
             }
             else
             {
