@@ -102,6 +102,9 @@
       <DependentUpon>Separator.cs</DependentUpon>
     </Compile>
     <Compile Include="Miscellaneous\SettingsContainer.cs" />
+    <Compile Include="Miscellaneous\TextDisplayingProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulation\FactorContainerForm.cs">

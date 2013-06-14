@@ -47,8 +47,8 @@ namespace PSC2013.ES.Library.Snapshot
             _snapshots = new Queue<TickSnapshot>();
 
             _writer = new SnapshotWriter();
-            _writer.QueueEmptied += WriterQueueEmpty.Raise;
-            _writer.SnapshotWritten += SnapshotWritten.Raise;
+            _writer.QueueEmptied += (s, e) => WriterQueueEmpty.Raise(s, e);
+            _writer.SnapshotWritten += (s, e) => SnapshotWritten.Raise(s, e);
             TookSnapshot += _writer.Recieve;
         }
 
@@ -126,8 +126,8 @@ namespace PSC2013.ES.Library.Snapshot
                     if (temp != null)
                     {
                         _writer.WriteIntoArchive(temp, _target, temp.Head, true);
-                        WriteMessage("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                         SnapshotWritten.Raise(this, null);
+                        WriteMessage("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                     }
                 }
                 _task = null;

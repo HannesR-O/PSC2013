@@ -126,7 +126,9 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 OnDepartmentCalculated,
                 _secondContainer.InfoStartTime,
                 GetSimComponents(sc.Components));
+#if DEBUG
             _simulator.AddOutputTarget(new PSC2013.ES.Library.IO.OutputTargets.ConsoleOutputTarget()); // TODO | dj | remove!
+#endif
 
             _simulator.SetSimulationIntervall(sc.SimulationIntervall);
             _simulator.SetSnapshotIntervall(sc.SnapshotIntervall);
@@ -153,7 +155,8 @@ namespace PSC2013.ES.GUI.Simulation.Services
                     _secondContainer.OuputPanel.SetProgressBarValue(0);
                     _secondContainer.OuputPanel.SetProgressBarMax((int)
                            (_simulator.SimulationDuration +
-                           (_simulator.SimulationIntervall / _simulator.SnapshotIntervall) * _simulator.SimulationDuration +
+                           ((float)_simulator.SimulationDuration / _simulator.SimulationIntervall /
+                            _simulator.SnapshotIntervall) +
                            3)); /* Start: 1
                                   * Ended: 1
                                   * Finished: 1
@@ -210,7 +213,10 @@ namespace PSC2013.ES.GUI.Simulation.Services
 
         private void IncreaseProgressBar()
         {
-            _secondContainer.OuputPanel.Invoke(new Action(() => _secondContainer.OuputPanel.IncreaseProgressBarValue()));
+            _secondContainer.OuputPanel.Invoke(new Action(() => 
+                {
+                    _secondContainer.OuputPanel.IncreaseProgressBarValue();
+                }));
         }
 
         private void SetProgressBarToFinished()

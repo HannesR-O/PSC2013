@@ -91,7 +91,7 @@ namespace PSC2013.ES.Library
 
             _snapshotMgr = new SnapshotManager();                           // Needs to be initialized before using
             _snapshotMgr.WriterQueueEmpty += OnWriterQueueEmpty;
-            _snapshotMgr.SnapshotWritten += SnapshotWritten;
+            _snapshotMgr.SnapshotWritten += (s, e) => SnapshotWritten.Raise(s, e);
 
             _before = new HashSet<SimulationComponent>();
             _after = new HashSet<SimulationComponent>();

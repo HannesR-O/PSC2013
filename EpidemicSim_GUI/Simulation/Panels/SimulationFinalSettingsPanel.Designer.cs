@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
-            this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
-            this.Btn_Start = new System.Windows.Forms.Button();
-            this.SaveSimFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.separator_1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_Starttime = new PSC2013.ES.GUI.Components.DateTimeComponent();
+            this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
+            this.Btn_Start = new System.Windows.Forms.Button();
             this.Comp_Destination = new PSC2013.ES.GUI.Components.PathComponent();
+            this.SaveSimFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.GrpBox_Main.SuspendLayout();
             this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -55,30 +55,6 @@
             this.GrpBox_Main.TabIndex = 0;
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Final settings";
-            // 
-            // FlowPanel_Bottom
-            // 
-            this.FlowPanel_Bottom.AutoSize = true;
-            this.FlowPanel_Bottom.Controls.Add(this.Btn_Start);
-            this.FlowPanel_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.FlowPanel_Bottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 389);
-            this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
-            this.FlowPanel_Bottom.Size = new System.Drawing.Size(266, 29);
-            this.FlowPanel_Bottom.TabIndex = 1;
-            // 
-            // Btn_Start
-            // 
-            this.Btn_Start.Location = new System.Drawing.Point(188, 3);
-            this.Btn_Start.Name = "Btn_Start";
-            this.Btn_Start.Size = new System.Drawing.Size(75, 23);
-            this.Btn_Start.TabIndex = 0;
-            this.Btn_Start.Text = "Start";
-            this.Btn_Start.UseVisualStyleBackColor = true;
-            // 
-            // SaveSimFileDialog
-            // 
-            this.SaveSimFileDialog.Filter = "Simulation file (*.sim)|*.sim|All files (*.*)|*.*";
             // 
             // TextBox_Hint
             // 
@@ -122,6 +98,26 @@
             this.Comp_Starttime.ToolTip = "Sets the time on which the simulation will emulate to start. This mainly affects " +
     "the movement.";
             // 
+            // FlowPanel_Bottom
+            // 
+            this.FlowPanel_Bottom.AutoSize = true;
+            this.FlowPanel_Bottom.Controls.Add(this.Btn_Start);
+            this.FlowPanel_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.FlowPanel_Bottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 389);
+            this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
+            this.FlowPanel_Bottom.Size = new System.Drawing.Size(266, 29);
+            this.FlowPanel_Bottom.TabIndex = 1;
+            // 
+            // Btn_Start
+            // 
+            this.Btn_Start.Location = new System.Drawing.Point(188, 3);
+            this.Btn_Start.Name = "Btn_Start";
+            this.Btn_Start.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Start.TabIndex = 0;
+            this.Btn_Start.Text = "Start";
+            this.Btn_Start.UseVisualStyleBackColor = true;
+            // 
             // Comp_Destination
             // 
             this.Comp_Destination.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -136,6 +132,10 @@
             this.Comp_Destination.Size = new System.Drawing.Size(260, 50);
             this.Comp_Destination.TabIndex = 0;
             this.Comp_Destination.ToolTip = "Path where to save the simulation.";
+            // 
+            // SaveSimFileDialog
+            // 
+            this.SaveSimFileDialog.Filter = "Simulation file (*.sim)|*.sim|All files (*.*)|*.*";
             // 
             // SimulationFinalSettingsPanel
             // 
