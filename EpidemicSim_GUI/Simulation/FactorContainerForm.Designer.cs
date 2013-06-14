@@ -105,7 +105,7 @@
             this.Comp_MaleSenior.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_MaleSenior.Size = new System.Drawing.Size(173, 24);
             this.Comp_MaleSenior.TabIndex = 3;
-            this.Comp_MaleSenior.ToolTip = "";
+            this.Comp_MaleSenior.ToolTip = "61 - 110 y/o male";
             // 
             // Comp_MaleAdult
             // 
@@ -119,7 +119,7 @@
             this.Comp_MaleAdult.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_MaleAdult.Size = new System.Drawing.Size(173, 24);
             this.Comp_MaleAdult.TabIndex = 2;
-            this.Comp_MaleAdult.ToolTip = "";
+            this.Comp_MaleAdult.ToolTip = "26 - 60 y/o male";
             // 
             // Comp_MaleChild
             // 
@@ -133,7 +133,7 @@
             this.Comp_MaleChild.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_MaleChild.Size = new System.Drawing.Size(173, 24);
             this.Comp_MaleChild.TabIndex = 1;
-            this.Comp_MaleChild.ToolTip = "";
+            this.Comp_MaleChild.ToolTip = "7 - 25 y/o male";
             // 
             // Comp_MaleBaby
             // 
@@ -147,7 +147,7 @@
             this.Comp_MaleBaby.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_MaleBaby.Size = new System.Drawing.Size(173, 24);
             this.Comp_MaleBaby.TabIndex = 0;
-            this.Comp_MaleBaby.ToolTip = "";
+            this.Comp_MaleBaby.ToolTip = "1 - 6 y/o male";
             // 
             // GrpBox_Female
             // 
@@ -174,7 +174,7 @@
             this.Comp_FemaleSenior.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_FemaleSenior.Size = new System.Drawing.Size(173, 24);
             this.Comp_FemaleSenior.TabIndex = 7;
-            this.Comp_FemaleSenior.ToolTip = "";
+            this.Comp_FemaleSenior.ToolTip = "61 - 110 y/o female";
             // 
             // Comp_FemaleAdult
             // 
@@ -188,7 +188,7 @@
             this.Comp_FemaleAdult.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_FemaleAdult.Size = new System.Drawing.Size(173, 24);
             this.Comp_FemaleAdult.TabIndex = 6;
-            this.Comp_FemaleAdult.ToolTip = "";
+            this.Comp_FemaleAdult.ToolTip = "26 - 60 y/o female";
             // 
             // Comp_FemaleBaby
             // 
@@ -202,7 +202,7 @@
             this.Comp_FemaleBaby.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_FemaleBaby.Size = new System.Drawing.Size(173, 24);
             this.Comp_FemaleBaby.TabIndex = 4;
-            this.Comp_FemaleBaby.ToolTip = "";
+            this.Comp_FemaleBaby.ToolTip = "1 - 6 y/o female";
             // 
             // Comp_FemaleChild
             // 
@@ -216,7 +216,7 @@
             this.Comp_FemaleChild.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_FemaleChild.Size = new System.Drawing.Size(173, 24);
             this.Comp_FemaleChild.TabIndex = 5;
-            this.Comp_FemaleChild.ToolTip = "";
+            this.Comp_FemaleChild.ToolTip = "7 - 25 y/o female";
             // 
             // FactorContainerForm
             // 

@@ -70,7 +70,7 @@ namespace PSC2013.ES.Library.Snapshot
                 ++pos;
             }
 
-            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(tick, cells, simData.Deaths);
+            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(tick, cells, simData.Deaths.NotNullIterator().ToArray());
 
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);            
