@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 
@@ -62,14 +63,14 @@ namespace PSC2013.ES.Library.Snapshot
 
             int pos = 0;
             int i = 0;
-            foreach (PopulationCell cell in simData.Cells)
+            foreach (PopulationCell cell in simData.Cells) // Not parallel...
             {
                 if (cell != null)
                     cells[i++] = CellSnapshot.InitializeFromRuntime(cell, pos);
                 ++pos;
             }
 
-            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(tick, cells, simData.Deaths); // <-
+            TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(tick, cells, simData.Deaths);
 
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);            

@@ -261,8 +261,20 @@ namespace PSC2013.ES.Cmd
                 }
                 Console.WriteLine("Sum: {0}", sum);
 
-                manager.CreateDeathGraphics(field, pal, prefix);
-                manager.CreateGraphics(field, pal, prefix);
+                Console.WriteLine("Normal(0) or Deathmap (1)");
+                int op = int.Parse(Console.ReadLine());
+                switch (op)
+                {
+                    case 0:
+                        manager.CreateGraphics(field, pal, prefix);
+                        break;
+                    case 1:
+                        manager.CreateDeathGraphics(field, pal, prefix);
+                        break;
+                    default:
+                        manager.CreateGraphics(field, pal, prefix);
+                        break;
+                }
                 Dictionary<string, Color> legend = manager.GetCaption();
 
                 foreach (string str in legend.Keys)
