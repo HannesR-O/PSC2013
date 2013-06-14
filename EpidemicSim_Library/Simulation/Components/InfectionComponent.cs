@@ -11,13 +11,12 @@ namespace PSC2013.ES.Library.Simulation.Components
 {
     public class InfectionComponent : SimulationComponent
     {
-        private readonly Random _random;
         private int _arrayHeight, _arrayWidth, _arrayMaxIndex;
         private SimulationData _data;
 
         public InfectionComponent() : base(ESimulationStage.InfectedCalculation)
         {
-            _random = new Random((int)DateTime.Now.Ticks);
+
         }
 
         public override unsafe void PerformSimulationStage(SimulationData data)
@@ -52,7 +51,12 @@ namespace PSC2013.ES.Library.Simulation.Components
 
                         if (!ptr->IsDead() && !ptr->IsInfected())
                         {
-                            TryInfection(ptr, disease, _data.Cells[ptr->CurrentCell].Probability);
+                            int probability = 0;
+                            lock (_data.Cells[ptr->CurrentCell])
+                            {
+                                probability = _data.Cells[ptr->CurrentCell].Probability;
+                            }
+                            TryInfection(ptr, disease, probability);
                         }
                     });
                 //TODO: Old code for speed boost reference.. DELETE when done
@@ -124,11 +128,14 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (resistance < probability)  //TODO: no infection if resistance to high!? |f| questionable
             {
                 int factor = probability - resistance;
-                int rand = /*0;*/ _random.Next(100);               //TODO: this is probably too high
+                int rand = /*0;*/ RANDOM.Next(100);               //TODO: this is probably too high
                 if (rand <= factor)
                 {
                     human->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
-                    _data.Cells[human->CurrentCell].Infecting++;
+                    lock (_data.Cells[human->CurrentCell])
+                    {
+                        _data.Cells[human->CurrentCell].Infecting++;
+                    }
                 }
             }
         }

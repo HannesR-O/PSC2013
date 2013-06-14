@@ -68,9 +68,12 @@ namespace PSC2013.ES.Library.Simulation.Components
 
                         if (human->GetAgeInYears() <= AgeLimit) return;
 
-                        deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human->GetGender(),
-                            (byte)human->GetAgeInYears(), (byte)human->GetProfession(),
-                            human->HomeCell, human->CurrentCell, false));
+                        lock (deadPeople)
+                        {
+                            deadPeople.Add(HumanSnapshot.InitializeFromRuntime((byte)human->GetGender(),
+                                (byte)human->GetAgeInYears(), (byte)human->GetProfession(),
+                                human->HomeCell, human->CurrentCell, false));
+                        }
 
                         human->KillHuman();
                         var genderIndex = (int)human->GetGender();
@@ -89,9 +92,10 @@ namespace PSC2013.ES.Library.Simulation.Components
                                 genderIndex += 3;
                                 break;
                         }
-                        PopulationCell currentCell = data.Cells[human->CurrentCell];
-                        lock (currentCell)
+
+                        lock (data.Cells[human->CurrentCell])
                         {
+                            PopulationCell currentCell = data.Cells[human->CurrentCell];
                             currentCell.Data[genderIndex]--;
                             if (human->IsInfected())
                             {
@@ -170,9 +174,11 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             if (previousAge != newAge)
             {
-                PopulationCell currentcell = data.Cells[hptr->CurrentCell];
-                lock (currentcell)
+                
+                lock (data.Cells[hptr->CurrentCell])
                 {
+                    PopulationCell currentcell = data.Cells[hptr->CurrentCell];
+
                     if (hptr->GetGender() == EGender.Female)
                     {
                         if (newAge == EAge.Child)

@@ -12,7 +12,8 @@ namespace PSC2013.ES.Library.Simulation.Components
     {
         private SimulationData _data;
 
-        public MovementComponent() : base(ESimulationStage.BeforeInfectedCalculation)
+        public MovementComponent()
+            : base(ESimulationStage.BeforeInfectedCalculation)
         {
             _simulationIntervall = 1;
         }
@@ -163,61 +164,61 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public void MoveHuman(Human* ptr, int destination)
         {
-            PopulationCell currentcell = _data.Cells[ptr->CurrentCell];
-            PopulationCell destinationcell = _data.Cells[destination];
-
-            lock(destinationcell)
-            lock (currentcell)
-            {
-                if (ptr->IsInfected())
+            lock (_data.Cells[destination])
+                lock (_data.Cells[ptr->CurrentCell])
                 {
-                    --currentcell.Infecting;
-                    ++destinationcell.Infecting;
-                }
+                    PopulationCell currentcell = _data.Cells[ptr->CurrentCell];
+                    PopulationCell destinationcell = _data.Cells[destination];
 
-                if (ptr->IsSpreading())
-                {
-                    --currentcell.Spreading;
-                    ++destinationcell.Spreading;
-                }
-
-                if (ptr->IsDiseased())
-                {
-                    --currentcell.Diseased;
-                    ++destinationcell.Diseased;
-                }
-
-
-
-                if (ptr->GetGender() == EGender.Male)
-                {
-                    switch (ptr->GetAge())
+                    if (ptr->IsInfected())
                     {
-                        case EAge.Baby: --currentcell.MaleBabies;
-                            ++destinationcell.MaleBabies; break;
-                        case EAge.Child: --currentcell.MaleChildren;
-                            ++destinationcell.MaleChildren; break;
-                        case EAge.Adult: --currentcell.MaleAdults;
-                            ++destinationcell.MaleAdults; break;
-                        case EAge.Senior: --currentcell.MaleSeniors;
-                            ++destinationcell.MaleSeniors; break;
+                        --currentcell.Infecting;
+                        ++destinationcell.Infecting;
+                    }
+
+                    if (ptr->IsSpreading())
+                    {
+                        --currentcell.Spreading;
+                        ++destinationcell.Spreading;
+                    }
+
+                    if (ptr->IsDiseased())
+                    {
+                        --currentcell.Diseased;
+                        ++destinationcell.Diseased;
+                    }
+
+
+
+                    if (ptr->GetGender() == EGender.Male)
+                    {
+                        switch (ptr->GetAge())
+                        {
+                            case EAge.Baby: --currentcell.MaleBabies;
+                                ++destinationcell.MaleBabies; break;
+                            case EAge.Child: --currentcell.MaleChildren;
+                                ++destinationcell.MaleChildren; break;
+                            case EAge.Adult: --currentcell.MaleAdults;
+                                ++destinationcell.MaleAdults; break;
+                            case EAge.Senior: --currentcell.MaleSeniors;
+                                ++destinationcell.MaleSeniors; break;
+                        }
+                    }
+                    else
+                    {
+                        switch (ptr->GetAge())
+                        {
+                            case EAge.Baby: --currentcell.FemaleBabies;
+                                ++destinationcell.FemaleBabies; break;
+                            case EAge.Child: --currentcell.FemaleChildren;
+                                ++destinationcell.FemaleChildren; break;
+                            case EAge.Adult: --currentcell.FemaleAdults;
+                                ++destinationcell.FemaleAdults; break;
+                            case EAge.Senior: --currentcell.FemaleSeniors;
+                                ++destinationcell.FemaleSeniors; break;
+                        }
                     }
                 }
-                else
-                {
-                    switch (ptr->GetAge())
-                    {
-                        case EAge.Baby: --currentcell.FemaleBabies;
-                            ++destinationcell.FemaleBabies; break;
-                        case EAge.Child: --currentcell.FemaleChildren;
-                            ++destinationcell.FemaleChildren; break;
-                        case EAge.Adult: --currentcell.FemaleAdults;
-                            ++destinationcell.FemaleAdults; break;
-                        case EAge.Senior: --currentcell.FemaleSeniors;
-                            ++destinationcell.FemaleSeniors; break;
-                    }
-                }
-            }
 
             ptr->CurrentCell = destination;
         }
@@ -316,7 +317,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                         return;
 
                     break;
-                    
+
                 //Dayoff Behaviour
                 //Wander around aimlessly
                 case PopulationData.EMindset.DayOff:
@@ -331,7 +332,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
                     break;
             }
-        }  
+        }
 
         private void MoveStudent(Human* ptr)
         {
@@ -374,7 +375,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                     break;
 
                 //DayOff Mindset :
-                case EMindset.DayOff :
+                case EMindset.DayOff:
 
                     if (_data.CurrentHour == 6 && !ptr->IsAtHome())
                     {
@@ -499,7 +500,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 //Working Mindset -> Housewife doesn't go to work is either at home in the city or by friends
                 //Assert : Housewife is at Home at 0 o'clock;
-                case PopulationData.EMindset.DayOff: 
+                case PopulationData.EMindset.DayOff:
                 case PopulationData.EMindset.Working:
                     //Run around aimlessly^^
                     if (_data.CurrentHour > 6 && _data.CurrentHour < 20)
@@ -645,7 +646,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             if (RANDOM.Next(2) == 0)
             {
-                while (origincell + x + y  >= (_data.ImageWidth * _data.ImageHeight)
+                while (origincell + x + y >= (_data.ImageWidth * _data.ImageHeight)
                     || _data.Cells[origincell + x + y] == null)
                 {
                     y = y - _data.ImageWidth;
@@ -655,8 +656,8 @@ namespace PSC2013.ES.Library.Simulation.Components
             {
                 y = -y;
 
-                while (origincell + x + y  < 0
-                       || _data.Cells[origincell+ x + y] == null)
+                while (origincell + x + y < 0
+                       || _data.Cells[origincell + x + y] == null)
                 {
                     y = y + _data.ImageWidth;
                 }

@@ -16,8 +16,6 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         protected unsafe override void HandleHuman(Human* human)
         {
-            PopulationCell currentCell = _data.Cells[human->CurrentCell];
-
             var spreading = human->IsSpreading();
             var infecting = human->IsInfected();
             var diseased = human->IsDiseased();
@@ -27,25 +25,25 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (human->IsSpreading() != spreading)
             {
                 if (spreading)
-                    lock (currentCell) currentCell.Spreading--;
+                    lock (_data.Cells[human->CurrentCell]) _data.Cells[human->CurrentCell].Spreading--;
                 else
-                    lock (currentCell) currentCell.Spreading++;
+                    lock (_data.Cells[human->CurrentCell]) _data.Cells[human->CurrentCell].Spreading++;
             }
 
             if (human->IsInfected() != infecting)
             {
                 if (infecting)
-                    lock (currentCell) currentCell.Infecting--;
+                    lock (_data.Cells[human->CurrentCell]) _data.Cells[human->CurrentCell].Infecting--;
                 else
-                    lock (currentCell) currentCell.Infecting++;
+                    lock (_data.Cells[human->CurrentCell]) _data.Cells[human->CurrentCell].Infecting++;
             }
 
             if (human->IsDiseased() != diseased)
             {
                 if (diseased)
-                    lock (currentCell) currentCell.Diseased--;
+                    lock (_data.Cells[human->CurrentCell]) _data.Cells[human->CurrentCell].Diseased--;
                 else
-                    lock (currentCell) currentCell.Diseased++;
+                    lock (_data.Cells[human->CurrentCell]) _data.Cells[human->CurrentCell].Diseased++;
             }
         }
 

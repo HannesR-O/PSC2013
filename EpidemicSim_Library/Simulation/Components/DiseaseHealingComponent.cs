@@ -27,7 +27,9 @@ namespace PSC2013.ES.Library.Simulation.Components
                 {
                     if (human->IsSpreading())
                         --_data.Cells[human->CurrentCell].Spreading;
-                    --_data.Cells[human->CurrentCell].Diseased;
+                    if(human->IsDiseased())
+                        --_data.Cells[human->CurrentCell].Diseased;
+
                     --_data.Cells[human->CurrentCell].Infecting;
                 }
             }
