@@ -250,17 +250,6 @@ namespace PSC2013.ES.Cmd
 
                 manager.LoadTickSnapshot(name);
 
-                Dictionary<string, int> am = 
-                    GeneralStatistics.AgeGroups(manager.LoadedSnapshot);
-                
-                int sum = 0;
-                foreach (string group in am.Keys)
-                {
-                    Console.WriteLine(group + ": " + am[group]);
-                    sum += am[group];
-                }
-                Console.WriteLine("Sum: {0}", sum);
-
                 Console.WriteLine("Normal(0) or Deathmap (1)");
                 int op = int.Parse(Console.ReadLine());
                 switch (op)
