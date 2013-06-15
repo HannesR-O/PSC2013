@@ -10,7 +10,6 @@ using PSC2013.ES.Library.Simulation;
 using PSC2013.ES.Library.Simulation.Components;
 using PSC2013.ES.Library.Snapshot;
 using PSC2013.ES.Library.Statistics;
-using PSC2013.ES.Library.Statistics.CountStatistics;
 using PSC2013.ES.Library.Statistics.Pictures;
 using PSC2013.ES.Library.IO;
 
