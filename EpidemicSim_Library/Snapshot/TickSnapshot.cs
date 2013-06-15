@@ -122,7 +122,7 @@ namespace PSC2013.ES.Library.Snapshot
             int j = 0;
             foreach (HumanSnapshot human in Deaths)
             {
-                if (j >= deathCount)
+                if (j + 1 > deathCount)
                     throw new ArgumentException("Actual Count of Dead Humans is greater than deathcount!");
                 if (human != null)
                 {

@@ -13,18 +13,19 @@ namespace PSC2013.ES.Library.Snapshot
 
         public int Position { get; private set; } // Position in Array (If 1-dimensional)    
 
-        public ushort[] Values { get; private set; }
-
-        //[0] Males Baby
-        //[1] Males Child
-        //[2] Males Adult
-        //[3] Males Senior
-        //[4] Females Baby
-        //[5] Females Child
-        //[6] Females Adult
-        //[7] Females Senior   
-        //[8] Count of infected humans in this cell
-        //[9] Count of diseased humans in this cell   
+        /// <summary>
+        ///[0] Males Baby<para/>
+        ///[1] Males Child<para/>
+        ///[2] Males Adult<para/>
+        ///[3] Males Senior<para/>
+        ///[4] Females Baby<para/>
+        ///[5] Females Child<para/>
+        ///[6] Females Adult<para/>
+        ///[7] Females Senior   <para/>
+        ///[8] Count of infected humans in this cell<para/>
+        ///[9] Count of diseased humans in this cell   
+        /// </summary>
+        public ushort[] Values { get; private set; } 
 
         /// <summary>
         /// Creates an new Cellsnapshot, private becaus it's static

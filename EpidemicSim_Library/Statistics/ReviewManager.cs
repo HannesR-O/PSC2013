@@ -82,6 +82,7 @@ namespace PSC2013.ES.Library.Statistics
             _creator.InitializeMaxima(tick);
             WriteMessage(first.Name + " is first. Initializing...");
             LoadedSnapshot = tick; // First Snaphsot stays loaded
+            Entries.Sort();
         }
 
         /// <summary>
