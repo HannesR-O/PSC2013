@@ -122,8 +122,6 @@ namespace PSC2013.ES.Library.Snapshot
             int j = 0;
             foreach (HumanSnapshot human in Deaths)
             {
-                if (j + 1 > deathCount)
-                    throw new ArgumentException("Actual Count of Dead Humans is greater than deathcount!");
                 if (human != null)
                 {
                     Array.Copy(human.getBytes(), 0, output,
@@ -132,8 +130,6 @@ namespace PSC2013.ES.Library.Snapshot
                     ++j;
                 }
             }
-            if (j < deathCount)
-                throw new ArgumentException("Actual Count of Dead Humans is smaller than deathcount!");
 
             return output;
         }
