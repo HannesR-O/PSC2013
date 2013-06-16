@@ -164,8 +164,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public void MoveHuman(Human* ptr, int destination)
         {
-            lock (_data.Cells[destination])
-                lock (_data.Cells[ptr->CurrentCell])
+                lock(_data.Cells)
                 {
                     PopulationCell currentcell = _data.Cells[ptr->CurrentCell];
                     PopulationCell destinationcell = _data.Cells[destination];

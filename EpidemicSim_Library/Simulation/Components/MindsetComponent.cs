@@ -15,7 +15,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public unsafe override void PerformSimulationStage(SimulationData data)
         {
-            if (_currentDay == null || _currentDay != data.CurrentDay)
+            if (_currentDay != data.CurrentDay)
                 _currentDay = data.CurrentDay;
             else
                 return;
