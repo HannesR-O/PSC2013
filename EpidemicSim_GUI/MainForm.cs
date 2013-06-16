@@ -33,7 +33,7 @@ namespace PSC2013.ES.GUI
         public MainForm()
         {
             InitializeComponent();
-            WorkingArea = new Review.ReviewFirstContainer();
+            WorkingArea = new ReviewFirstContainer();
         }
 
         // EVENTS \\
@@ -44,9 +44,15 @@ namespace PSC2013.ES.GUI
                 base.OnClosing(e);
             else
             {
-                MessageBox.Show("The window can not be closed yet. There is still something running.", "Nope. Not yet.");
+                MessageBox.Show("The window can not be closed yet. There is still something running.",
+                    "Nope. Not yet.");
                 e.Cancel = true;
             }
+        }
+
+        private void MenuStrip_Main_File_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void MenuStrip_Main_File_NewSim_Click(object sender, EventArgs e)
@@ -55,6 +61,9 @@ namespace PSC2013.ES.GUI
             if (dr == DialogResult.OK)
             {
                 string path = OpenDepFileDialog.FileName;
+
+                if (!CanChangeService())
+                    return;
 
                 _service = new SimulationService(path);
                 _service.ChangeWorkingArea += OnServiceChangeWA;
@@ -69,13 +78,16 @@ namespace PSC2013.ES.GUI
             {
                 string path = OpenSimFileDialog.FileName;
 
+                if (!CanChangeService())
+                    return;
+
                 _service = new ReviewService(path);
                 _service.ChangeWorkingArea += OnServiceChangeWA;
                 _service.StartService();
             }
         }
 
-        void OnServiceChangeWA(object sender, ServiceEventArgs e)
+        private void OnServiceChangeWA(object sender, ServiceEventArgs e)
         {
             IService service = sender as IService;
             if (service != null)
@@ -102,6 +114,20 @@ namespace PSC2013.ES.GUI
                 }
                 service.ReactToAnswer(WorkingArea);
             }
+        }
+
+        private bool CanChangeService()
+        {
+            if (_service != null && !_service.CanClose)
+            {
+                MessageBox.Show("You can not change service while a task is still running."
+                    + Environment.NewLine
+                    + "Please wait or try to abort the running task.",
+                    "Nope. Service cannot be closed");
+                return false;
+            }
+            else
+                return true;
         }
     }
 }

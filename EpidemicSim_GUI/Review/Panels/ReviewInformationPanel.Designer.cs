@@ -33,6 +33,8 @@
             this.Panel_Male = new System.Windows.Forms.Panel();
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
+            this.TextBox_Hint = new System.Windows.Forms.TextBox();
+            this.separator_3 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_Diseased = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_Infected = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_FemaleSenior = new PSC2013.ES.GUI.Components.BoolComponent();
@@ -58,6 +60,8 @@
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
+            this.GrpBox_Main.Controls.Add(this.separator_3);
             this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
             this.GrpBox_Main.Controls.Add(this.Comp_Diseased);
             this.GrpBox_Main.Controls.Add(this.Comp_Infected);
@@ -119,6 +123,34 @@
             this.Btn_Next.TabIndex = 0;
             this.Btn_Next.Text = "Next >";
             this.Btn_Next.UseVisualStyleBackColor = true;
+            // 
+            // TextBox_Hint
+            // 
+            this.TextBox_Hint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TextBox_Hint.Enabled = false;
+            this.TextBox_Hint.Location = new System.Drawing.Point(10, 319);
+            this.TextBox_Hint.Multiline = true;
+            this.TextBox_Hint.Name = "TextBox_Hint";
+            this.TextBox_Hint.ReadOnly = true;
+            this.TextBox_Hint.Size = new System.Drawing.Size(306, 104);
+            this.TextBox_Hint.TabIndex = 8;
+            this.TextBox_Hint.Text = "Hint: Use the above settings to adjust the output on the maps. You can choose bet" +
+    "ween alive and dead people. In each is the possibility to specify which of the a" +
+    "gegroups has to be drawn.";
+            // 
+            // separator_3
+            // 
+            this.separator_3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.separator_3.BackColor = System.Drawing.Color.Transparent;
+            this.separator_3.Location = new System.Drawing.Point(6, 308);
+            this.separator_3.Name = "separator_3";
+            this.separator_3.Size = new System.Drawing.Size(314, 5);
+            this.separator_3.TabIndex = 7;
             // 
             // Comp_Diseased
             // 
@@ -378,5 +410,7 @@
         private Components.BoolComponent Comp_Diseased;
         private System.Windows.Forms.FlowLayoutPanel FlowPanel_Bottom;
         private System.Windows.Forms.Button Btn_Next;
+        private Miscellaneous.Separator separator_3;
+        private System.Windows.Forms.TextBox TextBox_Hint;
     }
 }

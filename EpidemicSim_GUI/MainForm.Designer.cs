@@ -99,6 +99,7 @@
             this.MenuStrip_Main_File_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.MenuStrip_Main_File_Exit.Size = new System.Drawing.Size(215, 22);
             this.MenuStrip_Main_File_Exit.Text = "Exit";
+            this.MenuStrip_Main_File_Exit.Click += new System.EventHandler(this.MenuStrip_Main_File_Exit_Click);
             // 
             // MenuStrip_Main_Tools
             // 
