@@ -30,12 +30,14 @@
         {
             this.WorkFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.reviewSettingsPanel = new PSC2013.ES.GUI.Review.Panels.ReviewSettingsPanel();
+            this.reviewInformationPanel1 = new PSC2013.ES.GUI.Review.Panels.ReviewInformationPanel();
             this.WorkFlow.SuspendLayout();
             this.SuspendLayout();
             // 
             // WorkFlow
             // 
             this.WorkFlow.Controls.Add(this.reviewSettingsPanel);
+            this.WorkFlow.Controls.Add(this.reviewInformationPanel1);
             this.WorkFlow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WorkFlow.Location = new System.Drawing.Point(0, 0);
             this.WorkFlow.Margin = new System.Windows.Forms.Padding(0);
@@ -51,6 +53,14 @@
             this.reviewSettingsPanel.Name = "reviewSettingsPanel";
             this.reviewSettingsPanel.Size = new System.Drawing.Size(331, 478);
             this.reviewSettingsPanel.TabIndex = 0;
+            // 
+            // reviewInformationPanel1
+            // 
+            this.reviewInformationPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.reviewInformationPanel1.Location = new System.Drawing.Point(343, 6);
+            this.reviewInformationPanel1.Name = "reviewInformationPanel1";
+            this.reviewInformationPanel1.Size = new System.Drawing.Size(326, 478);
+            this.reviewInformationPanel1.TabIndex = 1;
             // 
             // ReviewFirstContainer
             // 
@@ -68,5 +78,6 @@
 
         private System.Windows.Forms.FlowLayoutPanel WorkFlow;
         private Panels.ReviewSettingsPanel reviewSettingsPanel;
+        private Panels.ReviewInformationPanel reviewInformationPanel1;
     }
 }

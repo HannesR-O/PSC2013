@@ -46,6 +46,10 @@ namespace PSC2013.ES.GUI.Components
         ColorPalette,
         Destination,
         AgeDiagram,
-        AllDiagram
+        AllDiagram,
+
+        ReviewCategory,
+        Diseased,
+        Infected
     }
 }
