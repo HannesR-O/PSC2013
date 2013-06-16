@@ -60,11 +60,14 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="snapshot">The Snapshot to be mapped</param>
         /// <param name="field">The Field to be visualised</param>
         /// <param name="palette">The Color Palette to be used</param>
-        public void GetMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
+        public unsafe void GetMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
         {
             Color[] pal = GetPalette(palette);
 
             Bitmap map = new Bitmap(X, Y);
+            BitmapData bData = map.LockBits(new Rectangle(0, 0, map.Width, map.Height), ImageLockMode.ReadWrite, map.PixelFormat);
+            PixelData* start = (PixelData*)bData.Scan0.ToPointer();
+            PixelData* pixelptr = null;
                     
             List<int> fields = new List<int>();
             foreach (EStatField f in Enum.GetValues(typeof(EStatField)))
@@ -81,22 +84,32 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                     count += cell.Values[i];
 
                 Point p = cell.Position.DeFlatten(X);
+                pixelptr = start + p.X + (p.Y * map.Width);
 
                 if (count == 0)
-                    map.SetPixel(p.X, p.Y, Color.Black);
+                {
+                    pixelptr->Alpha = 255;
+                    pixelptr->Blue = 0;
+                    pixelptr->Green = 0;
+                    pixelptr->Red = 0;
+                }
                 else
                 {
                     for (int i = ColorPalette.RANGE - 1; i >= 0; --i)
                     {
                         if (_steps[i] >= count)
                         {
-                            map.SetPixel(p.X, p.Y, pal[i]);
+                            pixelptr->Alpha = pal[i].A;
+                            pixelptr->Blue = pal[i].B;
+                            pixelptr->Green = pal[i].G;
+                            pixelptr->Red = pal[i].R;
                             break;
                         }
                     }
                 }
 
             }
+            map.UnlockBits(bData);
             map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_S-" + field + ".png", ImageFormat.Png);
             GenerateCaption(_steps, pal);
         }
@@ -223,5 +236,13 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                     return ColorPalette.RED;
             }
         }
+    }
+
+    struct PixelData
+    {
+        public byte Blue;
+        public byte Green;
+        public byte Red;
+        public byte Alpha;
     }
 }
