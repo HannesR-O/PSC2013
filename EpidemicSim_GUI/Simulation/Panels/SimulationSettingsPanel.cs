@@ -6,7 +6,7 @@ using PSC2013.ES.GUI.Miscellaneous;
 
 namespace PSC2013.ES.GUI.Simulation.Panels
 {
-    public partial class SimulationSettingsPanel : UserControl, ISimulationPanel<SettingsContainer>
+    public partial class SimulationSettingsPanel : UserControl, ISimulationPanel<SimulationSettingsContainer>
     {
         public SimulationSettingsPanel()
         {
@@ -24,7 +24,7 @@ namespace PSC2013.ES.GUI.Simulation.Panels
 
         public bool ValidateData()
         {
-            SettingsContainer sc = ContentInformation;
+            SimulationSettingsContainer sc = ContentInformation;
 
             return sc.SimulationDuration >= 0 &&
                 sc.SnapshotIntervall % sc.SimulationIntervall == 0;
@@ -35,14 +35,14 @@ namespace PSC2013.ES.GUI.Simulation.Panels
             get { return this.Btn_Next; }
         }
 
-        public SettingsContainer ContentInformation
+        public SimulationSettingsContainer ContentInformation
         {
             get { return GatherInformation(); }
         }
 
-        private SettingsContainer GatherInformation()
+        private SimulationSettingsContainer GatherInformation()
         {
-            SettingsContainer sc = new SettingsContainer();
+            SimulationSettingsContainer sc = new SimulationSettingsContainer();
             List<EComponentTag> comps = new List<EComponentTag>();
 
             foreach (Control item in this.GrpBox_Main.Controls)

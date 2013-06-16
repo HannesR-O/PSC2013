@@ -116,7 +116,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
             ListBoxOutputTarget lbot = new ListBoxOutputTarget(
                 _secondContainer.OuputPanel.GetOutputListBox());
 
-            SettingsContainer sc = _firstContainer.InfoSettings;
+            SimulationSettingsContainer sc = _firstContainer.InfoSettings;
 
             _simulator = EpidemicSimulator.Create(
                 _firstContainer.InfoDisease,

@@ -40,6 +40,12 @@ namespace PSC2013.ES.GUI.Components
         MindsetComponent,
         MovementComponent,
 
-        StartTime
+        StartTime,
+        
+        // Review
+        ColorPalette,
+        Destination,
+        AgeDiagram,
+        AllDiagram
     }
 }

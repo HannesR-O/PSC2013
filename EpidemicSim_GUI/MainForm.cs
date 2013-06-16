@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using PSC2013.ES.GUI.Miscellaneous;
+using PSC2013.ES.GUI.Review;
+using PSC2013.ES.GUI.Review.Services;
 using PSC2013.ES.GUI.Simulation;
 using PSC2013.ES.GUI.Simulation.Services;
 
@@ -31,6 +33,7 @@ namespace PSC2013.ES.GUI
         public MainForm()
         {
             InitializeComponent();
+            WorkingArea = new Review.ReviewFirstContainer();
         }
 
         // EVENTS \\
@@ -59,6 +62,19 @@ namespace PSC2013.ES.GUI
             }
         }
 
+        private void MenuStrip_Main_File_OpenSim_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = OpenSimFileDialog.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                string path = OpenSimFileDialog.FileName;
+
+                _service = new ReviewService(path);
+                _service.ChangeWorkingArea += OnServiceChangeWA;
+                _service.StartService();
+            }
+        }
+
         void OnServiceChangeWA(object sender, ServiceEventArgs e)
         {
             IService service = sender as IService;
@@ -76,9 +92,10 @@ namespace PSC2013.ES.GUI
                         WorkingArea = new SimulationSecondContainer();
                         break;
                     case EContainer.ReviewFirstContainer:
-                        // TODO | dj | resume work here...
+                        WorkingArea = new ReviewFirstContainer();
                         break;
                     case EContainer.ReviewSecondContainer:
+                        // TODO | dj | resume work here...
                         break;
                     default:
                         break;

@@ -26,7 +26,7 @@ namespace PSC2013.ES.GUI.Simulation
         }
 
         #region info
-        public SettingsContainer InfoSettings
+        public SimulationSettingsContainer InfoSettings
         {
             get { return simulationSettingsPanel.ContentInformation; }
         }

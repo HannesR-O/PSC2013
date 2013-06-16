@@ -86,6 +86,7 @@
             this.MenuStrip_Main_File_OpenSim.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.MenuStrip_Main_File_OpenSim.Size = new System.Drawing.Size(215, 22);
             this.MenuStrip_Main_File_OpenSim.Text = "&Open Simulation...";
+            this.MenuStrip_Main_File_OpenSim.Click += new System.EventHandler(this.MenuStrip_Main_File_OpenSim_Click);
             // 
             // toolStripSeparator2
             // 

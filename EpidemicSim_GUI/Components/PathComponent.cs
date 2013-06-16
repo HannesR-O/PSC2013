@@ -20,6 +20,7 @@ namespace PSC2013.ES.GUI.Components
             
             _button = new Button();
             _button.Text = "Browse...";
+            _button.Width = DEFAULT_CONTROL_WIDTH;
             _button.TabIndex = _textBox.TabIndex;
             _button.Click += OnBrowseClick;
             SetValueControl(_button);

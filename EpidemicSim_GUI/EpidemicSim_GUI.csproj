@@ -63,6 +63,9 @@
       <DependentUpon>DiseaseComponent.cs</DependentUpon>
     </Compile>
     <Compile Include="Components\EComponentTag.cs" />
+    <Compile Include="Components\ComboBoxComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Components\FactorComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -95,18 +98,34 @@
     <Compile Include="Miscellaneous\IContainer.cs" />
     <Compile Include="Miscellaneous\IService.cs" />
     <Compile Include="Miscellaneous\ListBoxOutputTarget.cs" />
+    <Compile Include="Miscellaneous\ReviewSettingsContainer.cs" />
     <Compile Include="Miscellaneous\Separator.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Miscellaneous\Separator.Designer.cs">
       <DependentUpon>Separator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Miscellaneous\SettingsContainer.cs" />
+    <Compile Include="Miscellaneous\SimulationSettingsContainer.cs" />
     <Compile Include="Miscellaneous\TextDisplayingProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Review\Panels\IRawReviewPanel.cs" />
+    <Compile Include="Review\Panels\IReviewPanel.cs" />
+    <Compile Include="Review\Panels\ReviewSettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Review\Panels\ReviewSettingsPanel.Designer.cs">
+      <DependentUpon>ReviewSettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Review\ReviewFirstContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Review\ReviewFirstContainer.Designer.cs">
+      <DependentUpon>ReviewFirstContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Review\Services\ReviewService.cs" />
     <Compile Include="Simulation\FactorContainerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +199,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Review\Panels\ReviewSettingsPanel.resx">
+      <DependentUpon>ReviewSettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Review\ReviewFirstContainer.resx">
+      <DependentUpon>ReviewFirstContainer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Simulation\FactorContainerForm.resx">
       <DependentUpon>FactorContainerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -215,9 +240,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Review\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EpidemicSim_Library\EpidemicSim_Library.csproj">
       <Project>{48aafbb6-b6c5-49e3-9a45-dedaa3a4cdde}</Project>

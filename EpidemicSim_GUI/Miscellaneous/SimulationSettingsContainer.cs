@@ -3,7 +3,7 @@ using PSC2013.ES.GUI.Components;
 
 namespace PSC2013.ES.GUI.Miscellaneous
 {
-    public class SettingsContainer
+    public class SimulationSettingsContainer
     {
         public long SimulationDuration { get; set; }
 
