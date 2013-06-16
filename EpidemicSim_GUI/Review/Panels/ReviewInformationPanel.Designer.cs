@@ -31,6 +31,10 @@
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
             this.Panel_Female = new System.Windows.Forms.Panel();
             this.Panel_Male = new System.Windows.Forms.Panel();
+            this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
+            this.Btn_Next = new System.Windows.Forms.Button();
+            this.Comp_Diseased = new PSC2013.ES.GUI.Components.BoolComponent();
+            this.Comp_Infected = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_FemaleSenior = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_FemaleAdult = new PSC2013.ES.GUI.Components.BoolComponent();
             this.separator_2 = new PSC2013.ES.GUI.Miscellaneous.Separator();
@@ -45,10 +49,6 @@
             this.Comp_Male = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_All = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_Category = new PSC2013.ES.GUI.Components.SwitchComponent();
-            this.Comp_Infected = new PSC2013.ES.GUI.Components.BoolComponent();
-            this.Comp_Diseased = new PSC2013.ES.GUI.Components.BoolComponent();
-            this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
-            this.Btn_Next = new System.Windows.Forms.Button();
             this.GrpBox_Main.SuspendLayout();
             this.Panel_Female.SuspendLayout();
             this.Panel_Male.SuspendLayout();
@@ -100,6 +100,54 @@
             this.Panel_Male.Size = new System.Drawing.Size(154, 160);
             this.Panel_Male.TabIndex = 2;
             // 
+            // FlowPanel_Bottom
+            // 
+            this.FlowPanel_Bottom.AutoSize = true;
+            this.FlowPanel_Bottom.Controls.Add(this.Btn_Next);
+            this.FlowPanel_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.FlowPanel_Bottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 429);
+            this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
+            this.FlowPanel_Bottom.Size = new System.Drawing.Size(320, 29);
+            this.FlowPanel_Bottom.TabIndex = 6;
+            // 
+            // Btn_Next
+            // 
+            this.Btn_Next.Location = new System.Drawing.Point(242, 3);
+            this.Btn_Next.Name = "Btn_Next";
+            this.Btn_Next.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Next.TabIndex = 0;
+            this.Btn_Next.Text = "Next >";
+            this.Btn_Next.UseVisualStyleBackColor = true;
+            // 
+            // Comp_Diseased
+            // 
+            this.Comp_Diseased.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_Diseased.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_Diseased.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.Diseased;
+            this.Comp_Diseased.LabelText = "Diseased:";
+            this.Comp_Diseased.Location = new System.Drawing.Point(6, 278);
+            this.Comp_Diseased.Name = "Comp_Diseased";
+            this.Comp_Diseased.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_Diseased.Size = new System.Drawing.Size(314, 24);
+            this.Comp_Diseased.TabIndex = 5;
+            this.Comp_Diseased.ToolTip = "Selects all humans being diseased.";
+            // 
+            // Comp_Infected
+            // 
+            this.Comp_Infected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_Infected.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_Infected.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.Infected;
+            this.Comp_Infected.LabelText = "Infected:";
+            this.Comp_Infected.Location = new System.Drawing.Point(6, 248);
+            this.Comp_Infected.Name = "Comp_Infected";
+            this.Comp_Infected.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_Infected.Size = new System.Drawing.Size(314, 24);
+            this.Comp_Infected.TabIndex = 4;
+            this.Comp_Infected.ToolTip = "Selects all humans being infected.";
+            // 
             // Comp_FemaleSenior
             // 
             this.Comp_FemaleSenior.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -110,7 +158,7 @@
             this.Comp_FemaleSenior.Location = new System.Drawing.Point(3, 134);
             this.Comp_FemaleSenior.Name = "Comp_FemaleSenior";
             this.Comp_FemaleSenior.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_FemaleSenior.Size = new System.Drawing.Size(148, 24);
+            this.Comp_FemaleSenior.Size = new System.Drawing.Size(151, 24);
             this.Comp_FemaleSenior.TabIndex = 9;
             this.Comp_FemaleSenior.ToolTip = "";
             // 
@@ -124,7 +172,7 @@
             this.Comp_FemaleAdult.Location = new System.Drawing.Point(3, 104);
             this.Comp_FemaleAdult.Name = "Comp_FemaleAdult";
             this.Comp_FemaleAdult.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_FemaleAdult.Size = new System.Drawing.Size(148, 24);
+            this.Comp_FemaleAdult.Size = new System.Drawing.Size(151, 24);
             this.Comp_FemaleAdult.TabIndex = 8;
             this.Comp_FemaleAdult.ToolTip = "";
             // 
@@ -135,7 +183,7 @@
             this.separator_2.BackColor = System.Drawing.Color.Transparent;
             this.separator_2.Location = new System.Drawing.Point(3, 33);
             this.separator_2.Name = "separator_2";
-            this.separator_2.Size = new System.Drawing.Size(148, 5);
+            this.separator_2.Size = new System.Drawing.Size(151, 5);
             this.separator_2.TabIndex = 2;
             // 
             // Comp_FemaleChild
@@ -148,7 +196,7 @@
             this.Comp_FemaleChild.Location = new System.Drawing.Point(3, 74);
             this.Comp_FemaleChild.Name = "Comp_FemaleChild";
             this.Comp_FemaleChild.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_FemaleChild.Size = new System.Drawing.Size(148, 24);
+            this.Comp_FemaleChild.Size = new System.Drawing.Size(151, 24);
             this.Comp_FemaleChild.TabIndex = 7;
             this.Comp_FemaleChild.ToolTip = "";
             // 
@@ -162,7 +210,7 @@
             this.Comp_Female.Location = new System.Drawing.Point(3, 3);
             this.Comp_Female.Name = "Comp_Female";
             this.Comp_Female.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_Female.Size = new System.Drawing.Size(148, 24);
+            this.Comp_Female.Size = new System.Drawing.Size(151, 24);
             this.Comp_Female.TabIndex = 0;
             this.Comp_Female.ToolTip = "Same as \'Select all\', just for all females.";
             // 
@@ -176,7 +224,7 @@
             this.Comp_FemaleBaby.Location = new System.Drawing.Point(3, 44);
             this.Comp_FemaleBaby.Name = "Comp_FemaleBaby";
             this.Comp_FemaleBaby.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_FemaleBaby.Size = new System.Drawing.Size(148, 24);
+            this.Comp_FemaleBaby.Size = new System.Drawing.Size(151, 24);
             this.Comp_FemaleBaby.TabIndex = 6;
             this.Comp_FemaleBaby.ToolTip = "";
             // 
@@ -187,10 +235,10 @@
             this.Comp_MaleSenior.BackColor = System.Drawing.Color.Transparent;
             this.Comp_MaleSenior.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MaleSenior;
             this.Comp_MaleSenior.LabelText = "Senior:";
-            this.Comp_MaleSenior.Location = new System.Drawing.Point(3, 134);
+            this.Comp_MaleSenior.Location = new System.Drawing.Point(0, 134);
             this.Comp_MaleSenior.Name = "Comp_MaleSenior";
             this.Comp_MaleSenior.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_MaleSenior.Size = new System.Drawing.Size(148, 24);
+            this.Comp_MaleSenior.Size = new System.Drawing.Size(151, 24);
             this.Comp_MaleSenior.TabIndex = 5;
             this.Comp_MaleSenior.ToolTip = "";
             // 
@@ -201,10 +249,10 @@
             this.Comp_MaleAdult.BackColor = System.Drawing.Color.Transparent;
             this.Comp_MaleAdult.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MaleAdult;
             this.Comp_MaleAdult.LabelText = "Adult:";
-            this.Comp_MaleAdult.Location = new System.Drawing.Point(3, 104);
+            this.Comp_MaleAdult.Location = new System.Drawing.Point(0, 104);
             this.Comp_MaleAdult.Name = "Comp_MaleAdult";
             this.Comp_MaleAdult.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_MaleAdult.Size = new System.Drawing.Size(148, 24);
+            this.Comp_MaleAdult.Size = new System.Drawing.Size(151, 24);
             this.Comp_MaleAdult.TabIndex = 4;
             this.Comp_MaleAdult.ToolTip = "";
             // 
@@ -215,10 +263,10 @@
             this.Comp_MaleChild.BackColor = System.Drawing.Color.Transparent;
             this.Comp_MaleChild.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MaleChild;
             this.Comp_MaleChild.LabelText = "Child:";
-            this.Comp_MaleChild.Location = new System.Drawing.Point(3, 74);
+            this.Comp_MaleChild.Location = new System.Drawing.Point(0, 74);
             this.Comp_MaleChild.Name = "Comp_MaleChild";
             this.Comp_MaleChild.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_MaleChild.Size = new System.Drawing.Size(148, 24);
+            this.Comp_MaleChild.Size = new System.Drawing.Size(151, 24);
             this.Comp_MaleChild.TabIndex = 3;
             this.Comp_MaleChild.ToolTip = "";
             // 
@@ -229,10 +277,10 @@
             this.Comp_MaleBaby.BackColor = System.Drawing.Color.Transparent;
             this.Comp_MaleBaby.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.MaleBaby;
             this.Comp_MaleBaby.LabelText = "Baby:";
-            this.Comp_MaleBaby.Location = new System.Drawing.Point(3, 44);
+            this.Comp_MaleBaby.Location = new System.Drawing.Point(0, 44);
             this.Comp_MaleBaby.Name = "Comp_MaleBaby";
             this.Comp_MaleBaby.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_MaleBaby.Size = new System.Drawing.Size(148, 24);
+            this.Comp_MaleBaby.Size = new System.Drawing.Size(151, 24);
             this.Comp_MaleBaby.TabIndex = 2;
             this.Comp_MaleBaby.ToolTip = "";
             // 
@@ -241,9 +289,9 @@
             this.separator_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.separator_1.BackColor = System.Drawing.Color.Transparent;
-            this.separator_1.Location = new System.Drawing.Point(3, 33);
+            this.separator_1.Location = new System.Drawing.Point(0, 33);
             this.separator_1.Name = "separator_1";
-            this.separator_1.Size = new System.Drawing.Size(148, 5);
+            this.separator_1.Size = new System.Drawing.Size(151, 5);
             this.separator_1.TabIndex = 1;
             // 
             // Comp_Male
@@ -253,10 +301,10 @@
             this.Comp_Male.BackColor = System.Drawing.Color.Transparent;
             this.Comp_Male.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.None;
             this.Comp_Male.LabelText = "Select all male:";
-            this.Comp_Male.Location = new System.Drawing.Point(3, 3);
+            this.Comp_Male.Location = new System.Drawing.Point(0, 3);
             this.Comp_Male.Name = "Comp_Male";
             this.Comp_Male.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_Male.Size = new System.Drawing.Size(148, 24);
+            this.Comp_Male.Size = new System.Drawing.Size(151, 24);
             this.Comp_Male.TabIndex = 0;
             this.Comp_Male.ToolTip = "Same as in \'Select all\', just only for males. ";
             // 
@@ -289,54 +337,6 @@
             this.Comp_Category.Text_1 = "Alive";
             this.Comp_Category.Text_2 = "Dead";
             this.Comp_Category.ToolTip = "";
-            // 
-            // Comp_Infected
-            // 
-            this.Comp_Infected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_Infected.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_Infected.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.Infected;
-            this.Comp_Infected.LabelText = "Infected:";
-            this.Comp_Infected.Location = new System.Drawing.Point(6, 248);
-            this.Comp_Infected.Name = "Comp_Infected";
-            this.Comp_Infected.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_Infected.Size = new System.Drawing.Size(314, 24);
-            this.Comp_Infected.TabIndex = 4;
-            this.Comp_Infected.ToolTip = "Selects all humans being infected.";
-            // 
-            // Comp_Diseased
-            // 
-            this.Comp_Diseased.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_Diseased.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_Diseased.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.Diseased;
-            this.Comp_Diseased.LabelText = "Diseased:";
-            this.Comp_Diseased.Location = new System.Drawing.Point(6, 278);
-            this.Comp_Diseased.Name = "Comp_Diseased";
-            this.Comp_Diseased.Padding = new System.Windows.Forms.Padding(2);
-            this.Comp_Diseased.Size = new System.Drawing.Size(314, 24);
-            this.Comp_Diseased.TabIndex = 5;
-            this.Comp_Diseased.ToolTip = "Selects all humans being diseased.";
-            // 
-            // FlowPanel_Bottom
-            // 
-            this.FlowPanel_Bottom.AutoSize = true;
-            this.FlowPanel_Bottom.Controls.Add(this.Btn_Next);
-            this.FlowPanel_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.FlowPanel_Bottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 429);
-            this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
-            this.FlowPanel_Bottom.Size = new System.Drawing.Size(320, 29);
-            this.FlowPanel_Bottom.TabIndex = 6;
-            // 
-            // Btn_Next
-            // 
-            this.Btn_Next.Location = new System.Drawing.Point(242, 3);
-            this.Btn_Next.Name = "Btn_Next";
-            this.Btn_Next.Size = new System.Drawing.Size(75, 23);
-            this.Btn_Next.TabIndex = 0;
-            this.Btn_Next.Text = "Next >";
-            this.Btn_Next.UseVisualStyleBackColor = true;
             // 
             // ReviewInformationPanel
             // 
