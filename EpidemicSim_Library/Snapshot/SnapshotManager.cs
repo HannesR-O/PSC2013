@@ -125,7 +125,7 @@ namespace PSC2013.ES.Library.Snapshot
                     lock (_snapshots) { temp = _snapshots.Dequeue(); }
                     if (temp != null)
                     {
-                        _writer.WriteIntoArchive(temp, _target, temp.Head, true);
+                        _writer.WriteIntoArchive(temp, _target, temp.Head, false);
                         SnapshotWritten.Raise(this, null);
                         WriteMessage("Finished writing \"" + temp.Head + "\" @ " + DateTime.Now.ToString());
                     }
