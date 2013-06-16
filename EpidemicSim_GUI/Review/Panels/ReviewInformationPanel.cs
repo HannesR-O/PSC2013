@@ -114,7 +114,7 @@ namespace PSC2013.ES.GUI.Review.Panels
 
         public EStatField ContentInformation
         {
-            get { throw new NotImplementedException(); }
+            get { return GatherInformation(); }
         }
 
         public Button TheButton
@@ -131,6 +131,30 @@ namespace PSC2013.ES.GUI.Review.Panels
             Panel_Male.Width = width;
             Panel_Female.Width = width;
             Panel_Female.Left = Panel_Male.Left + width + 6;
+        }
+
+        private EStatField GatherInformation()
+        {
+            EStatField field = 0;
+
+            field = CombineFields(field, Panel_Male.Controls);
+            field = CombineFields(field, Panel_Female.Controls);
+
+            if (!Comp_Category.GetValue())       // if dead, the 11th bit is set.
+                field |= (EStatField)0x400; // TODO | dj | be sure to use this later on.
+
+            return field;
+        }
+
+        private EStatField CombineFields(EStatField field, ControlCollection controls)
+        {
+            foreach (var item in controls)
+            {
+                var comp = item as SettingsComponent<bool>;
+                if (comp != null && comp.ComponentTag != EComponentTag.None && comp.GetValue())
+                    field |= (EStatField)(int)Math.Pow(2, (int)comp.ComponentTag - 1);
+            }
+            return field;
         }
     }
 }
