@@ -31,6 +31,7 @@
             this.WorkFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.reviewSettingsPanel = new PSC2013.ES.GUI.Review.Panels.ReviewSettingsPanel();
             this.reviewInformationPanel1 = new PSC2013.ES.GUI.Review.Panels.ReviewInformationPanel();
+            this.reviewSnapshotSelectPanel = new PSC2013.ES.GUI.Review.Panels.ReviewSnapshotSelectPanel();
             this.WorkFlow.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,12 +39,13 @@
             // 
             this.WorkFlow.Controls.Add(this.reviewSettingsPanel);
             this.WorkFlow.Controls.Add(this.reviewInformationPanel1);
+            this.WorkFlow.Controls.Add(this.reviewSnapshotSelectPanel);
             this.WorkFlow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WorkFlow.Location = new System.Drawing.Point(0, 0);
             this.WorkFlow.Margin = new System.Windows.Forms.Padding(0);
             this.WorkFlow.Name = "WorkFlow";
             this.WorkFlow.Padding = new System.Windows.Forms.Padding(3);
-            this.WorkFlow.Size = new System.Drawing.Size(822, 493);
+            this.WorkFlow.Size = new System.Drawing.Size(979, 493);
             this.WorkFlow.TabIndex = 0;
             // 
             // reviewSettingsPanel
@@ -62,13 +64,21 @@
             this.reviewInformationPanel1.Size = new System.Drawing.Size(326, 478);
             this.reviewInformationPanel1.TabIndex = 1;
             // 
+            // reviewSnapshotSelectPanel
+            // 
+            this.reviewSnapshotSelectPanel.BackColor = System.Drawing.Color.Transparent;
+            this.reviewSnapshotSelectPanel.Location = new System.Drawing.Point(675, 6);
+            this.reviewSnapshotSelectPanel.Name = "reviewSnapshotSelectPanel";
+            this.reviewSnapshotSelectPanel.Size = new System.Drawing.Size(279, 478);
+            this.reviewSnapshotSelectPanel.TabIndex = 2;
+            // 
             // ReviewFirstContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.WorkFlow);
             this.Name = "ReviewFirstContainer";
-            this.Size = new System.Drawing.Size(822, 493);
+            this.Size = new System.Drawing.Size(979, 493);
             this.WorkFlow.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -79,5 +89,6 @@
         private System.Windows.Forms.FlowLayoutPanel WorkFlow;
         private Panels.ReviewSettingsPanel reviewSettingsPanel;
         private Panels.ReviewInformationPanel reviewInformationPanel1;
+        private Panels.ReviewSnapshotSelectPanel reviewSnapshotSelectPanel;
     }
 }

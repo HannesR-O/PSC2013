@@ -99,11 +99,11 @@
             // ProgressBar_Main
             // 
             this.ProgressBar_Main.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ProgressBar_Main.Location = new System.Drawing.Point(59, 3);
+            this.ProgressBar_Main.Location = new System.Drawing.Point(29, 3);
             this.ProgressBar_Main.MarqueeAnimationSpeed = 50;
             this.ProgressBar_Main.Maximum = 1;
             this.ProgressBar_Main.Name = "ProgressBar_Main";
-            this.ProgressBar_Main.Size = new System.Drawing.Size(125, 23);
+            this.ProgressBar_Main.Size = new System.Drawing.Size(155, 23);
             this.ProgressBar_Main.Step = 1;
             this.ProgressBar_Main.TabIndex = 1;
             this.ProgressBar_Main.Value = 1;

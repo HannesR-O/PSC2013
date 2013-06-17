@@ -128,6 +128,12 @@
     <Compile Include="Review\Panels\ReviewSettingsPanel.Designer.cs">
       <DependentUpon>ReviewSettingsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Review\Panels\ReviewSnapshotSelectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Review\Panels\ReviewSnapshotSelectPanel.Designer.cs">
+      <DependentUpon>ReviewSnapshotSelectPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Review\ReviewFirstContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -213,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Review\Panels\ReviewSettingsPanel.resx">
       <DependentUpon>ReviewSettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Review\Panels\ReviewSnapshotSelectPanel.resx">
+      <DependentUpon>ReviewSnapshotSelectPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Review\ReviewFirstContainer.resx">
       <DependentUpon>ReviewFirstContainer.cs</DependentUpon>
