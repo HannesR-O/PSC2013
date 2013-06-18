@@ -27,7 +27,7 @@ namespace PSC2013.ES.Library.Statistics
         private ZipArchive _currentArchive;
         private MapCreator _creator;
 
-        public ReviewManager() : base ("SM")
+        public ReviewManager() : base ("RM")
         { }
 
         /// <summary>

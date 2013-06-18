@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using PSC2013.ES.Library.Snapshot;
+using PSC2013.ES.Library.IO.OutputTargets;
 
 namespace PSC2013.ES.Library.Statistics
 {
-    public class StatisticsManager
+    public class StatisticsManager : OutputTargetWriter
     {
         public int[] Humans;
         public int[] MaleBabys;
@@ -25,24 +26,27 @@ namespace PSC2013.ES.Library.Statistics
         public int[] Diseased;
 
         /// <summary>
+        /// Current ReviewManager used by this StatisticsManager
+        /// </summary>
+        public ReviewManager ReviewManager { get; private set; }
+
+        /// <summary>
         /// Creates a new StatisticsManager and analyzes the Sim
         /// </summary>
         /// <param name="path">The path to the Simfile</param>
-        public StatisticsManager(string path)
+        public StatisticsManager(string path) : base("SM")
         {
-            AnalyizeSimulation(path);
+            ReviewManager = new ReviewManager();
+            ReviewManager.OpenSimFile(path);
         }
 
         /// <summary>
         /// Analyzes the Simulation 
         /// </summary>
         /// <param name="path">The path to the Simfile</param>
-        private void AnalyizeSimulation(string path)
+        public void AnalyizeSimulation()
         {
-            ReviewManager manager = new ReviewManager(); // Dirty I know, but has to be quick
-            manager.OpenSimFile(path);
-
-            int size = manager.EntryCount;
+            int size = ReviewManager.EntryCount;
 
             Humans = new int[size];
             MaleBabys = new int[size];
@@ -56,12 +60,12 @@ namespace PSC2013.ES.Library.Statistics
             Infected = new int[size];
             Diseased = new int[size];
 
-            List<string> ent = manager.Entries;
+            List<string> ent = ReviewManager.Entries;
             
-            for (int i = 1; i < manager.EntryCount; ++i)
+            for (int i = 1; i < ReviewManager.EntryCount; ++i)
             {
-                manager.LoadTickSnapshot(ent[i]);
-                foreach (CellSnapshot cell in manager.LoadedSnapshot.Cells)
+                ReviewManager.LoadTickSnapshot(ent[i]);
+                foreach (CellSnapshot cell in ReviewManager.LoadedSnapshot.Cells)
                 {
                     MaleBabys[i] += cell.Values[0];
                     MaleChildren[i] += cell.Values[1];
@@ -76,7 +80,9 @@ namespace PSC2013.ES.Library.Statistics
                     Infected[i] += cell.Values[8];
                     Diseased[i] += cell.Values[9];
                 }
+                WriteMessage("Snapshot '" + ReviewManager.LoadedSnapshot.Head + "' finished.");
             }
+            WriteMessage("Finished analysis.");
         }
     }
 }
