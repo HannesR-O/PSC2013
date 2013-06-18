@@ -30,6 +30,7 @@ namespace PSC2013.ES.Library.Snapshot
 
         public event EventHandler<EventArgs> WriterQueueEmpty;
         public event EventHandler<EventArgs> SnapshotWritten;
+        public int UnfinnishedSnapshots { get {lock(_snapshots) return _snapshots.Count + ((_writer._task == null)? 0 : 1); } }
 
         public SnapshotManager() : base("SNM")
         { }
@@ -71,6 +72,7 @@ namespace PSC2013.ES.Library.Snapshot
             }
 
             TickSnapshot snap = TickSnapshot.IntitializeFromRuntime(tick, cells, simData.Deaths.NotNullIterator().ToArray());
+            simData.ClearDeaths();
 
             _snapshots.Enqueue(snap);
             TookSnapshot(this, null);            
@@ -82,7 +84,7 @@ namespace PSC2013.ES.Library.Snapshot
         class SnapshotWriter : OutputTargetWriter
         {
             private ArchiveBinaryWriter _writer;
-            private Task _task;
+            public Task _task;
 
             public event EventHandler<EventArgs> QueueEmptied;
             public event EventHandler<EventArgs> SnapshotWritten;

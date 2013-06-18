@@ -100,6 +100,15 @@ namespace PSC2013.ES.Library.Simulation
         }
 
         /// <summary>
+        /// Resets Deaths
+        /// </summary>
+        public void ClearDeaths()
+        {
+            Deaths = new HumanSnapshot[0];
+            DeathCount = 0;
+        }
+
+        /// <summary>
         /// Adds the given list of humansnapshots to the simulationdata
         /// </summary>
         /// <param name="deadPeople">The list of dead people to add</param>

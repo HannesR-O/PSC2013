@@ -350,6 +350,10 @@ namespace PSC2013.ES.Library
         {
             while (_simulationLock)
             {
+                while (_snapshotMgr.UnfinnishedSnapshots > 3)
+                {
+                    Thread.Sleep(1000);
+                }
 #if DEBUG
                 _watch.Reset();
                 _watch.Start();
