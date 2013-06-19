@@ -87,7 +87,7 @@ namespace PSC2013.ES.GUI.Review.Services
             int entryCount = _statsManager.ReviewManager.Entries.Count;
 
             _secondContainer.OutputPanel.SetProgressBarMax(
-                (diagrams.Contains(true)? entryCount : 0) + entries.Length + 3); // TODO | dj | plus 1?
+                (diagrams.Contains(true)? entryCount + 2 : 0) + entries.Length + 1);
             _secondContainer.OutputPanel.SetProgressBarValue(0);
             _secondContainer.OutputPanel.SetProgressBarStyle(ProgressBarStyle.Continuous);
 
@@ -118,8 +118,9 @@ namespace PSC2013.ES.GUI.Review.Services
             else
                 _statsManager.ReviewManager.CreateMultipleGraphics(
                     new List<string>(entries), fields, colorPalette, prefix);
-
+            
             FinishProgressBar();
+            OutputTargetManager.GetInstance().WriteMessage("Done");
         }
 
         private void IncreaseProgressBar()
