@@ -60,7 +60,8 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="snapshot">The Snapshot to be mapped</param>
         /// <param name="field">The Field to be visualised</param>
         /// <param name="palette">The Color Palette to be used</param>
-        public unsafe void GetMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
+        /// <returns>savepath</returns>
+        public unsafe string GetMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
         {
             Color[] pal = GetPalette(palette);
 
@@ -110,8 +111,11 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
             }
             map.UnlockBits(bData);
-            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_S-" + field + ".png", ImageFormat.Png);
+
+            string path = Target + "/" + namePrefix + "_" + snapshot.Tick + "_S-" + (int)field + ".png";
+            map.Save(path, ImageFormat.Png);
             GenerateCaption(_steps, pal);
+            return path;
         }
 
         /// <summary>
@@ -119,7 +123,8 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// </summary>
         /// <param name="snapshot"></param>
         /// <param name="palette"></param>
-        public void GetDeathMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
+        /// <returns>savepath</returns>
+        public string GetDeathMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
         {
             Color[] pal = GetPalette(palette);
 
@@ -136,8 +141,10 @@ namespace PSC2013.ES.Library.Statistics.Pictures
                 map.SetPixel(p.X, p.Y, pal[0]);
             }
 
-            map.Save(Target + "/" + namePrefix + "_" + snapshot.Tick + "_D-" + field + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            string path = Target + "/" + namePrefix + "_" + snapshot.Tick + "_D-" + (int)field + ".png";
+            map.Save(path, System.Drawing.Imaging.ImageFormat.Png);
             GenerateCaption(_steps, pal);
+            return path;
         }
 
         /// <summary>

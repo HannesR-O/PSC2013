@@ -106,6 +106,7 @@
             this.MenuStrip_Main_Tools.Name = "MenuStrip_Main_Tools";
             this.MenuStrip_Main_Tools.Size = new System.Drawing.Size(48, 20);
             this.MenuStrip_Main_Tools.Text = "&Tools";
+            this.MenuStrip_Main_Tools.Visible = false;
             // 
             // MenuStrip_Main_About
             // 

@@ -33,7 +33,8 @@ namespace PSC2013.ES.GUI
         public MainForm()
         {
             InitializeComponent();
-            WorkingArea = new ReviewSecondContainer();
+            //WorkingArea = new ReviewSecondContainer();
+            // TODO | dj | as standard load the "2Btns" ^^
         }
 
         // EVENTS \\

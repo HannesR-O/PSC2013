@@ -131,13 +131,13 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="field">A concatenation of EStatfields to be used</param>
         /// <param name="colors">The Colorpalette to be used</param>
         /// <param name="namePrefix">The Prefix the data shall be named with</param>
-        public void CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
+        public string CreateGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
             {
                 if (LoadedSnapshot != null)
                 {
-                    _creator.GetMap(LoadedSnapshot, field, colors, namePrefix);
+                    return _creator.GetMap(LoadedSnapshot, field, colors, namePrefix);
                 }
                 else
                 {
@@ -157,28 +157,30 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="field">The desired Field</param>
         /// <param name="colors">The desired ColorPalette</param>
         /// <param name="namePrefix">The desired Prefix</param>
-        public void CreateMultipleGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
+        public string[] CreateMultipleGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
         {
             int i = 1;
             int size = entries.Count;
             int sizeLength = size.ToString().Length;
+            string[] paths = new string[size];
+            
             foreach (string entry in entries)
             {
                 if(Entries.Contains(entry))
                 {
                     WriteMessage("Loading " + entry + "...");
                     LoadTickSnapshot(entry);
-                    CreateGraphics(field, colors, namePrefix);
+                    paths[i-1] = CreateGraphics(field, colors, namePrefix);
                     WriteMessage(String.Format("{0," + sizeLength + "} of {1} graphics finished.", i, size));
-                    ++i;
                 }
                 else
                 {
                     WriteMessage(entry + " could not be created");
-                    ++i;
                 }
+                ++i;
                 GraphicDone.Raise(this, null);
             }
+            return paths;
         }
 
         /// <summary>
@@ -187,13 +189,13 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="field">The desired Field</param>
         /// <param name="colors">The desired ColorPalette</param>
         /// <param name="namePrefix">The desired Prefix</param>
-        public void CreateDeathGraphics(EStatField field, EColorPalette colors, string namePrefix)
+        public string CreateDeathGraphics(EStatField field, EColorPalette colors, string namePrefix)
         {
             if (_currentArchive != null)
             {
                 if (LoadedSnapshot != null)
                 {
-                    _creator.GetDeathMap(LoadedSnapshot, field, colors, namePrefix);
+                    return _creator.GetDeathMap(LoadedSnapshot, field, colors, namePrefix);
                 }
                 else
                 {
@@ -213,28 +215,30 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="field">The desired Field</param>
         /// <param name="colors">The desired ColorPalette</param>
         /// <param name="namePrefix">The desired Prefix</param>
-        public void CreateMultipleDeathGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
+        public string[] CreateMultipleDeathGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
         {
             int i = 1;
             int size = entries.Count;
             int sizeLength = size.ToString().Length;
+            string[] paths = new string[size];
+
             foreach (string entry in entries)
             {
                 if (Entries.Contains(entry))
                 {
                     WriteMessage("Loading " + entry + "...");
                     LoadTickSnapshot(entry);
-                    CreateDeathGraphics(field, colors, namePrefix);
+                    paths[i-1] = CreateDeathGraphics(field, colors, namePrefix);
                     WriteMessage(String.Format("{0," + sizeLength + "} of {1} graphics finished.", i, size));
-                    ++i;
                 }
                 else
                 {
                     WriteMessage(entry + " could not be created");
-                    ++i;
                 }
+                ++i;
                 GraphicDone.Raise(this, null);
             }
+            return paths;
         }
     }
 }

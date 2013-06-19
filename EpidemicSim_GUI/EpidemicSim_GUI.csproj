@@ -40,6 +40,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -140,6 +141,12 @@
     <Compile Include="Review\Panels\ReviewSnapshotSelectPanel.Designer.cs">
       <DependentUpon>ReviewSnapshotSelectPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Review\Panels\ReviewViewPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Review\Panels\ReviewViewPanel.Designer.cs">
+      <DependentUpon>ReviewViewPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Review\ReviewFirstContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -237,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Review\Panels\ReviewSnapshotSelectPanel.resx">
       <DependentUpon>ReviewSnapshotSelectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Review\Panels\ReviewViewPanel.resx">
+      <DependentUpon>ReviewViewPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Review\ReviewFirstContainer.resx">
       <DependentUpon>ReviewFirstContainer.cs</DependentUpon>

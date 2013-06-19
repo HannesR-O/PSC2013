@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,6 +22,7 @@ namespace PSC2013.ES.GUI.Review.Services
 
         private string _simPath;
         private StatisticsManager _statsManager;
+        private string[] _snapshotSavePaths;
 
         private Task _runningTask;
 
@@ -70,10 +72,13 @@ namespace PSC2013.ES.GUI.Review.Services
                     RequestedContainer = EContainer.ReviewSecondContainer
                 });
 
+            _secondContainer.ViewPanel.SetTabs(_firstContainer.InfoSettings.SelectedDiagrams);
+            _secondContainer.OutputPanel.TheButton.Enabled = false;
             CreateGraphics();
-            // TODO | dj | continue...
+            _secondContainer.OutputPanel.TheButton.Click += (_, __) => ContinueToEnd();
         }
 
+        #region output
         private void CreateGraphics()
         {
             var settings = _firstContainer.InfoSettings;
@@ -113,14 +118,16 @@ namespace PSC2013.ES.GUI.Review.Services
             _statsManager.ReviewManager.SetNewDestination(destination);
 
             if (fields.HasFlag((EStatField)0x400))
-                _statsManager.ReviewManager.CreateMultipleDeathGraphics(
-                    new List<string>(entries), fields, colorPalette, prefix);
+                _snapshotSavePaths = _statsManager.ReviewManager.CreateMultipleDeathGraphics(
+                    new List<string>(entries), (EStatField)((int)fields & ~0x400), colorPalette, prefix);
             else
-                _statsManager.ReviewManager.CreateMultipleGraphics(
+                _snapshotSavePaths = _statsManager.ReviewManager.CreateMultipleGraphics(
                     new List<string>(entries), fields, colorPalette, prefix);
             
             FinishProgressBar();
             OutputTargetManager.GetInstance().WriteMessage("Done");
+            _secondContainer.OutputPanel.TheButton.Invoke(new Action(() =>
+                _secondContainer.OutputPanel.TheButton.Enabled = true));
         }
 
         private void IncreaseProgressBar()
@@ -133,6 +140,56 @@ namespace PSC2013.ES.GUI.Review.Services
         {
             var pan = _secondContainer.OutputPanel;
             pan.Invoke(new Action(() => pan.SetProgressBarToMaxValue()));
+        }
+        #endregion
+
+        private void ContinueToEnd()
+        {
+            var view = _secondContainer.ViewPanel;
+
+            var destPath = _firstContainer.InfoSettings.DestinationPath;
+
+            view.TheListBox.Items.AddRange(_snapshotSavePaths.Select(str =>
+                System.IO.Path.GetFileName(str)).ToArray());
+
+            view.TheListBox.SelectedValueChanged += (_, __) =>
+                ShowImage((string)view.TheListBox.SelectedItem, destPath);
+
+            // TODO | dj | has to be another solution...
+            string captionString = "";
+            foreach (var item in _statsManager.ReviewManager.GetCaption())
+                captionString += item.Key + item.Value.Name + Environment.NewLine;
+
+            view.SetCaption(captionString);
+
+            var settings = _firstContainer.InfoSettings;
+
+            bool[] charts = settings.SelectedDiagrams;
+            if (charts[0])
+            {
+                view.SetAgeChart(_statsManager.MaleBabys, _statsManager.MaleChildren,
+                    _statsManager.MaleAdults, _statsManager.MaleSeniors,
+                    _statsManager.FemaleBabys, _statsManager.FemaleChildren,
+                    _statsManager.FemaleAdults, _statsManager.FemaleSeniors);
+                view.SetSavePathAge(Path.Combine(settings.DestinationPath, settings.Prefix +
+                    "_AgeChart.png"));
+            }
+            if (charts[1])
+            {
+                view.SetAlternativeChart(
+                    _statsManager.Humans, _statsManager.Infected, _statsManager.Diseased);
+                view.SetSavePathAlternative(Path.Combine(settings.DestinationPath,
+                    settings.Prefix + "_AlternativeChart.png"));
+            }
+            // TODO | dj | continue?
+        }
+
+        private void ShowImage(string selectedItem, string destinationPath)
+        {
+            var view = _secondContainer.ViewPanel;
+
+            string filename = Path.Combine(destinationPath, selectedItem);
+            view.SetImage(new System.Drawing.Bitmap(filename));
         }
 
         public void ReactToAnswer(IContainer container)

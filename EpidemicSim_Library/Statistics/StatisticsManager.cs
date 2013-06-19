@@ -65,7 +65,7 @@ namespace PSC2013.ES.Library.Statistics
 
             List<string> ent = ReviewManager.Entries;
             
-            for (int i = 1; i < ReviewManager.EntryCount; ++i)
+            for (int i = 0; i < ReviewManager.EntryCount; ++i)
             {
                 ReviewManager.LoadTickSnapshot(ent[i]);
                 foreach (CellSnapshot cell in ReviewManager.LoadedSnapshot.Cells)
@@ -78,8 +78,9 @@ namespace PSC2013.ES.Library.Statistics
                     FemaleChildren[i] += cell.Values[5];
                     FemaleAdults[i] += cell.Values[6];
                     FemaleSeniors[i] += cell.Values[7];
-                    for (int j = 0; j < 8; ++j)
-                        Humans[i] += cell.Values[j];                        
+                    Humans[i] += cell.Values.Take(8).Sum(x => x);
+                    //for (int j = 0; j < 8; ++j)        
+                    //    Humans[i] += cell.Values[j];   
                     Infected[i] += cell.Values[8];
                     Diseased[i] += cell.Values[9];
                 }
