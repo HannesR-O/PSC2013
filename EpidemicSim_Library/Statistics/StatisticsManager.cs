@@ -30,6 +30,9 @@ namespace PSC2013.ES.Library.Statistics
         /// </summary>
         public ReviewManager ReviewManager { get; private set; }
 
+        public event EventHandler<EventArgs> SnapshotAnalized;
+        public event EventHandler<EventArgs> AnalyzingFinished;
+
         /// <summary>
         /// Creates a new StatisticsManager and analyzes the Sim
         /// </summary>
@@ -44,7 +47,7 @@ namespace PSC2013.ES.Library.Statistics
         /// Analyzes the Simulation 
         /// </summary>
         /// <param name="path">The path to the Simfile</param>
-        public void AnalyizeSimulation()
+        public void AnalyzeSimulation()
         {
             int size = ReviewManager.EntryCount;
 
@@ -81,8 +84,10 @@ namespace PSC2013.ES.Library.Statistics
                     Diseased[i] += cell.Values[9];
                 }
                 WriteMessage("Snapshot '" + ReviewManager.LoadedSnapshot.Head + "' finished.");
+                SnapshotAnalized.Raise(this, null);
             }
             WriteMessage("Finished analysis.");
+            AnalyzingFinished.Raise(this, null);
         }
     }
 }

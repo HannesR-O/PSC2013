@@ -33,7 +33,7 @@ namespace PSC2013.ES.GUI
         public MainForm()
         {
             InitializeComponent();
-            WorkingArea = new ReviewFirstContainer();
+            WorkingArea = new ReviewSecondContainer();
         }
 
         // EVENTS \\
@@ -107,7 +107,7 @@ namespace PSC2013.ES.GUI
                         WorkingArea = new ReviewFirstContainer();
                         break;
                     case EContainer.ReviewSecondContainer:
-                        // TODO | dj | resume work here...
+                        WorkingArea = new ReviewSecondContainer();
                         break;
                     default:
                         break;

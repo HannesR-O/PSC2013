@@ -35,6 +35,8 @@ namespace PSC2013.ES.GUI.Review.Panels
 
             rsc.DestinationPath = this.Comp_Destination.GetValue();
 
+            rsc.Prefix = this.Comp_Prefix.GetValue();
+
             rsc.SelectedDiagrams = new bool[] {
                 this.Comp_AgeDiagram.GetValue(),
                 this.Comp_AllDiagram.GetValue()

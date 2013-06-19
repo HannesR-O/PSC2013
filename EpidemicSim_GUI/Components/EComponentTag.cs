@@ -50,6 +50,7 @@ namespace PSC2013.ES.GUI.Components
 
         ReviewCategory,
         Diseased,
-        Infected
+        Infected,
+        Prefix
     }
 }

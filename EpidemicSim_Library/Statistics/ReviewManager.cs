@@ -27,6 +27,8 @@ namespace PSC2013.ES.Library.Statistics
         private ZipArchive _currentArchive;
         private MapCreator _creator;
 
+        public event EventHandler<EventArgs> GraphicDone;
+
         public ReviewManager() : base ("RM")
         { }
 
@@ -155,10 +157,11 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="field">The desired Field</param>
         /// <param name="colors">The desired ColorPalette</param>
         /// <param name="namePrefix">The desired Prefix</param>
-        public void CreateMulipleGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
+        public void CreateMultipleGraphics(List<string> entries, EStatField field, EColorPalette colors, string namePrefix)
         {
             int i = 1;
             int size = entries.Count;
+            int sizeLength = size.ToString().Length;
             foreach (string entry in entries)
             {
                 if(Entries.Contains(entry))
@@ -166,7 +169,7 @@ namespace PSC2013.ES.Library.Statistics
                     WriteMessage("Loading " + entry + "...");
                     LoadTickSnapshot(entry);
                     CreateGraphics(field, colors, namePrefix);
-                    WriteMessage(String.Format("{0,3} of {1} graphics finished.", i, size));
+                    WriteMessage(String.Format("{0," + sizeLength + "} of {1} graphics finished.", i, size));
                     ++i;
                 }
                 else
@@ -174,6 +177,7 @@ namespace PSC2013.ES.Library.Statistics
                     WriteMessage(entry + " could not be created");
                     ++i;
                 }
+                GraphicDone.Raise(this, null);
             }
         }
 
@@ -213,6 +217,7 @@ namespace PSC2013.ES.Library.Statistics
         {
             int i = 1;
             int size = entries.Count;
+            int sizeLength = size.ToString().Length;
             foreach (string entry in entries)
             {
                 if (Entries.Contains(entry))
@@ -220,7 +225,7 @@ namespace PSC2013.ES.Library.Statistics
                     WriteMessage("Loading " + entry + "...");
                     LoadTickSnapshot(entry);
                     CreateDeathGraphics(field, colors, namePrefix);
-                    WriteMessage(String.Format("{0,3} of {1} graphics finished.", i, size));
+                    WriteMessage(String.Format("{0," + sizeLength + "} of {1} graphics finished.", i, size));
                     ++i;
                 }
                 else
@@ -228,6 +233,7 @@ namespace PSC2013.ES.Library.Statistics
                     WriteMessage(entry + " could not be created");
                     ++i;
                 }
+                GraphicDone.Raise(this, null);
             }
         }
     }

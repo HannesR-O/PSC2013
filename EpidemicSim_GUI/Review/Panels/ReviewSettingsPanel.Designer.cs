@@ -30,16 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReviewSettingsPanel));
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
+            this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
+            this.DestinationFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.Comp_Prefix = new PSC2013.ES.GUI.Components.TextComponent();
+            this.separator_2 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_AllDiagram = new PSC2013.ES.GUI.Components.BoolComponent();
             this.Comp_AgeDiagram = new PSC2013.ES.GUI.Components.BoolComponent();
             this.separator_1 = new PSC2013.ES.GUI.Miscellaneous.Separator();
             this.Comp_Palette = new PSC2013.ES.GUI.Components.ComboBoxComponent();
             this.Comp_Destination = new PSC2013.ES.GUI.Components.PathComponent();
-            this.DestinationFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.separator_2 = new PSC2013.ES.GUI.Miscellaneous.Separator();
-            this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.GrpBox_Main.SuspendLayout();
             this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -47,6 +48,7 @@
             // GrpBox_Main
             // 
             this.GrpBox_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.GrpBox_Main.Controls.Add(this.Comp_Prefix);
             this.GrpBox_Main.Controls.Add(this.TextBox_Hint);
             this.GrpBox_Main.Controls.Add(this.separator_2);
             this.GrpBox_Main.Controls.Add(this.FlowPanel_Bottom);
@@ -63,6 +65,22 @@
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Settings";
             // 
+            // TextBox_Hint
+            // 
+            this.TextBox_Hint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TextBox_Hint.Enabled = false;
+            this.TextBox_Hint.Location = new System.Drawing.Point(10, 218);
+            this.TextBox_Hint.Multiline = true;
+            this.TextBox_Hint.Name = "TextBox_Hint";
+            this.TextBox_Hint.ReadOnly = true;
+            this.TextBox_Hint.Size = new System.Drawing.Size(311, 222);
+            this.TextBox_Hint.TabIndex = 7;
+            this.TextBox_Hint.Text = resources.GetString("TextBox_Hint.Text");
+            // 
             // FlowPanel_Bottom
             // 
             this.FlowPanel_Bottom.AutoSize = true;
@@ -72,7 +90,7 @@
             this.FlowPanel_Bottom.Location = new System.Drawing.Point(3, 446);
             this.FlowPanel_Bottom.Name = "FlowPanel_Bottom";
             this.FlowPanel_Bottom.Size = new System.Drawing.Size(325, 29);
-            this.FlowPanel_Bottom.TabIndex = 5;
+            this.FlowPanel_Bottom.TabIndex = 8;
             // 
             // Btn_Next
             // 
@@ -83,6 +101,34 @@
             this.Btn_Next.Text = "Next >";
             this.Btn_Next.UseVisualStyleBackColor = true;
             // 
+            // DestinationFolderBrowserDialog
+            // 
+            this.DestinationFolderBrowserDialog.Description = "The folder where to save the graphics, constructed during this process.";
+            // 
+            // Comp_Prefix
+            // 
+            this.Comp_Prefix.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_Prefix.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_Prefix.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.Prefix;
+            this.Comp_Prefix.LabelText = "Prefix:";
+            this.Comp_Prefix.Location = new System.Drawing.Point(6, 75);
+            this.Comp_Prefix.Name = "Comp_Prefix";
+            this.Comp_Prefix.Padding = new System.Windows.Forms.Padding(2);
+            this.Comp_Prefix.Size = new System.Drawing.Size(319, 24);
+            this.Comp_Prefix.TabIndex = 1;
+            this.Comp_Prefix.ToolTip = "Prefix-string written in front of every graphic.";
+            // 
+            // separator_2
+            // 
+            this.separator_2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.separator_2.BackColor = System.Drawing.Color.Transparent;
+            this.separator_2.Location = new System.Drawing.Point(6, 207);
+            this.separator_2.Name = "separator_2";
+            this.separator_2.Size = new System.Drawing.Size(319, 5);
+            this.separator_2.TabIndex = 6;
+            // 
             // Comp_AllDiagram
             // 
             this.Comp_AllDiagram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -90,11 +136,11 @@
             this.Comp_AllDiagram.BackColor = System.Drawing.Color.Transparent;
             this.Comp_AllDiagram.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.AllDiagram;
             this.Comp_AllDiagram.LabelText = "Create alternative diagram:";
-            this.Comp_AllDiagram.Location = new System.Drawing.Point(6, 147);
+            this.Comp_AllDiagram.Location = new System.Drawing.Point(6, 177);
             this.Comp_AllDiagram.Name = "Comp_AllDiagram";
             this.Comp_AllDiagram.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_AllDiagram.Size = new System.Drawing.Size(319, 24);
-            this.Comp_AllDiagram.TabIndex = 4;
+            this.Comp_AllDiagram.TabIndex = 5;
             this.Comp_AllDiagram.ToolTip = "If enabled, a diagram with information about the infected, diseased and overall p" +
     "opulation will be generated.";
             // 
@@ -105,11 +151,11 @@
             this.Comp_AgeDiagram.BackColor = System.Drawing.Color.Transparent;
             this.Comp_AgeDiagram.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.AgeDiagram;
             this.Comp_AgeDiagram.LabelText = "Create age-diagram:";
-            this.Comp_AgeDiagram.Location = new System.Drawing.Point(6, 117);
+            this.Comp_AgeDiagram.Location = new System.Drawing.Point(6, 147);
             this.Comp_AgeDiagram.Name = "Comp_AgeDiagram";
             this.Comp_AgeDiagram.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_AgeDiagram.Size = new System.Drawing.Size(319, 24);
-            this.Comp_AgeDiagram.TabIndex = 3;
+            this.Comp_AgeDiagram.TabIndex = 4;
             this.Comp_AgeDiagram.ToolTip = "If enabled, a diagram with all age-groups over the simulation-time will be genera" +
     "ted.";
             // 
@@ -118,10 +164,10 @@
             this.separator_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.separator_1.BackColor = System.Drawing.Color.Transparent;
-            this.separator_1.Location = new System.Drawing.Point(6, 106);
+            this.separator_1.Location = new System.Drawing.Point(6, 136);
             this.separator_1.Name = "separator_1";
             this.separator_1.Size = new System.Drawing.Size(319, 5);
-            this.separator_1.TabIndex = 2;
+            this.separator_1.TabIndex = 3;
             // 
             // Comp_Palette
             // 
@@ -130,11 +176,11 @@
             this.Comp_Palette.BackColor = System.Drawing.Color.Transparent;
             this.Comp_Palette.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.ColorPalette;
             this.Comp_Palette.LabelText = "Colorpalette:";
-            this.Comp_Palette.Location = new System.Drawing.Point(6, 75);
+            this.Comp_Palette.Location = new System.Drawing.Point(6, 105);
             this.Comp_Palette.Name = "Comp_Palette";
             this.Comp_Palette.Padding = new System.Windows.Forms.Padding(2);
             this.Comp_Palette.Size = new System.Drawing.Size(319, 25);
-            this.Comp_Palette.TabIndex = 1;
+            this.Comp_Palette.TabIndex = 2;
             this.Comp_Palette.ToolTip = "The colors in which the graphics (not diagrams) will be painted.";
             // 
             // Comp_Destination
@@ -151,36 +197,6 @@
             this.Comp_Destination.Size = new System.Drawing.Size(319, 50);
             this.Comp_Destination.TabIndex = 0;
             this.Comp_Destination.ToolTip = "Path to save the graphics.";
-            // 
-            // DestinationFolderBrowserDialog
-            // 
-            this.DestinationFolderBrowserDialog.Description = "The folder where to save the graphics, constructed during this process.";
-            // 
-            // separator_2
-            // 
-            this.separator_2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.separator_2.BackColor = System.Drawing.Color.Transparent;
-            this.separator_2.Location = new System.Drawing.Point(6, 177);
-            this.separator_2.Name = "separator_2";
-            this.separator_2.Size = new System.Drawing.Size(319, 5);
-            this.separator_2.TabIndex = 6;
-            // 
-            // TextBox_Hint
-            // 
-            this.TextBox_Hint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBox_Hint.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBox_Hint.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.TextBox_Hint.Enabled = false;
-            this.TextBox_Hint.Location = new System.Drawing.Point(10, 188);
-            this.TextBox_Hint.Multiline = true;
-            this.TextBox_Hint.Name = "TextBox_Hint";
-            this.TextBox_Hint.ReadOnly = true;
-            this.TextBox_Hint.Size = new System.Drawing.Size(311, 252);
-            this.TextBox_Hint.TabIndex = 7;
-            this.TextBox_Hint.Text = resources.GetString("TextBox_Hint.Text");
             // 
             // ReviewSettingsPanel
             // 
@@ -210,5 +226,6 @@
         private System.Windows.Forms.Button Btn_Next;
         private Miscellaneous.Separator separator_2;
         private System.Windows.Forms.TextBox TextBox_Hint;
+        private Components.TextComponent Comp_Prefix;
     }
 }

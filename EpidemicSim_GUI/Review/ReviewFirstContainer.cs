@@ -18,7 +18,6 @@ namespace PSC2013.ES.GUI.Review
             this.WorkFlow.Padding = new Padding(PSC2013.ES.GUI.MainForm.PADDING);
 
             InitEvents();
-            // TODO | dj | continue...
         }
 
         public ReviewSnapshotSelectPanel SnapshotsSelectPanel

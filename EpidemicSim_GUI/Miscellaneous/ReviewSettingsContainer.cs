@@ -9,6 +9,8 @@ namespace PSC2013.ES.GUI.Miscellaneous
 
         public string DestinationPath { get; set; }
 
+        public string Prefix { get; set; }
+
         public bool[] SelectedDiagrams { get; set; }
     }
 }

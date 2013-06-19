@@ -311,7 +311,7 @@ namespace PSC2013.ES.Cmd
 
             manager.SetNewDestination(target);
 
-            manager.CreateMulipleGraphics(manager.Entries, field, pal, prefix);
+            manager.CreateMultipleGraphics(manager.Entries, field, pal, prefix);
 
             Console.WriteLine("DONE!");
         }
