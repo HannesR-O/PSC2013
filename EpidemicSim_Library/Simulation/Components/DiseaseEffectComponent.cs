@@ -50,5 +50,14 @@ namespace PSC2013.ES.Library.Simulation.Components
         {
             return Equals(obj as SimulationComponent);
         }
+
+        public override bool Equals(SimulationComponent other)
+        {
+            var otherComponent = other as DiseaseEffectComponent;
+            if (otherComponent == null)
+                return false;
+
+            return true;
+        }
     }
 }

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using PSC2013.ES.Library.AreaData;
 using PSC2013.ES.Library.DiseaseData;
 using PSC2013.ES.Library.IO.OutputTargets;
-using PSC2013.ES.Library.Simulation;
-using PSC2013.ES.Library.Snapshot;
-using System.IO;
-using System.Threading;
-using PSC2013.ES.Library.Simulation.Components;
-using PSC2013.ES.Library.PopulationData;
-using PSC2013.ES.Library.AreaData;
 using PSC2013.ES.Library.IO.Readers;
+using PSC2013.ES.Library.Simulation;
+using PSC2013.ES.Library.Simulation.Components;
+using PSC2013.ES.Library.Snapshot;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PSC2013.ES.Library
 {

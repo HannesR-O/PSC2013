@@ -681,7 +681,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             if (otherComponent == null)
                 return false;
 
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

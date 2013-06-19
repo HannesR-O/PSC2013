@@ -47,6 +47,16 @@ namespace PSC2013.ES.Library.Simulation.Components
             }
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj as SimulationComponent);
+        }
+
         public override bool Equals(SimulationComponent other)
         {
             var otherComponent = other as DiseaseTickComponent;
