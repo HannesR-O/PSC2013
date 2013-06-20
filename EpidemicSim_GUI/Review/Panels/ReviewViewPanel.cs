@@ -67,6 +67,7 @@ namespace PSC2013.ES.GUI.Review.Panels
             serD.ChartType = DEFAULT_CHARTTYPE;
             AddToSeries(serD.Points, diseased);
             Chart_Alternative.Series.Add(serD);
+
             Chart_Alternative.ChartAreas[0].AxisX.Minimum = 0;
         }
 

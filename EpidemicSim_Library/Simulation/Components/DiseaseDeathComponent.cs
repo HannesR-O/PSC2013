@@ -31,10 +31,14 @@ namespace PSC2013.ES.Library.Simulation.Components
                 human->KillHuman();
                 lock (_data.Cells[human->CurrentCell])
                 {
-                    if(human->IsSpreading())
+                    if (human->IsSpreading())
                         --_data.Cells[human->CurrentCell].Spreading;
                     --_data.Cells[human->CurrentCell].Infecting;
                     --_data.Cells[human->CurrentCell].Diseased;
+
+                    int agegroup = (int)human->GetAge() / 32 +
+                        ((human->GetGender() == 0)? 4 : 0);
+                    _data.Cells[human->CurrentCell].Data[agegroup]--;
                 }
 
                 lock (_data.Deaths)
