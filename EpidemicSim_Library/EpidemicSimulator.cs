@@ -35,7 +35,7 @@ namespace PSC2013.ES.Library
 
         // Simulation & Data
         private Task _simulation;
-        private readonly SimulationData _simData;
+        private SimulationData _simData;
 
         // Simulation Settings
         private int _simulationIntervall = DEFAULT_SIMULATION_INTERVALL;
@@ -47,7 +47,7 @@ namespace PSC2013.ES.Library
 
         // ISimulationComponents
         private SimulationComponent _infectionComponent;
-        private readonly ISet<SimulationComponent> _before, _after;
+        private ISet<SimulationComponent> _before, _after;                  //TODO: |f| make stuff disposable to enable readonly
 
         // Misc.
         private volatile bool _simulationFinished;
@@ -388,6 +388,19 @@ namespace PSC2013.ES.Library
         {
             long rounds = Interlocked.Read(ref _simulationRound);
             OnSimulationEnded(new SimulationEventArgs() { SimulationRunning = false,  SimulationRound = rounds });
+            // To free up some space
+            DisposeRuntimeData();
+        }
+
+        private void DisposeRuntimeData()
+        {
+            _simData = null;
+            // Need to release component sets aswell since some of them reference _simData
+            _before = null;
+            _infectionComponent = null;
+            _after = null;
+
+            GC.Collect();
         }
         
         private void OnSimulationStarted(SimulationEventArgs e)
