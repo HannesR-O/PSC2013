@@ -61,7 +61,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
                         EAge previousAge = human->GetAge();
 
-                        human->DoAgeTick(1);            //TODO: |f| fixme im dirty nonsense
+                        human->DoAgeTick((byte)YearsPerTick);            //TODO: |f| fixme im dirty nonsense
 
                         UpdateHumanChangeToCell(human, data, previousAge);
                         AssignProfession(human, previousAge);
@@ -221,7 +221,11 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         private void UpdateTicksPerYear()
         {
-            TicksPerYear = HOURS_PER_YEAR / _simulationIntervall;
+            YearsPerTick = 1;
+
+            if(_simulationIntervall < HOURS_PER_YEAR)
+                TicksPerYear = HOURS_PER_YEAR / _simulationIntervall;
+
         }
 
         public override int GetHashCode()
