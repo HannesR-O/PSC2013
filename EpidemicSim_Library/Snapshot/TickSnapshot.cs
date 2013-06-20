@@ -29,7 +29,7 @@ namespace PSC2013.ES.Library.Snapshot
         {
             Stamp = DateTime.Now;
             Tick = tick;
-            Name = String.Format("{0,22:D3}", Tick) + "_[" + Stamp.ToString("HH-mm-ss") + "]";
+            Name = String.Format("{0:D3}", Tick) + "_[" + Stamp.ToString("HH-mm-ss") + "]";
 
             Cells = cells;
             Deaths = deaths;

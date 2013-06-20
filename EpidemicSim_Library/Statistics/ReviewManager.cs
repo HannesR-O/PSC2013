@@ -54,7 +54,7 @@ namespace PSC2013.ES.Library.Statistics
                 if (!entry.Name.Equals("header")) // All except header...
                 {
                     Entries.Add(entry.Name);
-                    if (entry.Name.StartsWith("1_")) // The first entry
+                    if (entry.Name.StartsWith("001_")) // The first entry
                     {
                         first = entry;
                     }

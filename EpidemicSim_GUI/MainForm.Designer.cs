@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MenuStrip_Main = new System.Windows.Forms.MenuStrip();
             this.MenuStrip_Main_File = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip_Main_File_NewSim = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,10 +37,10 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuStrip_Main_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip_Main_Help = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStrip_Main_Help_about = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenDepFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.OpenSimFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._workPanel = new System.Windows.Forms.Panel();
-            this.MenuStrip_Main_Help_about = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip_Main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,6 +109,13 @@
             this.MenuStrip_Main_Help.Size = new System.Drawing.Size(44, 20);
             this.MenuStrip_Main_Help.Text = "&Help";
             // 
+            // MenuStrip_Main_Help_about
+            // 
+            this.MenuStrip_Main_Help_about.Name = "MenuStrip_Main_Help_about";
+            this.MenuStrip_Main_Help_about.Size = new System.Drawing.Size(107, 22);
+            this.MenuStrip_Main_Help_about.Text = "&About";
+            this.MenuStrip_Main_Help_about.Click += new System.EventHandler(this.MenuStrip_Main_Help_about_Click);
+            // 
             // OpenDepFileDialog
             // 
             this.OpenDepFileDialog.Filter = "Department File (*.dep)|*.dep|All Files (*.*)|*.*";
@@ -127,13 +135,6 @@
             this._workPanel.Size = new System.Drawing.Size(834, 538);
             this._workPanel.TabIndex = 1;
             // 
-            // MenuStrip_Main_Help_about
-            // 
-            this.MenuStrip_Main_Help_about.Name = "MenuStrip_Main_Help_about";
-            this.MenuStrip_Main_Help_about.Size = new System.Drawing.Size(152, 22);
-            this.MenuStrip_Main_Help_about.Text = "&About";
-            this.MenuStrip_Main_Help_about.Click += new System.EventHandler(this.MenuStrip_Main_Help_about_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,6 +142,7 @@
             this.ClientSize = new System.Drawing.Size(834, 562);
             this.Controls.Add(this._workPanel);
             this.Controls.Add(this.MenuStrip_Main);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip_Main;
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "MainForm";
