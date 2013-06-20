@@ -71,7 +71,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Diseases\" />
+    <Folder Include="DiseaseData\" />
     <Folder Include="IO\Files\" />
     <Folder Include="IO\Writers\" />
     <Folder Include="Statistics\" />

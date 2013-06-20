@@ -13,7 +13,8 @@ namespace PSC2013.ES.Library.Simulation.Components
         private const int HOURS_PER_YEAR = 8544;
         public int AgeLimit { get; private set; }
         public int TicksPerYear { get; private set; }
-        public int YearsPerTick { get; private set; } //TODO: |f| need to add logic to that but im lazy
+        public int YearsPerTick { get; private set; }
+        public int TicksPerLeapYear { get; private set; }
 
         private int _counter;
 
@@ -37,13 +38,13 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         public unsafe override void PerformSimulationStage(SimulationData data)
         {
-            _counter = ++_counter % TicksPerYear;
+            _counter = ++_counter;
 
-            if (_counter != 0) return;
+            if (_counter % TicksPerYear != 0) return;
 
-            // One year passed
+            // Year(s) have passed
 #if DEBUG
-            Console.WriteLine("Year has passed!");
+            Console.WriteLine(YearsPerTick.ToString() + " Year(s) have passed!");
 #endif
             var deadPeople = new List<HumanSnapshot>();
 
@@ -61,7 +62,10 @@ namespace PSC2013.ES.Library.Simulation.Components
 
                         EAge previousAge = human->GetAge();
 
-                        human->DoAgeTick((byte)YearsPerTick);            //TODO: |f| fixme im dirty nonsense
+                        if (_counter % TicksPerLeapYear == 0)
+                            human->DoAgeTick((byte)(YearsPerTick + 1));                 // "LeapTick" we need to increase YearsPerTick for this tick
+                        else
+                            human->DoAgeTick((byte)YearsPerTick);
 
                         UpdateHumanChangeToCell(human, data, previousAge);
                         AssignProfession(human, previousAge);
@@ -221,11 +225,36 @@ namespace PSC2013.ES.Library.Simulation.Components
 
         private void UpdateTicksPerYear()
         {
+            TicksPerYear = 1;
             YearsPerTick = 1;
+            TicksPerLeapYear = -1;
 
-            if(_simulationIntervall < HOURS_PER_YEAR)
-                TicksPerYear = HOURS_PER_YEAR / _simulationIntervall;
+            if (_simulationIntervall < HOURS_PER_YEAR)
+            {
+                TicksPerYear = HOURS_PER_YEAR / _simulationIntervall;       // Less than 1 year passes per tick => trivial calculation
+                return;
+            }
 
+            if (_simulationIntervall % HOURS_PER_YEAR == 0)
+            {
+                YearsPerTick = _simulationIntervall / HOURS_PER_YEAR;       // _simulationIntervall is a true multiple of HOURS_PER_YEAR =>
+                return;                                                     // exactly (_simulationIntervall / HOURS_PER_YEAR) years pass each tick
+            }
+
+            int tmp = _simulationIntervall;
+            YearsPerTick = 0;
+            do
+            {
+                tmp -= HOURS_PER_YEAR;
+                YearsPerTick++;
+                if (tmp % HOURS_PER_YEAR == 0)
+                {
+                    YearsPerTick += tmp / HOURS_PER_YEAR;   // If we find a true multiple in the loop interrupt and set the correct value
+                    return;
+                }
+            } while (tmp > HOURS_PER_YEAR);
+            TicksPerLeapYear = HOURS_PER_YEAR / tmp;        /* Worst case: The components activates every tick with the amount of YearsPerTick
+                                                             * Each TicksPerLeap's tick this amount is temporaly increased by 1 to compensate */
         }
 
         public override int GetHashCode()
