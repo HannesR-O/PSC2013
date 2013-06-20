@@ -145,6 +145,7 @@ namespace PSC2013.ES.GUI.Review.Services
 
         private void ContinueToEnd()
         {
+            _secondContainer.OutputPanel.Enabled = false;
             var view = _secondContainer.ViewPanel;
 
             var destPath = _firstContainer.InfoSettings.DestinationPath;
@@ -155,12 +156,7 @@ namespace PSC2013.ES.GUI.Review.Services
             view.TheListBox.SelectedValueChanged += (_, __) =>
                 ShowImage((string)view.TheListBox.SelectedItem, destPath);
 
-            // TODO | dj | has to be another solution...
-            string captionString = "";
-            foreach (var item in _statsManager.ReviewManager.GetCaption())
-                captionString += item.Key + item.Value.Name + Environment.NewLine;
-
-            view.SetCaption(captionString);
+            view.SetCaption(_statsManager.ReviewManager.GetCaption());
 
             var settings = _firstContainer.InfoSettings;
 
@@ -181,7 +177,6 @@ namespace PSC2013.ES.GUI.Review.Services
                 view.SetSavePathAlternative(Path.Combine(settings.DestinationPath,
                     settings.Prefix + "_AlternativeChart.png"));
             }
-            // TODO | dj | continue?
         }
 
         private void ShowImage(string selectedItem, string destinationPath)

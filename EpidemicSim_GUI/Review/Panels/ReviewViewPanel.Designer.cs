@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.TabControl_Main = new System.Windows.Forms.TabControl();
             this.TabPage_Graphics = new System.Windows.Forms.TabPage();
             this.GrpBox_Graphic = new System.Windows.Forms.GroupBox();
             this.PictureBox_Graphic = new System.Windows.Forms.PictureBox();
             this.GrpBox_Caption = new System.Windows.Forms.GroupBox();
-            this.TextBox_Caption = new System.Windows.Forms.TextBox();
             this.GrpBox_Selection = new System.Windows.Forms.GroupBox();
             this.ListBox_Selection = new System.Windows.Forms.ListBox();
             this.TabPage_AgeDiagram = new System.Windows.Forms.TabPage();
@@ -51,6 +50,7 @@
             this.TextBox_SaveAlternativeDiagram = new System.Windows.Forms.TextBox();
             this.Btn_SaveAlternativeDiagram = new System.Windows.Forms.Button();
             this.saveChartFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.Panel_Caption = new System.Windows.Forms.Panel();
             this.TabControl_Main.SuspendLayout();
             this.TabPage_Graphics.SuspendLayout();
             this.GrpBox_Graphic.SuspendLayout();
@@ -117,41 +117,25 @@
             // 
             // GrpBox_Caption
             // 
-            this.GrpBox_Caption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GrpBox_Caption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.GrpBox_Caption.BackColor = System.Drawing.Color.Transparent;
-            this.GrpBox_Caption.Controls.Add(this.TextBox_Caption);
-            this.GrpBox_Caption.Location = new System.Drawing.Point(6, 234);
+            this.GrpBox_Caption.Controls.Add(this.Panel_Caption);
+            this.GrpBox_Caption.Location = new System.Drawing.Point(6, 134);
             this.GrpBox_Caption.Name = "GrpBox_Caption";
             this.GrpBox_Caption.Padding = new System.Windows.Forms.Padding(7);
-            this.GrpBox_Caption.Size = new System.Drawing.Size(200, 200);
+            this.GrpBox_Caption.Size = new System.Drawing.Size(200, 300);
             this.GrpBox_Caption.TabIndex = 0;
             this.GrpBox_Caption.TabStop = false;
             this.GrpBox_Caption.Text = "Caption";
             // 
-            // TextBox_Caption
-            // 
-            this.TextBox_Caption.BackColor = System.Drawing.Color.White;
-            this.TextBox_Caption.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBox_Caption.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.TextBox_Caption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextBox_Caption.Enabled = false;
-            this.TextBox_Caption.HideSelection = false;
-            this.TextBox_Caption.Location = new System.Drawing.Point(7, 20);
-            this.TextBox_Caption.Multiline = true;
-            this.TextBox_Caption.Name = "TextBox_Caption";
-            this.TextBox_Caption.ReadOnly = true;
-            this.TextBox_Caption.Size = new System.Drawing.Size(186, 173);
-            this.TextBox_Caption.TabIndex = 0;
-            // 
             // GrpBox_Selection
             // 
-            this.GrpBox_Selection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.GrpBox_Selection.Controls.Add(this.ListBox_Selection);
             this.GrpBox_Selection.Location = new System.Drawing.Point(6, 3);
             this.GrpBox_Selection.Name = "GrpBox_Selection";
             this.GrpBox_Selection.Padding = new System.Windows.Forms.Padding(7);
-            this.GrpBox_Selection.Size = new System.Drawing.Size(200, 225);
+            this.GrpBox_Selection.Size = new System.Drawing.Size(200, 125);
             this.GrpBox_Selection.TabIndex = 1;
             this.GrpBox_Selection.TabStop = false;
             this.GrpBox_Selection.Text = "Selection";
@@ -163,7 +147,7 @@
             this.ListBox_Selection.FormattingEnabled = true;
             this.ListBox_Selection.Location = new System.Drawing.Point(7, 20);
             this.ListBox_Selection.Name = "ListBox_Selection";
-            this.ListBox_Selection.Size = new System.Drawing.Size(186, 198);
+            this.ListBox_Selection.Size = new System.Drawing.Size(186, 98);
             this.ListBox_Selection.TabIndex = 0;
             // 
             // TabPage_AgeDiagram
@@ -180,11 +164,11 @@
             // 
             // Chart_Age
             // 
-            chartArea1.Name = "ChartAreaAge";
-            this.Chart_Age.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartAreaAge";
+            this.Chart_Age.ChartAreas.Add(chartArea3);
             this.Chart_Age.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "LegendAge";
-            this.Chart_Age.Legends.Add(legend1);
+            legend3.Name = "LegendAge";
+            this.Chart_Age.Legends.Add(legend3);
             this.Chart_Age.Location = new System.Drawing.Point(3, 3);
             this.Chart_Age.Name = "Chart_Age";
             this.Chart_Age.Size = new System.Drawing.Size(523, 404);
@@ -237,11 +221,11 @@
             // 
             // Chart_Alternative
             // 
-            chartArea2.Name = "ChartAreaAlternative";
-            this.Chart_Alternative.ChartAreas.Add(chartArea2);
+            chartArea4.Name = "ChartAreaAlternative";
+            this.Chart_Alternative.ChartAreas.Add(chartArea4);
             this.Chart_Alternative.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "LegendAlternative";
-            this.Chart_Alternative.Legends.Add(legend2);
+            legend4.Name = "LegendAlternative";
+            this.Chart_Alternative.Legends.Add(legend4);
             this.Chart_Alternative.Location = new System.Drawing.Point(3, 3);
             this.Chart_Alternative.Name = "Chart_Alternative";
             this.Chart_Alternative.Size = new System.Drawing.Size(523, 404);
@@ -286,6 +270,15 @@
             this.saveChartFileDialog.Filter = "Portable Network Graphics (*.png)|*.png|All files (*.*)|*.*";
             this.saveChartFileDialog.Title = "Save chart at...";
             // 
+            // Panel_Caption
+            // 
+            this.Panel_Caption.AutoScroll = true;
+            this.Panel_Caption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Panel_Caption.Location = new System.Drawing.Point(7, 20);
+            this.Panel_Caption.Name = "Panel_Caption";
+            this.Panel_Caption.Size = new System.Drawing.Size(186, 273);
+            this.Panel_Caption.TabIndex = 0;
+            // 
             // ReviewViewPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,7 +292,6 @@
             this.GrpBox_Graphic.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Graphic)).EndInit();
             this.GrpBox_Caption.ResumeLayout(false);
-            this.GrpBox_Caption.PerformLayout();
             this.GrpBox_Selection.ResumeLayout(false);
             this.TabPage_AgeDiagram.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Age)).EndInit();
@@ -321,7 +313,6 @@
         private System.Windows.Forms.GroupBox GrpBox_Selection;
         private System.Windows.Forms.GroupBox GrpBox_Graphic;
         private System.Windows.Forms.ListBox ListBox_Selection;
-        private System.Windows.Forms.TextBox TextBox_Caption;
         private System.Windows.Forms.PictureBox PictureBox_Graphic;
         private System.Windows.Forms.TabPage TabPage_AgeDiagram;
         private System.Windows.Forms.Panel Panel_BottomAgeDiagram;
@@ -334,5 +325,6 @@
         private System.Windows.Forms.TextBox TextBox_SaveAlternativeDiagram;
         private System.Windows.Forms.DataVisualization.Charting.Chart Chart_Alternative;
         private System.Windows.Forms.SaveFileDialog saveChartFileDialog;
+        private System.Windows.Forms.Panel Panel_Caption;
     }
 }

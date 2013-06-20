@@ -141,7 +141,7 @@ namespace PSC2013.ES.GUI.Review.Panels
             field = CombineFields(field, Panel_Female.Controls);
 
             if (!Comp_Category.GetValue())      // if dead, the 11th bit is set.
-                field |= (EStatField)0x400;     // TODO | dj | be sure to use this later on.
+                field |= (EStatField)0x400;
 
             return field;
         }

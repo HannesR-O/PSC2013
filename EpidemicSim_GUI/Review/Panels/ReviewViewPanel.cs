@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using PSC2013.ES.GUI.Components;
 
 namespace PSC2013.ES.GUI.Review.Panels
 {
@@ -46,6 +48,7 @@ namespace PSC2013.ES.GUI.Review.Panels
                 AddToSeries(series.Points, ints[i]);
                 Chart_Age.Series.Add(series);
             }
+            Chart_Age.ChartAreas[0].AxisX.Minimum = 0;
         }
 
         public void SetAlternativeChart(int[] all, int[] infected, int[] diseased)
@@ -64,6 +67,7 @@ namespace PSC2013.ES.GUI.Review.Panels
             serD.ChartType = DEFAULT_CHARTTYPE;
             AddToSeries(serD.Points, diseased);
             Chart_Alternative.Series.Add(serD);
+            Chart_Alternative.ChartAreas[0].AxisX.Minimum = 0;
         }
 
         private void AddToSeries(DataPointCollection points, int[] values)
@@ -77,9 +81,24 @@ namespace PSC2013.ES.GUI.Review.Panels
             PictureBox_Graphic.Image = image;
         }
 
-        public void SetCaption(string text)
+        public void SetCaption(Dictionary<string, Color> dict)
         {
-            TextBox_Caption.Text = text;
+            Panel_Caption.SuspendLayout();
+            int y = 0;
+            int x = 5;
+            foreach (var item in dict)
+            {
+                var comp = new ColorRangeComponent();
+                comp.LabelText = item.Key;
+                comp.SetValue(item.Value);
+                comp.Height = 17;
+                comp.Width = Panel_Caption.Width - 10;
+                comp.Left = x;
+                comp.Top = y;
+                Panel_Caption.Controls.Add(comp);
+                y += comp.Height;
+            }
+            Panel_Caption.ResumeLayout();
         }
 
         public void SetSavePathAge(string path)

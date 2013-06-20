@@ -33,8 +33,11 @@ namespace PSC2013.ES.GUI
         public MainForm()
         {
             InitializeComponent();
-            //WorkingArea = new ReviewSecondContainer();
-            // TODO | dj | as standard load the "2Btns" ^^
+
+            var startContainer = new TwoButtonStartContainer();
+            startContainer.TheSimulationButton.Click += (_, __) => OnNewSimulation();
+            startContainer.TheReviewButton.Click += (_, __) => OnNewReview();
+            WorkingArea = startContainer;
         }
 
         // EVENTS \\
@@ -58,6 +61,11 @@ namespace PSC2013.ES.GUI
 
         private void MenuStrip_Main_File_NewSim_Click(object sender, EventArgs e)
         {
+            OnNewSimulation();
+        }
+
+        private void OnNewSimulation()
+        {
             DialogResult dr = OpenDepFileDialog.ShowDialog();
             if (dr == DialogResult.OK)
             {
@@ -73,6 +81,11 @@ namespace PSC2013.ES.GUI
         }
 
         private void MenuStrip_Main_File_OpenSim_Click(object sender, EventArgs e)
+        {
+            OnNewReview();
+        }
+
+        private void OnNewReview()
         {
             DialogResult dr = OpenSimFileDialog.ShowDialog();
             if (dr == DialogResult.OK)
