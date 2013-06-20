@@ -14,7 +14,7 @@ namespace PSC2013.ES.Library.Snapshot
         private const byte HEADER = 0x2;
         public DateTime Stamp { get; private set; }
         public long Tick { get; private set; }
-        public String Head { get; private set; }
+        public String Name { get; private set; }
         public CellSnapshot[] Cells { get; private set; }
         public HumanSnapshot[] Deaths { get; private set; }
 
@@ -29,7 +29,7 @@ namespace PSC2013.ES.Library.Snapshot
         {
             Stamp = DateTime.Now;
             Tick = tick;
-            Head = Tick + "_[" + Stamp.ToString("HH-mm-ss") + "]";
+            Name = String.Format("{0,22:D3}", Tick) + "_[" + Stamp.ToString("HH-mm-ss") + "]";
 
             Cells = cells;
             Deaths = deaths;

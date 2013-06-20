@@ -84,7 +84,7 @@ namespace PSC2013.ES.Library.Statistics
             _creator.InitializeMaxima(tick);
             WriteMessage(first.Name + " is first. Initializing...");
             LoadedSnapshot = tick; // First Snaphsot stays loaded
-            //Entries.Sort();
+            Entries.Sort();
         }
 
         /// <summary>
@@ -108,6 +108,10 @@ namespace PSC2013.ES.Library.Statistics
         /// <param name="name">The Entries name</param>
         public void LoadTickSnapshot(String name)
         {
+            string[] nameSplit = name.Split('_');
+            long tick;
+            long.TryParse(nameSplit[0], out tick);
+            if (tick == LoadedSnapshot.Tick)
             if (!name.StartsWith(LoadedSnapshot.Tick + "_"))
             {
                 byte[] temp = _currentArchive.GetEntry(name).ToByteArray();

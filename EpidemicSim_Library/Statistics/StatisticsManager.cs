@@ -84,7 +84,7 @@ namespace PSC2013.ES.Library.Statistics
                     Infected[i] += cell.Values[8];
                     Diseased[i] += cell.Values[9];
                 }
-                WriteMessage("Snapshot '" + ReviewManager.LoadedSnapshot.Head + "' finished.");
+                WriteMessage("Snapshot '" + ReviewManager.LoadedSnapshot.Name + "' finished.");
                 SnapshotAnalized.Raise(this, null);
             }
             WriteMessage("Finished analysis.");
