@@ -49,16 +49,18 @@ namespace PSC2013.ES.Library.Statistics
                 throw new FileNotFoundException("File not found!");
 
             ZipArchiveEntry first = null;
-            long minEntry = Entries.Min(x => long.Parse(x.Split('_')[0]));
-            first = _currentArchive.Entries.Where(x => int.Parse(x.Name.Split('_')[0]) == minEntry).First();
             Entries = new List<string>();
+            
             foreach (ZipArchiveEntry entry in _currentArchive.Entries) // Reading all entries
-            {
                 if (!entry.Name.Equals("header")) // All except header...
-                {
                     Entries.Add(entry.Name);
-                }
-            }
+
+            long minEntry = Entries.Min(x => long.Parse(x.Split('_')[0]));
+            first = _currentArchive.Entries.Where(
+                    x => !x.Name.Equals("header") &&
+                    int.Parse(x.Name.Split('_')[0]) == minEntry
+                    ).First();
+            
 
             try // If there's no header, the file is corrupt // yeah, with two r's 
             {
