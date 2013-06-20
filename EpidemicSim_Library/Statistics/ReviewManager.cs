@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using System.IO;
@@ -48,16 +49,14 @@ namespace PSC2013.ES.Library.Statistics
                 throw new FileNotFoundException("File not found!");
 
             ZipArchiveEntry first = null;
+            long minEntry = Entries.Min(x => long.Parse(x.Split('_')[0]));
+            first = _currentArchive.Entries.Where(x => int.Parse(x.Name.Split('_')[0]) == minEntry).First();
             Entries = new List<string>();
             foreach (ZipArchiveEntry entry in _currentArchive.Entries) // Reading all entries
             {
                 if (!entry.Name.Equals("header")) // All except header...
                 {
                     Entries.Add(entry.Name);
-                    if (entry.Name.StartsWith("001_")) // The first entry
-                    {
-                        first = entry;
-                    }
                 }
             }
 
