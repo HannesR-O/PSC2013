@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.TabControl_Main = new System.Windows.Forms.TabControl();
             this.TabPage_Graphics = new System.Windows.Forms.TabPage();
             this.GrpBox_Graphic = new System.Windows.Forms.GroupBox();
             this.PictureBox_Graphic = new System.Windows.Forms.PictureBox();
             this.GrpBox_Caption = new System.Windows.Forms.GroupBox();
+            this.Panel_Caption = new System.Windows.Forms.Panel();
             this.GrpBox_Selection = new System.Windows.Forms.GroupBox();
             this.ListBox_Selection = new System.Windows.Forms.ListBox();
             this.TabPage_AgeDiagram = new System.Windows.Forms.TabPage();
@@ -50,7 +51,6 @@
             this.TextBox_SaveAlternativeDiagram = new System.Windows.Forms.TextBox();
             this.Btn_SaveAlternativeDiagram = new System.Windows.Forms.Button();
             this.saveChartFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.Panel_Caption = new System.Windows.Forms.Panel();
             this.TabControl_Main.SuspendLayout();
             this.TabPage_Graphics.SuspendLayout();
             this.GrpBox_Graphic.SuspendLayout();
@@ -129,6 +129,15 @@
             this.GrpBox_Caption.TabStop = false;
             this.GrpBox_Caption.Text = "Caption";
             // 
+            // Panel_Caption
+            // 
+            this.Panel_Caption.AutoScroll = true;
+            this.Panel_Caption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Panel_Caption.Location = new System.Drawing.Point(7, 20);
+            this.Panel_Caption.Name = "Panel_Caption";
+            this.Panel_Caption.Size = new System.Drawing.Size(186, 273);
+            this.Panel_Caption.TabIndex = 0;
+            // 
             // GrpBox_Selection
             // 
             this.GrpBox_Selection.Controls.Add(this.ListBox_Selection);
@@ -164,11 +173,13 @@
             // 
             // Chart_Age
             // 
-            chartArea3.Name = "ChartAreaAge";
-            this.Chart_Age.ChartAreas.Add(chartArea3);
+            chartArea1.AxisX.Title = "Ticks";
+            chartArea1.AxisY.Title = "Amount of humans";
+            chartArea1.Name = "ChartAreaAge";
+            this.Chart_Age.ChartAreas.Add(chartArea1);
             this.Chart_Age.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "LegendAge";
-            this.Chart_Age.Legends.Add(legend3);
+            legend1.Name = "LegendAge";
+            this.Chart_Age.Legends.Add(legend1);
             this.Chart_Age.Location = new System.Drawing.Point(3, 3);
             this.Chart_Age.Name = "Chart_Age";
             this.Chart_Age.Size = new System.Drawing.Size(523, 404);
@@ -221,11 +232,13 @@
             // 
             // Chart_Alternative
             // 
-            chartArea4.Name = "ChartAreaAlternative";
-            this.Chart_Alternative.ChartAreas.Add(chartArea4);
+            chartArea2.AxisX.Title = "Ticks";
+            chartArea2.AxisY.Title = "Amount of humans";
+            chartArea2.Name = "ChartAreaAlternative";
+            this.Chart_Alternative.ChartAreas.Add(chartArea2);
             this.Chart_Alternative.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "LegendAlternative";
-            this.Chart_Alternative.Legends.Add(legend4);
+            legend2.Name = "LegendAlternative";
+            this.Chart_Alternative.Legends.Add(legend2);
             this.Chart_Alternative.Location = new System.Drawing.Point(3, 3);
             this.Chart_Alternative.Name = "Chart_Alternative";
             this.Chart_Alternative.Size = new System.Drawing.Size(523, 404);
@@ -269,15 +282,6 @@
             this.saveChartFileDialog.DefaultExt = "png";
             this.saveChartFileDialog.Filter = "Portable Network Graphics (*.png)|*.png|All files (*.*)|*.*";
             this.saveChartFileDialog.Title = "Save chart at...";
-            // 
-            // Panel_Caption
-            // 
-            this.Panel_Caption.AutoScroll = true;
-            this.Panel_Caption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Panel_Caption.Location = new System.Drawing.Point(7, 20);
-            this.Panel_Caption.Name = "Panel_Caption";
-            this.Panel_Caption.Size = new System.Drawing.Size(186, 273);
-            this.Panel_Caption.TabIndex = 0;
             // 
             // ReviewViewPanel
             // 
