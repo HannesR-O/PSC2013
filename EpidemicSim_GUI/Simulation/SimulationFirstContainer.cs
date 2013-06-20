@@ -36,7 +36,7 @@ namespace PSC2013.ES.GUI.Simulation
             get { return simulationDiseasePanel.ContentInformation; }
         }
 
-        public InfectionInitState InfoStartlocations // TODO | dj | rework!!
+        public InfectionInitState InfoStartlocations
         {
             get { return simulationStartlocationPanel.ContentInformation; }
         }

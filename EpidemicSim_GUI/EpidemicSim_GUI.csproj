@@ -105,6 +105,12 @@
     <Compile Include="Miscellaneous\IContainer.cs" />
     <Compile Include="Miscellaneous\IService.cs" />
     <Compile Include="Miscellaneous\ListBoxOutputTarget.cs" />
+    <Compile Include="Miscellaneous\MainAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Miscellaneous\MainAboutBox.Designer.cs">
+      <DependentUpon>MainAboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Miscellaneous\ReviewSettingsContainer.cs" />
     <Compile Include="Miscellaneous\Separator.cs">
       <SubType>UserControl</SubType>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Miscellaneous\MainAboutBox.resx">
+      <DependentUpon>MainAboutBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\Separator.resx">
       <DependentUpon>Separator.cs</DependentUpon>

@@ -63,7 +63,7 @@ namespace PSC2013.ES.GUI.Review
                     FinalClick.Raise(this, e);
                 }
             }
-            else
+            else if (panel.ValidateData())
                 PanelDone(panel as Control);
         }
 

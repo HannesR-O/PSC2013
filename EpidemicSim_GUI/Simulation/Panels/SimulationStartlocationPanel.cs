@@ -78,8 +78,6 @@ namespace PSC2013.ES.GUI.Simulation.Panels
                 }
             }
 
-            // TODO | dj | test!
-
             return dict;
         }
 

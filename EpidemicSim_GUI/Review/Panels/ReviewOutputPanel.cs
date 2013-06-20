@@ -17,6 +17,12 @@ namespace PSC2013.ES.GUI.Review.Panels
             InitializeComponent();
         }
 
+        public bool ValidateData()
+        {
+            // obviously always correct...
+            return true;
+        }
+
         public ListBox TheListBox
         {
             get { return ListBox_Output; }

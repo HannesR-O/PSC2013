@@ -35,11 +35,11 @@
             this.MenuStrip_Main_File_OpenSim = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuStrip_Main_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStrip_Main_Tools = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStrip_Main_About = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStrip_Main_Help = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenDepFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.OpenSimFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._workPanel = new System.Windows.Forms.Panel();
+            this.MenuStrip_Main_Help_about = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip_Main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,8 +47,7 @@
             // 
             this.MenuStrip_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuStrip_Main_File,
-            this.MenuStrip_Main_Tools,
-            this.MenuStrip_Main_About});
+            this.MenuStrip_Main_Help});
             this.MenuStrip_Main.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip_Main.Name = "MenuStrip_Main";
             this.MenuStrip_Main.Padding = new System.Windows.Forms.Padding(2, 2, 0, 2);
@@ -101,18 +100,13 @@
             this.MenuStrip_Main_File_Exit.Text = "Exit";
             this.MenuStrip_Main_File_Exit.Click += new System.EventHandler(this.MenuStrip_Main_File_Exit_Click);
             // 
-            // MenuStrip_Main_Tools
+            // MenuStrip_Main_Help
             // 
-            this.MenuStrip_Main_Tools.Name = "MenuStrip_Main_Tools";
-            this.MenuStrip_Main_Tools.Size = new System.Drawing.Size(48, 20);
-            this.MenuStrip_Main_Tools.Text = "&Tools";
-            this.MenuStrip_Main_Tools.Visible = false;
-            // 
-            // MenuStrip_Main_About
-            // 
-            this.MenuStrip_Main_About.Name = "MenuStrip_Main_About";
-            this.MenuStrip_Main_About.Size = new System.Drawing.Size(52, 20);
-            this.MenuStrip_Main_About.Text = "&About";
+            this.MenuStrip_Main_Help.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStrip_Main_Help_about});
+            this.MenuStrip_Main_Help.Name = "MenuStrip_Main_Help";
+            this.MenuStrip_Main_Help.Size = new System.Drawing.Size(44, 20);
+            this.MenuStrip_Main_Help.Text = "&Help";
             // 
             // OpenDepFileDialog
             // 
@@ -132,6 +126,13 @@
             this._workPanel.Name = "_workPanel";
             this._workPanel.Size = new System.Drawing.Size(834, 538);
             this._workPanel.TabIndex = 1;
+            // 
+            // MenuStrip_Main_Help_about
+            // 
+            this.MenuStrip_Main_Help_about.Name = "MenuStrip_Main_Help_about";
+            this.MenuStrip_Main_Help_about.Size = new System.Drawing.Size(152, 22);
+            this.MenuStrip_Main_Help_about.Text = "&About";
+            this.MenuStrip_Main_Help_about.Click += new System.EventHandler(this.MenuStrip_Main_Help_about_Click);
             // 
             // MainForm
             // 
@@ -161,11 +162,11 @@
         private System.Windows.Forms.ToolStripMenuItem MenuStrip_Main_File_OpenSim;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem MenuStrip_Main_File_Exit;
-        private System.Windows.Forms.ToolStripMenuItem MenuStrip_Main_Tools;
-        private System.Windows.Forms.ToolStripMenuItem MenuStrip_Main_About;
+        private System.Windows.Forms.ToolStripMenuItem MenuStrip_Main_Help;
         private System.Windows.Forms.OpenFileDialog OpenDepFileDialog;
         private System.Windows.Forms.OpenFileDialog OpenSimFileDialog;
         private System.Windows.Forms.Panel _workPanel;
+        private System.Windows.Forms.ToolStripMenuItem MenuStrip_Main_Help_about;
     }
 }
 

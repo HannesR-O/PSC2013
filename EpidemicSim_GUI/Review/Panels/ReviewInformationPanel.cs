@@ -26,6 +26,11 @@ namespace PSC2013.ES.GUI.Review.Panels
             InitEvents();
         }
 
+        public bool ValidateData()
+        {
+            return ContentInformation != 0;
+        }
+
         #region events
         private void InitEvents()
         {

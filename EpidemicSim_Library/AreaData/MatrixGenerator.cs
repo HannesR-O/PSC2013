@@ -17,7 +17,6 @@ namespace PSC2013.ES.Library.AreaData
         public int Total { get; set; }
     }
 
-    // TODO | dj | can't implement OutputTargetWriter as a cause of static...
     public class MatrixGenerator : OutputTargetWriter
     {
         private int WIDTH = 2814;

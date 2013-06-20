@@ -10,6 +10,12 @@ namespace PSC2013.ES.GUI.Review.Panels
             InitializeComponent();
         }
 
+        public bool ValidateData()
+        {
+            // always true, because it is possible to just generate charts...
+            return true;
+        }
+
         public void SetProgressBarStyle(ProgressBarStyle style)
         {
             this.ProgressBar_Main.Style = style;

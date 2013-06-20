@@ -126,9 +126,6 @@ namespace PSC2013.ES.GUI.Simulation.Services
                 OnDepartmentCalculated,
                 _secondContainer.InfoStartTime,
                 GetSimComponents(sc.Components));
-#if DEBUG
-            _simulator.AddOutputTarget(new PSC2013.ES.Library.IO.OutputTargets.ConsoleOutputTarget()); // TODO | dj | remove!
-#endif
 
             _simulator.SetSimulationIntervall(sc.SimulationIntervall);
             _simulator.SetSnapshotIntervall(sc.SnapshotIntervall);

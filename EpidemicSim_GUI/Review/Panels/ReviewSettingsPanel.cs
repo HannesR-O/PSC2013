@@ -15,6 +15,11 @@ namespace PSC2013.ES.GUI.Review.Panels
             this.Comp_Palette.SetValue(vals[0]);
         }
 
+        public bool ValidateData()
+        {
+            return !String.IsNullOrEmpty(this.Comp_Destination.GetValue());
+        }
+
         public Button TheButton
         {
             get { return this.Btn_Next; }

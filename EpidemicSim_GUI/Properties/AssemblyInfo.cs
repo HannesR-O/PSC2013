@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EpidemicSim_GUI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Epidemic Simulator (GUI)")]
+[assembly: AssemblyDescription("The GUI-frontend for the Epidemic Simulator Library.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("EpidemicSim_GUI")]

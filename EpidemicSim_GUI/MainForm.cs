@@ -143,5 +143,15 @@ namespace PSC2013.ES.GUI
             else
                 return true;
         }
+
+        private void MenuStrip_Main_Help_about_Click(object sender, EventArgs e)
+        {
+            OpenAboutBox();
+        }
+
+        private void OpenAboutBox()
+        {
+            new MainAboutBox().ShowDialog();
+        }
     }
 }
