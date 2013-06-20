@@ -105,6 +105,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
 
         private void SecondContainer_StartClick(object sender, EventArgs e)
         {
+            _secondContainer.OuputPanel.SetProgressBarStyle(ProgressBarStyle.Marquee);
             // start the simulation-construction in an extra task.
             _runningTask = Task.Run(() => StartSim(), _cancellationTokenSource.Token);
         }

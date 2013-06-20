@@ -30,9 +30,9 @@
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
             this.Panel_Bottom = new System.Windows.Forms.Panel();
+            this.ProgressBar_Main = new PSC2013.ES.GUI.Miscellaneous.TextDisplayingProgressBar();
             this.Btn_Abort = new System.Windows.Forms.Button();
             this.ListBox_Output = new System.Windows.Forms.ListBox();
-            this.ProgressBar_Main = new PSC2013.ES.GUI.Miscellaneous.TextDisplayingProgressBar();
             this.GrpBox_Main.SuspendLayout();
             this.Panel_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +61,19 @@
             this.Panel_Bottom.Size = new System.Drawing.Size(437, 29);
             this.Panel_Bottom.TabIndex = 1;
             // 
+            // ProgressBar_Main
+            // 
+            this.ProgressBar_Main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProgressBar_Main.Location = new System.Drawing.Point(7, 3);
+            this.ProgressBar_Main.MarqueeAnimationSpeed = 50;
+            this.ProgressBar_Main.Maximum = 0;
+            this.ProgressBar_Main.Name = "ProgressBar_Main";
+            this.ProgressBar_Main.Size = new System.Drawing.Size(342, 23);
+            this.ProgressBar_Main.Step = 1;
+            this.ProgressBar_Main.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.ProgressBar_Main.TabIndex = 1;
+            // 
             // Btn_Abort
             // 
             this.Btn_Abort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -84,18 +97,6 @@
             this.ListBox_Output.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.ListBox_Output.Size = new System.Drawing.Size(423, 395);
             this.ListBox_Output.TabIndex = 0;
-            // 
-            // ProgressBar_Main
-            // 
-            this.ProgressBar_Main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProgressBar_Main.Location = new System.Drawing.Point(7, 3);
-            this.ProgressBar_Main.MarqueeAnimationSpeed = 50;
-            this.ProgressBar_Main.Name = "ProgressBar_Main";
-            this.ProgressBar_Main.Size = new System.Drawing.Size(342, 23);
-            this.ProgressBar_Main.Step = 1;
-            this.ProgressBar_Main.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.ProgressBar_Main.TabIndex = 1;
             // 
             // SimulationOutputPanel
             // 

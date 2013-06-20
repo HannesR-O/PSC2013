@@ -145,6 +145,11 @@ namespace PSC2013.ES.GUI.Review.Panels
             field = CombineFields(field, Panel_Male.Controls);
             field = CombineFields(field, Panel_Female.Controls);
 
+            if (Comp_Infected.GetValue())
+                field |= (EStatField)0x100;
+            if (Comp_Diseased.GetValue())
+                field |= (EStatField)0x200;
+
             if (!Comp_Category.GetValue())      // if dead, the 11th bit is set.
                 field |= (EStatField)0x400;
 
@@ -157,7 +162,10 @@ namespace PSC2013.ES.GUI.Review.Panels
             {
                 var comp = item as SettingsComponent<bool>;
                 if (comp != null && comp.ComponentTag != EComponentTag.None && comp.GetValue())
-                    field |= (EStatField)(int)Math.Pow(2, (int)comp.ComponentTag - 1);
+                {
+                    int tag = (int)comp.ComponentTag - 1;
+                    field |= (EStatField)(int)Math.Pow(2, tag);
+                }
             }
             return field;
         }
