@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.GrpBox_Main = new System.Windows.Forms.GroupBox();
+            this.Comp_ImExPort = new PSC2013.ES.GUI.Components.DiseaseComponent();
             this.TextBox_Hint = new System.Windows.Forms.TextBox();
             this.FlowPanel_Bottom = new System.Windows.Forms.FlowLayoutPanel();
             this.Btn_Next = new System.Windows.Forms.Button();
@@ -41,7 +42,6 @@
             this.Comp_IdleTime = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_IncubationPeriod = new PSC2013.ES.GUI.Components.IntComponent();
             this.Comp_DiseaseName = new PSC2013.ES.GUI.Components.TextComponent();
-            this.Comp_ImExPort = new PSC2013.ES.GUI.Components.DiseaseComponent();
             this.GrpBox_Main.SuspendLayout();
             this.FlowPanel_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +68,16 @@
             this.GrpBox_Main.TabIndex = 0;
             this.GrpBox_Main.TabStop = false;
             this.GrpBox_Main.Text = "Disease";
+            // 
+            // Comp_ImExPort
+            // 
+            this.Comp_ImExPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Comp_ImExPort.BackColor = System.Drawing.Color.Transparent;
+            this.Comp_ImExPort.Location = new System.Drawing.Point(6, 268);
+            this.Comp_ImExPort.Name = "Comp_ImExPort";
+            this.Comp_ImExPort.Size = new System.Drawing.Size(261, 29);
+            this.Comp_ImExPort.TabIndex = 8;
             // 
             // TextBox_Hint
             // 
@@ -205,7 +215,7 @@
             this.Comp_IncubationPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Comp_IncubationPeriod.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_IncubationPeriod.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.FemaleChild;
+            this.Comp_IncubationPeriod.ComponentTag = PSC2013.ES.GUI.Components.EComponentTag.IncubationPeriod;
             this.Comp_IncubationPeriod.LabelText = "Incubation period:";
             this.Comp_IncubationPeriod.Location = new System.Drawing.Point(6, 49);
             this.Comp_IncubationPeriod.Name = "Comp_IncubationPeriod";
@@ -227,16 +237,6 @@
             this.Comp_DiseaseName.Size = new System.Drawing.Size(261, 24);
             this.Comp_DiseaseName.TabIndex = 0;
             this.Comp_DiseaseName.ToolTip = "The name of the disease.";
-            // 
-            // Comp_ImExPort
-            // 
-            this.Comp_ImExPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Comp_ImExPort.BackColor = System.Drawing.Color.Transparent;
-            this.Comp_ImExPort.Location = new System.Drawing.Point(6, 268);
-            this.Comp_ImExPort.Name = "Comp_ImExPort";
-            this.Comp_ImExPort.Size = new System.Drawing.Size(261, 29);
-            this.Comp_ImExPort.TabIndex = 8;
             // 
             // SimulationDiseasePanel
             // 
