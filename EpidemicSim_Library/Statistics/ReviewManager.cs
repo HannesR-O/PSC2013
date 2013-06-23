@@ -112,8 +112,7 @@ namespace PSC2013.ES.Library.Statistics
             string[] nameSplit = name.Split('_');
             long tick;
             long.TryParse(nameSplit[0], out tick);
-            if (tick == LoadedSnapshot.Tick)
-            if (!name.StartsWith(LoadedSnapshot.Tick + "_"))
+            if (tick != LoadedSnapshot.Tick)
             {
                 byte[] temp = _currentArchive.GetEntry(name).ToByteArray();
 
