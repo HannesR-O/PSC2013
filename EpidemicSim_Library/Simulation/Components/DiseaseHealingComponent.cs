@@ -22,7 +22,6 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             if (rand <= _data.DiseaseToSimulate.HealingFactor[ageGroup])
             {
-                human->HealHuman();
                 lock (_data.Cells[human->CurrentCell])
                 {
                     if (human->IsSpreading())
@@ -32,6 +31,7 @@ namespace PSC2013.ES.Library.Simulation.Components
 
                     --_data.Cells[human->CurrentCell].Infecting;
                 }
+                human->HealHuman();
             }
         }
         
