@@ -124,23 +124,34 @@ namespace PSC2013.ES.Library.Statistics.Pictures
         /// <param name="snapshot"></param>
         /// <param name="palette"></param>
         /// <returns>savepath</returns>
-        public string GetDeathMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
+        public unsafe string GetDeathMap(TickSnapshot snapshot, EStatField field, EColorPalette palette, string namePrefix)
         {
             Color[] pal = GetPalette(palette);
 
             Bitmap map = new Bitmap(X, Y);
+            BitmapData bData = map.LockBits(new Rectangle(0, 0, map.Width, map.Height), ImageLockMode.ReadWrite, map.PixelFormat);
+            PixelData* start = (PixelData*)bData.Scan0.ToPointer();
+            PixelData* pixelptr = null;
 
             foreach (CellSnapshot cell in snapshot.Cells)
             {
                 Point p = cell.Position.DeFlatten(X);
-                map.SetPixel(p.X, p.Y, Color.Black);
+                pixelptr = start + p.X + (p.Y * map.Width);
+                pixelptr->Alpha = 255;
+                pixelptr->Blue = 0;
+                pixelptr->Green = 0;
+                pixelptr->Red = 0;
             }
             foreach (HumanSnapshot snap in (HumanSnapshotCreteriaMatcher.GetMatchingHumans(snapshot.Deaths, field)))
             {
                 Point p = ExtensionMethods.DeFlatten(snap.DeathCell, X);
-                map.SetPixel(p.X, p.Y, pal[0]);
+                pixelptr = start + p.X + (p.Y * map.Width);
+                pixelptr->Alpha = pal[0].A;
+                pixelptr->Blue = pal[0].B;
+                pixelptr->Green = pal[0].G;
+                pixelptr->Red = pal[0].R;
             }
-
+            map.UnlockBits(bData);
             string path = Target + "/" + namePrefix + "_" + snapshot.Tick + "_D-" + (int)field + ".png";
             map.Save(path, System.Drawing.Imaging.ImageFormat.Png);
             GenerateCaption(_steps, pal);
