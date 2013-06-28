@@ -20,6 +20,7 @@ namespace EpidemicSim_DetailedInputParser
             String[] flaechenLines = File.ReadAllLines(Program.SRCPATH + "fläche.txt", Encoding.Default);
             StringBuilder builder = new StringBuilder();
 
+            Console.WriteLine("Merging Population- and Space-Data");
             for (int i = 0; i < einwohnerLines.Length; ++i)
             {
                 string[] splittedEinwohner = einwohnerLines[i].Split(';');
@@ -45,6 +46,7 @@ namespace EpidemicSim_DetailedInputParser
                         builder.Append("\r\n");
                 }
             }
+            Console.WriteLine("Finnished Merging.");
             return builder.ToString();
         }
 
@@ -63,7 +65,7 @@ namespace EpidemicSim_DetailedInputParser
 
             LinkedList<Match> Matched = new LinkedList<Match>();
             LinkedList<Match> Unmatched = new LinkedList<Match>();
-
+            Console.WriteLine("Starting to Merge collected Points with the Population/Space-Data");
             //Search unique Matches first...
             for (int i = 0; i < pointLines.Length; ++i)
             {
@@ -101,6 +103,9 @@ namespace EpidemicSim_DetailedInputParser
             }
             //////////////////////////////////////////////////////
             //User decision
+            if(Unmatched.Count > 0)
+                Console.WriteLine("Some Departments couldn't be matched:");
+
             LinkedList<Match> Remaining = new LinkedList<Match>();
             while (Unmatched.Count != 0)
             {
@@ -171,7 +176,7 @@ namespace EpidemicSim_DetailedInputParser
                 builder.Append(s + "\r\n");
             }
 
-            Console.WriteLine("FinishedWriting");
+            Console.WriteLine("Finished Merging points with Population/Space-Data");
 
             return builder.ToString();
         }

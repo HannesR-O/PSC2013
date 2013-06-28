@@ -18,6 +18,7 @@ namespace EpidemicSim_DetailedInputParser
             Random rand = new Random();
             DepartmentPoint[] allpoints = null;
 
+            Console.WriteLine("Starting to Parse the actual City points");
             for (int i = 0; i < datenLines.Length; ++i)
             {
                 string[] splittedLine = datenLines[i].Split(';');
@@ -109,7 +110,7 @@ namespace EpidemicSim_DetailedInputParser
                             test.SetPixel(point.Coord % 2814, point.Coord / 2814, color);
                         }
                     }
-                    Console.WriteLine("Finnished " + datenLines[i].Split(';')[1]);
+                    Console.WriteLine("Finnished Parsing :\t" + datenLines[i].Split(';')[1]);
                     test.Save(Program.DESTPATH + "Cityoverview.png", ImageFormat.Png);
 
                     foreach (City city in Cities)
@@ -133,7 +134,7 @@ namespace EpidemicSim_DetailedInputParser
                 builder2.Append("\r\n");
             }
 
-            Console.WriteLine("Finnished");
+            Console.WriteLine("Finnished Parsing Citypoints");
             return builder2.ToString();
         }
 

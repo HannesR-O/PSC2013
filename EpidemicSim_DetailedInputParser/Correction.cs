@@ -13,6 +13,7 @@ namespace EpidemicSim_DetailedInputParser
             String[] datenLines = Regex.Split(mergedpopspace, "\r\n");
             StringBuilder builder = new StringBuilder();
 
+            Console.WriteLine("Removing Lines from the previously merged File that can't be used");
             for (int i = 0; i < datenLines.Length; ++i)
             {
                 string[] splittedDaten = datenLines[i].Split(';');
@@ -26,7 +27,7 @@ namespace EpidemicSim_DetailedInputParser
                 if(i != datenLines.Length - 1)
                      builder.Append("\r\n");
             }
-
+            Console.WriteLine("Finnished Removing unusable Lines");
             return builder.ToString();
         }
 
@@ -40,6 +41,7 @@ namespace EpidemicSim_DetailedInputParser
         {
             String[] datenLines = Regex.Split(uselessremoved, "\r\n");
             StringBuilder builder = new StringBuilder();
+            Console.WriteLine("Building AGS's for all Departments/Cities that have a regional key");
 
             for (int i = 0; i < datenLines.Length; ++i)
             {
@@ -84,7 +86,7 @@ namespace EpidemicSim_DetailedInputParser
                 if(i != datenLines.Length - 1)
                     builder.Append("\r\n");
             }
-
+            Console.WriteLine("Finnished building AGS's");
             return builder.ToString();
         }
 
@@ -94,6 +96,7 @@ namespace EpidemicSim_DetailedInputParser
             string[] datenLines = Regex.Split(allhaveags, "\r\n");
             StringBuilder builder = new StringBuilder();
 
+            Console.WriteLine("Starting to Fix FederalStates that are Cities");
             //Berlin is separated into districts in the file...
             int berlincounter = 0;
 
@@ -143,7 +146,7 @@ namespace EpidemicSim_DetailedInputParser
                 if(i != datenLines.Length - 1)
                     builder.Append("\r\n");
             }
-
+            Console.WriteLine("Finnished fixing City-Federal States");
             return builder.ToString();
         }
     }

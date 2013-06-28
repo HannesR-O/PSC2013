@@ -14,26 +14,16 @@ namespace EpidemicSim_DetailedInputParser
         {
             Bitmap map = (Bitmap)Bitmap.FromFile(Program.SRCPATH + "image.png");
             string[] departmentLines = File.ReadAllLines(Program.SRCPATH + "newlandcirclecoords.txt", Encoding.Default);
+            StringBuilder builder = new StringBuilder();
+            List<DepInfo> Departments = new List<DepInfo>(402);
+            bool[] AlreadyChecked = new bool[map.Width * map.Height];
             Random rand = new Random();
             int x = 0;
             int y = 0;
-            Console.WriteLine("Starting to parse Pointfile.txt");
+            Console.WriteLine("Starting to parse Departmentpoints");
 
-
-            //Create 500 unique colors (for each boundary in the image)
-            LinkedList<PixelData> ColorsToUse = new LinkedList<PixelData>();
-            for (int i = 0; i < 500; ++i)
-            {
-                PixelData color = new PixelData();
-                do
-                {
-                    color = new PixelData(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
-
-                } while (ColorsToUse.Contains(color));
-                ColorsToUse.AddLast(color);
-            }
-
-            //Floodfill
+            //Determin Colors that are used in the Image
+            List<PixelData> UsedColors = new List<PixelData>(500);
             for (int i = 0; i < departmentLines.Length; ++i)
             {
                 BitmapData bbData = map.LockBits(new Rectangle(0, 0, map.Width, map.Height), ImageLockMode.ReadWrite, map.PixelFormat);
@@ -42,181 +32,140 @@ namespace EpidemicSim_DetailedInputParser
                 x = int.Parse(departmentLines[i].Split('|')[0]);
                 y = int.Parse(departmentLines[i].Split('|')[1]);
 
-                PixelData currentcolor = *(origin + x + y * map.Width);
-
-                PixelData desiredcolor = ColorsToUse.First.Value;
-                ColorsToUse.RemoveFirst();
-
-                FloodStack stack = new FloodStack();
-                stack.ToCall = new Stack<Point>(map.Width * map.Height);
-                stack.DesiredColor = desiredcolor;
-                stack.CurrentColor = currentcolor;
-
-                stack.ToCall.Push(new Point(x, y));
-                while (stack.ToCall.Count != 0)
-                {
-                    Point p = stack.ToCall.Pop();
-                    Floodfill(stack, p, origin + p.X + p.Y * map.Width, stack.CurrentColor, stack.DesiredColor);
-                }
-
+                UsedColors.Add(*(origin + x + y * map.Width));
                 map.UnlockBits(bbData);
             }
 
-            map.Save(Program.DESTPATH + "Flood.png", ImageFormat.Png);
-
-            Console.WriteLine("Finnished Floodfill");
-
-            ///////////////////////////////////////////////////////////////////////////////////
-            //Check Uniqueness of Department colors
-            LinkedList<Color> usedcolors = new LinkedList<Color>();
-            LinkedList<string> usednames = new LinkedList<string>();
-            string lastname = "CHEWBACCA";
-
-            for (int k = 0; k < departmentLines.Length; ++k)
+            Console.WriteLine("Creating unique Colors to fill departments");
+            //Create 500 colors that are not already used and differ
+            LinkedList<PixelData> ColorsToUse = new LinkedList<PixelData>();
+            for (int i = 0; i < 500; ++i)
             {
-                string[] splittedline = departmentLines[k].Split('|');
-
-                x = int.Parse(splittedline[0]);
-                y = int.Parse(splittedline[1]);
-
-                Color color = map.GetPixel(x, y);
-
-                if (!lastname.Equals(splittedline[2]))
+                PixelData color = new PixelData();
+                do
                 {
-                    for (int l = 0; l < usedcolors.Count; ++l)
-                    {
-                        Color c = usedcolors.ElementAt(l);
-                        if (c.R == color.R && c.G == color.G && c.B == color.B && c.A == color.A)
-                        {
-                            throw new Exception("Two Areas in Image with the same Color!:\n" + splittedline[2] + "\t" + usednames.ElementAt(l));
-                        }
-                    }
+                    color = new PixelData(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
 
-                    usedcolors.AddLast(color);
-                    usednames.AddLast(splittedline[2]);
-                }
-                lastname = splittedline[2];
+                } while (ColorsToUse.Contains(color) || UsedColors.Contains(color));
+                ColorsToUse.AddLast(color);
             }
 
-            Console.WriteLine("Checked, that every department has a unique color");
-            //////////////////////////////////////////////////////////////////////////////////
+            //Start Floodfill
+            Console.WriteLine("Starting actual Parsing");
+            for (int i = 0; i < departmentLines.Length; ++i)
+            {
+                DepInfo currentDep = null;
+                bool doppelganger = false;
+                
+                for (int j = 0; j < Departments.Count; ++j)
+                {
+                    if(Departments[j] != null && Departments[j].Name.Equals(departmentLines[i].Split('|')[2]))
+                    {
+                        doppelganger = true;
+                        currentDep = Departments[j];
+                    }
+                }
+                if (!doppelganger)
+                {
+                    currentDep = new DepInfo(departmentLines[i].Split('|')[2]);
+                }
 
+                BitmapData bbData = map.LockBits(new Rectangle(0, 0, map.Width, map.Height), ImageLockMode.ReadWrite, map.PixelFormat);
+                PixelData* origin = (PixelData*)bbData.Scan0.ToPointer();
+                PixelData* floodptr = null;
+
+                x = int.Parse(departmentLines[i].Split('|')[0]);
+                y = int.Parse(departmentLines[i].Split('|')[1]);
+
+                PixelData currentcolor = *(origin + x + y * map.Width);
+                PixelData desiredcolor = ColorsToUse.First.Value;
+                ColorsToUse.RemoveFirst();
+
+                Stack<int> FloodStack = new Stack<int>(map.Width * map.Height);
+                FloodStack.Push(x + (y * map.Width));
+                currentDep.Points.Add(x + (y * map.Width));
+                AlreadyChecked[(x + (y * map.Width))] = true;
+
+                while (FloodStack.Count != 0)
+                {
+                    int coord = FloodStack.Pop();
+                    floodptr = origin + coord;
+
+                    if (!AlreadyChecked[coord + 1] && (floodptr + 1)->Equals(currentcolor))
+                    {
+                        FloodStack.Push(coord + 1);
+                        currentDep.Points.Add(coord + 1);
+                        AlreadyChecked[coord + 1] = true;
+                    }
+                    if (!AlreadyChecked[coord - 1] && (floodptr - 1)->Equals(currentcolor))
+                    {
+                        FloodStack.Push(coord - 1);
+                        currentDep.Points.Add(coord - 1);
+                        AlreadyChecked[coord - 1] = true;
+                    }
+                    if (!AlreadyChecked[coord + 2814] && (floodptr + 2814)->Equals(currentcolor))
+                    {
+                        FloodStack.Push(coord + 2814);
+                        currentDep.Points.Add(coord + 2814);
+                        AlreadyChecked[coord + 2814] = true;
+                    }
+                    if (!AlreadyChecked[coord - 2814] && (floodptr - 2814)->Equals(currentcolor))
+                    {
+                        FloodStack.Push(coord - 2814);
+                        currentDep.Points.Add(coord - 2814);
+                        AlreadyChecked[coord - 2814] = true;
+                    }
+                    if (!AlreadyChecked[coord + 2815] && (floodptr + 2815)->Equals(currentcolor))
+                    {
+                        FloodStack.Push(coord + 2815);
+                        currentDep.Points.Add(coord + 2815);
+                        AlreadyChecked[coord + 2815] = true;
+                    }
+                    if (!AlreadyChecked[coord - 2813] && (floodptr - 2813)->Equals(currentcolor))
+                    {
+                        FloodStack.Push(coord - 2813);
+                        currentDep.Points.Add(coord - 2813);
+                        AlreadyChecked[coord - 2813] = true;
+                    }
+                    if (!AlreadyChecked[coord + 2813] && (floodptr + 2813)->Equals(currentcolor))
+                    {
+                        FloodStack.Push(coord + 2813);
+                        currentDep.Points.Add(coord + 2813);
+                        AlreadyChecked[coord + 2813] = true;
+                    }
+                    if (!AlreadyChecked[coord - 2815] && (floodptr - 2815)->Equals(currentcolor))
+                    {
+                        FloodStack.Push(coord - 2815);
+                        currentDep.Points.Add(coord - 2815);
+                        AlreadyChecked[coord - 2815] = true;
+                    }
+
+                    floodptr->Alpha = desiredcolor.Alpha;
+                    floodptr->Blue = desiredcolor.Blue;
+                    floodptr->Green = desiredcolor.Green;
+                    floodptr->Red = desiredcolor.Red;
+                }
+                map.UnlockBits(bbData);
+                if(!doppelganger)
+                    Departments.Add(currentDep);
+                Console.WriteLine("Collected Points for:\t" + currentDep.Name);
+            }
+
+            
             FileStream stream = File.OpenWrite(Program.SRCPATH + "Points.txt");
-            LinkedList<DepInfo> AllDeps = new LinkedList<DepInfo>();
-
-            for (int k = 0; k < departmentLines.Length; ++k)
+            for (int l = 0; l < Departments.Count; ++l)
             {
-                DepInfo CurrentDep = new DepInfo(0);
-                string[] splittedline = departmentLines[k].Split('|');
-                x = int.Parse(splittedline[0]);
-                y = int.Parse(splittedline[1]);
-                Color usedcolor = map.GetPixel(x, y);
-                CurrentDep.Name = splittedline[2];
-
-                BitmapData bData = map.LockBits(new Rectangle(0, 0, map.Width, map.Height), ImageLockMode.ReadWrite, map.PixelFormat);
-                PixelData* start = (PixelData*)bData.Scan0.ToPointer();
-                PixelData* ptr = start;
-
-                int x1 = x - 1000;
-                if (x1 < 0)
-                    x1 = 0;
-
-
-                int x2 = x + 1000;
-                if (x2 > map.Width)
-                    x2 = map.Width;
-
-
-                int y1 = y - 1000;
-                if (y1 < 0)
-                    y1 = 0;
-
-
-                int y2 = y + 1000;
-                if (y2 > map.Height)
-                    y2 = map.Height;
-
-
-                for (int i = x1; i < x2; ++i)
-                {
-                    for (int j = y1; j < y2; j++)
+                    builder.Append(Departments[l].Name + ";" + Departments[l].Points.Count);
+                    foreach (int point in Departments[l].Points)
                     {
-                        ptr = start + i + (j * map.Width);
-                        if (ptr->Red == usedcolor.R && ptr->Green == usedcolor.G && ptr->Blue == usedcolor.B && ptr->Alpha == usedcolor.A)
-                        {
-                            CurrentDep.Points.AddLast(j * map.Width + i);
-                        }
+                        builder.Append(";" + point % map.Width + ":" + point / map.Width + ":" + point);
                     }
-                }
-
-                AllDeps.AddLast(CurrentDep);
-                Console.WriteLine("Finished collecting Points For " + CurrentDep.Name);
-
-                map.UnlockBits(bData);
-
+                    builder.Append("\r\n");
+                    stream.Write(Encoding.Default.GetBytes(builder.ToString()), 0, Encoding.Default.GetByteCount(builder.ToString()));
+                    builder.Clear();
             }
-
-            Console.WriteLine("Collected all Points");
-
-            bool foundDoppelganger = false;
-
-            int startcount = AllDeps.Count;
-            for (int i = 0; i < startcount; ++i)
-            {
-                foundDoppelganger = false;
-                DepInfo current = AllDeps.First.Value;
-                AllDeps.RemoveFirst();
-
-                for (int j = 0; j < AllDeps.Count; ++j)
-                {
-                    if (current.Name.Equals(AllDeps.ElementAt(j).Name))
-                    {
-                        foundDoppelganger = true;
-
-                        foreach (int point in current.Points)
-                        {
-                            AllDeps.ElementAt(j).Points.AddLast(point);
-                        }
-                        break;
-                    }
-                }
-                if (!foundDoppelganger)
-                    AllDeps.AddLast(current);
-            }
-
-            Console.WriteLine("Merged Points belonging to one Department");
-
-
-            DepInfo[] AllPointsArr = AllDeps.ToArray();
-
-            for (int i = 0; i < AllPointsArr.Length; ++i)
-            {
-                AllPointsArr[i].PointsArr = AllPointsArr[i].Points.ToArray();
-            }
-
-            Console.WriteLine("Transformed Lists into Arrays");
-
-            StringBuilder towrite = new StringBuilder();
-            towrite.Append("");
-
-
-            for (int i = 0; i < AllPointsArr.Length; ++i)
-            {
-
-                towrite.Append(AllPointsArr[i].Name + ";" + AllPointsArr[i].PointsArr.Length);
-                for (int j = 0; j < AllPointsArr[i].PointsArr.Length; ++j)
-                {
-                    towrite.Append(";" + AllPointsArr[i].PointsArr[j] % 2814 + ":" + AllPointsArr[i].PointsArr[j] / 2814 + ":" + AllPointsArr[i].PointsArr[j]);
-                }
-
-                towrite.Append("\r\n");
-                Console.WriteLine("Finnished " + AllPointsArr[i].Name);
-            }
-            stream.Write(Encoding.Default.GetBytes(towrite.ToString()), 0, Encoding.Default.GetBytes(towrite.ToString()).Length);
             stream.Close();
-
-            Console.WriteLine("Finnished Everything");
-            Console.ReadLine();
+            Console.WriteLine("Finnished Collecting Points");
         }
 
         struct PixelData
@@ -233,105 +182,49 @@ namespace EpidemicSim_DetailedInputParser
                 Red = color.R;
                 Alpha = color.A;
             }
-            public bool Equals(PixelData d)
+            public bool Equals(PixelData p)
             {
-                return d.Alpha == this.Alpha && d.Blue == this.Blue && d.Green == this.Green && d.Red == this.Red;
+                return p.Alpha == this.Alpha && p.Blue == this.Blue && p.Green == this.Green && p.Red == this.Red;
             }
         }
 
-        struct DepInfo
+        class DepInfo
         {
-            public LinkedList<int> Points;
-            public int[] PointsArr;
+            public List<int> Points;
             public string Name;
-
-            public DepInfo(int notneeded)
+            public DepInfo(string name)
             {
-                Points = new LinkedList<int>();
-                PointsArr = null;
-                Name = null;
+                Name = name;
+                Points = new List<int>(100000);
             }
         }
 
-
-        unsafe class FloodStack
-        {
-            public PixelData DesiredColor;
-            public PixelData CurrentColor;
-            public Stack<Point> ToCall;
-
-        }
-
-
-        private static unsafe void Floodfill(FloodStack stack, Point p, PixelData* floodptr, PixelData currentcolor, PixelData desiredcolor)
-        {
-            if ((floodptr + 1)->Equals(currentcolor))
-            {
-                stack.ToCall.Push(new Point(p.X + 1, p.Y));
-            }
-            if ((floodptr - 1)->Equals(currentcolor))
-            {
-                stack.ToCall.Push(new Point(p.X - 1, p.Y));
-            }
-            if ((floodptr + 2814)->Equals(currentcolor))
-            {
-                stack.ToCall.Push(new Point(p.X, p.Y + 1));
-            }
-            if ((floodptr - 2814)->Equals(currentcolor))
-            {
-                stack.ToCall.Push(new Point(p.X, p.Y - 1));
-            }
-            //new
-            if ((floodptr + 2815)->Equals(currentcolor))
-            {
-                stack.ToCall.Push(new Point(p.X + 1, p.Y + 1));
-            }
-            if ((floodptr - 2813)->Equals(currentcolor))
-            {
-                stack.ToCall.Push(new Point(p.X + 1, p.Y - 1));
-            }
-            if ((floodptr + 2813)->Equals(currentcolor))
-            {
-                stack.ToCall.Push(new Point(p.X - 1, p.Y + 1));
-            }
-            if ((floodptr - 2815)->Equals(currentcolor))
-            {
-                stack.ToCall.Push(new Point(p.X - 1, p.Y - 1));
-            }
-
-            //
-
-            floodptr->Alpha = desiredcolor.Alpha;
-            floodptr->Blue = desiredcolor.Blue;
-            floodptr->Green = desiredcolor.Green;
-            floodptr->Red = desiredcolor.Red;
-        }
-
-
-
-        public static void TestPointResults()
+        public static unsafe void TestPointResults()
         {
             Random rand = new Random();
-            //Bitmap map = (Bitmap)Bitmap.FromFile(Program.SRCPATH + "emptymap.png");
             Bitmap map = new Bitmap(2814, 3841);
-
             string[] CoordLines = File.ReadAllLines(Program.SRCPATH + "Points.txt");
+            BitmapData bbData = map.LockBits(new Rectangle(0, 0, map.Width, map.Height), ImageLockMode.ReadWrite, map.PixelFormat);
+            PixelData* origin = (PixelData*)bbData.Scan0.ToPointer();
 
+            Console.WriteLine("Testing Pointresults");
             for (int i = 0; i < CoordLines.Length; ++i)
             {
                 string[] splittedLine = CoordLines[i].Split(';');
+                PixelData color = new PixelData(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
 
-                Color color = Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256));
                 for (int j = 2; j < splittedLine.Length; ++j)
                 {
-                    string[] coord = splittedLine[j].Split(':');
-                    map.SetPixel(int.Parse(coord[0]), int.Parse(coord[1]), color);
+                    string[] coords = splittedLine[j].Split(':');
+                    int coordinate = int.Parse(coords[0]) + (int.Parse(coords[1]) * map.Width);
+                    PixelData* pixelptr = origin + coordinate;
+                    (*pixelptr) = color;
                 }
+                Console.WriteLine("Drew:\t" + splittedLine[0]);
             }
 
-            map.Save(Program.DESTPATH + "notemptymap.png", ImageFormat.Png);
-
-            Console.WriteLine("Finished");
+            map.Save(Program.DESTPATH + "DepartmentsWithUniqueColor.png", ImageFormat.Png);
+            Console.WriteLine("Created TestresultImage");
         }
     }
 }

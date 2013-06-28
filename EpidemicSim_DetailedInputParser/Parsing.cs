@@ -15,6 +15,7 @@ namespace EpidemicSim_DetailedInputParser
             StringBuilder builder = new StringBuilder();
             Random rand = new Random();
 
+            Console.WriteLine("Starting to Parse City-Pointcounts + Merging them with the collected data");
             for (int i = 0; i < datenLines.Length; ++i)
             {
                 string[] splittedLine = datenLines[i].Split(';');
@@ -51,7 +52,7 @@ namespace EpidemicSim_DetailedInputParser
 
                         if (totalcount == deppointcount)
                         {
-                            Console.WriteLine("TOTAL MATCH!" + "\t" + pointcounts.Count + " Cities");
+                            Console.WriteLine("Total Match" + "\t" + pointcounts.Count + " Cities");
                         }
                         else if (totalcount < deppointcount)
                         {
@@ -82,7 +83,7 @@ namespace EpidemicSim_DetailedInputParser
                     }
                     else
                     {
-                        Console.WriteLine("TOTAL MATCH!" + "\t" + pointcounts.Count + " Cities");
+                        Console.WriteLine("Total Match!" + "\t" + pointcounts.Count + " Cities");
                     }
 
 
@@ -107,8 +108,7 @@ namespace EpidemicSim_DetailedInputParser
                 builder.Append(s + "\r\n");
             }
 
-            Console.WriteLine("Finished");
-
+            Console.WriteLine("Finished Parsing City-Pointcounts");
             return builder.ToString();
         }
     }
