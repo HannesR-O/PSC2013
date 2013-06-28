@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -36,7 +37,6 @@ namespace EpidemicSim_DetailedInputParser
         private static void CreateMapFile(string ready)
         {
             string[] datalines = Regex.Split(ready, "\r\n");
-            FileStream stream = File.OpenWrite(DESTPATH + "map");
             StringBuilder builder = new StringBuilder();
 
             for (int i = 0; i < datalines.Length; ++i)
@@ -44,7 +44,7 @@ namespace EpidemicSim_DetailedInputParser
                 string[] splittedLine = datalines[i].Split(';');
                 if (splittedLine[0].Length == 5 && i + 1 < datalines.Length && datalines[i + 1].Split(';')[0].Length != 8)
                 {
-                    builder.Append(splittedLine[1]);
+                    builder.Append(splittedLine[1].Trim());
 
                     int mb = int.Parse(splittedLine[20]) + int.Parse(splittedLine[21]);
 
@@ -85,7 +85,7 @@ namespace EpidemicSim_DetailedInputParser
                 }
                 else if (splittedLine[0].Length == 8)
                 {
-                    builder.Append(splittedLine[1]);
+                    builder.Append(splittedLine[1].Trim());
                     int mb = int.Parse(splittedLine[20]) + int.Parse(splittedLine[21]);
 
                     int mc = int.Parse(splittedLine[22]) + int.Parse(splittedLine[23]) +
@@ -125,7 +125,20 @@ namespace EpidemicSim_DetailedInputParser
                 }
             }
 
+            string folderpath = DESTPATH + "CityMap";
+            string deppath = folderpath + ".dep";
+            Directory.CreateDirectory(folderpath);
+            ZipFile.CreateFromDirectory(folderpath, deppath, CompressionLevel.Optimal, false);
+            ZipArchive archive = ZipFile.Open(deppath, ZipArchiveMode.Update, Encoding.UTF8);
+            Directory.Delete(folderpath);
+
+            archive.CreateEntryFromFile(SRCPATH + "image.png", "image", CompressionLevel.Optimal);
+
+            ZipArchiveEntry mapentry = archive.CreateEntry("map");
+            Stream stream = mapentry.Open();
+
             stream.Write(Encoding.Default.GetBytes(builder.ToString()), 0, Encoding.Default.GetByteCount(builder.ToString()));
+            mapentry.Archive.Dispose();
             stream.Close();
         }
 

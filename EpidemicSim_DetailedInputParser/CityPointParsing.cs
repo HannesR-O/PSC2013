@@ -110,7 +110,7 @@ namespace EpidemicSim_DetailedInputParser
                         }
                     }
                     Console.WriteLine("Finnished " + datenLines[i].Split(';')[1]);
-                    test.Save("C:\\users\\hannes\\desktop\\wontwork.png", ImageFormat.Png);
+                    test.Save(Program.DESTPATH + "Cityoverview.png", ImageFormat.Png);
 
                     foreach (City city in Cities)
                     {
