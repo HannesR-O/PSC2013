@@ -1,10 +1,10 @@
-﻿using PSC2013.ES.InputDataParsers.Data;
-using System;
-using System.IO;
-using System.Windows.Forms;
-using PSC2013.ES.InputDataParsers.Parsers;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using PSC2013.ES.InputDataParsers.Data;
+using PSC2013.ES.InputDataParsers.Parsers;
 
 namespace PSC2013.ES.InputDataParsers.UI
 {
@@ -27,7 +27,7 @@ namespace PSC2013.ES.InputDataParsers.UI
             else
                 btnParse.Enabled = false;
         }
-        
+
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             if (fileDlg == null)
@@ -99,7 +99,20 @@ namespace PSC2013.ES.InputDataParsers.UI
             var res = ParseAndMatch();
             var writer = new IO.DataWriter(null);
             writer.StoreMatchedData(res.Item1);
-            writer.StoreMapImage(txBoxImage.Text);
+
+            string colouredImage = txBoxImage.Text;
+            
+            string imgName = Path.GetFileName(colouredImage);
+            string monoImgName = imgName.Replace("coloured", "mono");
+            if (monoImgName.Equals(imgName))
+                monoImgName = imgName.Replace("colored", "mono");
+
+            string path = Path.GetDirectoryName(colouredImage);
+            string imagePath = Path.Combine(path, monoImgName);
+            if (!File.Exists(imagePath))
+                imagePath = colouredImage;
+
+            writer.StoreMapImage(imagePath);
             Console.WriteLine("Stored!");
         }
 

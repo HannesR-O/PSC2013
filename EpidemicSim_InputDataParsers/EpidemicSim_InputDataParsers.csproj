@@ -95,6 +95,7 @@
     <Content Include="Deutschland_og.bmp" />
     <Content Include="landcirclecoords.txt" />
     <Content Include="testcoords.txt" />
+    <Content Include="departments_mono_big.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
