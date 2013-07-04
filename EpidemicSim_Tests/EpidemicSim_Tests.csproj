@@ -65,7 +65,6 @@
     <Compile Include="Snapshot\CellSnapshotTest.cs" />
     <Compile Include="Snapshot\HumanSnapshotTest.cs" />
     <Compile Include="Snapshot\SimulationInfoTest.cs" />
-    <Compile Include="Snapshot\SnapshotTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

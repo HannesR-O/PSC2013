@@ -12,39 +12,33 @@ namespace PSC2013.ES.Tests.Snapshot
 
         private void InitCell()
         {
-        // However uncommented this, please fix it...
-        //    _infosRuntime = new PopulationCell();
-        //    for (int i = 0; i < 12; ++i)
-        //    {
-        //        Human human = Human.Create(EGender.Female, 6, 15651);
-        //        human.SetDiseased(true);
-        //        Human human2 = Human.Create(EGender.Male, 2, 15651);
-        //        human.SetInfected(true);
-        //        _infosRuntime.AddHuman(human);
-        //        _infosRuntime.AddHuman(human2);
-        //        _infosRuntime.AddHuman(Human.Create(EGender.Male, 7, 18516));
-        //        _infosRuntime.AddHuman(Human.Create(EGender.Male, 26, 3541));
-        //        _infosRuntime.AddHuman(Human.Create(EGender.Male, 84, 8479));
-                
-        //        _infosRuntime.AddHuman(Human.Create(EGender.Female, 14, 18516));
-        //        _infosRuntime.AddHuman(Human.Create(EGender.Female, 34, 3541));
-        //        _infosRuntime.AddHuman(Human.Create(EGender.Female, 96, 8479));
-        //    }
+            _infosRuntime = new PopulationCell();
+            _infosRuntime.MaleBabies = 0;
+            _infosRuntime.MaleChildren = ushort.MaxValue;
+            _infosRuntime.MaleAdults = ushort.MinValue;
+            _infosRuntime.MaleSeniors = 1351;
+            _infosRuntime.FemaleBabies = 12;
+            _infosRuntime.FemaleChildren = 24;
+            _infosRuntime.FemaleAdults = 135;
+            _infosRuntime.FemaleSeniors = 12;
+
+            _infosRuntime.Infecting = 46;
+            _infosRuntime.Diseased = 35;
         }
 
         private void InitBytes()
         {
             _infosBytes = new byte[24];
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 0, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 2, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 4, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 6, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, _infosBytes, 0, 2);
+            Array.Copy(BitConverter.GetBytes(ushort.MaxValue), 0, _infosBytes, 2, 2);
+            Array.Copy(BitConverter.GetBytes(ushort.MinValue), 0, _infosBytes, 4, 2);
+            Array.Copy(BitConverter.GetBytes(1351), 0, _infosBytes, 6, 2);
             Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 8, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 10, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 12, 2);
+            Array.Copy(BitConverter.GetBytes(24), 0, _infosBytes, 10, 2);
+            Array.Copy(BitConverter.GetBytes(135), 0, _infosBytes, 12, 2);
             Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 14, 2);            
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 16, 2);
-            Array.Copy(BitConverter.GetBytes(12), 0, _infosBytes, 18, 2);
+            Array.Copy(BitConverter.GetBytes(46), 0, _infosBytes, 16, 2);
+            Array.Copy(BitConverter.GetBytes(35), 0, _infosBytes, 18, 2);
             Array.Copy(BitConverter.GetBytes(15654), 0, _infosBytes, 20, 2);
 
         }
@@ -54,17 +48,17 @@ namespace PSC2013.ES.Tests.Snapshot
         {
             InitCell();
             CellSnapshot cell = CellSnapshot.InitializeFromRuntime(_infosRuntime, 15654);
-            Assert.Equal(cell.Values[0], 12);
-            Assert.Equal(cell.Values[1], 12);
-            Assert.Equal(cell.Values[2], 12);
-            Assert.Equal(cell.Values[3], 12);
+            Assert.Equal(cell.Values[0], 0);
+            Assert.Equal(cell.Values[1], ushort.MaxValue);
+            Assert.Equal(cell.Values[2], ushort.MinValue);
+            Assert.Equal(cell.Values[3], 1351);
             Assert.Equal(cell.Values[4], 12);
-            Assert.Equal(cell.Values[5], 12);
-            Assert.Equal(cell.Values[6], 12);
+            Assert.Equal(cell.Values[5], 24);
+            Assert.Equal(cell.Values[6], 135);
             Assert.Equal(cell.Values[7], 12);
             Assert.Equal(cell.Position, 15654);
-            Assert.Equal(cell.Values[8], 12);
-            Assert.Equal(cell.Values[9], 12);
+            Assert.Equal(cell.Values[8], 46);
+            Assert.Equal(cell.Values[9], 35);
         }
 
         [Fact]
@@ -72,17 +66,17 @@ namespace PSC2013.ES.Tests.Snapshot
         {
             InitBytes();
             CellSnapshot cell = CellSnapshot.InitializeFromFile(_infosBytes);
-            Assert.Equal(cell.Values[0], 12);
-            Assert.Equal(cell.Values[1], 12);
-            Assert.Equal(cell.Values[2], 12);
-            Assert.Equal(cell.Values[3], 12);
+            Assert.Equal(cell.Values[0], 0);
+            Assert.Equal(cell.Values[1], ushort.MaxValue);
+            Assert.Equal(cell.Values[2], ushort.MinValue);
+            Assert.Equal(cell.Values[3], 1351);
             Assert.Equal(cell.Values[4], 12);
-            Assert.Equal(cell.Values[5], 12);
-            Assert.Equal(cell.Values[6], 12);
+            Assert.Equal(cell.Values[5], 24);
+            Assert.Equal(cell.Values[6], 135);
             Assert.Equal(cell.Values[7], 12);
+            Assert.Equal(cell.Values[8], 46);
+            Assert.Equal(cell.Values[9], 35);
             Assert.Equal(cell.Position, 15654);
-            Assert.Equal(cell.Values[8], 12);
-            Assert.Equal(cell.Values[9], 12);
         }
 
         [Fact]
