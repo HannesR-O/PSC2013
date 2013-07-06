@@ -13,8 +13,9 @@ namespace PSC2013.ES.Library.Simulation.Components
         private const int HOURS_PER_YEAR = 8544;
         public int AgeLimit { get; private set; }
         public int TicksPerYear { get; private set; }
-        public int YearsPerTick { get; private set; }
         public int TicksPerLeapYear { get; private set; }
+        public byte YearsPerTick { get; private set; }
+        
 
         private int _counter;
 
@@ -237,8 +238,8 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             if (_simulationIntervall % HOURS_PER_YEAR == 0)
             {
-                YearsPerTick = _simulationIntervall / HOURS_PER_YEAR;       // _simulationIntervall is a true multiple of HOURS_PER_YEAR =>
-                return;                                                     // exactly (_simulationIntervall / HOURS_PER_YEAR) years pass each tick
+                YearsPerTick = (byte)(_simulationIntervall / HOURS_PER_YEAR);   // _simulationIntervall is a true multiple of HOURS_PER_YEAR =>
+                return;                                                         // exactly (_simulationIntervall / HOURS_PER_YEAR) years pass each tick
             }
 
             int tmp = _simulationIntervall;
@@ -249,7 +250,7 @@ namespace PSC2013.ES.Library.Simulation.Components
                 YearsPerTick++;
                 if (tmp % HOURS_PER_YEAR == 0)
                 {
-                    YearsPerTick += tmp / HOURS_PER_YEAR;   // If we find a true multiple in the loop interrupt and set the correct value
+                    YearsPerTick += (byte)(tmp / HOURS_PER_YEAR);   // If we find a true multiple in the loop interrupt and set the correct value
                     return;
                 }
             } while (tmp > HOURS_PER_YEAR);

@@ -47,7 +47,7 @@ namespace PSC2013.ES.Tests.Snapshot
             Array.Copy(BitConverter.GetBytes(int.MinValue), 0, comp, 5, 4);
             Array.Copy(BitConverter.GetBytes(250), 0, comp, 9, 4);
             Array.Copy(BitConverter.GetBytes(1), 0, comp, 13, 4);
-            Array.Copy(BitConverter.GetBytes(0l), 0, comp, 17, 8);
+            Array.Copy(BitConverter.GetBytes(0L), 0, comp, 17, 8);
             comp[25] = 3; // Header for Disease (HeaderCorruption else)
             Array.Copy(BitConverter.GetBytes(238475), 0, comp, 26, 4);
             Array.Copy(BitConverter.GetBytes(123415), 0, comp, 30, 4);
@@ -103,7 +103,7 @@ namespace PSC2013.ES.Tests.Snapshot
             Array.Copy(BitConverter.GetBytes(int.MinValue), 0, comp, 5, 4);
             Array.Copy(BitConverter.GetBytes(250), 0, comp, 9, 4);
             Array.Copy(BitConverter.GetBytes(1), 0, comp, 13, 4);
-            Array.Copy(BitConverter.GetBytes(0l), 0, comp, 17, 8);
+            Array.Copy(BitConverter.GetBytes(0L), 0, comp, 17, 8);
             comp[25] = 0x03; // Header for Disease (HeaderCorruption else)
             Array.Copy(BitConverter.GetBytes(238475), 0, comp, 26, 4);
             Array.Copy(BitConverter.GetBytes(123415), 0, comp, 30, 4);
