@@ -4,61 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace EpidemicSim_DetailedInputParser
 {
-    public class Merging
+    public static partial class Parsing
     {
         /// <summary>
-        /// Merges the PopulationdataFile with the File
-        /// containing the spaces of each City
-        /// </summary>
-        /// <returns></returns>
-        public static string _1MergeEinwohnerFlaeche()
-        {
-            String[] einwohnerLines = File.ReadAllLines(Program.SRCPATH + "einwohnerzahl.txt", Encoding.Default);
-            String[] flaechenLines = File.ReadAllLines(Program.SRCPATH + "fläche.txt", Encoding.Default);
-            StringBuilder builder = new StringBuilder();
-
-            Console.WriteLine("Merging Population- and Space-Data");
-            for (int i = 0; i < einwohnerLines.Length; ++i)
-            {
-                string[] splittedEinwohner = einwohnerLines[i].Split(';');
-                string[] splittedFlaeche = flaechenLines[i].Split(';');
-                if (!(splittedEinwohner[2].Equals(splittedFlaeche[1]) && splittedEinwohner[1].Equals(splittedFlaeche[0])))
-                {
-                    throw new Exception("The lines from the two files do not match although they should be Equal...");
-                }
-                else
-                {
-                    for (int j = 1; j < splittedEinwohner.Length; ++j)
-                    {
-                        builder.Append(splittedEinwohner[j] + ";");
-                    }
-
-                    for (int j = 2; j < splittedFlaeche.Length; ++j)
-                    {
-                        builder.Append(splittedFlaeche[j]);
-                        if (!(j == splittedFlaeche.Length - 1))
-                            builder.Append(";");
-                    }
-                    if(i != einwohnerLines.Length - 1)
-                        builder.Append("\r\n");
-                }
-            }
-            Console.WriteLine("Finnished Merging.");
-            return builder.ToString();
-        }
-
-        /// <summary>
         /// Reads the parsed Points from "Points.txt"
-        /// and merges them into the file.
+        /// and merges them into the previously collected Data.
         /// </summary>
         /// <param name="citystatesfixed"></param>
         /// <returns></returns>
-        public static string _5MergeDepartmentPoints(string citystatesfixed)
+        public static string _6MergeDepartmentPoints(string citystatesfixed, bool save)
         {
-            //Try matching departments YAY! Could be optimized i guess
             String[] pointLines = File.ReadAllLines(Program.SRCPATH + "Points.txt", Encoding.Default);
             String[] datenLines = Regex.Split(citystatesfixed, "\r\n");
             StringBuilder builder = new StringBuilder();
@@ -66,6 +25,7 @@ namespace EpidemicSim_DetailedInputParser
             LinkedList<Match> Matched = new LinkedList<Match>();
             LinkedList<Match> Unmatched = new LinkedList<Match>();
             Console.WriteLine("Starting to Merge collected Points with the Population/Space-Data");
+
             //Search unique Matches first...
             for (int i = 0; i < pointLines.Length; ++i)
             {
@@ -103,7 +63,7 @@ namespace EpidemicSim_DetailedInputParser
             }
             //////////////////////////////////////////////////////
             //User decision
-            if(Unmatched.Count > 0)
+            if (Unmatched.Count > 0)
                 Console.WriteLine("Some Departments couldn't be matched:");
 
             LinkedList<Match> Remaining = new LinkedList<Match>();
@@ -171,13 +131,22 @@ namespace EpidemicSim_DetailedInputParser
                 datenLines[m.IndexInDataFile] += points;
             }
 
-            foreach (string s in datenLines)
+
+            for (int i = 0; i < datenLines.Length; ++i)
             {
-                builder.Append(s + "\r\n");
+                builder.Append(datenLines[i]);
+                if (i != datenLines.Length - 1)
+                    builder.Append("\r\n");
             }
 
             Console.WriteLine("Finished Merging points with Population/Space-Data");
 
+            if (save)
+            {
+                FileStream stream = File.OpenWrite(Program.DESTPATH + "6MergeDepartmentPoints.txt");
+                stream.Write(Encoding.Default.GetBytes(builder.ToString()), 0, Encoding.Default.GetByteCount(builder.ToString()));
+                stream.Close();
+            }
             return builder.ToString();
         }
 
@@ -186,7 +155,5 @@ namespace EpidemicSim_DetailedInputParser
             public int IndexInPointFile;
             public int IndexInDataFile;
         }
-
-
     }
 }

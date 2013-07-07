@@ -1,11 +1,10 @@
 938|172|Nordfriesland
-801|111|Nordfriesland
-848|201|Nordfriesland
-800|230|Nordfriesland
-867|243|Nordfriesland
-950|314|Nordfriesland
-885|298|Nordfriesland
-787|180|Nordfriesland
+801|111|Sylt
+848|201|Föhr
+800|230|Amrum
+867|243|Langeneß
+950|314|Nordstrand
+885|298|Pellworm
 1120|237|Schleswig-Flensburg
 1113|171|Flensburg
 996|454|Dithmarschen
@@ -15,7 +14,7 @@
 1389|414|Plön
 1263|512|Neumünster (Stadt)
 1460|489|Ostholstein
-1598|322|Ostholstein
+1598|322|Fehmarn
 1286|594|Segeberg
 1196|678|Pinneberg
 670|459|Pinneberg
@@ -54,20 +53,19 @@
 750|968|Oldenburg (Oldenburg) (Stadt)
 694|924|Ammerland
 696|834|Friesland
-669|651|Friesland
+669|651|Wangerooge
 712|756|Wilhelmshaven (Stadt)
 610|726|Wittmund
-550|666|Wittmund
-615|656|Wittmund
+550|666|Langeoog
+615|656|Spiekeroog
 492|800|Aurich
-518|676|Aurich
-474|682|Aurich
-410|695|Aurich
-377|698|Aurich
-369|713|Aurich
+518|676|Baltrum
+474|682|Norderney
+410|695|Juist
+369|713|Memmert
 456|852|Emden (Stadt)
 528|910|Leer
-320|733|Leer
+320|733|Borkum
 644|1026|Cloppenburg
 478|1094|Emsland
 734|1208|Vechta
@@ -80,10 +78,9 @@
 1358|1668|Osterode am Harz
 1236|1770|Göttingen
 2050|440|Vorpommern-Rügen
-2234|338|Vorpommern-Rügen
-2212|224|Vorpommern-Rügen
-1992|336|Vorpommern-Rügen
-2153|272|Vorpommern-Rügen
+2234|338|Rügen2
+2212|224|Rügen1
+2153|272|Hiddensee
 1902|444|Rostock (Stadt)
 1588|644|Nordwestmecklenburg
 1693|605|Nordwestmecklenburg
@@ -97,6 +94,7 @@
 2320|591|Vorpommern-Greifswald
 2376|487|Vorpommern-Greifswald
 2453|563|Vorpommern-Greifswald
+2250|488|Vorpommern-Greifswald
 2228|828|Mecklenburgische Seenplatte
 2012|808|Mecklenburgische Seenplatte
 2220|752|Mecklenburgische Seenplatte
@@ -173,7 +171,6 @@
 310|1743|Oberhausen (Stadt)
 340|1740|Bottrop (Stadt)
 403|1677|Recklinghausen
-353|1723|Recklinghausen
 381|1726|Gelsenkirchen (Stadt)
 274|1788|Duisburg (Stadt)
 255|1701|Wesel

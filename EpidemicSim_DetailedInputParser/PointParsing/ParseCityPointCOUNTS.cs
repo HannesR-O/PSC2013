@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace EpidemicSim_DetailedInputParser
 {
-    public class Parsing
+    public static partial class Parsing
     {
-        //TODO |h| make full use of stringbuilder instead of changing the string[]...
-        public static string _6ParseCityPointCounts(string withdeppoints)
+        /// <summary>
+        /// Parses the number of points in the imagefile a City should have
+        /// according to cityspace/departmentspace ratio
+        /// </summary>
+        /// <param name="withdeppoints"></param>
+        /// <param name="save"></param>
+        /// <returns></returns>
+        public static string _7ParseCityPointCounts(string withdeppoints, bool save)
         {
             String[] datenLines = Regex.Split(withdeppoints, "\r\n");
             StringBuilder builder = new StringBuilder();
@@ -24,9 +32,10 @@ namespace EpidemicSim_DetailedInputParser
                     int cityspacesum = 0;
                     int deppointcount = int.Parse(splittedLine[75]);
                     double depspace = double.Parse(splittedLine[56]);
-                    LinkedList<int> pointcounts = new LinkedList<int>();
+                    LinkedList<CityPointContainer> pointcounts = new LinkedList<CityPointContainer>();
                     for (int j = i + 1; j < datenLines.Length && datenLines[j].Split(';')[0].Length == 8; ++j)
                     {
+                        string name = datenLines[j].Split(';')[1];
                         double cityspace = double.Parse(datenLines[j].Split(';')[56]);
                         cityspacesum += (int)cityspace;
                         double percentage = cityspace / depspace;
@@ -35,16 +44,16 @@ namespace EpidemicSim_DetailedInputParser
                         int pointsforcity = (int)(Math.Round(percentage * deppointcount));
                         if (pointsforcity == 0)
                             throw new Exception("A City didn't even get one single Point...");
-                        pointcounts.AddLast(pointsforcity);
+                        pointcounts.AddLast(new CityPointContainer(name, pointsforcity));
                     }
 
 
                     int totalcount = 0;
-                    int[] pointcountsarr = null;
+                    CityPointContainer[] pointcountsarr = null;
                     if (pointcounts.Count != 0)
                     {
-                        foreach (int count in pointcounts)
-                            totalcount += count;
+                        foreach (CityPointContainer city in pointcounts)
+                            totalcount += city.PointCount;
 
 
                         pointcountsarr = pointcounts.ToArray();
@@ -60,7 +69,7 @@ namespace EpidemicSim_DetailedInputParser
                             int difference = deppointcount - totalcount;
                             for (int j = 0; j < difference; ++j)
                             {
-                                ++pointcountsarr[rand.Next(pointcountsarr.Length)];
+                                ++pointcountsarr[rand.Next(pointcountsarr.Length)].PointCount;
                                 ++totalcount;
                             }
                         }
@@ -70,14 +79,14 @@ namespace EpidemicSim_DetailedInputParser
                             int difference = totalcount - deppointcount;
                             for (int j = 0; j < difference; ++j)
                             {
-                                --pointcountsarr[rand.Next(pointcountsarr.Length)];
+                                --pointcountsarr[rand.Next(pointcountsarr.Length)].PointCount;
                                 --totalcount;
                             }
                         }
 
-                        foreach (int p in pointcounts)
+                        foreach (CityPointContainer city in pointcounts)
                         {
-                            if (p <= 0)
+                            if (city.PointCount <= 0)
                                 throw new Exception("One City has ZERO or LESS Points...");
                         }
                     }
@@ -94,22 +103,32 @@ namespace EpidemicSim_DetailedInputParser
                             throw new Exception("DepartmentPointCount != TotalCityPointCount!");
 
                         //Write Counts
-
-                        for (int j = 1; j < pointcountsarr.Length + 1; ++j)
+                        for (int j = i + 1; j < i + 1 + pointcountsarr.Length; ++j)
                         {
-                            datenLines[i + j] = datenLines[i + j] + ";" + pointcountsarr[j - 1];
+                            datenLines[j] += ";" + (pointcountsarr[j - i - 1].PointCount);
                         }
                     }
                 }
             }
 
-            foreach (string s in datenLines)
+            for (int i = 0; i < datenLines.Length; ++i)
             {
-                builder.Append(s + "\r\n");
+                builder.Append(datenLines[i]);
+                if (i != datenLines.Length - 1)
+                    builder.Append("\r\n");
             }
 
             Console.WriteLine("Finished Parsing City-Pointcounts");
+
+            if (save)
+            {
+                FileStream stream = File.OpenWrite(Program.DESTPATH + "7ParseCityPointCounts.txt");
+                stream.Write(Encoding.Default.GetBytes(builder.ToString()), 0, Encoding.Default.GetByteCount(builder.ToString()));
+                stream.Close();
+            }
             return builder.ToString();
         }
+
     }
+    
 }

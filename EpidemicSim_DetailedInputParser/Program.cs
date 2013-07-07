@@ -8,139 +8,27 @@ using System.Text.RegularExpressions;
 
 namespace EpidemicSim_DetailedInputParser
 {
-    class Program
+    public class Program
     {
-        public static readonly string SRCPATH = "../../SRC/";
-        public static readonly string DESTPATH = "../../DEST/";
+        public const string SRCPATH = "../../SRC/";
+        public const string DESTPATH = "../../DEST/";
 
-        static void Main(string[] args)
+        public static void Main()
         {
-            //Creating needed Sourcefiles
-            Flood.ParsePointfile();
-            Flood.TestPointResults();
+            //SRC
+            Parsing.ParsePointfile(true);
 
-            //Creating the map itself
-            string mergedPopSpace = Merging._1MergeEinwohnerFlaeche();
-            string removeuseless = Correction._2RemoveuselessData(mergedPopSpace);
-            string allhaveags = Correction._3BuildAGS(removeuseless);
-            string citystatesfixed = Correction._4FixCityStates(allhaveags);
-            string withdeppoints = Merging._5MergeDepartmentPoints(citystatesfixed);
-            string withcitypointcount = Parsing._6ParseCityPointCounts(withdeppoints);
-            string withcitypoints = CityPointParsing._7ParseCityPoints(withcitypointcount);
-            CreateMapFile(withcitypoints);
-
-            Console.WriteLine("GG");
-            Console.ReadLine();
+            //DEST
+            //Racket Style :P
+            Parsing._9CreateDepFile(
+            Parsing._8ParseCityPoints(
+            Parsing._7ParseCityPointCounts(
+            Parsing._6MergeDepartmentPoints(
+            Parsing._5FixCityStates(
+            Parsing._4FixIslands(
+            Parsing._3BuildAGS(
+            Parsing._2RemoveuselessData(
+            Parsing._1MergePopulationAndSpaceData(true), true), true), true), true), true), true), true, true));
         }
-
-        //TODO ZIP-ARCHIVE
-        private static void CreateMapFile(string ready)
-        {
-            string[] datalines = Regex.Split(ready, "\r\n");
-            StringBuilder builder = new StringBuilder();
-
-            for (int i = 0; i < datalines.Length; ++i)
-            {
-                string[] splittedLine = datalines[i].Split(';');
-                if (splittedLine[0].Length == 5 && i + 1 < datalines.Length && datalines[i + 1].Split(';')[0].Length != 8)
-                {
-                    builder.Append(splittedLine[1].Trim());
-
-                    int mb = int.Parse(splittedLine[20]) + int.Parse(splittedLine[21]);
-
-                    int mc = int.Parse(splittedLine[22]) + int.Parse(splittedLine[23]) +
-                             int.Parse(splittedLine[24]) + int.Parse(splittedLine[25]);
-
-                    int ma = int.Parse(splittedLine[26]) + int.Parse(splittedLine[27]) +
-                             int.Parse(splittedLine[28]) + int.Parse(splittedLine[29]) +
-                             int.Parse(splittedLine[30]) + int.Parse(splittedLine[31]) +
-                             int.Parse(splittedLine[32]) + int.Parse(splittedLine[33]);
-
-                    int ms = int.Parse(splittedLine[34]) + int.Parse(splittedLine[35]) +
-                             int.Parse(splittedLine[36]);
-
-                    int fb = int.Parse(splittedLine[38]) + int.Parse(splittedLine[39]);
-
-                    int fc = int.Parse(splittedLine[40]) + int.Parse(splittedLine[41]) +
-                             int.Parse(splittedLine[42]) + int.Parse(splittedLine[43]);
-
-                    int fa = int.Parse(splittedLine[44]) + int.Parse(splittedLine[45]) +
-                             int.Parse(splittedLine[46]) + int.Parse(splittedLine[47]) +
-                             int.Parse(splittedLine[48]) + int.Parse(splittedLine[49]) +
-                             int.Parse(splittedLine[50]) + int.Parse(splittedLine[51]);
-
-                    int fs = int.Parse(splittedLine[52]) + int.Parse(splittedLine[53]) +
-                             int.Parse(splittedLine[54]);
-
-                    builder.Append("|" + mb + "|" + mc + "|" + ma + "|" + ms +
-                                   "|" + fb + "|" + fc + "|" + fa + "|" + fs);
-
-                    int pointcount = int.Parse(splittedLine[75]);
-                    for (int j = 0; j < pointcount; ++j)
-                    {
-                        string[] coord = splittedLine[76 + j].Split(':');
-                        builder.Append("|" + coord[0] + ":" + coord[1]);
-                    }
-                    builder.Append("\n");
-                }
-                else if (splittedLine[0].Length == 8)
-                {
-                    builder.Append(splittedLine[1].Trim());
-                    int mb = int.Parse(splittedLine[20]) + int.Parse(splittedLine[21]);
-
-                    int mc = int.Parse(splittedLine[22]) + int.Parse(splittedLine[23]) +
-                             int.Parse(splittedLine[24]) + int.Parse(splittedLine[25]);
-
-                    int ma = int.Parse(splittedLine[26]) + int.Parse(splittedLine[27]) +
-                             int.Parse(splittedLine[28]) + int.Parse(splittedLine[29]) +
-                             int.Parse(splittedLine[30]) + int.Parse(splittedLine[31]) +
-                             int.Parse(splittedLine[32]) + int.Parse(splittedLine[33]);
-
-                    int ms = int.Parse(splittedLine[34]) + int.Parse(splittedLine[35]) +
-                             int.Parse(splittedLine[36]);
-
-                    int fb = int.Parse(splittedLine[38]) + int.Parse(splittedLine[39]);
-
-                    int fc = int.Parse(splittedLine[40]) + int.Parse(splittedLine[41]) +
-                             int.Parse(splittedLine[42]) + int.Parse(splittedLine[43]);
-
-                    int fa = int.Parse(splittedLine[44]) + int.Parse(splittedLine[45]) +
-                             int.Parse(splittedLine[46]) + int.Parse(splittedLine[47]) +
-                             int.Parse(splittedLine[48]) + int.Parse(splittedLine[49]) +
-                             int.Parse(splittedLine[50]) + int.Parse(splittedLine[51]);
-
-                    int fs = int.Parse(splittedLine[52]) + int.Parse(splittedLine[53]) +
-                             int.Parse(splittedLine[54]);
-
-                    builder.Append("|" + mb + "|" + mc + "|" + ma + "|" + ms +
-                                   "|" + fb + "|" + fc + "|" + fa + "|" + fs);
-
-                    int pointcount = int.Parse(splittedLine[75]);
-                    for (int j = 0; j < pointcount; ++j)
-                    {
-                        string[] coord = splittedLine[76 + j].Split(':');
-                        builder.Append("|" + coord[0] + ":" + coord[1]);
-                    }
-                    builder.Append("\n");
-                }
-            }
-
-            string folderpath = DESTPATH + "CityMap";
-            string deppath = folderpath + ".dep";
-            Directory.CreateDirectory(folderpath);
-            ZipFile.CreateFromDirectory(folderpath, deppath, CompressionLevel.Optimal, false);
-            ZipArchive archive = ZipFile.Open(deppath, ZipArchiveMode.Update, Encoding.UTF8);
-            Directory.Delete(folderpath);
-
-            archive.CreateEntryFromFile(SRCPATH + "image.png", "image", CompressionLevel.Optimal);
-
-            ZipArchiveEntry mapentry = archive.CreateEntry("map");
-            Stream stream = mapentry.Open();
-
-            stream.Write(Encoding.Default.GetBytes(builder.ToString()), 0, Encoding.Default.GetByteCount(builder.ToString()));
-            mapentry.Archive.Dispose();
-            stream.Close();
-        }
-
     }
 }

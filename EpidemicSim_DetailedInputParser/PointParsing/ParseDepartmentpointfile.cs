@@ -5,14 +5,20 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EpidemicSim_DetailedInputParser
 {
-    public class Flood
+    public static partial class Parsing
     {
-        public static unsafe void ParsePointfile()
+        /// <summary>
+        /// Opens the "newimage.png" and "newlandcirclecoords" from Sourcefolder and 
+        /// parses all points belonging to a certain Department 
+        /// via Floodfill
+        /// </summary>
+        public static unsafe void ParsePointfile(bool createTestFile)
         {
-            Bitmap map = (Bitmap)Bitmap.FromFile(Program.SRCPATH + "image.png");
+            Bitmap map = (Bitmap)Bitmap.FromFile(Program.SRCPATH + "newimage.png");
             string[] departmentLines = File.ReadAllLines(Program.SRCPATH + "newlandcirclecoords.txt", Encoding.Default);
             StringBuilder builder = new StringBuilder();
             List<DepInfo> Departments = new List<DepInfo>(402);
@@ -56,10 +62,10 @@ namespace EpidemicSim_DetailedInputParser
             {
                 DepInfo currentDep = null;
                 bool doppelganger = false;
-                
+
                 for (int j = 0; j < Departments.Count; ++j)
                 {
-                    if(Departments[j] != null && Departments[j].Name.Equals(departmentLines[i].Split('|')[2]))
+                    if (Departments[j] != null && Departments[j].Name.Equals(departmentLines[i].Split('|')[2]))
                     {
                         doppelganger = true;
                         currentDep = Departments[j];
@@ -146,60 +152,34 @@ namespace EpidemicSim_DetailedInputParser
                     floodptr->Red = desiredcolor.Red;
                 }
                 map.UnlockBits(bbData);
-                if(!doppelganger)
+                if (!doppelganger)
                     Departments.Add(currentDep);
                 Console.WriteLine("Collected Points for:\t" + currentDep.Name);
             }
 
-            
+
+
             FileStream stream = File.OpenWrite(Program.SRCPATH + "Points.txt");
             for (int l = 0; l < Departments.Count; ++l)
             {
-                    builder.Append(Departments[l].Name + ";" + Departments[l].Points.Count);
-                    foreach (int point in Departments[l].Points)
-                    {
-                        builder.Append(";" + point % map.Width + ":" + point / map.Width + ":" + point);
-                    }
-                    builder.Append("\r\n");
-                    stream.Write(Encoding.Default.GetBytes(builder.ToString()), 0, Encoding.Default.GetByteCount(builder.ToString()));
-                    builder.Clear();
+                builder.Append(Departments[l].Name + ";" + Departments[l].Points.Count);
+                foreach (int point in Departments[l].Points)
+                {
+                    builder.Append(";" + point % map.Width + ":" + point / map.Width + ":" + point);
+                }
+                builder.Append("\r\n");
+                stream.Write(Encoding.Default.GetBytes(builder.ToString()), 0, Encoding.Default.GetByteCount(builder.ToString()));
+                builder.Clear();
             }
             stream.Close();
             Console.WriteLine("Finnished Collecting Points");
+            if (createTestFile)
+                TestPointResults();
         }
 
-        struct PixelData
-        {
-            public byte Blue;
-            public byte Green;
-            public byte Red;
-            public byte Alpha;
 
-            public PixelData(Color color)
-            {
-                Blue = color.B;
-                Green = color.G;
-                Red = color.R;
-                Alpha = color.A;
-            }
-            public bool Equals(PixelData p)
-            {
-                return p.Alpha == this.Alpha && p.Blue == this.Blue && p.Green == this.Green && p.Red == this.Red;
-            }
-        }
 
-        class DepInfo
-        {
-            public List<int> Points;
-            public string Name;
-            public DepInfo(string name)
-            {
-                Name = name;
-                Points = new List<int>(100000);
-            }
-        }
-
-        public static unsafe void TestPointResults()
+        private static unsafe void TestPointResults()
         {
             Random rand = new Random();
             Bitmap map = new Bitmap(2814, 3841);
