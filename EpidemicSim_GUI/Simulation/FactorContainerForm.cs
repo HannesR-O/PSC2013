@@ -64,8 +64,8 @@ namespace PSC2013.ES.GUI.Simulation
                 {
                     SettingsComponent<int> comp = item as SettingsComponent<int>;
                     if (comp != null)
-                        if (comp.ComponentTag == (EComponentTag)i)
-                            action(i-1, comp);
+                        if (comp.ComponentTag == (EComponentTag)(i + 1))
+                            action(i, comp);
                 }
             }
         }
