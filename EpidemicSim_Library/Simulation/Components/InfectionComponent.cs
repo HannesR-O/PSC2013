@@ -53,9 +53,8 @@ namespace PSC2013.ES.Library.Simulation.Components
                         {
                             int probability = 0;
                             lock (_data.Cells[ptr->CurrentCell])
-                            {
                                 probability = _data.Cells[ptr->CurrentCell].Probability;
-                            }
+
                             TryInfection(ptr, disease, probability);
                         }
                     });
@@ -125,17 +124,15 @@ namespace PSC2013.ES.Library.Simulation.Components
 
             int resistance = disease.ResistanceFactor.Data[ageIndex];
 
-            if (resistance < probability)  //TODO: no infection if resistance to high!? |f| questionable
+            if (resistance < probability)
             {
                 int factor = probability - resistance;
-                int rand = /*0;*/ RANDOM.Next(100);               //TODO: this is probably too high
+                int rand = RANDOM.Next(100);
                 if (rand <= factor)
                 {
                     human->Infect((short)disease.IncubationPeriod, (short)disease.IdleTime);
                     lock (_data.Cells[human->CurrentCell])
-                    {
                         _data.Cells[human->CurrentCell].Infecting++;
-                    }
                 }
             }
         }

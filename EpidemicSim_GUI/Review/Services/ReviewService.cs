@@ -182,8 +182,13 @@ namespace PSC2013.ES.GUI.Review.Services
         private void ShowImage(string selectedItem, string destinationPath)
         {
             var view = _secondContainer.ViewPanel;
+            if (String.IsNullOrEmpty(selectedItem))
+                return;
 
             string filename = Path.Combine(destinationPath, selectedItem);
+            if (!File.Exists(filename))
+                return;
+            
             view.SetImage(new System.Drawing.Bitmap(filename));
         }
 

@@ -50,7 +50,6 @@ namespace PSC2013.ES.Library.AreaData
         /// <param name="rawData">The raw DepartmentInfos. This array will be modified!</param>
         /// <param name="width">width of the populationArray (used for offsets)</param>
         /// <param name="height">height of the populationArray (used for offsets)</param>
-        /// <returns>The input-populationCell-array (modified).</returns>
         public void GenerateMatrix(
             PopulationCell[] populationArray,
             Human[] humanArray,
