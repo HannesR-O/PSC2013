@@ -35,10 +35,6 @@ namespace PSC2013.ES.Library.Simulation
         public HumanSnapshot[] Deaths { get; private set; }
         public int DeathCount { get; private set; }
 
-        //AreaData
-        public Department[] Departments { get; private set; }
-        public FederalState[] FederalStates { get; private set; }
-
         //TimeConstants
         public EMonth CurrentMonth { get { return (EMonth)_time.Month; } }
         public DayOfWeek CurrentDay { get { return _time.DayOfWeek; } }
@@ -60,9 +56,6 @@ namespace PSC2013.ES.Library.Simulation
             Humans = new Human[0];                  // ~82000000
             Deaths = new HumanSnapshot[0];
             DeathCount = 0;
-
-            FederalStates = new FederalState[0];    // 16
-            Departments = new Department[0];        // 401
 
             _time = startTime;
         }

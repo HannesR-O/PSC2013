@@ -7,9 +7,6 @@ namespace PSC2013.ES.Library.PopulationData
     {
         private readonly ushort[] _data;
 
-        public int RefDepartment { get; set; }
-
-        //TODO: |f| does this need to be an int? otherwise it can overflow and most likely will
         public ushort Infecting
         {
             get { return _data[8]; }

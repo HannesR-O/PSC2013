@@ -67,7 +67,6 @@
     <Compile Include="Simulation\Components\SimulationComponent.cs" />
     <Compile Include="Simulation\SimulationEventArgs.cs" />
     <Compile Include="Snapshot\CellSnapshot.cs" />
-    <Compile Include="AreaData\Department.cs" />
     <Compile Include="AreaData\DepartmentInfo.cs" />
     <Compile Include="AreaData\MatrixGenerator.cs" />
     <Compile Include="Snapshot\HumanSnapshot.cs" />
@@ -79,7 +78,6 @@
     <Compile Include="IO\Writers\IBinaryWriter.cs" />
     <Compile Include="PopulationData\EAge.cs" />
     <Compile Include="PopulationData\EGender.cs" />
-    <Compile Include="AreaData\FederalState.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="PopulationData\Human.cs" />
     <Compile Include="PopulationData\EMindset.cs" />
