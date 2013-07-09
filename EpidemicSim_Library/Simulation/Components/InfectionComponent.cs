@@ -77,7 +77,7 @@ namespace PSC2013.ES.Library.Simulation.Components
             foreach (PopulationCell cell in surroundings)
             {
                 if(cell.Spreading != 0)
-                    chance += ((cell.Total * 100d / cell.Spreading * (transferability / 100d)));
+                    chance += ((cell.Spreading * 100d / cell.Total * (transferability / 100d)));
             }
 
             chance = chance / surroundings.Count();

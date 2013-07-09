@@ -8,7 +8,7 @@ using PSC2013.ES.Library.PopulationData;
 
 namespace PSC2013.ES.Library.Statistics.Pictures
 {
-    public class HumanSnapshotCreteriaMatcher
+    public static class HumanSnapshotCreteriaMatcher
     {
         /// <summary>
         /// Returns a List of Humans matching the given fields
@@ -41,7 +41,19 @@ namespace PSC2013.ES.Library.Statistics.Pictures
 
                 if (fits)
                 {
-                    if (gender == EGender.Male)
+                    if (fields.Contains(EStatField.Infected) && !human.Cause)
+                        deceasedHumans.Add(human);
+                    else if (fields.Contains(EStatField.Diseased) && human.Cause)
+                        deceasedHumans.Add(human);
+                    //else      // this is a much more elegant and shorter way, BUT I'm not sure, whether it works or not...
+                    //{
+                    //    for (int i = 0; i < 8; ++i)
+                    //    {
+                    //        if (fields.Contains((EStatField)(int)Math.Pow(2, i)) & age == (EAge)((i % 4)* 32))
+                    //            deceasedHumans.Add(human);
+                    //    }
+                    //}
+                    else if (gender == EGender.Male)
                     {
                         if (fields.Contains(EStatField.MaleBaby) & age == EAge.Baby)
                             deceasedHumans.Add(human);

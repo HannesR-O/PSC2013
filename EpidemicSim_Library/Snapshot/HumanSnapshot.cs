@@ -16,7 +16,11 @@ namespace PSC2013.ES.Library.Snapshot
         public byte Profession { get; private set; }
         public int HomeCell { get; private set; }
         public int DeathCell { get; private set; }
-        public bool Cause { get; private set; } // false = Natural, true = Disease
+        /// <summary>
+        /// NaturalDeath : false <para/>
+        /// DiseaseDeath : true
+        /// </summary>
+        public bool Cause { get; private set; }
 
         /// <summary>
         /// A Snapshot of a dead Human
