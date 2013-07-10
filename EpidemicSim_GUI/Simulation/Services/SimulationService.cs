@@ -275,7 +275,7 @@ namespace PSC2013.ES.GUI.Simulation.Services
 
             // if no (diseasetick-)component given: debug-infection
             //if (comps.Length == 0) comps = new SimulationComponent[1] { new DebugInfectionComponent() };
-            if (!comps.Any(x => x is DiseaseTickComponent))
+            if (!comps.Any(x => x is InfectionComponent))
             {
                 SimulationComponent[] temp = new SimulationComponent[comps.Length + 1];
                 comps.CopyToOtherArray(temp);
